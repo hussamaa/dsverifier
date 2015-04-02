@@ -25,8 +25,7 @@ public class DSVerifierService {
 		return instance;				
 	}
 	
-	public void callDSVerifier(Verification verification) throws Exception {
-	
+	public void callDSVerifier(Verification verification) throws Exception {	
 		File verificationFile = verification.getFile();
 		String verificationFilePath = verificationFile.getAbsolutePath();
 		StringBuilder commandLine = new StringBuilder(ESBMC_EXECUTABLE + " " + verificationFilePath + "  " + ESBMC_PARAMETERS);
@@ -34,7 +33,7 @@ public class DSVerifierService {
 		/* include the property */
 		commandLine.append(" -DPROPERTY=" + verification.getProperty());
 		/* include the realization */
-		commandLine.append(" -DREALIZATION=" + verification.getRealization());	
+		commandLine.append(" -DREALIZATION=" + verification.getImplementation().getRealization());	
 		
 		System.out.println("COMMAND LINE: " + commandLine.toString());
 		

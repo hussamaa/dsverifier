@@ -1,5 +1,7 @@
 package br.edu.ufam.dsverifier.domain;
 
+import br.edu.ufam.dsverifier.domain.enums.DigitalSystemRealizations;
+
 public class Implementation {
 
 	private Integer integerBits;
@@ -8,6 +10,7 @@ public class Implementation {
 	private Double minimum;
 	private Double delta;
 	private Long scale;
+	private DigitalSystemRealizations realization;
 
 	public Integer getIntegerBits() {
 		return integerBits;
@@ -55,6 +58,14 @@ public class Implementation {
 
 	public void setScale(Long scale) {
 		this.scale = scale;
+	}
+
+	public DigitalSystemRealizations getRealization() {
+		return realization;
+	}
+
+	public void setRealization(DigitalSystemRealizations realization) {
+		this.realization = realization;
 	}
 
 }

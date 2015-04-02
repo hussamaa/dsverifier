@@ -4,14 +4,12 @@ import java.io.File;
 import java.util.Calendar;
 
 import br.edu.ufam.dsverifier.domain.enums.DigitalSystemProperties;
-import br.edu.ufam.dsverifier.domain.enums.DigitalSystemRealizations;
 import br.edu.ufam.dsverifier.domain.enums.VerificationStatus;
 
 public class Verification {
 
 	private DigitalSystem digitalSystem;
 	private Implementation implementation;
-	private DigitalSystemRealizations realization;
 	private DigitalSystemProperties property;
 
 	private Calendar date;
@@ -75,14 +73,6 @@ public class Verification {
 
 	public void setProperty(DigitalSystemProperties property) {
 		this.property = property;
-	}
-
-	public DigitalSystemRealizations getRealization() {
-		return realization;
-	}
-
-	public void setRealization(DigitalSystemRealizations realization) {
-		this.realization = realization;
 	}
 
 	public String getOutput() {

@@ -2,6 +2,22 @@ package br.edu.ufam.dsverifier.domain.enums;
 
 public enum DigitalSystemProperties {
 
-	OVERFLOW, LIMIT_CYCLE, TIMING, ERROR, STABILITY, MINIMUM_PHASE, STABILITY_CLOSED_LOOP;
-	
+	OVERFLOW("Overflow"), LIMIT_CYCLE("Limit Cycle"), TIMING("Timing"), 
+	ERROR("Error"), STABILITY("Stability"), MINIMUM_PHASE("Minimum Phase"), 
+	STABILITY_CLOSED_LOOP("Stability in Closed Loop");
+
+	private String name;
+
+	private DigitalSystemProperties(String propertyName) {
+		this.name = propertyName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String propertyName) {
+		this.name = propertyName;
+	}
+
 }

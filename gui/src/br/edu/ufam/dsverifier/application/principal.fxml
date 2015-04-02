@@ -8,11 +8,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufam.dsverifier.application.PrincipalController">
+<Pane maxHeight="-Infinity" fx:id="mainPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufam.dsverifier.application.PrincipalController">
    <children>
       <TabPane fx:id="tabPane" layoutY="75.0" prefHeight="258.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab closable="false" text="Digital System">
+          <Tab closable="false" text="Digital System" fx:id="tabDigitalSystem">
                <content>
                   <Pane prefHeight="225.0" prefWidth="1050.0">
                      <children>
@@ -31,7 +31,7 @@
                               <Image url="@images/arrow_left.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="136.0" fitWidth="65.0" layoutX="704.0" layoutY="61.0" onMouseClicked="#nextStep" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="136.0" fitWidth="65.0" layoutX="704.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/arrow_right.png" />
                            </image>
@@ -76,7 +76,7 @@
                         <TextField layoutX="373.0" layoutY="145.0" prefHeight="25.0" prefWidth="56.0" />
                         <TextField layoutX="560.0" layoutY="147.0" prefHeight="25.0" prefWidth="56.0" />
                         <Label layoutX="281.0" layoutY="177.0" prefHeight="35.0" prefWidth="90.0" text="Realization" textAlignment="CENTER" wrapText="true" />
-                        <ComboBox layoutX="371.0" layoutY="182.0" prefHeight="25.0" prefWidth="246.0" promptText="Direct Form I" />
+                        <ComboBox fx:id="cbRealization" layoutX="371.0" layoutY="182.0" prefHeight="25.0" prefWidth="246.0" promptText="Direct Form I" />
                         <ImageView fitHeight="135.0" fitWidth="177.0" layoutX="119.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/processor.png" />
