@@ -15,16 +15,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import org.controlsfx.control.TaskProgressView;
 import org.controlsfx.dialog.Dialog;
@@ -37,6 +43,7 @@ import br.edu.ufam.dsverifier.domain.Implementation;
 import br.edu.ufam.dsverifier.domain.Verification;
 import br.edu.ufam.dsverifier.domain.enums.DigitalSystemProperties;
 import br.edu.ufam.dsverifier.domain.enums.DigitalSystemRealizations;
+import br.edu.ufam.dsverifier.domain.enums.VerificationStatus;
 import br.edu.ufam.dsverifier.service.DSVerifierService;
 import br.edu.ufam.dsverifier.util.DSVerifierUtils;
 
@@ -79,23 +86,27 @@ public class PrincipalController implements Initializable{
 	
 	@FXML
 	private AnchorPane taskPane;	
-    private ExecutorService executorService = Executors.newCachedThreadPool();   
+    private ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());  
     private TaskProgressView<VerificationTask> taskProgressView;    
     private AtomicInteger finishedThreads = new AtomicInteger(0);
-    public int totalThreads = 0;    
-    /* private Callback<VerificationTask, Node> factory; */
+    public int totalThreads = 0;
     
     @FXML
     private Button btVerify;	
+    @FXML
+    private Button btSummary;
+    
+    List<Verification> verifications = null;
+    
     ValidationSupport validationSupport = new ValidationSupport();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		
 		Object[] panes = accordionPane.getPanes().toArray();
 		titledPanes = Arrays.copyOf(panes, panes.length, TitledPane[].class);
 		accordionPane.setExpandedPane(titledPanes[0]);
-		
+			
 		/* add realizations */
 		cbRealization.getItems().add(DigitalSystemRealizations.DFI.getRealization());
 		cbRealization.getItems().add(DigitalSystemRealizations.DFII.getRealization());
@@ -121,32 +132,84 @@ public class PrincipalController implements Initializable{
         paneMinMax.getChildren().add(maxMinSlider);
         taskProgressView = new TaskProgressView<VerificationTask>();
         taskProgressView.setMinWidth(760);
-        taskPane.getChildren().add(taskProgressView);
+        taskPane.getChildren().add(taskProgressView);                     
+        
 	}
 	
 	public void verify() throws IOException, InterruptedException{
-		List<Verification> verifications = validate();
+		
+		verifications = validate();
 		if (verifications == null || verifications.size() == 0) return;
 		
 		finishedThreads.set(0);
 		totalThreads = verifications.size();
+		btVerify.setDisable(true);
 		for (Verification verification : verifications) {
 			VerificationTask task = new VerificationTask(verification);		 
 			 taskProgressView.getTasks().add(task);		 
 			 executorService.submit(task);	
 		}
-	/*	
-		DSVerifierMonitor monitor = new DSVerifierMonitor();	
-		executorService.submit(monitor);
-	*/
+		
 	}
 	
-	public void showResume(){
+	public void reset(){
+		btVerify.setDisable(false);
+		btSummary.setDisable(true);
+	}
+	
+	public void summary(){
+	    Dialog dlg = new Dialog(null, "Verification Results",true);
+	    
+	    GridPane content = new GridPane();
+	    content.setMinWidth(350);
+	    content.setAlignment(Pos.CENTER);
+	  
+	    Label propertyLabel = new Label("Property                                        ");
+	    propertyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));	    
+	    Label timeLabel = new Label("Time(s)  ");
+	    timeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));	    
+	    Label resultLabel = new Label("Result");
+	    resultLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+	    
+	    content.add(propertyLabel, 0, 0);
+	    content.add(timeLabel, 1, 0);
+	    content.add(resultLabel, 2, 0);
+	    
+	    content.add(new Label(""), 0, 1);
+	    content.add(new Label(""), 1, 1);
+	    content.add(new Label(""), 2, 1);
+	    
+	    /* properties area */
+	    int i=0;
+	    for(i = 0; i < verifications.size(); i++){
+		    content.add(new Label(verifications.get(i).getProperty().getName()), 0, i + 2);
+		    content.add(new Label("-"), 1, i + 2);
+		    if (verifications.get(i).getStatus() == VerificationStatus.VERIFICATION_SUCCESSFUL){
+			    Label result = new Label("success");
+			    result.setTextFill(Color.GREEN);
+			    content.add(result, 2, i + 2);
+		    }else if (verifications.get(i).getStatus() == VerificationStatus.VERIFICATION_FAILED){
+		    	Label result = new Label("fail");
+			    result.setTextFill(Color.RED);
+			    content.add(result, 2, i + 2);
+		    }
+	    }
+	    /* *************** */
+	    
+	    content.add(new Label(""), 0, i+2);
+	    content.add(new Label(""), 1, i+2);
+	    content.add(new Label(""), 2, i+2);
+	    
+	    dlg.setContent(content);
+	    dlg.show();
+	    
+	}
+	
+	public void enableSummary(){
 		if (totalThreads == finishedThreads.get()){
-			Dialogs.create()
-		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
-		      .message( "Finished - Show Resume")
-		      .showInformation();
+			btSummary.setDisable(false);
+		}else{
+			btSummary.setDisable(true);
 		}
 	}
 
@@ -285,27 +348,13 @@ public class PrincipalController implements Initializable{
         @Override
         protected Void call() throws Exception { 
         	DSVerifierService.getInstance().callDSVerifier(verification);
-        	finishedThreads.set(finishedThreads.get() + 1);    	
+        	finishedThreads.set(finishedThreads.get() + 1);   
+        	enableSummary();
         	updateProgress(0, 0);
             done();
             return null;
         }
         
     }
-	
-	class DSVerifierMonitor extends Task<Void> {
-
-		@Override
-		protected Void call() throws Exception {
-			Dialogs.create()
-		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
-		      .message( "Finished - Show Resume")
-		      .showInformation();
-			updateProgress(0, 0);
-            done();
-			return null;
-		}
-		
-	}
 
 }

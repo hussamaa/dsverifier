@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import br.edu.ufam.dsverifier.domain.Verification;
+import br.edu.ufam.dsverifier.domain.enums.VerificationStatus;
 import br.edu.ufam.dsverifier.util.DSVerifierUtils;
 
 public class DSVerifierService {
@@ -38,8 +39,12 @@ public class DSVerifierService {
 		System.out.println("COMMAND LINE: " + commandLine.toString());
 		
 		String output = DSVerifierUtils.getInstance().callCommandLine(commandLine.toString());
-		System.out.println(output);
 		verification.setOutput(output);
+		if (output.indexOf("VERIFICATION FAILED") != -1){
+			verification.setStatus(VerificationStatus.VERIFICATION_FAILED);
+		}else if (output.indexOf("VERIFICATION SUCCESSFUL") != -1){
+			verification.setStatus(VerificationStatus.VERIFICATION_SUCCESSFUL);
+		}
 	}
 	
 	public String prepareCommandLine(Verification verification){
