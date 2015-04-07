@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import br.edu.ufam.dsverifier.domain.Verification;
 import br.edu.ufam.dsverifier.domain.enums.VerificationStatus;
@@ -35,15 +36,25 @@ public class DSVerifierService {
 		commandLine.append(" -DPROPERTY=" + verification.getProperty());
 		/* include the realization */
 		commandLine.append(" -DREALIZATION=" + verification.getImplementation().getRealization());	
+		/* include x size */
+		commandLine.append(" -DX_SIZE=" + verification.getBound());	
+
 		
 		System.out.println("COMMAND LINE: " + commandLine.toString());
 		
+		long initialTime = System.nanoTime();  
 		String output = DSVerifierUtils.getInstance().callCommandLine(commandLine.toString());
+		long finalTime = System.nanoTime();  
+		long seconds = TimeUnit.SECONDS.convert(finalTime - initialTime, TimeUnit.NANOSECONDS);
+		
+		verification.setTime(seconds);
 		verification.setOutput(output);
 		if (output.indexOf("VERIFICATION FAILED") != -1){
 			verification.setStatus(VerificationStatus.VERIFICATION_FAILED);
 		}else if (output.indexOf("VERIFICATION SUCCESSFUL") != -1){
 			verification.setStatus(VerificationStatus.VERIFICATION_SUCCESSFUL);
+		}else{
+			verification.setStatus(VerificationStatus.UNKNOWN);
 		}
 	}
 	
@@ -65,8 +76,16 @@ public class DSVerifierService {
 		
 		content.append("\nimplementation impl = {\n");
 		content.append("\t.int_bits = " + verification.getImplementation().getIntegerBits() + ",\n");
-		content.append("\t.frac_bits = " + verification.getImplementation().getPrecisionBits() + "\n");
-		content.append("};\n");
+		content.append("\t.frac_bits = " + verification.getImplementation().getPrecisionBits() + ",\n");
+		content.append("\t.min = " + verification.getImplementation().getMinimum() + ",\n");
+		content.append("\t.max = " + verification.getImplementation().getMaximum() + ",\n");
+		content.append("\t.scale = " + verification.getImplementation().getScale() + "");
+
+		if (verification.getImplementation().getDelta() != null){
+			content.append(",\n\t.delta = " + verification.getImplementation().getDelta() + "");
+		}
+		
+		content.append("\n};\n");
 		
 		/* create file content */
 		verification.setFileContent(content.toString());		

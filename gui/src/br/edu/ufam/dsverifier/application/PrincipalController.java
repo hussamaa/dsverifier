@@ -13,6 +13,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -22,6 +24,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
@@ -69,6 +72,10 @@ public class PrincipalController implements Initializable{
 	private ComboBox<String> cbRealization;
 	@FXML
 	private Pane paneMinMax;
+	@FXML
+	private TextField tfDelta;
+	@FXML
+	private TextField tfScale;
 	
 	/* properties */
 	@FXML
@@ -85,8 +92,11 @@ public class PrincipalController implements Initializable{
 	private CheckBox checkMinimumPhase;
 	
 	@FXML
+	private Slider sliderBound;
+	
+	@FXML
 	private AnchorPane taskPane;	
-    private ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());  
+    public static ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());  
     private TaskProgressView<VerificationTask> taskProgressView;    
     private AtomicInteger finishedThreads = new AtomicInteger(0);
     public int totalThreads = 0;
@@ -96,9 +106,11 @@ public class PrincipalController implements Initializable{
     @FXML
     private Button btSummary;
     
-    List<Verification> verifications = null;
-    
+    List<Verification> verifications = null;    
     ValidationSupport validationSupport = new ValidationSupport();
+    
+    private TextField tfMax;
+    private TextField tfMin;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -128,7 +140,9 @@ public class PrincipalController implements Initializable{
         validationSupport.registerValidator(sliderPrecisionBits, Validator.createEmptyValidator("Precision Bits of Implementation is Required"));
         validationSupport.registerValidator(cbRealization, Validator.createEmptyValidator("Is necessary inform a Realization in Implementation"));              
         
-        Region maxMinSlider = DSVerifierUtils.getInstance().createHorizontalSlider();
+        tfMax = new TextField();
+        tfMin = new TextField();        
+        Region maxMinSlider = DSVerifierUtils.getInstance().createHorizontalSlider(tfMin, tfMax);
         paneMinMax.getChildren().add(maxMinSlider);
         taskProgressView = new TaskProgressView<VerificationTask>();
         taskProgressView.setMinWidth(760);
@@ -168,7 +182,7 @@ public class PrincipalController implements Initializable{
 	    propertyLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));	    
 	    Label timeLabel = new Label("Time(s)  ");
 	    timeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));	    
-	    Label resultLabel = new Label("Result");
+	    Label resultLabel = new Label("Result      ");
 	    resultLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 	    
 	    content.add(propertyLabel, 0, 0);
@@ -182,16 +196,30 @@ public class PrincipalController implements Initializable{
 	    /* properties area */
 	    int i=0;
 	    for(i = 0; i < verifications.size(); i++){
-		    content.add(new Label(verifications.get(i).getProperty().getName()), 0, i + 2);
-		    content.add(new Label("-"), 1, i + 2);
-		    if (verifications.get(i).getStatus() == VerificationStatus.VERIFICATION_SUCCESSFUL){
+	    	final Verification verification = verifications.get(i);
+		    content.add(new Label(verification.getProperty().getName()), 0, i + 2);
+		    content.add(new Label(verification.getTime().toString()), 1, i + 2);
+		    if (verification.getStatus() == VerificationStatus.VERIFICATION_SUCCESSFUL){
 			    Label result = new Label("success");
 			    result.setTextFill(Color.GREEN);
 			    content.add(result, 2, i + 2);
-		    }else if (verifications.get(i).getStatus() == VerificationStatus.VERIFICATION_FAILED){
+		    }else if (verification.getStatus() == VerificationStatus.VERIFICATION_FAILED){
 		    	Label result = new Label("fail");
 			    result.setTextFill(Color.RED);
 			    content.add(result, 2, i + 2);
+			    Button ce = new Button("Counter Example");
+			    content.add(ce, 3, i+2);			    
+			    ce.setOnAction(new EventHandler<ActionEvent>() {					
+					@Override
+					public void handle(ActionEvent event) {
+						showCounterExample(verification);						
+					}
+				});
+			    
+		    }else if (verification.getStatus() == VerificationStatus.UNKNOWN){
+		    	Label result = new Label("unknown");
+			    result.setTextFill(Color.YELLOW);
+			    content.add(result, 2, i + 2);			    
 		    }
 	    }
 	    /* *************** */
@@ -211,6 +239,19 @@ public class PrincipalController implements Initializable{
 		}else{
 			btSummary.setDisable(true);
 		}
+	}
+	
+	public void showCounterExample(Verification verification){
+		Dialog dlg = new Dialog(null, "Counter Example for " + verification.getProperty().getName() + " Verification",true);		
+		TextArea t = new TextArea();
+		t.setText(verification.getOutput());
+		t.setMinHeight(400);
+		t.setMaxHeight(400);
+		t.setMinWidth(800);
+		t.setMaxWidth(800);
+		t.setEditable(false);		
+		dlg.setContent(t);
+		dlg.show();
 	}
 
 	/**
@@ -239,8 +280,9 @@ public class PrincipalController implements Initializable{
 			verification.setImplementation(impl);
 			verification.setProperty(property);
 			DSVerifierService.getInstance().generateVerificationFile(verification);
+			verification.setBound((int) sliderBound.getValue()); 
 			verifications.add(verification);
-		}
+		}			
 		
 		return verifications;
 	}
@@ -296,7 +338,27 @@ public class PrincipalController implements Initializable{
 		if (DigitalSystemRealizations.DFI.getRealization().equals(realization)){
 			impl.setRealization(DigitalSystemRealizations.DFI);
 		}else if (DigitalSystemRealizations.DFII.getRealization().equals(realization)){
-			impl.setRealization(DigitalSystemRealizations.DFII);
+			impl.setRealization(DigitalSystemRealizations.DFII);		
+		}else if (DigitalSystemRealizations.TDFII.getRealization().equals(realization)){
+			impl.setRealization(DigitalSystemRealizations.TDFII);
+		}else if (DigitalSystemRealizations.DDFI.getRealization().equals(realization)){
+			impl.setRealization(DigitalSystemRealizations.DDFI);
+		}else if (DigitalSystemRealizations.DDFII.getRealization().equals(realization)){
+			impl.setRealization(DigitalSystemRealizations.DDFII);
+		}else if (DigitalSystemRealizations.TDDFII.getRealization().equals(realization)){
+			impl.setRealization(DigitalSystemRealizations.TDDFII);
+		}else if (DigitalSystemRealizations.CDFI.getRealization().equals(realization)){
+			impl.setRealization(DigitalSystemRealizations.CDFI);
+		}else if (DigitalSystemRealizations.CDFII.getRealization().equals(realization)){
+			impl.setRealization(DigitalSystemRealizations.CDFII);
+		}else if (DigitalSystemRealizations.CTDFII.getRealization().equals(realization)){
+			impl.setRealization(DigitalSystemRealizations.CTDFII);
+		}else if (DigitalSystemRealizations.CDDFI.getRealization().equals(realization)){
+			impl.setRealization(DigitalSystemRealizations.CDDFI);
+		}else if (DigitalSystemRealizations.CDDFII.getRealization().equals(realization)){
+			impl.setRealization(DigitalSystemRealizations.CDDFII);
+		}else if (DigitalSystemRealizations.CTDDFII.getRealization().equals(realization)){
+			impl.setRealization(DigitalSystemRealizations.CTDDFII);	
 		}else{
 			accordionPane.setExpandedPane(titledPanes[1]);
 			Dialogs.create()
@@ -305,7 +367,57 @@ public class PrincipalController implements Initializable{
 		      .showWarning();
 			return null;
 		}
-	
+		
+		/* check if requires a delta value */
+		if ((impl.getRealization() == DigitalSystemRealizations.DDFI)    ||
+		    (impl.getRealization() == DigitalSystemRealizations.DDFII)   || 		   
+		    (impl.getRealization() == DigitalSystemRealizations.TDDFII)  ||
+			(impl.getRealization() == DigitalSystemRealizations.CDDFI)   ||
+		    (impl.getRealization() == DigitalSystemRealizations.CDDFII)  || 		   
+		    (impl.getRealization() == DigitalSystemRealizations.CTDDFII)) {
+			if (tfDelta.getText().length() == 0){
+				accordionPane.setExpandedPane(titledPanes[1]);
+				Dialogs.create()
+			      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
+			      .message( "You need to inform a delta value")
+			      .showWarning();
+				return null;
+			}			
+			Double delta;
+			if ((delta = DSVerifierUtils.getInstance().isNumeric(tfDelta.getText())) == null){
+				accordionPane.setExpandedPane(titledPanes[1]);
+				Dialogs.create()
+			      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
+			      .message("Delta value needs to be a number")
+			      .showError();
+				return null;
+			}		
+			impl.setDelta(delta);
+		}
+		
+		impl.setMaximum(Double.valueOf(tfMax.getText()));
+		impl.setMinimum(Double.valueOf(tfMin.getText()));			
+		
+		if (tfScale.getText().length() == 0){
+			accordionPane.setExpandedPane(titledPanes[1]);
+			Dialogs.create()
+		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
+		      .message( "You need to inform a scale for numerator")
+		      .showWarning();
+			return null;
+		}			
+		Double scale;
+		if ((scale = DSVerifierUtils.getInstance().isNumeric(tfScale.getText())) == null){
+			accordionPane.setExpandedPane(titledPanes[1]);
+			Dialogs.create()
+		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
+		      .message("Scale value needs to be a number")
+		      .showError();
+			return null;
+		}else{
+			impl.setScale(scale.longValue());	
+		}
+			
 		return impl;
 	}
 	

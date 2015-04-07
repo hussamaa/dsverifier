@@ -11,8 +11,10 @@ public class Verification {
 	private DigitalSystem digitalSystem;
 	private Implementation implementation;
 	private DigitalSystemProperties property;
+	private Integer bound;
 
 	private Calendar date;
+	private Long time;
 	private String fileContent;
 	private File file;
 
@@ -81,6 +83,22 @@ public class Verification {
 
 	public void setOutput(String output) {
 		this.output = output;
+	}
+
+	public Long getTime() {
+		return time;
+	}
+
+	public void setTime(Long time) {
+		this.time = time;
+	}
+
+	public Integer getBound() {
+		return bound;
+	}
+
+	public void setBound(Integer bound) {
+		this.bound = bound;
 	}
 
 }

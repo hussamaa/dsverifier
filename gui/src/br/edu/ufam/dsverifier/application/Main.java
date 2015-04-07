@@ -3,10 +3,13 @@ package br.edu.ufam.dsverifier.application;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import br.edu.ufam.dsverifier.util.DSVerifierUtils;
 
 public class Main extends Application {
 	
@@ -22,13 +25,17 @@ public class Main extends Application {
         stage.setMaximized(false);
         stage.setFullScreen(false);
         stage.setResizable(false);
-        stage.show();
-        
-        
+        stage.show();        
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+            	PrincipalController.executorService.shutdown();
+                DSVerifierUtils.getInstance().removeTemporaryFiles();                
+            }
+        });                       
 	}
 	
 	public static void main(String[] args) {
 		launch(args);
-	}
+	}	
 	
 }

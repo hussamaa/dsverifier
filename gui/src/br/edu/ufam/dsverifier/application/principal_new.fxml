@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -22,7 +23,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="518.0" prefWidth="232.0">
                      <children>
                         <Button fx:id="btVerify" layoutX="5.0" layoutY="478.0" mnemonicParsing="false" onAction="#verify" prefHeight="35.0" prefWidth="60.0" text="Verify" />
-                        <Button fx:id="btSummary" disable="true" layoutX="74.0" layoutY="478.0" mnemonicParsing="false" onAction="#summary" prefHeight="35.0" prefWidth="84.0" text="Summary" />
+                        <Button fx:id="btSummary" disable="true" layoutX="74.0" layoutY="478.0" mnemonicParsing="false" onAction="#summary" prefHeight="35.0" prefWidth="84.0" text="Results" />
                         <Button fx:id="btReset" layoutX="166.0" layoutY="478.0" mnemonicParsing="false" onAction="#reset" prefHeight="35.0" prefWidth="60.0" text="Reset" />
                      </children>
                   </AnchorPane>
@@ -54,10 +55,12 @@
                               <Label layoutX="14.0" layoutY="205.0" text="Realization" />
                               <ComboBox fx:id="cbRealization" layoutX="12.0" layoutY="226.0" prefHeight="25.0" prefWidth="206.0" />
                               <Label layoutX="14.0" layoutY="263.0" text="Delta" />
-                              <TextField layoutX="14.0" layoutY="284.0" prefHeight="25.0" prefWidth="208.0" />
+                              <TextField fx:id="tfDelta" layoutX="14.0" layoutY="284.0" prefHeight="25.0" prefWidth="208.0" />
                               <Pane fx:id="paneMinMax" layoutY="146.0" prefHeight="35.0" prefWidth="234.0" />
                               <Slider fx:id="sliderIntegerBits" blockIncrement="1" layoutX="11.0" layoutY="35.0" majorTickUnit="1" max="16.0" min="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="210.0" showTickLabels="true" value="8" />
                               <Slider fx:id="sliderPrecisionBits" blockIncrement="1" layoutX="13.0" layoutY="97.0" majorTickUnit="1" max="16.0" min="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="210.0" showTickLabels="true" value="16" />
+                              <TextField fx:id="tfScale" layoutX="15.0" layoutY="342.0" prefHeight="25.0" prefWidth="208.0" text="1" />
+                              <Label layoutX="15.0" layoutY="321.0" text="Scale" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -66,11 +69,14 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dce0e4" height="155.0" layoutX="7.0" layoutY="7.0" stroke="#dce0e4" strokeMiterLimit="1.0" strokeType="INSIDE" width="218.0" />
                               <CheckBox fx:id="checkOverflow" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Overflow" />
                               <CheckBox fx:id="checkLimitCycle" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" text="Limit Cycle" />
-                              <CheckBox fx:id="checkStability" layoutX="14.0" layoutY="108.0" mnemonicParsing="false" text="Stability" />
+                              <CheckBox fx:id="checkStability" layoutX="14.0" layoutY="172.0" mnemonicParsing="false" text="Stability" />
                               <CheckBox fx:id="checkTiming" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" text="Timing" />
-                              <CheckBox fx:id="checkMinimumPhase" layoutX="15.0" layoutY="140.0" mnemonicParsing="false" text="Minimum Phase" />
+                              <CheckBox fx:id="checkMinimumPhase" layoutX="15.0" layoutY="204.0" mnemonicParsing="false" text="Minimum Phase" />
+                              <Slider fx:id="sliderBound" blockIncrement="1.0" layoutX="13.0" layoutY="125.0" majorTickUnit="1.0" max="10.0" min="1.0" prefHeight="16.0" prefWidth="209.0" showTickLabels="true" showTickMarks="true" value="1.0" />
+                              <Label layoutX="14.0" layoutY="107.0" text="X Size (Bound)" />
                            </children>
                         </AnchorPane>
                   </content>

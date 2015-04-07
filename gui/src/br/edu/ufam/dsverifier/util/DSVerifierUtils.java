@@ -1,6 +1,7 @@
 package br.edu.ufam.dsverifier.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,10 +44,9 @@ public class DSVerifierUtils {
 		return output.toString();
 	}
 	
-	public Region createHorizontalSlider() {
-        final TextField minField = new TextField();
-        minField.setPrefColumnCount(2);
-        final TextField maxField = new TextField();
+	public Region createHorizontalSlider(TextField minField, TextField maxField) {
+        
+		minField.setPrefColumnCount(2);
         maxField.setPrefColumnCount(2);
  
         final RangeSlider hSlider = new RangeSlider(-10, 10, -1, 1);
@@ -74,4 +74,32 @@ public class DSVerifierUtils {
  
         return box;
     }
+	
+	public void removeTemporaryFiles(){
+		String temporaryFolderPath = System.getProperty("java.io.tmpdir");
+		
+		File temporaryFolder = new File(temporaryFolderPath);		
+		File[] listFiles = temporaryFolder.listFiles();
+		
+		/* remove temporary files */
+		for (File file : listFiles) {
+			if (file.isFile()){
+				if ((file.getName().indexOf("dsverifier") != -1) && (file.getName().endsWith(".c"))){
+					file.delete();
+				}
+			}
+		}		
+	}
+	
+	public Double isNumeric(String str)  {  
+		Double value;
+		try{  
+			value = Double.parseDouble(str);  
+		}  
+		catch(NumberFormatException nfe){  
+			return null;  
+		}  
+		return value;  
+	}
+	
 }
