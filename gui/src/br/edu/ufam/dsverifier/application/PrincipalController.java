@@ -1,5 +1,6 @@
 package br.edu.ufam.dsverifier.application;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -216,6 +219,20 @@ public class PrincipalController implements Initializable{
 					}
 				});
 			    
+			    /*  */
+			    Button showInputs = new Button("Inputs");
+			    content.add(showInputs, 4, i+2);			    
+			    showInputs.setOnAction(new EventHandler<ActionEvent>() {					
+					@Override
+					public void handle(ActionEvent event) {
+						try {
+							showInputs(verification);
+						} catch (IOException e) {					
+							e.printStackTrace();
+						}						
+					}
+				});
+			    
 		    }else if (verification.getStatus() == VerificationStatus.UNKNOWN){
 		    	Label result = new Label("unknown");
 			    result.setTextFill(Color.YELLOW);
@@ -251,6 +268,23 @@ public class PrincipalController implements Initializable{
 		t.setMaxWidth(800);
 		t.setEditable(false);		
 		dlg.setContent(t);
+		dlg.show();
+	}
+	
+	public void showInputs(Verification verification) throws FileNotFoundException, IOException{
+		
+		double[] arrayInputsFromVerification = DSVerifierUtils.getInstance().getArrayInputsFromVerification(verification);
+		
+		Dialog dlg = new Dialog(null, "Inputs for Violation in " + verification.getProperty().getName() + " Verification",true);
+				
+		TableView<Double> table = new TableView<Double>();
+				
+		for (int i=0; i < arrayInputsFromVerification.length; i++) {
+			TableColumn inputColumn = new TableColumn("x["+i+"]");
+			table.getColumns().add(inputColumn);			
+		}		
+				
+		dlg.setContent(table);
 		dlg.show();
 	}
 

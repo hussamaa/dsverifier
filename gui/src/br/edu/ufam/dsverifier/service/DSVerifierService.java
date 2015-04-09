@@ -13,7 +13,7 @@ import br.edu.ufam.dsverifier.util.DSVerifierUtils;
 public class DSVerifierService {
 
 	public static final String ESBMC_EXECUTABLE = "esbmc";
-	public static final String ESBMC_PARAMETERS = "-DSVERIFIER --no-div-by-zero-check --boolector";
+	public static final String ESBMC_PARAMETERS = "-DSVERIFIER --no-div-by-zero-check --no-bounds-check --no-pointer-check --boolector";
 	
 	private static DSVerifierService instance;
 	

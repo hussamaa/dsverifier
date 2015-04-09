@@ -2,9 +2,11 @@ package br.edu.ufam.dsverifier.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.TextField;
@@ -12,6 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 import org.controlsfx.control.RangeSlider;
+
+import br.edu.ufam.dsverifier.domain.Verification;
 
 public class DSVerifierUtils {
 
@@ -36,7 +40,7 @@ public class DSVerifierUtils {
 		StringBuilder output = new StringBuilder();
 		String line;
 		while ((line = bufferedReader.readLine()) != null) {
-			System.out.println(line); // it prints all at once after command has
+		//	System.out.println(line); // it prints all at once after command has
 										// been executed.
 			output.append(line + "\n");
 		}
@@ -101,5 +105,34 @@ public class DSVerifierUtils {
 		}  
 		return value;  
 	}
+	
+	public double[] getArrayInputsFromVerification(Verification verification) throws FileNotFoundException, IOException{
+
+		int precisionBits = verification.getImplementation().getPrecisionBits();
+		
+		String inputString= ""; 
+		try(BufferedReader br = new BufferedReader(new StringReader(verification.getOutput()))) {
+	        String line = br.readLine();	     
+	        while (line != null) {
+	            line = br.readLine();
+	            if ((line != null) && (line.indexOf(verification.getFile().getName() + "::verify_overflow::1::x={") != -1)){
+	            	inputString = line;	            	
+	            }
+	        }
+	    } 
+		inputString = inputString.replaceAll(", nil", ""); 
+		inputString = inputString.replace("verify_overflow::main::1::x={", "");
+		inputString = inputString.replace("}", "");
+		
+		String[] inputsStr = inputString.split(",");
+		double inputs[] = new double [inputsStr.length];
+
+		for (int i=0; i < inputsStr.length; i++) {
+			inputs[i] = Double.valueOf(inputsStr[i]) / Math.pow(2,precisionBits);
+			System.out.println(inputs[i]);
+		}
+		
+		return inputs;
+	}	
 	
 }
