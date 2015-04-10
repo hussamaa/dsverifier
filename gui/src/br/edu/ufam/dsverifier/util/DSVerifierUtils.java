@@ -109,19 +109,20 @@ public class DSVerifierUtils {
 	public double[] getArrayInputsFromVerification(Verification verification) throws FileNotFoundException, IOException{
 
 		int precisionBits = verification.getImplementation().getPrecisionBits();
+		String filename = verification.getFile().getName().substring(0, verification.getFile().getName().length() - 2);
 		
 		String inputString= ""; 
 		try(BufferedReader br = new BufferedReader(new StringReader(verification.getOutput()))) {
 	        String line = br.readLine();	     
 	        while (line != null) {
 	            line = br.readLine();
-	            if ((line != null) && (line.indexOf(verification.getFile().getName() + "::verify_overflow::1::x={") != -1)){
+	            if ((line != null) && (line.indexOf(filename + "::verify_overflow::1::x={") != -1)){
 	            	inputString = line;	            	
 	            }
 	        }
 	    } 
 		inputString = inputString.replaceAll(", nil", ""); 
-		inputString = inputString.replace("verify_overflow::main::1::x={", "");
+		inputString = inputString.replace(filename + "::verify_overflow::1::x={", "");
 		inputString = inputString.replace("}", "");
 		
 		String[] inputsStr = inputString.split(",");

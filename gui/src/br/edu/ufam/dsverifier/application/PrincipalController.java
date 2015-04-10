@@ -23,10 +23,9 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -175,7 +174,7 @@ public class PrincipalController implements Initializable{
 	}
 	
 	public void summary(){
-	    Dialog dlg = new Dialog(null, "Verification Results",true);
+	    Dialog dlgSummary = new Dialog(null, "Verification Results",true);
 	    
 	    GridPane content = new GridPane();
 	    content.setMinWidth(350);
@@ -210,28 +209,29 @@ public class PrincipalController implements Initializable{
 		    	Label result = new Label("fail");
 			    result.setTextFill(Color.RED);
 			    content.add(result, 2, i + 2);
-			    Button ce = new Button("Counter Example");
-			    content.add(ce, 3, i+2);			    
-			    ce.setOnAction(new EventHandler<ActionEvent>() {					
+			    
+			    Hyperlink viewCE = new Hyperlink("Counter\nExample");
+
+			    viewCE.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						showCounterExample(verification);						
+						showCounterExample(verification);			
 					}
-				});
+				});			    
+			    content.add(viewCE, 3, i+2);
 			    
-			    /*  */
-			    Button showInputs = new Button("Inputs");
-			    content.add(showInputs, 4, i+2);			    
-			    showInputs.setOnAction(new EventHandler<ActionEvent>() {					
+			    Hyperlink viewInputs = new Hyperlink("Show\nInputs");
+			    viewInputs.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
 						try {
 							showInputs(verification);
 						} catch (IOException e) {					
 							e.printStackTrace();
-						}						
+						}
 					}
-				});
+				});					    
+			    content.add(viewInputs, 4, i+2);
 			    
 		    }else if (verification.getStatus() == VerificationStatus.UNKNOWN){
 		    	Label result = new Label("unknown");
@@ -245,8 +245,8 @@ public class PrincipalController implements Initializable{
 	    content.add(new Label(""), 1, i+2);
 	    content.add(new Label(""), 2, i+2);
 	    
-	    dlg.setContent(content);
-	    dlg.show();
+	    dlgSummary.setContent(content);
+	    dlgSummary.show();	    
 	    
 	}
 	
@@ -259,7 +259,7 @@ public class PrincipalController implements Initializable{
 	}
 	
 	public void showCounterExample(Verification verification){
-		Dialog dlg = new Dialog(null, "Counter Example for " + verification.getProperty().getName() + " Verification",true);		
+		Dialog dlg = new Dialog(null, "Counterexample for " + verification.getProperty().getName() + " Verification",true);		
 		TextArea t = new TextArea();
 		t.setText(verification.getOutput());
 		t.setMinHeight(400);
@@ -274,18 +274,19 @@ public class PrincipalController implements Initializable{
 	public void showInputs(Verification verification) throws FileNotFoundException, IOException{
 		
 		double[] arrayInputsFromVerification = DSVerifierUtils.getInstance().getArrayInputsFromVerification(verification);
-		
-		Dialog dlg = new Dialog(null, "Inputs for Violation in " + verification.getProperty().getName() + " Verification",true);
+		Dialog dlg = new Dialog(null, "Used Inputs",true);
 				
-		TableView<Double> table = new TableView<Double>();
-				
+		String inputs = "";
 		for (int i=0; i < arrayInputsFromVerification.length; i++) {
-			TableColumn inputColumn = new TableColumn("x["+i+"]");
-			table.getColumns().add(inputColumn);			
+			inputs = inputs + "x["+i+"] = " + arrayInputsFromVerification[i] + "\n";
 		}		
-				
-		dlg.setContent(table);
+		inputs = inputs + "\n";
+		
+		TextArea text = new TextArea(inputs);	
+		text.setEditable(false);
+		dlg.setContent(text);
 		dlg.show();
+		
 	}
 
 	/**
