@@ -174,6 +174,7 @@ public class PrincipalController implements Initializable{
 	}
 	
 	public void summary(){
+		
 	    Dialog dlgSummary = new Dialog(null, "Verification Results",true);
 	    
 	    GridPane content = new GridPane();
@@ -251,14 +252,17 @@ public class PrincipalController implements Initializable{
 	}
 	
 	public void enableSummary(){
+		
 		if (totalThreads == finishedThreads.get()){
 			btSummary.setDisable(false);
 		}else{
 			btSummary.setDisable(true);
 		}
+		
 	}
 	
 	public void showCounterExample(Verification verification){
+		
 		Dialog dlg = new Dialog(null, "Counterexample for " + verification.getProperty().getName() + " Verification",true);		
 		TextArea t = new TextArea();
 		t.setText(verification.getOutput());
@@ -269,23 +273,13 @@ public class PrincipalController implements Initializable{
 		t.setEditable(false);		
 		dlg.setContent(t);
 		dlg.show();
+		
 	}
 	
 	public void showInputs(Verification verification) throws FileNotFoundException, IOException{
 		
-		double[] arrayInputsFromVerification = DSVerifierUtils.getInstance().getArrayInputsFromVerification(verification);
-		Dialog dlg = new Dialog(null, "Used Inputs",true);
-				
-		String inputs = "";
-		for (int i=0; i < arrayInputsFromVerification.length; i++) {
-			inputs = inputs + "x["+i+"] = " + arrayInputsFromVerification[i] + "\n";
-		}		
-		inputs = inputs + "\n";
-		
-		TextArea text = new TextArea(inputs);	
-		text.setEditable(false);
-		dlg.setContent(text);
-		dlg.show();
+		ShowInputsDialogController showInputs = new ShowInputsDialogController(verification);			
+		showInputs.show();
 		
 	}
 

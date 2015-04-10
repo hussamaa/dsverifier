@@ -18,7 +18,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws IOException {
         mainStage = stage;
-		Parent root = FXMLLoader.load(getClass().getResource("principal_new.fxml"));	    
+		Parent root = FXMLLoader.load(getClass().getResource("principal.fxml"));	    
         Scene scene = new Scene(root, 1024, 600);    
         stage.setTitle("DSVerifier - Digital Systems Verifier");
         stage.setScene(scene);
