@@ -10,4 +10,6 @@ Property Supported:
 * Stability
 * Minimum Phase
 
+DSVerifier is developed at the Federal University of Amazonas (UFAM). This project is supported by Samsung, CNPq, and FAPEAM grants.
+
 http://www.dsverifier.org
