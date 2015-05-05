@@ -1,3 +1,18 @@
+/**
+# DSVerifier - Digital Systems Verifier (Limit Cycle)
+#
+#                Universidade Federal do Amazonas - UFAM
+#
+# Authors:       Renato Abreu   <renatobabreu@yahoo.com.br>
+#		 Iury Bessa     <iury.bessa@gmail.com>
+#                Hussama Ismail <hussamaismail@gmail.com>
+# ------------------------------------------------------
+#
+# Main Class
+#
+# ------------------------------------------------------
+*/
+
 #include "verify_overflow.h"
 #include "verify_limitcycle.h"
 #include "verify_timing.h"
