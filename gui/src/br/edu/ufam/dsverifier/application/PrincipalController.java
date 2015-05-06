@@ -174,8 +174,7 @@ public class PrincipalController implements Initializable{
 	
 	public void reset(){
 		btVerify.setDisable(false);
-		btSummary.setDisable(true);
-		openBenchmarks();
+		btSummary.setDisable(true);		
 	}
 	
 	public void summary(){
