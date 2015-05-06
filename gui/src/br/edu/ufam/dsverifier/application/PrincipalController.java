@@ -25,6 +25,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -108,6 +109,9 @@ public class PrincipalController implements Initializable{
     @FXML
     private Button btSummary;
     
+    @FXML
+    private Menu menuBenchmarks;
+    
     List<Verification> verifications = null;    
     ValidationSupport validationSupport = new ValidationSupport();
     
@@ -148,7 +152,7 @@ public class PrincipalController implements Initializable{
         paneMinMax.getChildren().add(maxMinSlider);
         taskProgressView = new TaskProgressView<VerificationTask>();
         taskProgressView.setMinWidth(760);
-        taskPane.getChildren().add(taskProgressView);                     
+        taskPane.getChildren().add(taskProgressView);                            
         
 	}
 	
@@ -171,6 +175,7 @@ public class PrincipalController implements Initializable{
 	public void reset(){
 		btVerify.setDisable(false);
 		btSummary.setDisable(true);
+		openBenchmarks();
 	}
 	
 	public void summary(){
@@ -448,6 +453,18 @@ public class PrincipalController implements Initializable{
 		}
 			
 		return impl;
+	}
+	
+	public void openBenchmarks(){
+		Main.application.getHostServices().showDocument("http://www.dsverifier.org/benchmarks");
+	}
+	
+	public void openDocumentation(){
+		Main.application.getHostServices().showDocument("http://www.dsverifier.org/documentation");
+	}
+	
+	public void openPublications(){
+		Main.application.getHostServices().showDocument("http://www.dsverifier.org/publications");
 	}
 	
 	/* generate properties to check */

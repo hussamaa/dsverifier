@@ -100,12 +100,8 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <MenuBar layoutX="676.0" layoutY="20.0" prefHeight="29.0" prefWidth="337.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Benchmarks" />
-          <Menu mnemonicParsing="false" text="Documentation" />
-          <Menu mnemonicParsing="false" text="Publications" />
-        </menus>
-      </MenuBar>
+      <Button layoutX="639.0" layoutY="24.0" mnemonicParsing="false" onAction="#openBenchmarks" prefHeight="25.0" prefWidth="117.0" text="Benchmarks" />
+      <Button layoutX="756.0" layoutY="24.0" mnemonicParsing="false" onAction="#openDocumentation" prefHeight="25.0" prefWidth="128.0" text="Documentation" />
+      <Button layoutX="884.0" layoutY="24.0" mnemonicParsing="false" onAction="#openPublications" prefHeight="25.0" prefWidth="128.0" text="Publications" />
    </children>
 </Pane>

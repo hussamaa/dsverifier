@@ -14,6 +14,7 @@ import br.edu.ufam.dsverifier.util.DSVerifierUtils;
 public class Main extends Application {
 	
 	public static Stage mainStage;
+	public static Application application;
 	
 	@Override
 	public void start(Stage stage) throws IOException {
@@ -31,7 +32,8 @@ public class Main extends Application {
             	PrincipalController.executorService.shutdown();
                 DSVerifierUtils.getInstance().removeTemporaryFiles();                
             }
-        });                       
+        });       
+        application = this;
 	}
 	
 	public static void main(String[] args) {
