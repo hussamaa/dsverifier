@@ -75,7 +75,7 @@
                               <CheckBox fx:id="checkStability" layoutX="14.0" layoutY="172.0" mnemonicParsing="false" text="Stability" />
                               <CheckBox fx:id="checkTiming" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" text="Timing" />
                               <CheckBox fx:id="checkMinimumPhase" layoutX="15.0" layoutY="204.0" mnemonicParsing="false" text="Minimum Phase" />
-                              <Slider fx:id="sliderBound" blockIncrement="1.0" layoutX="13.0" layoutY="125.0" majorTickUnit="1.0" max="10.0" min="1.0" prefHeight="16.0" prefWidth="209.0" showTickLabels="true" showTickMarks="true" value="1.0" />
+                              <Slider fx:id="sliderBound" blockIncrement="1.0" layoutX="13.0" layoutY="125.0" majorTickUnit="1.0" max="10.0" min="1.0" prefHeight="16.0" prefWidth="209.0" showTickLabels="true" showTickMarks="true" value="5.0" />
                               <Label layoutX="14.0" layoutY="107.0" text="X Size (Bound)" />
                            </children>
                         </AnchorPane>
