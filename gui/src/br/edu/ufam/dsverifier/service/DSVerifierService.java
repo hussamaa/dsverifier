@@ -12,7 +12,7 @@ import br.edu.ufam.dsverifier.util.DSVerifierUtils;
 
 public class DSVerifierService {
 
-	public static final String ESBMC_EXECUTABLE = "esbmc";
+	public static final String ESBMC_EXECUTABLE = "./esbmc";
 	public static final String ESBMC_PARAMETERS = "-DSVERIFIER --no-div-by-zero-check --no-bounds-check --no-pointer-check --boolector";
 	
 	private static DSVerifierService instance;
@@ -38,7 +38,6 @@ public class DSVerifierService {
 		commandLine.append(" -DREALIZATION=" + verification.getImplementation().getRealization());	
 		/* include x size */
 		commandLine.append(" -DX_SIZE=" + verification.getBound());	
-
 		
 		System.out.println("COMMAND LINE: " + commandLine.toString());
 		

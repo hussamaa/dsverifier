@@ -152,7 +152,7 @@ public class PrincipalController implements Initializable{
         paneMinMax.getChildren().add(maxMinSlider);
         taskProgressView = new TaskProgressView<VerificationTask>();
         taskProgressView.setMinWidth(760);
-        taskPane.getChildren().add(taskProgressView);                            
+        taskPane.getChildren().add(taskProgressView);                             
         
 	}
 	
