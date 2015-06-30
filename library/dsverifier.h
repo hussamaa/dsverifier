@@ -1,11 +1,11 @@
 /**
-# DSVerifier - Digital Systems Verifier (Limit Cycle)
+# DSVerifier - Digital Systems Verifier (Main)
 #
-#                Universidade Federal do Amazonas - UFAM
+#                Federal University of Amazonas - UFAM
 #
 # Authors:       Hussama Ismail <hussamaismail@gmail.com>
-#				 Iury Bessa     <iury.bessa@gmail.com>
-# 				 Renato Abreu   <renatobabreu@yahoo.com.br>
+#                Iury Bessa     <iury.bessa@gmail.com>
+#                Renato Abreu   <renatobabreu@yahoo.com.br>
 #				 
 # ------------------------------------------------------
 #
@@ -40,10 +40,7 @@ int main(){
 	return 0;
 }
 
-/**
- * Method to set the necessary parameters
- * to DSVerifier FXP library.
- */
+/** function to set the necessary parameters to DSVerifier FXP library */
 void init(){
 	if (impl.frac_bits >= FXP_WIDTH){
 		printf("impl.frac_bits must be less than word width!\n");
@@ -83,11 +80,7 @@ void init(){
 	}
 }
 
-/**
- * Validate the required parameters
- * to use DSVerifier and your properties
- * verification.
- */
+/** validate the required parameters to use DSVerifier and your properties verification. */
 void validate(){
 	if (impl.frac_bits > 16){
 		printf("\n\n*************************************************************************************\n");
@@ -147,6 +140,7 @@ void validate(){
 	}
 }
 
+/** call the closedloop verification task */
 void call_closedloop_verification_task(void * closedloop_verification_task){
 
 	/* delta transformation doesn't support uncertainty */

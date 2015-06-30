@@ -5,7 +5,7 @@ digital_system plant = {
 	.b_uncertainty = { 0, 0, 0, 0 },
 	.b_size = 4,
 	.a = { 1.0, -3.13269459816456, 2.57307561263557, -0.628067890434017 },
-	.a_uncertainty = { 0.1, 0, 0, 0 },
+	.a_uncertainty = { 0, 0, 0, 0 },
 	.a_size = 4,
 	.sample_time = 0.01
 };

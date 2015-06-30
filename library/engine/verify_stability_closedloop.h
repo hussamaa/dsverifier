@@ -1,5 +1,21 @@
+/**
+# DSVerifier - Digital Systems Verifier
+#
+#                Federal University of Amazonas - UFAM
+#
+# Authors:       Hussama Ismail <hussamaismail@gmail.com>
+#                Iury Bessa     <iury.bessa@gmail.com>
+#                Renato Abreu   <renatobabreu@yahoo.com.br>
+#				 
+# ------------------------------------------------------
+#
+# verify stability in closed loop
+#
+# ------------------------------------------------------
+*/
+
 #include "../core/funcsfxp.h"
-#include "../core/operadordelta.h"
+#include "../core/util.h"
 #include "../core/dslib.h"
 #include <assert.h>
 
@@ -41,13 +57,13 @@ int verify_stability_closedloop_using_dslib(void){
 		ft_closedloop_series(c_num_qtz, c_num_size, c_den_qtz, c_den_size, p_num, p_num_size, p_den, p_den_size, ans_num, ans_num_size, ans_den, ans_den_size);
 	#elif (CONNECTION_MODE == FEEDBACK)
     	printf("Verifying stability for controller\n");
-		esbmc_check_stability_double(c_den_qtz, c_den_size);
+		check_stability(c_den_qtz, c_den_size);
 		ft_closedloop_feedback(c_num_qtz, c_num_size, c_den_qtz, c_den_size, p_num, p_num_size, p_den, p_den_size, ans_num, ans_num_size, ans_den, ans_den_size);
 	#endif
 
 	/* Checking stability */
 	printf("Verifying stability for closedloop function\n");
-	assert(esbmc_check_stability_double_closedloop(ans_den, ans_den_size, p_num, p_num_size, p_den, p_den_size));
+	assert(check_stability_closedloop(ans_den, ans_den_size, p_num, p_num_size, p_den, p_den_size));
 
 	return 0;
 }
