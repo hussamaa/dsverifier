@@ -15,8 +15,8 @@
 */
 
 #include "../core/funcsfxp.h"
+#include "../core/closed-loop.h"
 #include "../core/util.h"
-#include "../core/dslib.h"
 #include <assert.h>
 
 extern digital_system plant;

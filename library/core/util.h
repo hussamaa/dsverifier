@@ -57,8 +57,8 @@ int check_stability(double a[], int n){
    double m[linhas][n];
    int i,j;
 
-   /* to put current values in stability counter-example
-	* look for current_stability (use: --no-slice) */
+   /* to put current values in stability counter-example 
+    * look for current_stability (use: --no-slice) */
    double current_stability[n];
    for (i=0; i < n; i++){
 	   current_stability[i] = a[i];
@@ -95,35 +95,6 @@ int check_stability(double a[], int n){
 			return 0;
 		 }
 		 continue;
-	  }
-   }
-   return 1;
-}
-
-/** check the stability of system using jury criteria */
-int check_stability_closedloop(double a[], int n, double plant_num[], int p_num_size, double plant_den[], int p_den_size){
-   int colunas = n;
-   double m[2 * n - 1][n];
-   int i,j;
-   int first_is_positive = 0;
-   for (i=0; i < 2 * n - 1; i++){
-	  for (j=0; j < colunas; j++){
-		 m[i][j] = 0;
-		 if (i == 0){
-			m[i][j] = a[j];
-			continue;
-		 }
-		 if (i % 2 != 0 ){
-			 int x;
-			 for(x=0; x<colunas;x++){
-				m[i][x] = m[i-1][colunas-x-1];
-			 }
-			 colunas = colunas - 1;
-			 j = colunas;
-		 }else{
-			m[i][j] = m[i-2][j] - (m[i-2][colunas] / m[i-2][0]) * m[i-1][j];
-			assert((m[0][0] >= 0) && (m[i][0] >= 0));
-		 }
 	  }
    }
    return 1;
