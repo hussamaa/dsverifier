@@ -6,7 +6,7 @@
 # Authors:       Hussama Ismail <hussamaismail@gmail.com>
 #                Iury Bessa     <iury.bessa@gmail.com>
 #                Renato Abreu   <renatobabreu@yahoo.com.br>
-#				 
+#
 # ------------------------------------------------------
 #
 # Util functions for DSVerifier
@@ -52,9 +52,9 @@ int fatorial(int n){
 
 /** check stability for a polynomial using jury criteria */
 int check_stability(double a[], int n){
-   int linhas = 2 * n - 1;
-   int colunas = n;
-   double m[linhas][n];
+   int lines = 2 * n - 1;
+   int columns = n;
+   double m[lines][n];
    int i,j;
 
    /* to put current values in stability counter-example 
@@ -64,31 +64,31 @@ int check_stability(double a[], int n){
 	   current_stability[i] = a[i];
    }
 
-   for (i=0; i < linhas; i++){
-	  for (j=0; j < colunas; j++){
+   for (i=0; i < lines; i++){
+	  for (j=0; j < columns; j++){
 		 m[i][j] = 0;
 	  }
    }
-   for (i=0; i < linhas; i++){
-	  for (j=0; j < colunas; j++){
+   for (i=0; i < lines; i++){
+	  for (j=0; j < columns; j++){
 		 if (i == 0){
 			m[i][j] = a[j];
 			continue;
 		 }
 		 if (i % 2 != 0 ){
 			 int x;
-			 for(x=0; x<colunas;x++){
-				m[i][x] = m[i-1][colunas-x-1];
+			 for(x=0; x<columns;x++){
+				m[i][x] = m[i-1][columns-x-1];
 			 }
-			 colunas = colunas - 1;
-			j = colunas;
+			 columns = columns - 1;
+			j = columns;
 		 }else{
-			m[i][j] = m[i-2][j] - (m[i-2][colunas] / m[i-2][0]) * m[i-1][j];
+			m[i][j] = m[i-2][j] - (m[i-2][columns] / m[i-2][0]) * m[i-1][j];
 		 }
 	  }
    }
    int first_is_positive =  m[0][0] >= 0 ? 1 : 0;
-   for (i=0; i < linhas; i++){
+   for (i=0; i < lines; i++){
 	  if (i % 2 == 0){
 		 int line_is_positive = m[i][0] >= 0 ? 1 : 0;
 		 if (first_is_positive != line_is_positive){
@@ -98,4 +98,54 @@ int check_stability(double a[], int n){
 	  }
    }
    return 1;
+}
+
+/**
+ * The array ans will receive the sum a + b.
+ * The arrays a and must be in the crescent degree order (e.g.: a0*1+a_1*x^1+a2*x^3...)
+ * The result will be stored in ans[] and the size of ans[] will be stored in Nans.
+ */
+void poly_sum(double a[], int Na, double b[], int Nb, double ans[], int Nans){
+	int i;
+	Nans = Na>Nb? Na:Nb;
+
+	for (i=0; i<Nans; i++){
+		if (Na>Nb){
+			ans[i]=a[i];
+			if (i > Na-Nb-1){
+				ans[i]=ans[i]+b[i-Na+Nb];
+			}
+		}else {
+			ans[i]=b[i];
+			if (i> Nb - Na -1){
+				ans[i]=ans[i]+a[i-Nb+Na];
+			}
+		}
+	}
+}
+
+/**
+ * The array ans will receive the product a*b.
+ * The arrays a and must be in the crescent degree order (e.g.: a0*1+a_1*x^1+a2*x^3...)
+ * The result will be stored in ans[] and the size of ans[] will be stored in Nans.
+ */
+void poly_mult(double a[], int Na, double b[], int Nb, double ans[], int Nans){
+	int i;
+	int j;
+	int k;
+	Nans = Na+Nb-1;
+
+	for (i=0; i<Na; i++){
+		for (j=0; j<Nb; j++){
+			k= Na + Nb - i - j - 2;
+			ans[k]=0;
+		}
+	}
+
+	for (i=0; i<Na; i++){
+		for (j=0; j<Nb; j++){
+			k= Na + Nb - i - j - 2;
+			ans[k]=ans[k]+a[Na - i - 1]*b[Nb - j - 1];
+		}
+	}
 }
