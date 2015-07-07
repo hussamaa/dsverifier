@@ -54,12 +54,13 @@ void init(){
 	}else{
 		_fxp_one = (0x00000001 << impl.frac_bits);
 	}
-	_fxp_half    =   (0x00000001 << (impl.frac_bits - 1));
-	_fxp_minus_one    =   -(0x00000001 << impl.frac_bits);
-	_fxp_min     =   -(0x00000001 << (impl.frac_bits + impl.int_bits - 1));
-	_fxp_max     =   (0x00000001 << (impl.frac_bits + impl.int_bits - 1)) - 1;
-	_fxp_fmask = ((((int32_t) 1) << impl.frac_bits) - 1);
-	_fxp_imask = ((0x80000000) >> (FXP_WIDTH - impl.frac_bits - 1));
+
+	_fxp_half      = (0x00000001 << (impl.frac_bits - 1));
+	_fxp_minus_one = -(0x00000001 << impl.frac_bits);
+	_fxp_min       = -(0x00000001 << (impl.frac_bits + impl.int_bits - 1));
+	_fxp_max       = (0x00000001 << (impl.frac_bits + impl.int_bits - 1)) - 1;
+	_fxp_fmask     = ((((int32_t) 1) << impl.frac_bits) - 1);
+	_fxp_imask     = ((0x80000000) >> (FXP_WIDTH - impl.frac_bits - 1));
 
 	int i = 0;
 	/* applying scale in numerator coefficients */
