@@ -22,7 +22,6 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include "definitions.h"
 
 /* overflow mode */
 #define DETECT_OVERFLOW		1

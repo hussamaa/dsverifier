@@ -19,7 +19,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
-#include "util.h"
 
 int binomial_coefficient(int n, int p){
    return fatorial(n) / (fatorial(p) * fatorial(n-p));
@@ -29,7 +28,7 @@ void binomial(int degree, double delta, double out[]){
    initialize_array(out, 3);
    int i;
    for(i=0; i<=degree; i++){
-	  out[degree-i] = binomial_coefficient(degree, i) * internal_pow(degree, grau-i);
+	  out[degree-i] = binomial_coefficient(degree, i) * internal_pow(degree, degree-i);
    }
 }
 

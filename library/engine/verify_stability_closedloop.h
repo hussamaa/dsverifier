@@ -14,9 +14,6 @@
  * ------------------------------------------------------
 */
 
-#include "../core/fixed-point.h"
-#include "../core/closed-loop.h"
-
 extern digital_system plant;
 extern digital_system control;
 
