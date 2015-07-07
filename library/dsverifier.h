@@ -15,7 +15,7 @@
 */
 
 #include "engine/verify_stability_closedloop.h"
-#include <assert.h>
+#include "core/compatibility.h"
 
 extern digital_system ds;
 extern digital_system plant;
@@ -87,40 +87,40 @@ void validate(){
 		printf("\n\n*************************************************************************************\n");
 		printf("* Sorry, Processors with precision > 16 bits doesn't is supported by DSVerifier yet *\n");
 		printf("*************************************************************************************\n");
-		assert(0);
+		__DSVERIFIER_assert(0);
 	}
 	if (((PROPERTY != STABILITY_CLOSED_LOOP) && (PROPERTY != LIMIT_CYCLE_CLOSED_LOOP)) && (ds.a_size == 0 || ds.b_size == 0)){
 		printf("\n\n****************************************************************************\n");
 		printf("* It is necessary to set (ds and impl) parameters to check with DSVerifier *\n");
 		printf("****************************************************************************\n");
-		assert(0);
+		__DSVERIFIER_assert(0);
 	}
 	if ((PROPERTY == STABILITY_CLOSED_LOOP) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)){
 		if (control.a_size == 0 || plant.b_size == 0 || impl.int_bits == 0 ){
 			printf("\n\n*****************************************************************************************************\n");
 			printf("* It is necessary to set (control, plant and, impl) parameters to check CLOSED LOOP with DSVerifier *\n");
 			printf("*****************************************************************************************************\n");
-			assert(0);
+			__DSVERIFIER_assert(0);
 		}
 		if (CONNECTION_MODE == 0){
 			printf("\n\n*****************************************************************************************************************\n");
 			printf("* It is necessary to set a connection mode to check CLOSED LOOP with DSVerifier (use: -DCONNECTION_MODE=SERIES) *\n");
 			printf("*****************************************************************************************************************\n");
-			assert(0);
+			__DSVERIFIER_assert(0);
 		}
 	}
 	if (PROPERTY == 0){
 		printf("\n\n***************************************************************************************\n");
 		printf("* It is necessary to set the property to check with DSVerifier (use: -DPROPERTY=NAME) *\n");
 		printf("***************************************************************************************\n");
-		assert(0);
+		__DSVERIFIER_assert(0);
 	}
 	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)){
 		if (X_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* It is necessary to set a X_SIZE to use this property in DSVerifier (use: -DX_SIZE=VALUE) *\n");
 			printf("********************************************************************************************\n");
-			assert(0);
+			__DSVERIFIER_assert(0);
 		}else{
 			X_SIZE_VALUE = X_SIZE;
 		}
@@ -129,14 +129,14 @@ void validate(){
 		printf("\n\n*********************************************************************************************\n");
 		printf("* It is necessary to set the realization to check with DSVerifier (use: -DREALIZATION=NAME) *\n");
 		printf("*********************************************************************************************\n");
-		assert(0);
+		__DSVERIFIER_assert(0);
 	}
 	if (PROPERTY == ERROR){
 		if (CONNECTION_MODE == 0){
 			printf("\n\n*************************************************************************\n");
 			printf("* You need to inform the maximum expected error (use: -DEXPECTED_ERROR) *\n");
 			printf("*************************************************************************\n");
-			assert(0);
+			__DSVERIFIER_assert(0);
 		}
 	}
 }
@@ -149,13 +149,13 @@ void call_closedloop_verification_task(void * closedloop_verification_task){
 		printf("\n\n**********************************************************************************\n");
 		printf("* It is not possible to use uncertainty parameters with delta transformation yet *\n");
 		printf("**********************************************************************************\n");
-		assert(0);
+		__DSVERIFIER_assert(0);
 	}
 
 	/* base case is the execution using all parameters without uncertainty */
 	_Bool base_case_executed = 0;
 
-	/* considering Uncertainty for Numerator Coefficients */
+	/* considering uncertainty for numerator coefficients */
 	int i=0;
 	for(i=0; i<plant.b_size; i++){
 		double factor = ((plant.b[i] * plant.b_uncertainty[i]) / 100);
@@ -171,10 +171,10 @@ void call_closedloop_verification_task(void * closedloop_verification_task){
 		}
 
 		plant.b[i] = nondet_double();
-		__ESBMC_assume((plant.b[i] >= min) && (plant.b[i] <= max));
+		__DSVERIFIER_assume((plant.b[i] >= min) && (plant.b[i] <= max));
 	}
 
-	/* considering Uncertainty for Denominator Coefficients */
+	/* considering uncertainty for denominator coefficients */
 	for(i=0; i<plant.a_size; i++){
 		double factor = ((plant.a[i] * plant.a_uncertainty[i]) / 100);
 		factor = factor < 0 ? factor * (-1) : factor;
@@ -190,7 +190,7 @@ void call_closedloop_verification_task(void * closedloop_verification_task){
 		}
 
 		plant.a[i] = nondet_double();
-		__ESBMC_assume((plant.a[i] >= min) && (plant.a[i] <= max));
+		__DSVERIFIER_assume((plant.a[i] >= min) && (plant.a[i] <= max));
 	}
 
 	/* call the verification task */

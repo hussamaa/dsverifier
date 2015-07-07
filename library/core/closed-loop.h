@@ -97,7 +97,7 @@ int check_stability_closedloop(double a[], int n, double plant_num[], int p_num_
 			 j = columns;
 		 }else{
 			m[i][j] = m[i-2][j] - (m[i-2][columns] / m[i-2][0]) * m[i-1][j];
-			assert((m[0][0] >= 0) && (m[i][0] >= 0));
+			__DSVERIFIER_assert((m[0][0] >= 0) && (m[i][0] >= 0));
 		 }
 	  }
    }

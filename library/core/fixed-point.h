@@ -20,7 +20,6 @@
  * ------------------------------------------------------
 */
 
-#include <assert.h>
 #include <stdio.h>
 #include <stdint.h>
 #include "definitions.h"
@@ -167,7 +166,7 @@ fxp32_t fxp_quant(int64_t aquant) {
 
 	/* check if is a closed loop verification (ignore) */
     if (PROPERTY != STABILITY_CLOSED_LOOP){
-    	assert(aquant <= _fxp_max && aquant >= _fxp_min);
+    	__DSVERIFIER_assert(aquant <= _fxp_max && aquant >= _fxp_min);
     }
 
 	return (fxp32_t) aquant; //TRUNCATE

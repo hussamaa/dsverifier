@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../../../../core/funcsfxp.h"
+#include "../../../../core/fixed-point.h"
 #include "../../../../core/closed-loop.h"
 
 digital_system control = {

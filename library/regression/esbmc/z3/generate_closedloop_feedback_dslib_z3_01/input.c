@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include "../../../../core/funcsfxp.h"
 #include "../../../../core/closed-loop.h"
+#include "../../../../core/fixed-point.h"
 
 digital_system control = {
         .a = { 1.0, 0.4, -0.19, 0.014, 0.0},
