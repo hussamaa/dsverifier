@@ -1,0 +1,111 @@
+#!/bin/sh
+# --------------------------------------------------
+#
+#  Digital Systems Verifier (DSVerifier)
+#
+# --------------------------------------------------
+#
+#  Federal University of Amazonas - UFAM
+#  Author: Hussama Ismail - hussamaismail@gmail.com
+#
+# --------------------------------------------------
+#  
+#  usage: 
+#    ./dsverifier <file> --realization DFI
+#                        --property STABILITY 
+#                        --x-size 10
+#                        --timeout 3600 
+#
+#  supported properties:
+#     OVERFLOW, LIMIT_CYCLE, TIMING, 
+#     STABILITY, MINIMUM_PHASE
+#
+#  supported realizations:
+#     DFI, DFII, TDFII, 
+#     DDFI, DDFII, TDDFII, 
+#     CDFI, CDFII, CTDDFII
+#     CDDFI, CDDFII, CTDDFII
+#
+# --------------------------------------------------
+
+BMC_EXECUTABLE="./esbmc";
+BMC_PARAMETERS="--boolector --no-bounds-check --no-pointer-check --no-div-by-zero-check --quiet";
+
+PARAMETERS=("$@");
+TOTAL_PARAMETERS=$#;
+
+if [ $TOTAL_PARAMETERS -eq 0 ]; then
+   echo "use: --help";
+   exit 1;
+fi
+
+CALL_HELP=$(echo $@ | grep help | wc -l);
+
+if [ $CALL_HELP -eq 1 ]; then
+   echo "";
+   echo "* * *           DSVerifier 1.1          * * *";
+   echo "";
+   echo "Usage:                       Purpose:";
+   echo "";
+   echo "dsverifier [-?] [--help]           show help";
+   echo "dsverifier file.c ...              source file names";
+   echo "";
+   echo "Options:";
+   echo "";
+
+   echo "--realization <r>            set the realization for the digital system";
+   echo "                             (Available: DFI, DFII, TDFII, DDFI, DDFII, TDDFII, CDFI, CDFII, CTDFII, CDDFI, CDDFII, CTDDFII)";
+   echo "--property <p>               set the property to check in order to find violations"
+   echo "                             (Available: OVERFLOW, LIMIT_CYCLE, TIMING, STABILITY, and MINIMUM_PHASE)";
+   echo "--x-size <s>                 set the bound of verification";
+   echo "--timeout <t>                set the maximum time of verification";
+   echo "";
+   exit 1;
+fi
+
+FILE=$1;
+REALIZATION="";
+PROPERTY="";
+X_SIZE="10";
+TIMEOUT="7200";
+
+# getting parameters
+
+for i in `seq 2 $TOTAL_PARAMETERS`; do
+   if [ `expr $i % 2` == 0 ]; then
+      current_parameter=${PARAMETERS[$((i-1))]};
+      current_value=${PARAMETERS[$((i))]};
+      if [ "$current_parameter" == "--realization" ]; then
+         REALIZATION=$current_value;
+      elif [ "$current_parameter" == "--property" ]; then
+         PROPERTY=$current_value;
+      elif [ "$current_parameter" == "--x-size" ]; then
+         X_SIZE=$current_value;
+      elif [ "$current_parameter" == "--timeout" ]; then
+         TIMEOUT=$current_value;
+      else
+	 echo "invalid parameter: $current_parameter";
+	 exit 1;
+      fi
+   fi  
+done
+
+# validating parameters
+
+if [ "$REALIZATION" != "DFI" ] && [ "$REALIZATION" != "DFII" ] && [ "$REALIZATION" != "DFII" ] && [ "$REALIZATION" != "TDFII" ] && [ "$REALIZATION" != "DDFI" ] && [ "$REALIZATION" != "DDFII" ] &&         [ "$REALIZATION" != "DDFII" ] && [ "$REALIZATION" != "TDDFII" ] && [ "$REALIZATION" != "CDFI" ] && [ "$REALIZATION" != "CDFII" ] && [ "$REALIZATION" != "CTDFII" ] && [ "$REALIZATION" != "CDDFI" ] &&    [ "$REALIZATION" != "CDDFII" ] && [ "$REALIZATION" != "CTDDFII" ]; then
+   echo "invalid realization: $REALIZATION";
+   echo "are supported: DFI, DFII, TDFII, DDFI, DDFII, TDDFII, CDFI, CDFII, CTDFII, CDDFI, CDDFII, and CTDDFII";
+   exit 1;
+fi
+
+if [ "$PROPERTY" != "OVERFLOW" ] && [ "$PROPERTY" != "LIMIT_CYCLE" ] && [ "$PROPERTY" != "TIMING" ] && [ "$PROPERTY" != "STABILITY" ] && [ "$PROPERTY" != "MINIMUM_PHASE" ]; then
+   echo "invalid property: $PROPERTY";
+   echo "are supported: OVERFLOW, LIMIT_CYCLE, TIMING, STABILITY, and MINIMUM_PHASE";
+   exit 1;
+fi
+
+# executing DSVerifier + ESBMC
+
+COMMAND_LINE="$BMC_EXECUTABLE $FILE -DSVERIFIER -DREALIZATION=$REALIZATION -DPROPERTY=$PROPERTY -DX_SIZE=$X_SIZE --timeout $TIMEOUT $BMC_PARAMETERS"
+echo "Running: Digital Systems Verifier (DSVerifier)";
+eval $COMMAND_LINE

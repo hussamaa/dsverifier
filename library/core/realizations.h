@@ -16,7 +16,6 @@
 
 #include <stdlib.h>
 #include <assert.h>
-#include "util.h"
 
 /** direct form I realization in fixed point */
 fxp32_t fxp_direct_form_1(fxp32_t y[], fxp32_t x[], fxp32_t a[], fxp32_t b[], int Na,	int Nb) {
@@ -140,7 +139,7 @@ double double_transposed_direct_form_2(double w[], double x, double a[], double 
 }
 
 /** direct form I realization using float precision */
-float float_direct_form_1(float w[], float x, float a[], float b[], int Na, int Nb) {
+float float_direct_form_1(float y[], float x[], float a[], float b[], int Na, int Nb) {
 	float *a_ptr, *y_ptr, *b_ptr, *x_ptr;
 	float sum = 0;
 	a_ptr = &a[1];

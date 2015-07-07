@@ -48,13 +48,14 @@
 /* property verification (use: -DPROPERTY=OVERFLOW) */
 #define NOTHING 							0
 #define OVERFLOW 							1
-#define LIMIT_CYCLE 						2
-#define TIMING 								3
-#define ERROR								4
-#define STABILITY 							5
-#define MINIMUM_PHASE 						6
-#define STABILITY_CLOSED_LOOP				7
-#define LIMIT_CYCLE_CLOSED_LOOP				8
+#define ZERO_INPUT_LIMIT_CYCLE				2
+#define LIMIT_CYCLE 						3
+#define TIMING 								4
+#define ERROR								5
+#define STABILITY 							6
+#define MINIMUM_PHASE 						7
+#define STABILITY_CLOSED_LOOP				8
+#define LIMIT_CYCLE_CLOSED_LOOP				9
 
 /** Check Required Parameters */
 #ifndef PROPERTY

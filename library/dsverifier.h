@@ -18,9 +18,14 @@
 #include "core/definitions.h"
 #include "core/compatibility.h"
 #include "core/fixed-point.h"
+#include "core/functions.h"
+#include "core/realizations.h"
 #include "core/delta-operator.h"
 #include "core/closed-loop.h"
 
+#include "engine/verify_overflow.h"
+#include "engine/verify_zero_input_limit_cycle.h"
+#include "engine/verify_timing.h"
 #include "engine/verify_stability.h"
 #include "engine/verify_minimum_phase.h"
 #include "engine/verify_stability_closedloop.h"
@@ -32,6 +37,7 @@ extern implementation impl;
 
 void init();
 void validate();
+void call_verification_task(void * verification_task);
 void call_closedloop_verification_task(void * closedloop_verification_task);
 float nondet_float();
 double nondet_double();
@@ -40,6 +46,16 @@ int main(){
 
 	init();
 	validate();
+
+	if (PROPERTY == OVERFLOW){
+		call_verification_task(&verify_overflow);
+	}
+	if (PROPERTY == ZERO_INPUT_LIMIT_CYCLE){
+		call_verification_task(&verify_zero_input_limit_cycle);
+	}
+	if (PROPERTY == TIMING){
+		call_verification_task(&verify_timing);
+	}
 	if (PROPERTY == STABILITY){
 		call_verification_task(&verify_stability);
 	}
@@ -128,7 +144,7 @@ void validate(){
 		printf("***************************************************************************************\n");
 		__DSVERIFIER_assert(0);
 	}
-	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)){
+	if ((PROPERTY == OVERFLOW) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)){
 		if (X_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* It is necessary to set a X_SIZE to use this property in DSVerifier (use: -DX_SIZE=VALUE) *\n");

@@ -1,12 +1,11 @@
 /**
- * DSVerifier - Digital Systems Verifier (Overflow)
+ * DSVerifier - Digital Systems Verifier (Limit Cycle)
  *
  * Federal University of Amazonas - UFAM
  *
  * Authors:       Renato Abreu   <renatobabreu@yahoo.com.br>
- *		 		  Iury Bessa     <iury.bessa@gmail.com>
+ *				 Iury Bessa     <iury.bessa@gmail.com>
  *                Hussama Ismail <hussamaismail@gmail.com>
- *
  * ------------------------------------------------------
  *
  * For UNCERTAINTY: Not supportable yet
@@ -14,16 +13,16 @@
  * ------------------------------------------------------
 */
 
-int nondet_int();
-float nondet_float();
-
 extern digital_system ds;
 extern implementation impl;
 
-int verify_overflow(void) {
+int verify_zero_input_limit_cycle(void){
 
-	/* enable overflow detection */
-	OVERFLOW_MODE = 1;
+	OVERFLOW_MODE = 3; /* WRAPAROUND */
+
+	int i;
+	int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;
+	assert(X_SIZE_VALUE >= Set_xsize_at_least_two_times_Na);
 
 	/* check the realization */
 	#if	((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
@@ -83,16 +82,14 @@ int verify_overflow(void) {
 	fxp32_t y[X_SIZE_VALUE];
 	fxp32_t x[X_SIZE_VALUE];
 
-	int i;
-	/* prepare de inputs with the possibles values (min ~ max) */
+	/* prepare inputs */
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
 		y[i] = 0;
-		x[i] = nondet_int();
-		__ESBMC_assume(x[i] >= min_fxp && x[i] <= max_fxp);	//outside limits
-		__ESBMC_assume(x[i] <= min_fxp + 2 || x[i] >= max_fxp - 2);	//inside limits
+		x[i] = 0;
 	}
 
 	int Nw = 0;
+	/* check if cascade mode */
 	#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
 		Nw = a_cascade_size > b_cascade_size ? a_cascade_size : b_cascade_size;
 	#else
@@ -103,27 +100,41 @@ int verify_overflow(void) {
 	fxp32_t xaux[ds.b_size];
 	fxp32_t waux[Nw];
 
+	fxp32_t y0[ds.a_size];
+	fxp32_t w0[Nw];
+
 	for (i = 0; i < ds.a_size; ++i) {
-		yaux[i] = 0;
-	}
-	for (i = 0; i < ds.b_size; ++i) {
-		xaux[i] = 0;
-	}
-	for (i = 0; i < Nw; ++i) {
-		waux[i] = 0;
+		#if REALIZATION == DIRECTFORMI || REALIZATION == DIRECTFORMICASCADE || REALIZATION == DIRECTFORMIPARALLEL || REALIZATION == DELTADIRECTFORMI || REALIZATION == DELTADIRECTFORMICASCADE
+			yaux[i] = nondet_int();
+			__ESBMC_assume(yaux[i] >= min_fxp && yaux[i] <= max_fxp);
+			y0[i] = yaux[i]; /* stores initial value for later comparison */
+		#else
+			waux[i] = nondet_int();
+			__ESBMC_assume(waux[i] >= min_fxp && waux[i] <= max_fxp);
+			w0[i] = waux[i]; /* stores initial value for later comparison */
+		#endif
 	}
 
-	fxp32_t xk, temp;
-	fxp32_t *aptr, *bptr, *xptr, *yptr, *wptr;
+	for (i = 0; i < ds.b_size; ++i) {
+		xaux[i] = 0; /* xaux[i] = nondet_int(); // Implement it */
+	}
 
 	int j;
-	for (i = 0; i < X_SIZE_VALUE; ++i) {
+	int count = 0;
+	int window = order(ds.a_size, ds.b_size);
+	int notzeros = 0;
+
+	fxp32_t xk;
+	fxp32_t *aptr, *bptr, *xptr, *yptr, *wptr;
+
+	int VALOR_X = 0;
+	for(i=0; i<X_SIZE_VALUE; ++i){
 
 		/* direct form I realization */
 		#if ((REALIZATION == DFI) || (REALIZATION == DDFI))
-			shiftL(x[i], xaux, ds.b_size);
+			shiftL(x[i],xaux,ds.b_size);
 			y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
-			shiftL(y[i], yaux, ds.a_size);
+			shiftL(y[i],yaux,ds.a_size);
 		#endif
 
 		/* direct form II realization */
@@ -133,15 +144,15 @@ int verify_overflow(void) {
 		#endif
 
 		/* transposed direct form II realization */
-		#if ((REALIZATION == TDFII) || (REALIZATION ==TDDFII))
+		#if ((REALIZATION == TDFII) || (REALIZATION == TDDFII))
 			y[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
 		#endif
 
 		/* cascade direct form I realization (or delta cascade) */
 		#if ((REALIZATION == CDFI) || (REALIZATION == CDDFI))
-			assert((Nw % 3) == 0 && a_cascade_size == b_cascade_size);
+			assert((Nw % 3) == 0 && ds.a_size == ds.b_size); //Necessary for this implementation of cascade filters
 			xk = x[i];
-			for (j = 0; j < a_cascade_size; j += 3) {
+			for (j = 0; j < Nw; j += 3) {
 				aptr = &ac_fxp[j];
 				bptr = &bc_fxp[j];
 				xptr = &xaux[j];
@@ -155,10 +166,11 @@ int verify_overflow(void) {
 
 		/* cascade direct form II realization (or delta cascade) */
 		#if ((REALIZATION == CDFII) || (REALIZATION == CDDFII))
-			assert((Nw % 3) == 0 && a_cascade_size == b_cascade_size);
-			for (j = 0; j < a_cascade_size; j += 3) {
-				aptr = &ac_fxp[j];
-				bptr = &bc_fxp[j];
+			assert((Nw % 3) == 0 && ds.a_size == ds.b_size); //Necessary for this implementation of cascade filters
+			xk = x[i];
+			for (j = 0; j < Nw; j += 3) {
+				aptr = &a_fxp[j];
+				bptr = &b_fxp[j];
 				wptr = &waux[j];
 				shiftR(0, wptr, 3);
 				y[i] = fxp_direct_form_2(wptr, xk, aptr, bptr, 3, 3);
@@ -168,17 +180,46 @@ int verify_overflow(void) {
 
 		/* cascade transposed direct form II realization (or delta cascade) */
 		#if ((REALIZATION == CTDFII) || (REALIZATION == CTDDFII))
-			assert((Nw % 3) == 0 && a_cascade_size == b_cascade_size);
+			assert((Nw % 3) == 0 && ds.a_size == ds.b_size); //Necessary for this implementation of cascade filters
 			xk = x[i];
-			for (j = 0; j < a_cascade_size; j += 3) {
-				aptr = &ac_fxp[j];
-				bptr = &bc_fxp[j];
+			for (j = 0; j < Nw; j += 3) {
+				aptr = &a_fxp[j];
+				bptr = &b_fxp[j];
 				wptr = &waux[j];
 				y[i] = fxp_transposed_direct_form_2(wptr, xk, aptr, bptr, 3, 3);
 				xk = y[i];
 			}
 		#endif
 
+		/* verify if previous states of y repeats (method 2) */
+		#if ((REALIZATION == DFI) || (REALIZATION == CDFI) || (REALIZATION == DDFI) || (REALIZATION == CDDFI) )
+			for (j = ds.a_size - 1; j >= 0; --j) {
+				if (yaux[j] == y0[j]) {
+					++count;
+				}
+				if (yaux[j] != 0) {
+					++notzeros;
+				}
+			}
+			if (notzeros != 0) {
+				assert(count < ds.a_size);
+			}
+		#else
+			for (j = Nw - 1; j >= 0; --j) {
+				if (waux[j] == w0[j]) {
+					++count;
+				}
+				if (waux[j] != 0) {
+					++notzeros;
+				}
+			}
+			if (notzeros != 0) {
+				assert(count < Nw);
+			}
+		#endif
+
+		count = 0;
+		notzeros = 0;
 	}
 	return 0;
 }
