@@ -35,7 +35,7 @@ int verify_stability(void){
 	#elif ((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
 		double da[ds.a_size];
 		/* generate delta coefficients using a instrinsic function */
-		__DSVERIFIER_generate_delta_coefficients(ds.a, da, impl.delta);
+		generate_delta_coefficients(ds.a, da, a.size, impl.delta);
 		/* check stability using delta domain (intrinsic function) */
 		assert(__DSVERIFIER_check_delta_stability(da, ds.sample_time, impl.int_bits, impl.frac_bits));
 		exit(1);

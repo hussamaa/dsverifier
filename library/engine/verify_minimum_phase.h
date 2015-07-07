@@ -15,8 +15,6 @@
  *
  * For DELTA: Currently, It is used delta criteria.
  *
- * For UNCERTAINTY: Not supportable yet
- *
  * ------------------------------------------------------
 */
 
