@@ -1,83 +1,76 @@
 /**
- * @file fxp.h
- * @brief This file contains the common definitions and declarations of the
+ * DSVerifier - Digital Systems Verifier
+ *
+ * Federal University of Amazonas - UFAM
+ *
+ * Authors:       Hussama Ismail <hussamaismail@gmail.com>
+ *                Iury Bessa     <iury.bessa@gmail.com>
+ *                Renato Abreu   <renatobabreu@yahoo.com.br>
+ *
+ * ------------------------------------------------------
+ *
+ * brief This file contains the common definitions and declarations of the
  * fixed point arithmetic library.
  * The data types and fixed point arithmetic were based on an 32bit word
  * architecture and uses integer only arithmetic. Most of the functions assume
  * two's complement signed representation.
  * The number of bits for precision is set to 8 by default. Define
  * impl.frac_bits before including this file for a different value
- */
+ *
+ * ------------------------------------------------------
+*/
 
 #include <assert.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "verificationfxp.h"
+#include "definitions.h"
 
-/* OVERFLOW MODE */
-#define DETECT_OVERFLOW			1
+/* overflow mode */
+#define DETECT_OVERFLOW		1
 #define SATURATE			2
 #define WRAPAROUND			3
 
 extern implementation impl;
 
-/**
- * Definition of fixed point width
- */
+/** definition of fixed point width */
 #ifndef FXP_WIDTH
 	#define FXP_WIDTH		32
 #endif
 
-/**
- * Fixed point type definition for signed variables 32-bits
- */
+/** fixed point type definition for signed variables 32-bits */
 typedef int32_t fxp32_t;
 
-/**
- * Fixed point type definition for signed variables 64-bits
- */
+/** fixed point type definition for signed variables 64-bits */
 typedef int64_t fxp64_t;
 
-/**
- * Fixed point type definition for unsigned variables.
- */
+/** fixed point type definition for unsigned variables */
 typedef uint32_t ufxp32_t;
 
 #ifndef MINIMUM_PHASE
 	#define MINIMUM_PHASE 5
 #endif
 
-/**
- * Some useful fixed point constants definitions.
- */
+/** some useful fixed point constants definitions */
 fxp32_t _fxp_one;
 fxp32_t _fxp_half;
 fxp32_t _fxp_minus_one;
 fxp32_t _fxp_min;
 fxp32_t _fxp_max;
 
-/**
- * Fractional part bit mask
- */
+/** fractional part bit mask */
 fxp32_t _fxp_fmask;
 
-/**
- * Integer part bit mask
- */
+/** integer part bit mask */
 fxp32_t _fxp_imask;
 
-/**
- * Scale factor for fixed-point - float conversion
- */
+/** scale factor for fixed-point - float conversion */
 static const double scale_factor[31] = { 1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0,
 		128.0, 256.0, 512.0, 1024.0, 2048.0, 4096.0, 8192.0, 16384.0, 32768.0,
 		65536.0, 131072.0, 262144.0, 524288.0, 1048576.0, 2097152.0, 4194304.0,
 		8388608.0, 16777216.0, 33554432.0, 67108864.0, 134217728.0,
 		268435456.0, 536870912.0, 1073741824.0 };
 
-/**
- * Scale factor for fixed-point - float conversion (reciprocal)
- */
+/** scale factor for fixed-point - float conversion (reciprocal) */
 static const double scale_factor_inv[31] = { 1.0, 0.5, 0.25, 0.125, 0.0625,
 		0.03125, 0.015625, 0.0078125, 0.00390625, 0.001953125, 0.0009765625,
 		0.00048828125, 0.000244140625, 0.0001220703125, 0.00006103515625,
@@ -147,30 +140,11 @@ fxp32_t fxp_get_frac_part(fxp32_t in) {
 	return ((in < 0) ? -((-in) & _fxp_fmask) : in & _fxp_fmask);
 }
 
-///**
-// * Function to round
-// * @param Value to round
-// * @return Rounded fixed point value value
-// */
-//fxp32_t
-//fxp_to_int(int64_t fxp) {
-//
-//    /* Round to nearest integer */
-//	if(fxp >= 0)
-//		fxp += _fxp_half;
-//	else
-//		fxp -= _fxp_half;
-//
-//    fxp >>= impl.frac_bits;
-//    return (fxp32_t) fxp;
-//}
-
 /**
  * Helper function to check and apply quantization effects.
  * @param aquant
  * @return quantized value
  */
-
 float fxp_to_float(fxp32_t fxp);
 
 fxp32_t fxp_quant(int64_t aquant) {
@@ -234,7 +208,6 @@ int fxp_to_int(fxp32_t fxp) {
  * @param f to float number to be converted
  * @return fixed point representation of input.
  */
-
 fxp32_t fxp_float_to_fxp(float f) {
 
 	int64_t tmp;
@@ -244,9 +217,7 @@ fxp32_t fxp_float_to_fxp(float f) {
 
 	ftemp = f*scale_factor[impl.frac_bits];
 
-   //f *= scale_factor[impl.frac_bits];
-
-	if(f >= 0) {
+    if(f >= 0) {
 		tmp = (int64_t)(ftemp + 0.5);
 	}
 	else {
@@ -264,8 +235,6 @@ fxp32_t fxp_double_to_fxp(double f) {
 	f=f;
 
 	ftemp = f*scale_factor[impl.frac_bits];
-
-   //f *= scale_factor[impl.frac_bits];
 
 	if(f >= 0) {
 		tmp = (int64_t)(ftemp + 0.5);

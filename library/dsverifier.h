@@ -1,17 +1,17 @@
 /**
-# DSVerifier - Digital Systems Verifier (Main)
-#
-#                Federal University of Amazonas - UFAM
-#
-# Authors:       Hussama Ismail <hussamaismail@gmail.com>
-#                Iury Bessa     <iury.bessa@gmail.com>
-#                Renato Abreu   <renatobabreu@yahoo.com.br>
-#				 
-# ------------------------------------------------------
-#
-# Main Class
-#
-# ------------------------------------------------------
+ * DSVerifier - Digital Systems Verifier (Main)
+ *
+ * Federal University of Amazonas - UFAM
+ *
+ * Authors:       Hussama Ismail <hussamaismail@gmail.com>
+ *                Iury Bessa     <iury.bessa@gmail.com>
+ *                Renato Abreu   <renatobabreu@yahoo.com.br>
+ *
+ * ------------------------------------------------------
+ *
+ * Main Class
+ *
+ * ------------------------------------------------------
 */
 
 #include "engine/verify_stability_closedloop.h"

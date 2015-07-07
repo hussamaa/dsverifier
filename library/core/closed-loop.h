@@ -1,16 +1,21 @@
 /**
-* Dynamical systems TF and polynomial operations lib
-*         
-* Authors:	Iury Bessa <iury.bessa@gmail.com>
-*			Hussama Ismail <hussamaismail@gmail.com>
-*	  	    
-* ------------------------------------------------------
-* 
-* Version 0.1 - Include polynomial basic operations (sum and multiplication) - 15/12/2014
-* Version 0.2 - Closed-loop transfer function (series and feedback compensation) - 17/03/2014
-* Version 1.0 - Include sensitivity function, allowing the disturbance analisys  - 17/03/2014
-*
-*/ 
+ * DSVerifier - Digital Systems Verifier (Main)
+ *
+ * Federal University of Amazonas - UFAM
+ *
+ * Dynamical systems TF and polynomial operations lib
+ *
+ * Authors:	Iury Bessa     <iury.bessa@gmail.com>
+ *			Hussama Ismail <hussamaismail@gmail.com>
+ *
+ * ------------------------------------------------------
+ *
+ * Version 0.1 - Include polynomial basic operations (sum and multiplication) - 15/12/2014
+ * Version 0.2 - Closed-loop transfer function (series and feedback compensation) - 17/03/2014
+ * Version 1.0 - Include sensitivity function, allowing the disturbance analisys  - 17/03/2014
+ *
+ * ------------------------------------------------------
+*/
 
 #include <stdio.h>
 #include <stdint.h>

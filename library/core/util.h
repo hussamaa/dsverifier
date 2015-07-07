@@ -1,17 +1,17 @@
 /**
-# DSVerifier - Digital Systems Verifier
-#
-#                Federal University of Amazonas - UFAM
-#
-# Authors:       Hussama Ismail <hussamaismail@gmail.com>
-#                Iury Bessa     <iury.bessa@gmail.com>
-#                Renato Abreu   <renatobabreu@yahoo.com.br>
-#
-# ------------------------------------------------------
-#
-# Util functions for DSVerifier
-#
-# ------------------------------------------------------
+ * DSVerifier - Digital Systems Verifier
+ *
+ * Federal University of Amazonas - UFAM
+ *
+ * Authors:       Hussama Ismail <hussamaismail@gmail.com>
+ *                Iury Bessa     <iury.bessa@gmail.com>
+ *                Renato Abreu   <renatobabreu@yahoo.com.br>
+ *
+ * ------------------------------------------------------
+ *
+ * util functions for DSVerifier
+ *
+ * ------------------------------------------------------
 */
 
 #include <stdio.h>
