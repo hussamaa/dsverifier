@@ -22,6 +22,7 @@ int verify_zero_input_limit_cycle(void){
 
 	int i;
 	int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;
+	printf("X_SIZE must be at least 2 * ds.a_size");
 	assert(X_SIZE_VALUE >= Set_xsize_at_least_two_times_Na);
 
 	/* check the realization */
@@ -93,8 +94,9 @@ int verify_zero_input_limit_cycle(void){
 	#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
 		Nw = a_cascade_size > b_cascade_size ? a_cascade_size : b_cascade_size;
 	#else
-		ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
+		Nw = ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
 	#endif
+	assert(Nw != 0);
 
 	fxp32_t yaux[ds.a_size];
 	fxp32_t xaux[ds.b_size];
@@ -104,7 +106,7 @@ int verify_zero_input_limit_cycle(void){
 	fxp32_t w0[Nw];
 
 	for (i = 0; i < ds.a_size; ++i) {
-		#if REALIZATION == DIRECTFORMI || REALIZATION == DIRECTFORMICASCADE || REALIZATION == DIRECTFORMIPARALLEL || REALIZATION == DELTADIRECTFORMI || REALIZATION == DELTADIRECTFORMICASCADE
+		#if (REALIZATION == DFI || REALIZATION == CDFI || REALIZATION == DDFI || REALIZATION == CDDFI)
 			yaux[i] = nondet_int();
 			__ESBMC_assume(yaux[i] >= min_fxp && yaux[i] <= max_fxp);
 			y0[i] = yaux[i]; /* stores initial value for later comparison */
