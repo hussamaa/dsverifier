@@ -59,16 +59,16 @@
 
 /** Check Required Parameters */
 #ifndef PROPERTY
-	#define PROPERTY 				0
+	#define PROPERTY 						0
 #endif
 #ifndef REALIZATION
-	#define REALIZATION 			0
+	#define REALIZATION 					0
 #endif
 #ifndef X_SIZE
-	#define X_SIZE 					0
+	#define X_SIZE 							0
 #endif
 #ifndef EXPECTED_ERROR
-	#define EXPECTED_ERROR 			-1
+	#define EXPECTED_ERROR 					-1
 #endif
 
 /* processor parameters (OBSOLETE) */

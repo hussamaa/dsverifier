@@ -24,6 +24,7 @@
 #include "core/closed-loop.h"
 
 #include "engine/verify_overflow.h"
+#include "engine/verify_limit_cycle.h"
 #include "engine/verify_zero_input_limit_cycle.h"
 #include "engine/verify_timing.h"
 #include "engine/verify_stability.h"
@@ -49,6 +50,9 @@ int main(){
 
 	if (PROPERTY == OVERFLOW){
 		call_verification_task(&verify_overflow);
+	}
+	if (PROPERTY == LIMIT_CYCLE){
+		call_verification_task(&verify_limit_cycle);
 	}
 	if (PROPERTY == ZERO_INPUT_LIMIT_CYCLE){
 		call_verification_task(&verify_zero_input_limit_cycle);
@@ -144,7 +148,7 @@ void validate(){
 		printf("***************************************************************************************\n");
 		__DSVERIFIER_assert(0);
 	}
-	if ((PROPERTY == OVERFLOW) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)){
+	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)){
 		if (X_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* It is necessary to set a X_SIZE to use this property in DSVerifier (use: -DX_SIZE=VALUE) *\n");

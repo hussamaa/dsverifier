@@ -3,13 +3,10 @@
  *
  * Federal University of Amazonas - UFAM
  *
- * Authors:       Renato Abreu   <renatobabreu@yahoo.com.br>
- *				 Iury Bessa     <iury.bessa@gmail.com>
- *                Hussama Ismail <hussamaismail@gmail.com>
  * ------------------------------------------------------
- *
- * For UNCERTAINTY: Not supportable yet
- *
+ * Authors:       Renato Abreu   <renatobabreu@yahoo.com.br>
+ *				  Iury Bessa     <iury.bessa@gmail.com>
+ *                Hussama Ismail <hussamaismail@gmail.com>
  * ------------------------------------------------------
 */
 
