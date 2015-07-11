@@ -57,7 +57,9 @@ int verify_limit_cycle(void){
 	fxp32_t y0[ds.a_size];
 
 	for (i = 0; i < ds.a_size; ++i) {
-		yaux[i] = 0;
+		yaux[i] = nondet_int();
+		__ESBMC_assume(yaux[i] >= min_fxp && yaux[i] <= max_fxp);
+		y0[i] = yaux[i]; /* stores initial value for later comparison */
 	}
 
 	for (i = 0; i < ds.b_size; ++i) {
@@ -66,7 +68,7 @@ int verify_limit_cycle(void){
 
 	int j;
 	int count = 0;
-	int notzeros = 0;
+	int not_nondet_constant_input = 0;
 	int window = 2; /* window size */
 
 	fxp32_t xk;
@@ -80,13 +82,28 @@ int verify_limit_cycle(void){
 		y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
 		shiftL(y[i],yaux,ds.a_size);
 
+		for (j = ds.a_size - 1; j>=0; --j) {
+			if (yaux[j] == y0[j]) {
+				++count;
+			}
+			if (yaux[j] != not_nondet_constant_input) {
+				++not_nondet_constant_input;
+			}
+		}
+		if (not_nondet_constant_input != 0) {
+			assert(count < ds.a_size);
+		}
+
+		count = 0;
+		not_nondet_constant_input = 0;
+
 	}
 
-	/* find windows */
-	for(i=0; i<X_SIZE_VALUE; i = i+window){
-		/* size 2 */
-		__DSVERIFIER_assert(!(y[i] == y[i+window]));
-	}
+//	/* find windows */
+//	for(i=0; i<X_SIZE_VALUE; i = i+window){
+//		/* size 2 */
+//		__DSVERIFIER_assert(!(y[i] == y[i+window]));
+//	}
 
 	return 0;
 }
