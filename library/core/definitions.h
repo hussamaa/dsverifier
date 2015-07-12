@@ -91,6 +91,9 @@ int OVERFLOW_MODE = 1; 						/* DETECT_OVERFLOW */
 	#define CONNECTION_MODE					0
 #endif
 
+/* device model */
+#define MSP430								1
+
 /* digital system structure */
 typedef struct {
   double a[100];
@@ -112,3 +115,9 @@ typedef struct {
    double delta;
    int scale;
 } implementation;
+
+typedef struct {
+  long clock;
+  int device;
+  double cycle;
+} hardware;

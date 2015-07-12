@@ -35,6 +35,7 @@ extern digital_system ds;
 extern digital_system plant;
 extern digital_system control;
 extern implementation impl;
+extern hardware hw;
 
 void init();
 void validate();
@@ -148,7 +149,7 @@ void validate(){
 		printf("***************************************************************************************\n");
 		__DSVERIFIER_assert(0);
 	}
-	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)){
+	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) || (PROPERTY == TIMING)){
 		if (X_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* It is necessary to set a X_SIZE to use this property in DSVerifier (use: -DX_SIZE=VALUE) *\n");
@@ -170,6 +171,29 @@ void validate(){
 			printf("* You need to inform the maximum expected error (use: -DEXPECTED_ERROR) *\n");
 			printf("*************************************************************************\n");
 			__DSVERIFIER_assert(0);
+		}
+	}
+	if (PROPERTY == TIMING){
+		if (PROPERTY == TIMING){
+			if (hw.clock == 0l){
+				printf("\n\n***************************\n");
+				printf("* Clock could not be zero *\n");
+				printf("***************************\n");
+				__DSVERIFIER_assert(0);
+			}
+			hw.cycle = ((double) 1.0 / hw.clock);
+			if (hw.cycle < 0){
+				printf("\n\n*********************************************\n");
+				printf("* The cycle time could not be representable *\n");
+				printf("*********************************************\n");
+				__DSVERIFIER_assert(0);
+			}
+			if (ds.sample_time == 0){
+				printf("\n\n*****************************************************************************\n");
+				printf("* You need to inform the sample time of the digital system (ds.sample_time) *\n");
+				printf("*****************************************************************************\n");
+				__DSVERIFIER_assert(0);
+			}
 		}
 	}
 }

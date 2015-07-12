@@ -83,15 +83,14 @@ int verify_timing(void) {
 
 	int j;
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
-
 		/* direct form I realization */
 		#if (REALIZATION == DFI)
 			shiftL(x[i], xaux, ds.b_size);
-			y[i] = iirIItOutTime_double(yaux, xaux[i], ds.a, ds.b, ds.a_size, ds.b_size);
+			y[i] = double_direct_form_1_MSP430(yaux, xaux, ds.a, ds.b, ds.a_size, ds.b_size);
 			shiftL(y[i], yaux, ds.a_size);
 		#elif (REALIZATION == DDFI)
 			shiftL(x[i], xaux, ds.b_size);
-			y[i] = iirIItOutTime_double(yaux, xaux[i], da, db, ds.a_size, ds.b_size);
+			y[i] = double_direct_form_1_MSP430(yaux, xaux, da, db, ds.a_size, ds.b_size);
 			shiftL(y[i], yaux, ds.a_size);
 		#endif
 
