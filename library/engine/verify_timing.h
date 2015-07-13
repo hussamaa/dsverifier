@@ -97,17 +97,17 @@ int verify_timing(void) {
 		/* direct form II realization */
 		#if (REALIZATION == DFII)
 			shiftR(0, waux, Nw);
-			y[i] = iirIItOutTime_double(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
+			y[i] = double_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
 		#elif (REALIZATION == DDFII)
 			shiftR(0, waux, Nw);
-			y[i] = iirIItOutTime_double(waux, x[i], da, db, ds.a_size, ds.b_size);
+			y[i] = double_direct_form_2_MSP430(waux, x[i], da, db, ds.a_size, ds.b_size);
 		#endif
 
 		/* transposed direct form II realization */
 		#if (REALIZATION == TRANSPOSEDDIRECTFORMII)
-			y[i] = iirIItOutTime_double(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
+			y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
 		#elif (REALIZATION == TDDFII)
-			y[i] = iirIItOutTime_double(waux, x[i], da, db, ds.a_size, ds.b_size);
+			y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], da, db, ds.a_size, ds.b_size);
 		#endif
 
 		/* cascade direct form I realization (or delta cascade) */
@@ -120,7 +120,7 @@ int verify_timing(void) {
 				xptr = &xaux[j];
 				yptr = &yaux[j];
 				shiftL(xk, xptr, 3);
-				y[i] = iirOutTime_double(yptr, xptr, aptr, bptr, 3, 3);
+				y[i] = double_direct_form_1_MSP430(yptr, xptr, aptr, bptr, 3, 3);
 				shiftL(y[i], yptr, 3);
 				xk = y[i];
 			}
@@ -135,7 +135,7 @@ int verify_timing(void) {
 				bptr = &b_cascade[j];
 				wptr = &waux[j];
 				shiftR(0, wptr, 3);
-				y[i] = iirIIOutTime_double(wptr, xk, aptr, bptr, 3, 3);
+				y[i] = double_direct_form_2_MSP430(wptr, xk, aptr, bptr, 3, 3);
 				xk = y[i];
 			}
 		#endif
@@ -148,7 +148,7 @@ int verify_timing(void) {
 				aptr = &a_cascade[j];
 				bptr = &b_cascade[j];
 				wptr = &waux[j];
-				y[i] = iirIItOutTime_double(wptr, xk, aptr, bptr, 3, 3);
+				y[i] = double_transposed_direct_form_2_MSP430(wptr, xk, aptr, bptr, 3, 3);
 				xk = y[i];
 			}
 		#endif
