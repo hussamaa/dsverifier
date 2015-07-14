@@ -50,12 +50,13 @@
 #define OVERFLOW 							1
 #define ZERO_INPUT_LIMIT_CYCLE				2
 #define LIMIT_CYCLE 						3
-#define TIMING 								4
-#define ERROR								5
-#define STABILITY 							6
-#define MINIMUM_PHASE 						7
-#define STABILITY_CLOSED_LOOP				8
-#define LIMIT_CYCLE_CLOSED_LOOP				9
+#define TIMING_MSP430						4
+#define TIMING      						5
+#define ERROR								6
+#define STABILITY 							7
+#define MINIMUM_PHASE 						8
+#define STABILITY_CLOSED_LOOP				9
+#define LIMIT_CYCLE_CLOSED_LOOP				10
 
 /** Check Required Parameters */
 #ifndef PROPERTY
@@ -116,8 +117,25 @@ typedef struct {
    int scale;
 } implementation;
 
+/* assembly structure */
 typedef struct {
-  long clock;
-  int device;
-  double cycle;
+   int push;
+   int mov;
+   int jmp;
+   int clt;
+   int load;
+   int add;
+   int mov;
+   int asr;
+   int lpm;
+   int pop;
+   int ret;
+} instructions;
+
+/* hardware structure */
+typedef struct {
+   long clock;
+   int device;
+   double cycle;
+   instructions assembly;
 } hardware;

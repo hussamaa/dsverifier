@@ -26,7 +26,8 @@
 #include "engine/verify_overflow.h"
 #include "engine/verify_limit_cycle.h"
 #include "engine/verify_zero_input_limit_cycle.h"
-#include "engine/verify_timing.h"
+#include "engine/verify_generic_timing.h"
+#include "engine/verify_timing_msp430.h"
 #include "engine/verify_stability.h"
 #include "engine/verify_minimum_phase.h"
 #include "engine/verify_stability_closedloop.h"
@@ -58,8 +59,11 @@ int main(){
 	if (PROPERTY == ZERO_INPUT_LIMIT_CYCLE){
 		call_verification_task(&verify_zero_input_limit_cycle);
 	}
+	if (PROPERTY == TIMING_MSP430){
+		call_verification_task(&verify_timing_msp_430);
+	}
 	if (PROPERTY == TIMING){
-		call_verification_task(&verify_timing);
+		call_verification_task(&verify_generic_timing);
 	}
 	if (PROPERTY == STABILITY){
 		call_verification_task(&verify_stability);
@@ -149,7 +153,7 @@ void validate(){
 		printf("***************************************************************************************\n");
 		__DSVERIFIER_assert(0);
 	}
-	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) || (PROPERTY == TIMING)){
+	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) || (PROPERTY == TIMING_MSP430 || PROPERTY == TIMING)){
 		if (X_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* It is necessary to set a X_SIZE to use this property in DSVerifier (use: -DX_SIZE=VALUE) *\n");
@@ -173,8 +177,8 @@ void validate(){
 			__DSVERIFIER_assert(0);
 		}
 	}
-	if (PROPERTY == TIMING){
-		if (PROPERTY == TIMING){
+	if (PROPERTY == TIMING_MSP430 || PROPERTY == TIMING){
+		if (PROPERTY == TIMING || PROPERTY == TIMING_MSP430){
 			if (hw.clock == 0l){
 				printf("\n\n***************************\n");
 				printf("* Clock could not be zero *\n");

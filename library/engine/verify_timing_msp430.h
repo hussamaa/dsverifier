@@ -19,7 +19,7 @@ float nondet_float();
 extern digital_system ds;
 extern implementation impl;
 
-int verify_timing(void) {
+int verify_timing_msp_430(void) {
 
 	/* enable wraparound */
 	OVERFLOW_MODE = 3;
@@ -104,7 +104,7 @@ int verify_timing(void) {
 		#endif
 
 		/* transposed direct form II realization */
-		#if (REALIZATION == TRANSPOSEDDIRECTFORMII)
+		#if (REALIZATION == TDFII)
 			y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
 		#elif (REALIZATION == TDDFII)
 			y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], da, db, ds.a_size, ds.b_size);
