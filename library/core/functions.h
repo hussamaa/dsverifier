@@ -19,7 +19,7 @@
 extern int generic_timer;
 extern hardware hw;
 
-double generic_timing_shift_l_Double(double zIn, double z[], int N) {
+double generic_timing_shift_l_double(double zIn, double z[], int N) {
 
 	generic_timer += (4 * hw.assembly.mov) + (2 * hw.assembly.push);
 

@@ -130,6 +130,10 @@ typedef struct {
    int lpm;
    int pop;
    int ret;
+   int mul;
+   int sub;
+   int _xor;
+   int cp;
 } instructions;
 
 /* hardware structure */

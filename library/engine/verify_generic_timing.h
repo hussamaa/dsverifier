@@ -62,9 +62,9 @@ int verify_generic_timing(void) {
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
 		/* direct form I realization */
 		#if (REALIZATION == DFI || REALIZATION == DDFI)
-			shiftL(x[i], xaux, ds.b_size);
-//			y[i] = double_direct_form_1_MSP430(yaux, xaux, ds.a, ds.b, ds.a_size, ds.b_size);
-//			shiftL(y[i], yaux, ds.a_size);
+			generic_timing_shift_l_double(x[i], xaux, ds.b_size);
+			y[i] = generic_timing_double_direct_form_1(yaux, xaux, ds.a, ds.b, ds.a_size, ds.b_size);
+			generic_timing_shift_l_double(y[i], yaux, ds.a_size);
 		#endif
 
 		/* direct form II realization */
@@ -78,6 +78,8 @@ int verify_generic_timing(void) {
 //			y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
 //		#endif
 
+		double spent_time = (((double) generic_timer) * hw.cycle);
+		assert(spent_time <= ds.sample_time);
 		generic_timer = 0;
 	}
 	return 0;
