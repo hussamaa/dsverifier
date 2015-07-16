@@ -120,7 +120,6 @@ typedef struct {
 /* assembly structure */
 typedef struct {
    int push;
-   int mov;
    int jmp;
    int clt;
    int load;

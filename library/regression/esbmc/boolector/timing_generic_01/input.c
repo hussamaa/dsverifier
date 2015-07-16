@@ -21,6 +21,19 @@ hardware hw = {
 	.clock = 16000000,
 	.device = MSP430,
         .assembly = {
-        	.add = 1
+        	.add = 1,
+		.push = 2,
+		.mov = 1, 
+		.jmp = 3,
+		.clt = 1,
+		.load = 3,
+		.asr = 1,
+		.lpm = 3,
+		.pop = 2,
+		.ret = 5,
+		.mul = 2,
+		.sub = 1,
+		._xor = 1,
+		.cp = 1
         }
 };
