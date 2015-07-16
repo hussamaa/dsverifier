@@ -68,10 +68,10 @@ int verify_generic_timing(void) {
 		#endif
 
 		/* direct form II realization */
-//		#if (REALIZATION == DFII || REALIZATION == DDFII)
-//			shiftR(0, waux, Nw);
-//			y[i] = double_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
-//		#endif
+		#if (REALIZATION == DFII || REALIZATION == DDFII)
+			generic_timing_shift_r_double(0, waux, Nw);
+			y[i] = double_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
+		#endif
 
 		/* transposed direct form II realization */
 //		#if (REALIZATION == TDFII || REALIZATION == TDDFII)

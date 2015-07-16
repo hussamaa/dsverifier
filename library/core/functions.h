@@ -20,25 +20,36 @@ extern int generic_timer;
 extern hardware hw;
 
 double generic_timing_shift_l_double(double zIn, double z[], int N) {
-
 	generic_timer += (4 * hw.assembly.mov) + (2 * hw.assembly.push);
-
 	int i;
 	double zOut;
 	zOut = z[0];
 	generic_timer += (3 * hw.assembly.mov);
-
 	generic_timer += ((1 * hw.assembly.mov) + (1 * hw.assembly.jmp));
 	for (i = 0; i < N - 1; i++) {
 		z[i] = z[i + 1];
 		generic_timer += ((6 * hw.assembly.mov) + (3 * hw.assembly.add) + (1 * hw.assembly.clt) + (1 * hw.assembly.lpm));
 	}
-
 	z[N - 1] = zIn;
 	generic_timer += ((4 * hw.assembly.mov) + (1 * hw.assembly.add) + (1 * hw.assembly.lpm) + (1 * hw.assembly.clt) + (1 * hw.assembly.asr));
-
 	generic_timer += ((1 * hw.assembly.mov) + (1 * hw.assembly.pop) + (1 * hw.assembly.ret));
 	return (zOut);
+}
+
+double generic_timing_shift_r_double(double zIn, double z[], int N) {
+	generic_timer += ((1 * hw.assembly.push) + (1 * hw.assembly.mov));
+	int i;
+	double zOut;
+	zOut = z[N - 1];
+	generic_timer += ((4 * hw.assembly.mov) + (1 * hw.assembly.clt) + (1 * hw.assembly.asr) + (1 * hw.assembly.add) + (1 * hw.assembly.lpm));
+	generic_timer += ((2 * hw.assembly.mov) + (1 * hw.assembly.sub) + (1 * hw.assembly.jmp));
+	for (i = N - 1; i > 0; i--) {
+		z[i] = z[i - 1];
+		generic_timer += ((7 * hw.assembly.mov) + (2 * hw.assembly.add) + (1 * hw.assembly.sub) + (1 * hw.assembly.cp) + (1 * hw.assembly.jmp) + (1 * hw.assembly.lpm) + (1 * hw.assembly.clt) + (1 * hw.assembly.asr));
+	}
+	z[0] = zIn;
+	generic_timer += ((4 * hw.assembly.mov) + (1 * hw.assembly.pop) + (1 * hw.assembly.ret));
+	return zOut;
 }
 
 fxp32_t shiftL(fxp32_t zIn, fxp32_t z[], int N) {
