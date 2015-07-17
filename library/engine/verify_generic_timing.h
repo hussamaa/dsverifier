@@ -74,9 +74,9 @@ int verify_generic_timing(void) {
 		#endif
 
 		/* transposed direct form II realization */
-//		#if (REALIZATION == TDFII || REALIZATION == TDDFII)
-//			y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
-//		#endif
+		#if (REALIZATION == TDFII || REALIZATION == TDDFII)
+			y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
+		#endif
 
 		double spent_time = (((double) generic_timer) * hw.cycle);
 		assert(spent_time <= ds.sample_time);
