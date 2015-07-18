@@ -14,9 +14,6 @@
  * ------------------------------------------------------
 */
 
-#include <stdlib.h>
-#include <assert.h>
-
 /* realizations (use: -DREALIZATION=DIRECTFORMI) */
 #define DIRECTFORMI							1
 #define DIRECTFORMII						2

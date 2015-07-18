@@ -14,9 +14,6 @@
  * ------------------------------------------------------
 */
 
-#include <stdlib.h>
-#include <assert.h>
-
 extern digital_system ds;
 extern hardware hw;
 extern int generic_timer;
