@@ -59,6 +59,7 @@ int verify_generic_timing(void) {
 	double *aptr, *bptr, *xptr, *yptr, *wptr;
 
 	int j;
+
 	generic_timer += ((2 * hw.assembly.std) + (1 * hw.assembly.rjmp));
 	double initial_timer = generic_timer;
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
@@ -74,12 +75,11 @@ int verify_generic_timing(void) {
 		#endif
 
 		/* direct form II realization */
-/*
 		#if (REALIZATION == DFII || REALIZATION == DDFII)
 			generic_timing_shift_r_double(0, waux, Nw);
-			y[i] = generic_timing_double_direct_form_2(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
+			/* y[i] = generic_timing_double_direct_form_2(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size); */
 		#endif
-*/
+
 
 		/* transposed direct form II realization */
 /*

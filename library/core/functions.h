@@ -34,23 +34,21 @@ double generic_timing_shift_l_double(double zIn, double z[], int N) {
 	return (zOut);
 }
 
-/*
 double generic_timing_shift_r_double(double zIn, double z[], int N) {
-	generic_timer += ((1 * hw.assembly.push) + (1 * hw.assembly.mov));
+	generic_timer += ((2 * hw.assembly.push) + (3 * hw.assembly.in) + (3 * hw.assembly.out) + (1 * hw.assembly.sbiw) + (1 * hw.assembly.cli) + (8 * hw.assembly.std));
 	int i;
 	double zOut;
 	zOut = z[N - 1];
-	generic_timer += ((4 * hw.assembly.mov) + (1 * hw.assembly.clt) + (1 * hw.assembly.asr) + (1 * hw.assembly.add) + (1 * hw.assembly.lpm));
-	generic_timer += ((2 * hw.assembly.mov) + (1 * hw.assembly.sub) + (1 * hw.assembly.jmp));
+	generic_timer += ((7 * hw.assembly.ldd) + (2 * hw.assembly.rol) + (2 * hw.assembly.lsl) + (2 * hw.assembly.mov) + (4 * hw.assembly.std) + (1 * hw.assembly.add) + (1 * hw.assembly.adc) + (1 * hw.assembly.ld) + (1 * hw.assembly.subi) + (1 * hw.assembly.sbci));
+	generic_timer += ((2 * hw.assembly.ldd) + (2 * hw.assembly.std) + (1 * hw.assembly.sbiw) + (1 * hw.assembly.rjmp));
 	for (i = N - 1; i > 0; i--) {
 		z[i] = z[i - 1];
-		generic_timer += ((7 * hw.assembly.mov) + (2 * hw.assembly.add) + (1 * hw.assembly.sub) + (1 * hw.assembly.cp) + (1 * hw.assembly.jmp) + (1 * hw.assembly.lpm) + (1 * hw.assembly.clt) + (1 * hw.assembly.asr));
+		generic_timer += ((15 * hw.assembly.ldd) + (4 * hw.assembly.lsl) + (4 * hw.assembly.rol) + (2 * hw.assembly.add) + (2 * hw.assembly.adc) + (4 * hw.assembly.mov) + (5 * hw.assembly.std) + (1 * hw.assembly.subi) + (1 * hw.assembly.sbci) + (1 * hw.assembly.ld) + (1 * hw.assembly.st) + (1 * hw.assembly.sbiw) + (1 * hw.assembly.cp) + (1 * hw.assembly.cpc) + (1 * hw.assembly.brlt));
 	}
 	z[0] = zIn;
-	generic_timer += ((4 * hw.assembly.mov) + (1 * hw.assembly.pop) + (1 * hw.assembly.ret));
+	generic_timer += ((10 * hw.assembly.ldd) + (5 * hw.assembly.mov) + (3 * hw.assembly.std) + (3 * hw.assembly.out) + (2 * hw.assembly.pop) + (1 * hw.assembly.ret) + (1 * hw.assembly.ret) + (1 * hw.assembly.cli) + (1 * hw.assembly.in) + (1 * hw.assembly.st) + (1 * hw.assembly.adiw));
 	return zOut;
 }
-*/
 
 fxp32_t shiftL(fxp32_t zIn, fxp32_t z[], int N) {
 	int i;
