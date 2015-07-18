@@ -119,20 +119,32 @@ typedef struct {
 
 /* assembly structure */
 typedef struct {
-   int push;
-   int jmp;
-   int clt;
-   int load;
-   int add;
-   int mov;
-   int asr;
-   int lpm;
-   int pop;
-   int ret;
-   int mul;
-   int sub;
-   int _xor;
-   int cp;
+	int push;
+	int in;
+	int sbiw;
+	int cli;
+	int out;
+	int std;
+	int ldd;
+	int subi;
+	int sbci;
+	int lsl;
+	int rol;
+	int add;
+	int adc;
+	int adiw;
+	int rjmp;
+	int mov;
+	int sbc;
+	int ld;
+	int rcall;
+	int cp;
+	int cpc;
+	int sbc;
+	int ldi;
+	int brge;
+	int pop;
+	int ret;
 } instructions;
 
 /* hardware structure */
