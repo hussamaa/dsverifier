@@ -145,6 +145,9 @@ typedef struct {
 	int brge;
 	int pop;
 	int ret;
+	int st;
+	int brlt;
+	int cpi;
 } instructions;
 
 /* hardware structure */

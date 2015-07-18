@@ -59,7 +59,13 @@ int verify_generic_timing(void) {
 	double *aptr, *bptr, *xptr, *yptr, *wptr;
 
 	int j;
+	generic_timer += ((2 * hw.assembly.std) + (1 * hw.assembly.rjmp));
+	double initial_timer = generic_timer;
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
+
+		generic_timer += ((2 * hw.assembly.ldd) + (1 * hw.assembly.adiw) + (2 * hw.assembly.std));
+		generic_timer += ((2 * hw.assembly.ldd) + (1 * hw.assembly.cpi) + (1 * hw.assembly.cpc) + (1 * hw.assembly.brlt));
+
 		/* direct form I realization */
 		#if (REALIZATION == DFI || REALIZATION == DDFI)
 			generic_timing_shift_l_double(x[i], xaux, ds.b_size);
@@ -68,19 +74,22 @@ int verify_generic_timing(void) {
 		#endif
 
 		/* direct form II realization */
+/*
 		#if (REALIZATION == DFII || REALIZATION == DDFII)
 			generic_timing_shift_r_double(0, waux, Nw);
 			y[i] = generic_timing_double_direct_form_2(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
 		#endif
+*/
 
 		/* transposed direct form II realization */
+/*
 		#if (REALIZATION == TDFII || REALIZATION == TDDFII)
 			y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
 		#endif
-
+*/
 		double spent_time = (((double) generic_timer) * hw.cycle);
 		assert(spent_time <= ds.sample_time);
-		generic_timer = 0;
+		generic_timer = initial_timer;
 	}
 	return 0;
 }

@@ -5,7 +5,7 @@ digital_system ds = {
         .a_size = 4,
         .b = { 1.0, 6.0, 1.0, 6.0 },
         .b_size = 4,
-	.sample_time = 0.00003
+	.sample_time = 0.002
 };
 
 implementation impl = {
@@ -18,22 +18,36 @@ implementation impl = {
 };
 
 hardware hw = {	
-	.clock = 16000000,
-	.device = MSP430,
+	.clock = 20000000,
         .assembly = {
-        	.add = 1,
 		.push = 2,
-		.mov = 1, 
-		.jmp = 3,
-		.clt = 1,
-		.load = 3,
-		.asr = 1,
-		.lpm = 3,
+		.in = 1,
+		.sbiw = 2,
+		.cli = 1,
+		.out = 1,
+		.std = 2,
+		.ldd = 2,
+		.subi = 1,
+		.sbci = 1,
+		.lsl = 1,
+		.rol = 1,
+		.add = 1,
+		.adc = 1,
+		.adiw = 2,
+		.rjmp = 2,
+		.mov = 1,
+		.sbc = 1,
+		.ld = 2,
+		.rcall = 4,
+		.cp = 1,
+		.cpc = 1,
+		.sbc = 1,
+		.ldi = 1,
+		.brge = 2,
 		.pop = 2,
 		.ret = 5,
-		.mul = 2,
-		.sub = 1,
-		._xor = 1,
-		.cp = 1
+		.st = 2,
+		.brlt = 2,
+		.cpi = 1   	
         }
 };

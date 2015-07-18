@@ -1,5 +1,40 @@
 #include<dsverifier.h>
 
+hardware hw = {
+	.clock = 20000000,
+	.assembly = {
+		.push = 2,
+		.in = 1,
+		.sbiw = 2,
+		.cli = 1,
+		.out = 1,
+		.std = 2,
+		.ldd = 2,
+		.subi = 1,
+		.sbci = 1,
+		.lsl = 1,
+		.rol = 1,
+		.add = 1,
+		.adc = 1,
+		.adiw = 2,
+		.rjmp = 2,
+		.mov = 1,
+		.sbc = 1,
+		.ld = 2,
+		.rcall = 4,
+		.cp = 1,
+		.cpc = 1,
+		.sbc = 1,
+		.ldi = 1,
+		.brge = 2,
+		.pop = 2,
+		.ret = 5,
+		.st = 2,
+		.brlt = 2,
+		.cpi = 1
+	}
+};
+
 #if DS_ID == 1
 
 	digital_system ds = { 
