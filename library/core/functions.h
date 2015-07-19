@@ -95,15 +95,15 @@ float shiftRfloat(float zIn, float z[], int N) {
 }
 
 double shiftRDdouble(double zIn, double z[], int N) {
-		int i;
-		double zOut;
-		zOut = z[0];
-		for (i = 0; i < N - 1; i++) {
-			z[i] = z[i + 1];
-		}
-		z[N - 1] = zIn;
-		return (zOut);
+	int i;
+	double zOut;
+	zOut = z[0];
+	for (i = 0; i < N - 1; i++) {
+		z[i] = z[i + 1];
 	}
+	z[N - 1] = zIn;
+	return (zOut);
+}
 
 double shiftRdouble(double zIn, double z[], int N) {
 	int i;
