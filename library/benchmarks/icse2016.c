@@ -1,4 +1,4 @@
-#include<dsverifier.h>
+#include "../dsverifier.h"
 
 hardware hw = {
 	.clock = 20000000,
