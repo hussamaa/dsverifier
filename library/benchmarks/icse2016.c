@@ -45,12 +45,39 @@ hardware hw = {
 		.sample_time = 0.02
 	};
 
-	#define	IMPLEMENTATION_COUNT 1
+	#define	IMPLEMENTATION_COUNT 4
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
 			.int_bits = 2,
 			.frac_bits = 14,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 2
+		implementation impl = { 
+			.int_bits = 4,
+			.frac_bits = 12,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 3
+		implementation impl = { 
+			.int_bits = 6,
+			.frac_bits = 10,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 4
+		implementation impl = { 
+			.int_bits = 8,
+			.frac_bits = 8,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -79,6 +106,24 @@ hardware hw = {
 		};
 	#endif
 
+	#if IMPLEMENTATION_ID == 2
+		implementation impl = { 
+			.int_bits = 10,
+			.frac_bits = 6,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 4
+		implementation impl = { 
+			.int_bits = 12,
+			.frac_bits = 4,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
 #endif
 
 #if DS_ID == 3
@@ -91,12 +136,39 @@ hardware hw = {
 		.sample_time = 0.02
 	};
 
-	#define	IMPLEMENTATION_COUNT 1
+	#define	IMPLEMENTATION_COUNT 4
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
 			.int_bits = 9, 
 			.frac_bits = 7,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 2
+		implementation impl = { 
+			.int_bits = 11, 
+			.frac_bits = 5,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 3
+		implementation impl = { 
+			.int_bits = 12, 
+			.frac_bits = 4,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 4
+		implementation impl = { 
+			.int_bits = 13, 
+			.frac_bits = 3,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -114,12 +186,39 @@ hardware hw = {
 		.sample_time = 0.02
 	};
 
-	#define	IMPLEMENTATION_COUNT 1
+	#define	IMPLEMENTATION_COUNT 4
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
 			.int_bits = 10,
 			.frac_bits = 6,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 2
+		implementation impl = { 
+			.int_bits = 11,
+			.frac_bits = 5,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 3
+		implementation impl = { 
+			.int_bits = 12,
+			.frac_bits = 4,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 4
+		implementation impl = { 
+			.int_bits = 13,
+			.frac_bits = 3,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -137,12 +236,39 @@ hardware hw = {
 		.sample_time = 0.001
 	};
 
-	#define	IMPLEMENTATION_COUNT 1
+	#define	IMPLEMENTATION_COUNT 4
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
 			.int_bits = 13,
 			.frac_bits = 3,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 2
+		implementation impl = { 
+			.int_bits = 14,
+			.frac_bits = 2,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 3
+		implementation impl = { 
+			.int_bits = 15,
+			.frac_bits = 1,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 4
+		implementation impl = { 
+			.int_bits = 16,
+			.frac_bits = 0,
 			.max = 1.0,
 			.min = -1.0,
 		};
