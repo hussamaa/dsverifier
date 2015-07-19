@@ -28,7 +28,7 @@ void binomial(int degree, double delta, double out[]){
    initialize_array(out, 3);
    int i;
    for(i=0; i<=degree; i++){
-	  out[degree-i] = binomial_coefficient(degree, i) * internal_pow(degree, degree-i);
+	  out[degree-i] = binomial_coefficient(degree, i) * internal_pow(delta, degree-i);
    }
 }
 
