@@ -49,8 +49,8 @@ hardware hw = {
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
-			.int_bits = 3,
-			.frac_bits = 5,
+			.int_bits = 2,
+			.frac_bits = 6,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -72,8 +72,8 @@ hardware hw = {
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
-			.int_bits = 3,
-			.frac_bits = 5,
+			.int_bits = 8,
+			.frac_bits = 0,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -95,8 +95,8 @@ hardware hw = {
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
-			.int_bits = 3,
-			.frac_bits = 5,
+			.int_bits = 8, /* needs at least 9 bits */
+			.frac_bits = 0,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -118,8 +118,8 @@ hardware hw = {
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
-			.int_bits = 3,
-			.frac_bits = 5,
+			.int_bits = 8, /* needs at least 10 bits */
+			.frac_bits = 0,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -141,8 +141,8 @@ hardware hw = {
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
-			.int_bits = 3,
-			.frac_bits = 5,
+			.int_bits = 8, /* needs at least 13 bits */
+			.frac_bits = 0,
 			.max = 1.0,
 			.min = -1.0,
 		};
