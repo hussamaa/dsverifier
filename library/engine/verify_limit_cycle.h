@@ -76,34 +76,36 @@ int verify_limit_cycle(void){
 
 	int VALOR_X = 0;
 	for(i=0; i<X_SIZE_VALUE; ++i){
-
 		/* direct form I realization */
 		shiftL(x[i],xaux,ds.b_size);
 		y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
 		shiftL(y[i],yaux,ds.a_size);
-
-		for (j = ds.a_size - 1; j>=0; --j) {
-			if (yaux[j] == y0[j]) {
-				++count;
-			}
-			if (yaux[j] != not_nondet_constant_input) {
-				++not_nondet_constant_input;
-			}
-		}
-		if (not_nondet_constant_input != 0) {
-			assert(count < ds.a_size);
-		}
-
-		count = 0;
-		not_nondet_constant_input = 0;
-
 	}
 
-//	/* find windows */
-//	for(i=0; i<X_SIZE_VALUE; i = i+window){
-//		/* size 2 */
-//		__DSVERIFIER_assert(!(y[i] == y[i+window]));
-//	}
+	/* found cycle limit */
+	int window_timer = 0;
+	int window_count = 0;
+	for (i = 2; i < X_SIZE_VALUE/2; i++){ /* check this condition */
+		int window_size = i;
+		for(j=0; j<X_SIZE_VALUE; j++){
+			if (window_timer > window_size){
+				window_timer = 0;
+				window_count = 0;
+			}
+			/* check bound of outputs */
+			int window_index = j + window_size;
+			if (window_index < X_SIZE_VALUE){
+				/* check if window occurr */
+				if (y[j] == y[window_index] && (y[j] != y[j+1])){
+					window_count++;
+					assert(!(window_count == window_size));
+				}
+			}else{
+				break;
+			}
+			window_timer++;
+		}
+	}
 
 	return 0;
 }
