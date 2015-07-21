@@ -137,7 +137,6 @@ typedef struct {
 	int rcall;
 	int cp;
 	int cpc;
-	int sbc;
 	int ldi;
 	int brge;
 	int pop;

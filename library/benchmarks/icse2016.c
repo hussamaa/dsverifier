@@ -24,7 +24,6 @@ hardware hw = {
 		.rcall = 4,
 		.cp = 1,
 		.cpc = 1,
-		.sbc = 1,
 		.ldi = 1,
 		.brge = 2,
 		.pop = 2,
