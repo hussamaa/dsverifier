@@ -82,10 +82,13 @@ int verify_limit_cycle(void){
 		shiftL(y[i],yaux,ds.a_size);
 	}
 
-	/* found cycle limit */
+	/* check if the first elements are the same, and if last repeat*/
+	__DSVERIFIER_assume((y[0] != y[X_SIZE_VALUE - 1]) && (y[X_SIZE_VALUE - 1] != y[X_SIZE_VALUE - 2]));
+
 	int window_timer = 0;
 	int window_count = 0;
-	for (i = 2; i < X_SIZE_VALUE/2; i++){ /* check this condition */
+	double previous = -1;
+	for (i = 1; i < X_SIZE_VALUE; i++){
 		int window_size = i;
 		for(j=0; j<X_SIZE_VALUE; j++){
 			if (window_timer > window_size){
@@ -96,9 +99,10 @@ int verify_limit_cycle(void){
 			int window_index = j + window_size;
 			if (window_index < X_SIZE_VALUE){
 				/* check if window occurr */
-				if (y[j] == y[window_index] && (y[j] != y[j+1])){
+				if (y[j] == y[window_index]){
 					window_count++;
-					assert(!(window_count == window_size));
+					/* window_count == window_size (the repeats occurs) */
+					__DSVERIFIER_assert(!(window_count == window_size));
 				}
 			}else{
 				break;
