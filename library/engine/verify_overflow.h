@@ -88,8 +88,8 @@ int verify_overflow(void) {
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
 		y[i] = 0;
 		x[i] = nondet_int();
-		__ESBMC_assume(x[i] >= min_fxp && x[i] <= max_fxp);	//outside limits
-		__ESBMC_assume(x[i] <= min_fxp + 2 || x[i] >= max_fxp - 2);	//inside limits
+		__DSVERIFIER_assume(x[i] >= min_fxp && x[i] <= max_fxp);	//outside limits
+		__DSVERIFIER_assume(x[i] <= min_fxp + 2 || x[i] >= max_fxp - 2);	//inside limits
 	}
 
 	int Nw = 0;

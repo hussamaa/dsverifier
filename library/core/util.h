@@ -16,7 +16,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 /** initialize an array with zeroes */
 void initialize_array(double v[], int n){

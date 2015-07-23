@@ -31,7 +31,7 @@ int verify_generic_timing(void) {
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
 		y[i] = 0;
 		x[i] = nondet_float();
-		__ESBMC_assume(x[i] >= impl.min && x[i] <= impl.max);
+		__DSVERIFIER_assume(x[i] >= impl.min && x[i] <= impl.max);
 	}
 
 	int Nw = 0;

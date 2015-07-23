@@ -22,9 +22,6 @@ int verify_limit_cycle(void){
 	printf("X_SIZE must be at least 2 * ds.a_size");
 	assert(X_SIZE_VALUE >= Set_xsize_at_least_two_times_Na);
 
-	fxp32_t a_fxp[ds.a_size];
-	fxp32_t b_fxp[ds.b_size];
-
 	/* check the realization */
 	#if	((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
 		fxp32_t a_fxp[ds.a_size];
@@ -84,7 +81,7 @@ int verify_limit_cycle(void){
 	fxp32_t x[X_SIZE_VALUE];
 
 	int nondet_constant_input = nondet_int();
-	__ESBMC_assume(nondet_constant_input >= min_fxp && nondet_constant_input <= max_fxp);
+	__DSVERIFIER_assume(nondet_constant_input >= min_fxp && nondet_constant_input <= max_fxp);
 
 	/* prepare inputs (all possibles values in dynamical range) */
 	for (i = 0; i < X_SIZE_VALUE; ++i) {

@@ -14,6 +14,14 @@
  * ------------------------------------------------------
 */
 
+/* model checkers */
+#define ESBMC 0
+#define CBMC  1
+
+#ifndef BMC
+	#define BMC	0
+#endif
+
 /* realizations (use: -DREALIZATION=DIRECTFORMI) */
 #define DIRECTFORMI							1
 #define DIRECTFORMII						2

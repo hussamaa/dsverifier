@@ -105,11 +105,11 @@ int verify_zero_input_limit_cycle(void){
 	for (i = 0; i < ds.a_size; ++i) {
 		#if (REALIZATION == DFI || REALIZATION == CDFI || REALIZATION == DDFI || REALIZATION == CDDFI)
 			yaux[i] = nondet_int();
-			__ESBMC_assume(yaux[i] >= min_fxp && yaux[i] <= max_fxp);
+			__DSVERIFIER_assume(yaux[i] >= min_fxp && yaux[i] <= max_fxp);
 			y0[i] = yaux[i]; /* stores initial value for later comparison */
 		#else
 			waux[i] = nondet_int();
-			__ESBMC_assume(waux[i] >= min_fxp && waux[i] <= max_fxp);
+			__DSVERIFIER_assume(waux[i] >= min_fxp && waux[i] <= max_fxp);
 			w0[i] = waux[i]; /* stores initial value for later comparison */
 		#endif
 	}

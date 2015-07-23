@@ -20,9 +20,9 @@ extern digital_system control;
 int verify_stability_closedloop_using_dslib(void){
 
 	/* generating closed loop for series or feedback */
-	double c_num[100] = control.b;
+	double * c_num = control.b;
 	int c_num_size = control.b_size;
-	double c_den[100] = control.a;
+	double * c_den = control.a;
 	int c_den_size = control.a_size;
 
 	/* quantizing controller coefficients */
@@ -38,9 +38,9 @@ int verify_stability_closedloop_using_dslib(void){
 	fxp_to_double_array(c_den_qtz, c_den_fxp, control.a_size);
 
 	/* getting plant coefficients */
-	double p_num[100] =  plant.b;
+	double * p_num = plant.b;
 	int p_num_size = plant.b_size;
-	double p_den[100] = plant.a;
+	double * p_den = plant.a;
 	int p_den_size = plant.a_size;
 
 	double ans_num[100];

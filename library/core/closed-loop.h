@@ -19,7 +19,6 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include <math.h>
 
 /**
  * The arrays ans_num and ans_den will receive the product respectively the numerator and denominator.

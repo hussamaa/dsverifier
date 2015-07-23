@@ -18,7 +18,14 @@
 #include <assert.h>
 
 void __DSVERIFIER_assume(_Bool expression){
-	__ESBMC_assume(expression);
+	#if  (BMC == ESBMC)
+		__ESBMC_assume(expression);
+	#elif(BMC == CBMC)
+		__CPROVER_assume(expression);
+	#else
+		printf("BMC NOT SUPPORTED")
+		assert(0);
+	#endif
 }
 
 void __DSVERIFIER_assert(_Bool expression){
