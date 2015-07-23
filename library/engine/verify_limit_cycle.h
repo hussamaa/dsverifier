@@ -92,8 +92,6 @@ int verify_limit_cycle(void){
 		x[i] = nondet_constant_input;
 	}
 
-	int Nw = ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
-
 	int Nw = 0;
 	#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
 		Nw = a_cascade_size > b_cascade_size ? a_cascade_size : b_cascade_size;
