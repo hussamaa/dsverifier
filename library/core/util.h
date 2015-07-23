@@ -149,3 +149,34 @@ void poly_mult(double a[], int Na, double b[], int Nb, double ans[], int Nans){
 		}
 	}
 }
+
+/** function to check oscillations in an array (used in limit cycle property) */
+void double_check_oscillations(double * y, int y_size){
+	/* check if the first elements are the same, and if last repeats */
+	__DSVERIFIER_assume(y[0] != y[y_size - 1]);
+	int window_timer = 0;
+	int window_count = 0;
+	int i, j;
+	for (i = 2; i < y_size; i++){
+		int window_size = i;
+		for(j=0; j<y_size; j++){
+			if (window_timer > window_size){
+				window_timer = 0;
+				window_count = 0;
+			}
+			/* check bound of outputs */
+			int window_index = j + window_size;
+			if (window_index < y_size){
+				/* check if window occurr */
+				if (y[j] == y[window_index]){
+					window_count++;
+					/* window_count == window_size (the repeats occurs) */
+					__DSVERIFIER_assert(!(window_count == window_size));
+				}
+			}else{
+				break;
+			}
+			window_timer++;
+		}
+	}
+}
