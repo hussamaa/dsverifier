@@ -148,6 +148,42 @@ int order(int Na, int Nb) {
 	return Na > Nb ? Na - 1 : Nb - 1;
 }
 
+/* verify limit_cycle oscilations in last outputs */
+void fxp_check_limit_cycle(fxp32_t y[], int y_size){
+	/* last element is the reference */
+	fxp32_t reference = y[y_size - 1];
+	int idx = 0;
+	int window_size = 1;
+	/* find window size */
+	for(idx = (y_size-2); idx >= 0; idx--){
+		if (y[idx] != reference){
+			window_size++;
+		}else{
+			break;
+		}
+	}
+	/* check if there is at least one repetition */
+	__DSVERIFIER_assume(window_size != y_size && window_size != 1);
+	printf("window_size %d\n", window_size);
+	int desired_elements = 2 * window_size;
+	int found_elements = 0;
+	/* check if final oscillations occurs */
+	for(idx = (y_size-1); idx >= 0; idx--){
+		if (idx >= (y_size-window_size-1)){
+			printf("%.0f == %.0f\n", y[idx], y[idx-window_size]);
+			int cmp_idx = idx - window_size;
+			if ((cmp_idx > 0) && (y[idx] == y[idx-window_size])){
+				found_elements = found_elements + 2;
+			}else{
+				break;
+			}
+		}
+	}
+	printf("desired_elements %d\n", desired_elements);
+	printf("found_elements %d\n", found_elements);
+	__DSVERIFIER_assert(desired_elements != found_elements);
+}
+
 /** function to check oscillations in an array (used in limit cycle property) */
 void fxp_check_oscillations(fxp32_t y[]	, int y_size){
 	/* check if the first elements are the same, and if last repeats */
