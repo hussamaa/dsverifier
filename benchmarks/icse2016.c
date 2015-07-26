@@ -46,6 +46,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 5
 
+	/* carletta's implementation */
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
 			.int_bits = 2,
@@ -81,11 +82,11 @@ hardware hw = {
 			.min = -1.0,
 		};
 	#endif
-	
+
 	#if IMPLEMENTATION_ID == 5
 		implementation impl = { 
-			.int_bits = 16,
-			.frac_bits = 0,
+			.int_bits = 10,
+			.frac_bits = 6,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -107,6 +108,16 @@ hardware hw = {
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
+			.int_bits = 6,
+			.frac_bits = 8,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	/* carletta's implementation */
+	#if IMPLEMENTATION_ID == 2
+		implementation impl = { 
 			.int_bits = 8,
 			.frac_bits = 8,
 			.max = 1.0,
@@ -114,7 +125,7 @@ hardware hw = {
 		};
 	#endif
 
-	#if IMPLEMENTATION_ID == 2
+	#if IMPLEMENTATION_ID == 3
 		implementation impl = { 
 			.int_bits = 10,
 			.frac_bits = 6,
@@ -134,8 +145,8 @@ hardware hw = {
 	
 	#if IMPLEMENTATION_ID == 5
 		implementation impl = { 
-			.int_bits = 16,
-			.frac_bits = 0,
+			.int_bits = 14,
+			.frac_bits = 2,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -157,6 +168,17 @@ hardware hw = {
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
+			.int_bits = 7, 
+			.frac_bits = 9,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+
+	/* carletta's implementation */
+	#if IMPLEMENTATION_ID == 2
+		implementation impl = { 
 			.int_bits = 9, 
 			.frac_bits = 7,
 			.max = 1.0,
@@ -164,7 +186,7 @@ hardware hw = {
 		};
 	#endif
 
-	#if IMPLEMENTATION_ID == 2
+	#if IMPLEMENTATION_ID == 3
 		implementation impl = { 
 			.int_bits = 11, 
 			.frac_bits = 5,
@@ -173,7 +195,7 @@ hardware hw = {
 		};
 	#endif
 
-	#if IMPLEMENTATION_ID == 3
+	#if IMPLEMENTATION_ID == 4
 		implementation impl = { 
 			.int_bits = 12, 
 			.frac_bits = 4,
@@ -182,7 +204,7 @@ hardware hw = {
 		};
 	#endif
 
-	#if IMPLEMENTATION_ID == 4
+	#if IMPLEMENTATION_ID == 5
 		implementation impl = { 
 			.int_bits = 13, 
 			.frac_bits = 3,
@@ -191,15 +213,6 @@ hardware hw = {
 		};
 	#endif
 	
-	#if IMPLEMENTATION_ID == 5
-		implementation impl = { 
-			.int_bits = 16, 
-			.frac_bits = 0,
-			.max = 1.0,
-			.min = -1.0,
-		};
-	#endif
-
 #endif
 
 #if DS_ID == 4
@@ -223,7 +236,17 @@ hardware hw = {
 		};
 	#endif
 
+	/* carletta's implementation */
 	#if IMPLEMENTATION_ID == 2
+		implementation impl = { 
+			.int_bits = 10,
+			.frac_bits = 6,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 3
 		implementation impl = { 
 			.int_bits = 11,
 			.frac_bits = 5,
@@ -232,7 +255,7 @@ hardware hw = {
 		};
 	#endif
 
-	#if IMPLEMENTATION_ID == 3
+	#if IMPLEMENTATION_ID == 4
 		implementation impl = { 
 			.int_bits = 12,
 			.frac_bits = 4,
@@ -241,19 +264,10 @@ hardware hw = {
 		};
 	#endif
 
-	#if IMPLEMENTATION_ID == 4
+	#if IMPLEMENTATION_ID == 5
 		implementation impl = { 
 			.int_bits = 13,
 			.frac_bits = 3,
-			.max = 1.0,
-			.min = -1.0,
-		};
-	#endif
-	
-	#if IMPLEMENTATION_ID == 5
-		implementation impl = { 
-			.int_bits = 16,
-			.frac_bits = 0,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -271,9 +285,28 @@ hardware hw = {
 		.sample_time = 0.001
 	};
 
-	#define	IMPLEMENTATION_COUNT 4
+	#define	IMPLEMENTATION_COUNT 5
 
 	#if IMPLEMENTATION_ID == 1
+		implementation impl = { 
+			.int_bits = 10,
+			.frac_bits = 6,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	#if IMPLEMENTATION_ID == 2
+		implementation impl = { 
+			.int_bits = 12,
+			.frac_bits = 6,
+			.max = 1.0,
+			.min = -1.0,
+		};
+	#endif
+
+	/* carletta's implementation */
+	#if IMPLEMENTATION_ID == 3
 		implementation impl = { 
 			.int_bits = 13,
 			.frac_bits = 3,
@@ -282,7 +315,7 @@ hardware hw = {
 		};
 	#endif
 
-	#if IMPLEMENTATION_ID == 2
+	#if IMPLEMENTATION_ID == 4
 		implementation impl = { 
 			.int_bits = 14,
 			.frac_bits = 2,
@@ -291,19 +324,10 @@ hardware hw = {
 		};
 	#endif
 
-	#if IMPLEMENTATION_ID == 3
+	#if IMPLEMENTATION_ID == 5
 		implementation impl = { 
 			.int_bits = 15,
 			.frac_bits = 1,
-			.max = 1.0,
-			.min = -1.0,
-		};
-	#endif
-
-	#if IMPLEMENTATION_ID == 4
-		implementation impl = { 
-			.int_bits = 16,
-			.frac_bits = 0,
 			.max = 1.0,
 			.min = -1.0,
 		};
