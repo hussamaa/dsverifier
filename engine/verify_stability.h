@@ -35,9 +35,11 @@ int verify_stability(void){
 	#elif ((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
 		double da[ds.a_size];
 		/* generate delta coefficients using a instrinsic function */
-		generate_delta_coefficients(ds.a, da, a.size, impl.delta);
+		generate_delta_coefficients(ds.a, da, ds.a_size, impl.delta);
 		/* check stability using delta domain (intrinsic function) */
-		assert(__DSVERIFIER_check_delta_stability(da, ds.sample_time, impl.int_bits, impl.frac_bits));
+		/* assert(__DSVERIFIER_check_delta_stability(da, ds.sample_time, impl.int_bits, impl.frac_bits)); */
+		printf("*** FUNCTION PENDING (CHECK STABILITY IN DELTA DOMAIN ***");
+		assert(0);
 		exit(1);
 	#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII)|| (REALIZATION == CTDFII))
 		double a_cascade[100];

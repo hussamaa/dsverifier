@@ -34,10 +34,14 @@ int verify_minimum_phase(void){
 		__DSVERIFIER_assert(check_stability(_b, ds.b_size));
 	#elif ((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
 		double db[ds.b_size];
-		/* generate delta coefficients using a instrinsic function */
-		__DSVERIFIER_generate_delta_coefficients(ds.b, db, impl.delta);
-		/* check stability using delta domain (intrinsic function) */
-		__DSVERIFIER_assert(__DSVERIFIER_check_delta_stability(db, DEADLINE, impl.int_bits, impl.frac_bits));
+		/* generate delta coefficients for numerator */
+		generate_delta_coefficients(ds.b, db, ds.b_size, impl.delta);
+		fxp32_t b_fxp[ds.b_size];
+		/* quantize delta numerator using fxp */
+		fxp_double_to_fxp_array(db, b_fxp, ds.b_size);
+		/* __DSVERIFIER_assert(__DSVERIFIER_check_delta_stability(db, DEADLINE, impl.int_bits, impl.frac_bits)); */
+		printf("*** FUNCTION PENDING (CHECK MINIMUM PHASE IN DELTA DOMAIN ***");
+		assert(0);
 		exit(1);
 	#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
 		double a_cascade[100];

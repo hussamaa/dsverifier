@@ -37,15 +37,15 @@ int verify_overflow(void) {
 		double da[ds.a_size];
 		double db[ds.b_size];
 		/* generate delta coefficients for denominator */
-		 __DSVERIFIER_generate_delta_coefficients(ds.a, da, impl.delta);
-		 /* generate delta coefficients for numerator */
-		 __DSVERIFIER_generate_delta_coefficients(ds.b, db, impl.delta);
-		 fxp32_t a_fxp[ds.a_size];
-		 fxp32_t b_fxp[ds.b_size];
-		 /* quantize delta denominators using fxp */
-		 fxp_double_to_fxp_array(da, a_fxp, ds.a_size);
-		 /* quantize delta numerator using fxp */
-		 fxp_double_to_fxp_array(db, b_fxp, ds.b_size);
+		generate_delta_coefficients(ds.a, da, ds.a_size, impl.delta);
+		/* generate delta coefficients for numerator */
+		generate_delta_coefficients(ds.b, db, ds.b_size, impl.delta);
+		fxp32_t a_fxp[ds.a_size];
+		fxp32_t b_fxp[ds.b_size];
+		/* quantize delta denominators using fxp */
+		fxp_double_to_fxp_array(da, a_fxp, ds.a_size);
+		/* quantize delta numerator using fxp */
+		fxp_double_to_fxp_array(db, b_fxp, ds.b_size);
 	#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
 		double a_cascade[100];
 		int a_cascade_size;
@@ -88,15 +88,15 @@ int verify_overflow(void) {
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
 		y[i] = 0;
 		x[i] = nondet_int();
-		__DSVERIFIER_assume(x[i] >= min_fxp && x[i] <= max_fxp);	//outside limits
-		__DSVERIFIER_assume(x[i] <= min_fxp + 2 || x[i] >= max_fxp - 2);	//inside limits
+		__DSVERIFIER_assume(x[i] >= min_fxp && x[i] <= max_fxp); /* outside limits */
+		__DSVERIFIER_assume(x[i] <= min_fxp + 2 || x[i] >= max_fxp - 2); /* inside limits */
 	}
 
 	int Nw = 0;
 	#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
 		Nw = a_cascade_size > b_cascade_size ? a_cascade_size : b_cascade_size;
 	#else
-		ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
+		Nw = ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
 	#endif
 
 	fxp32_t yaux[ds.a_size];

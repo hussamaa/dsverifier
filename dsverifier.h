@@ -205,54 +205,50 @@ void validate(){
 /** method to call the verification task considering or not the uncertainty for digital system (ds struct) */
 void call_verification_task(void * verification_task){
 
-	/* delta transformation don't support uncertainty */
-	if ((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII)){
-		printf("\n\n**********************************************************************************\n");
-		printf("* It is not possible to use uncertainty parameters with delta transformation yet *\n");
-		printf("**********************************************************************************\n");
-		assert(0);
-	}
-
 	/* Base case is the execution using all parameters without uncertainty */
 	_Bool base_case_executed = 0;
 
 	/* Considering uncertainty for numerator coefficients */
 	int i=0;
 	for(i=0; i<ds.b_size; i++){
-		double factor = ((ds.b[i] * ds.b_uncertainty[i]) / 100);
-		factor = factor < 0 ? factor * (-1) : factor;
+		if (ds.b_uncertainty[i] > 0){
+			double factor = ((ds.b[i] * ds.b_uncertainty[i]) / 100);
+			factor = factor < 0 ? factor * (-1) : factor;
 
-		double min = ds.b[i] - factor;
-		double max = ds.b[i] + factor;
+			double min = ds.b[i] - factor;
+			double max = ds.b[i] + factor;
 
-		/* Eliminate redundant executions  */
-		if ((factor == 0) && (base_case_executed == 1)){
-			continue;
-		}else if ((factor == 0) && (base_case_executed == 0)){
-			base_case_executed = 1;
+			/* Eliminate redundant executions  */
+			if ((factor == 0) && (base_case_executed == 1)){
+				continue;
+			}else if ((factor == 0) && (base_case_executed == 0)){
+				base_case_executed = 1;
+			}
+
+			ds.b[i] = nondet_double();
+			__DSVERIFIER_assume((ds.b[i] >= min) && (ds.b[i] <= max));
 		}
-
-		ds.b[i] = nondet_double();
-		__DSVERIFIER_assume((ds.b[i] >= min) && (ds.b[i] <= max));
 	}
 
 	 /* considering uncertainty for denominator coefficients */
 	for(i=0; i<ds.a_size; i++){
-		double factor = ((ds.a[i] * ds.a_uncertainty[i]) / 100);
-		factor = factor < 0 ? factor * (-1) : factor;
+		if (ds.a_uncertainty[i] > 0){
+			double factor = ((ds.a[i] * ds.a_uncertainty[i]) / 100);
+			factor = factor < 0 ? factor * (-1) : factor;
 
-		double min = ds.a[i] - factor;
-		double max = ds.a[i] + factor;
+			double min = ds.a[i] - factor;
+			double max = ds.a[i] + factor;
 
-		/* Eliminate redundant executions  */
-		if ((factor == 0) && (base_case_executed == 1)){
-			continue;
-		}else if ((factor == 0) && (base_case_executed == 0)){
-			base_case_executed = 1;
+			/* Eliminate redundant executions  */
+			if ((factor == 0) && (base_case_executed == 1)){
+				continue;
+			}else if ((factor == 0) && (base_case_executed == 0)){
+				base_case_executed = 1;
+			}
+
+			ds.a[i] = nondet_double();
+			__DSVERIFIER_assume((ds.a[i] >= min) && (ds.a[i] <= max));
 		}
-
-		ds.a[i] = nondet_double();
-		__DSVERIFIER_assume((ds.a[i] >= min) && (ds.a[i] <= max));
 	}
 	((void(*)())verification_task)(); /* call the verification task */
 }
@@ -260,55 +256,51 @@ void call_verification_task(void * verification_task){
 /** call the closedloop verification task */
 void call_closedloop_verification_task(void * closedloop_verification_task){
 
-	/* delta transformation doesn't support uncertainty */
-	if ((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII)){
-		printf("\n\n**********************************************************************************\n");
-		printf("* It is not possible to use uncertainty parameters with delta transformation yet *\n");
-		printf("**********************************************************************************\n");
-		__DSVERIFIER_assert(0);
-	}
-
 	/* base case is the execution using all parameters without uncertainty */
 	_Bool base_case_executed = 0;
 
 	/* considering uncertainty for numerator coefficients */
 	int i=0;
 	for(i=0; i<plant.b_size; i++){
-		double factor = ((plant.b[i] * plant.b_uncertainty[i]) / 100);
-		factor = factor < 0 ? factor * (-1) : factor;
-		double min = plant.b[i] - factor;
-		double max = plant.b[i] + factor;
+		if (plant.b_uncertainty[i] > 0){
+			double factor = ((plant.b[i] * plant.b_uncertainty[i]) / 100);
+			factor = factor < 0 ? factor * (-1) : factor;
+			double min = plant.b[i] - factor;
+			double max = plant.b[i] + factor;
 
-		/* Eliminate redundant executions  */
-		if ((factor == 0) && (base_case_executed == 1)){
-			continue;
-		}else if ((factor == 0) && (base_case_executed == 0)){
-			base_case_executed = 1;
+			/* Eliminate redundant executions  */
+			if ((factor == 0) && (base_case_executed == 1)){
+				continue;
+			}else if ((factor == 0) && (base_case_executed == 0)){
+				base_case_executed = 1;
+			}
+
+			plant.b[i] = nondet_double();
+			__DSVERIFIER_assume((plant.b[i] >= min) && (plant.b[i] <= max));
 		}
-
-		plant.b[i] = nondet_double();
-		__DSVERIFIER_assume((plant.b[i] >= min) && (plant.b[i] <= max));
 	}
 
 	/* considering uncertainty for denominator coefficients */
 	for(i=0; i<plant.a_size; i++){
-		double factor = ((plant.a[i] * plant.a_uncertainty[i]) / 100);
-		factor = factor < 0 ? factor * (-1) : factor;
+		if (plant.a_uncertainty[i] > 0){
+			double factor = ((plant.a[i] * plant.a_uncertainty[i]) / 100);
+			factor = factor < 0 ? factor * (-1) : factor;
 
-		double min = plant.a[i] - factor;
-		double max = plant.a[i] + factor;
+			double min = plant.a[i] - factor;
+			double max = plant.a[i] + factor;
 
-		/* eliminate redundant executions  */
-		if ((factor == 0) && (base_case_executed == 1)){
-			continue;
-		}else if ((factor == 0) && (base_case_executed == 0)){
-			base_case_executed = 1;
+			/* eliminate redundant executions  */
+			if ((factor == 0) && (base_case_executed == 1)){
+				continue;
+			}else if ((factor == 0) && (base_case_executed == 0)){
+				base_case_executed = 1;
+			}
+
+			plant.a[i] = nondet_double();
+			__DSVERIFIER_assume((plant.a[i] >= min) && (plant.a[i] <= max));
 		}
-
-		plant.a[i] = nondet_double();
-		__DSVERIFIER_assume((plant.a[i] >= min) && (plant.a[i] <= max));
 	}
 
 	/* call the verification task */
-	((void(*)())closedloop_verification_task)(); 
+	((void(*)())closedloop_verification_task)();
 }

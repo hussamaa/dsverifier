@@ -38,7 +38,7 @@ int verify_generic_timing(void) {
 	#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
 		Nw = a_cascade_size > b_cascade_size ? a_cascade_size : b_cascade_size;
 	#else
-		ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
+		Nw = ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
 	#endif
 
 	double yaux[ds.a_size];

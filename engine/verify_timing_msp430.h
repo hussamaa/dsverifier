@@ -21,32 +21,6 @@ extern implementation impl;
 
 int verify_timing_msp_430(void) {
 
-	/* enable wraparound */
-	OVERFLOW_MODE = 3;
-
-	#if ((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
-		double da[ds.a_size];
-		double db[ds.b_size];
-		/* generate delta coefficients for denominator */
-		__DSVERIFIER_generate_delta_coefficients(ds.a, da, impl.delta);
-		/* generate delta coefficients for numerator */
-		__DSVERIFIER_generate_delta_coefficients(ds.b, db, impl.delta);
-	#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
-		double a_cascade[100];
-		int a_cascade_size;
-		double b_cascade[100];
-		int b_cascade_size;
-		/* generate cascade controllers */
-		__DSVERIFIER_generate_cascade_controllers(&ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
-	#elif ((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
-		double a_cascade[100];
-		int a_cascade_size;
-		double b_cascade[100];
-		int b_cascade_size;
-		/* generate cascade controllers with delta */
-		__DSVERIFIER_generate_cascade_delta_controllers(&ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size, impl.delta);
-	#endif
-
 	/* prepare initial values */
 	double y[X_SIZE_VALUE];
 	double x[X_SIZE_VALUE];
@@ -61,7 +35,7 @@ int verify_timing_msp_430(void) {
 	#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
 		Nw = a_cascade_size > b_cascade_size ? a_cascade_size : b_cascade_size;
 	#else
-		ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
+		Nw = ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
 	#endif
 
 	double yaux[ds.a_size];
@@ -84,30 +58,21 @@ int verify_timing_msp_430(void) {
 	int j;
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
 		/* direct form I realization */
-		#if (REALIZATION == DFI)
+		#if (REALIZATION == DFI || REALIZATION == DDFI)
 			shiftL(x[i], xaux, ds.b_size);
 			y[i] = double_direct_form_1_MSP430(yaux, xaux, ds.a, ds.b, ds.a_size, ds.b_size);
-			shiftL(y[i], yaux, ds.a_size);
-		#elif (REALIZATION == DDFI)
-			shiftL(x[i], xaux, ds.b_size);
-			y[i] = double_direct_form_1_MSP430(yaux, xaux, da, db, ds.a_size, ds.b_size);
 			shiftL(y[i], yaux, ds.a_size);
 		#endif
 
 		/* direct form II realization */
-		#if (REALIZATION == DFII)
+		#if (REALIZATION == DFII || REALIZATION == DDFII)
 			shiftR(0, waux, Nw);
 			y[i] = double_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
-		#elif (REALIZATION == DDFII)
-			shiftR(0, waux, Nw);
-			y[i] = double_direct_form_2_MSP430(waux, x[i], da, db, ds.a_size, ds.b_size);
 		#endif
 
 		/* transposed direct form II realization */
-		#if (REALIZATION == TDFII)
+		#if (REALIZATION == TDFII || REALIZATION == TDDFII)
 			y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size, ds.b_size);
-		#elif (REALIZATION == TDDFII)
-			y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], da, db, ds.a_size, ds.b_size);
 		#endif
 
 		/* cascade direct form I realization (or delta cascade) */
