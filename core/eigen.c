@@ -60,18 +60,19 @@ mat matrix_mul(mat x, mat y)
 				r->v[i][j] += x->v[i][k] * y->v[k][j];
 	return r;
 }
- 
-mat matrix_minor(mat x, int d)
-{
-	mat m = matrix_new(x->m, x->n);
-	for (int i = 0; i < d; i++)
-		m->v[i][i] = 1;
-	for (int i = d; i < x->m; i++)
-		for (int j = d; j < x->n; j++)
-			m->v[i][j] = x->v[i][j];
-	return m;
+ */
+
+void matrix_minor(mat * x, int d, mat ** m){
+	matrix_new(x->m, x->n, m);
+	int i,j;
+	for (i = 0; i < d; i++)
+		(*m)->v[i][i] = 1;
+	for (i = d; i < x->m; i++)
+		for (j = d; j < x->n; j++)
+			(*m)->v[i][j] = x->v[i][j];
 }
- 
+
+ /*
 double *vmadd(double a[], double b[], double s, double c[], int n)
 {
 	for (int i = 0; i < n; i++)
@@ -125,11 +126,14 @@ void matrix_show(mat m)
 */ 
 void householder(mat ** m, mat ** R, mat ** Q)
 {
-	mat q[(*m)->m];
-	mat * z = (*m), z1;
-	/*for (int k = 0; k < m->n && k < m->m - 1; k++) {
-		double e[m->m], x[m->m], a;
-		z1 = matrix_minor(z, k);
+	mat * q[(*m)->m];
+	mat * z = (*m);
+	mat * z1;
+	int k;
+	for (k = 0; k < (*m)->n && k < (*m)->m - 1; k++) {
+		double e[(*m)->m], x[(*m)->m], a;
+		matrix_minor(z, k, &z1);
+/*
 		if (z != m) matrix_delete(z);
 		z = z1;
  
@@ -146,7 +150,9 @@ void householder(mat ** m, mat ** R, mat ** Q)
 		z1 = matrix_mul(q[k], z);
 		if (z != m) matrix_delete(z);
 		z = z1;
+*/
 	}
+/*
 	matrix_delete(z);
 	*Q = q[0];
 	*R = matrix_mul(q[0], m);
