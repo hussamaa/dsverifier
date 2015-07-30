@@ -209,8 +209,8 @@ int main()
 	matrix_copy(3, 3, in, &x);
 	
 	householder(&x, &R, &Q);
-/* 
 
+/* 
 	puts("Q"); matrix_show(Q);
 	puts("R"); matrix_show(R);
  
