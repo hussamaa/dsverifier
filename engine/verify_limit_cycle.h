@@ -100,14 +100,25 @@ int verify_limit_cycle(void){
 	fxp32_t xaux[ds.b_size];
 	fxp32_t waux[Nw];
 
-	for (i = 0; i < ds.a_size; ++i) {
-		yaux[i] = 0;
-	}
+	fxp32_t y0[ds.a_size];
+	fxp32_t w0[Nw];
+
+	#if (REALIZATION == DFI || REALIZATION == CDFI || REALIZATION == DDFI || REALIZATION == CDDFI)
+		for (i = 0; i < ds.a_size; ++i) {
+			yaux[i] = nondet_int();
+			__DSVERIFIER_assume(yaux[i] >= min_fxp && yaux[i] <= max_fxp);
+			y0[i] = yaux[i];
+		}
+	#else
+		for (i = 0; i < Nw; ++i) {
+			waux[i] = nondet_int();
+			__DSVERIFIER_assume(waux[i] >= min_fxp && waux[i] <= max_fxp);
+			w0[i] = waux[i];
+		}
+	#endif
+
 	for (i = 0; i < ds.b_size; ++i) {
 		xaux[i] = 0;
-	}
-	for (i = 0; i < Nw; ++i) {
-		waux[i] = 0;
 	}
 
 	fxp32_t xk, temp;
