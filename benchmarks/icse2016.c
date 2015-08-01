@@ -109,7 +109,7 @@ hardware hw = {
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
 			.int_bits = 6,
-			.frac_bits = 8,
+			.frac_bits = 10,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -229,8 +229,8 @@ hardware hw = {
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
-			.int_bits = 10,
-			.frac_bits = 6,
+			.int_bits = 8,
+			.frac_bits = 8,
 			.max = 1.0,
 			.min = -1.0,
 		};
@@ -299,7 +299,7 @@ hardware hw = {
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = { 
 			.int_bits = 12,
-			.frac_bits = 6,
+			.frac_bits = 4,
 			.max = 1.0,
 			.min = -1.0,
 		};
