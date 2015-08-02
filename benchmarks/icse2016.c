@@ -221,7 +221,7 @@ hardware hw = {
 		.b = { 135.0, -260.0, 125.0 },
 		.b_size = 3,
 		.a = { 1.0, -1.0 },
-		.a_size = 1,
+		.a_size = 2,
 		.sample_time = 0.02
 	};
 
