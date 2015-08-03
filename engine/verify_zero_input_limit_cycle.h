@@ -213,6 +213,7 @@ int verify_zero_input_limit_cycle(void){
 				}
 			}
 			if (notzeros != 0) {
+				printf("NAAAAAAAAAAO %f", notzeros);
 				assert(count < Nw);
 			}
 		#endif

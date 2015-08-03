@@ -215,3 +215,13 @@ void double_check_limit_cycle(double * y, int y_size){
 	printf("found_elements %d\n", found_elements);
 	__DSVERIFIER_assert(desired_elements != found_elements);
 }
+
+/* print array elements */
+void print_array_elements(char * name, double * v, int n){
+   printf("%s = {", name);
+   int i;
+   for(i=0; i < n; i++){
+      printf(" %.32f ", v[i]);
+   }
+   printf("}\n");
+}

@@ -446,3 +446,13 @@ void fxp_print_float_array(fxp32_t a[], int N) {
 		printf("\n%f", fxp_to_float(a[i]));
 	}
 }
+
+/* print array elements */
+void print_fxp_array_elements(char * name, fxp32_t * v, int n){
+   printf("%s = {", name);
+   int i;
+   for(i=0; i < n; i++){
+      printf(" %d ", v[i]);
+   }
+   printf("}\n");
+}
