@@ -22,6 +22,7 @@
 #include "core/realizations.h"
 #include "core/delta-operator.h"
 #include "core/closed-loop.h"
+#include "core/initialization.h"
 
 #include "engine/verify_overflow.h"
 #include "engine/verify_limit_cycle.h"
@@ -38,8 +39,7 @@ extern digital_system control;
 extern implementation impl;
 extern hardware hw;
 
-void init();
-void validate();
+void validation();
 void call_verification_task(void * verification_task);
 void call_closedloop_verification_task(void * closedloop_verification_task);
 float nondet_float();
@@ -47,8 +47,10 @@ double nondet_double();
 
 int main(){
 
-	init();
-	validate();
+	initialization();
+	validation();
+
+	/* instrumentation step */
 
 	if (PROPERTY == OVERFLOW){
 		call_verification_task(&verify_overflow);
@@ -78,49 +80,8 @@ int main(){
 	return 0;
 }
 
-/** function to set the necessary parameters to DSVerifier FXP library */
-void init(){
-	if (impl.frac_bits >= FXP_WIDTH){
-		printf("impl.frac_bits must be less than word width!\n");
-	}
-	if (impl.int_bits >= FXP_WIDTH - impl.frac_bits){
-	   printf("impl.int_bits must be less than word width subtracted by precision!\n");
-	   assert(0);
-	}
-	if(impl.frac_bits >= 31){
-		_fxp_one = 0x7fffffff;
-	}else{
-		_fxp_one = (0x00000001 << impl.frac_bits);
-	}
-
-	_fxp_half      = (0x00000001 << (impl.frac_bits - 1));
-	_fxp_minus_one = -(0x00000001 << impl.frac_bits);
-	_fxp_min       = -(0x00000001 << (impl.frac_bits + impl.int_bits - 1));
-	_fxp_max       = (0x00000001 << (impl.frac_bits + impl.int_bits - 1)) - 1;
-	_fxp_fmask     = ((((int32_t) 1) << impl.frac_bits) - 1);
-	_fxp_imask     = ((0x80000000) >> (FXP_WIDTH - impl.frac_bits - 1));
-
-	int i = 0;
-	/* applying scale in numerator coefficients */
-	if ((impl.scale == 0) || (impl.scale == 1)){
-		impl.scale = 1;
-		return;
-	}
-	if (PROPERTY != STABILITY_CLOSED_LOOP){
-		if (ds.b_size > 0){
-			for(i = 0; i < ds.b_size; i++)
-				ds.b[i] = ds.b[i] / impl.scale;
-		}
-	}else{
-		if (control.b_size > 0){
-			for(i = 0; i < control.b_size; i++)
-				control.b[i] = control.b[i] / impl.scale;
-		}
-	}
-}
-
 /** validate the required parameters to use DSVerifier and your properties verification. */
-void validate(){
+void validation(){
 	if (impl.frac_bits > 16){
 		printf("\n\n*************************************************************************************\n");
 		printf("* Sorry, Processors with precision > 16 bits doesn't is supported by DSVerifier yet *\n");

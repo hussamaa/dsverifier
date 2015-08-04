@@ -357,3 +357,52 @@ double generic_timing_double_transposed_direct_form_2(double w[], double x, doub
 	generic_timer += ((4 * hw.assembly.ldd) + (4 * hw.assembly.mov) + (8 * hw.assembly.pop) + (3 * hw.assembly.out) + (1 * hw.assembly.in) + (1 * hw.assembly.cli) + (1 * hw.assembly.adiw) + (1 * hw.assembly.ret));
 	return yout;
 }
+
+/** direct form 1 realization (implementation 2) */
+void double_direct_form_1_impl2(double x[], int x_size, double b[], int b_size, double a[], int a_size, double y[]){
+   int i = 0; int j = 0;
+   /* system 1 h1(z) */
+   double v[x_size];
+   for(i = 0; i < x_size; i++){
+      v[i] = 0;
+      for(j = 0; j < b_size; j++){
+         if (j > i) break;
+            v[i] = v[i] + x[i-j] * b[j];
+         }
+      }
+   /* system 2 h2(z) */
+   y[0] = v[0];
+   for(i = 1; i < x_size; i++){
+      y[i] = 0;
+      y[i] = y[i] + v[i];
+      for(j = 1; j < a_size; j++){
+    	  if (j > i) break;
+    	  y[i] = y[i] + y[i-j] * ((-1) * a[j]);
+      }
+   }
+}
+
+/** fixed point direct form 1 realization (implementation 2) */
+void fxp_direct_form_1_impl2(fxp32_t x[], int x_size, fxp32_t b[], int b_size, fxp32_t a[], int a_size, fxp32_t y[]){
+   int i = 0; int j = 0;
+   /* system 1 h1(z) */
+   fxp32_t v[x_size];
+   for(i = 0; i < x_size; i++){
+      v[i] = 0;
+      for(j = 0; j < b_size; j++){
+         if (j > i) break;
+         v[i] = fxp_add(v[i], fxp_mult(x[i-j], b[j]));
+      }
+   }
+
+   /* system 2 h2(z) */
+   y[0] = 64; //v[0];
+   for(i = 1; i < x_size; i++){
+	   y[i] = 0;
+	   y[i] = fxp_add(y[i], v[i]);
+	   for(j = 1; j < a_size; j++){
+		   if (j > i) break;
+		   y[i] = fxp_add(y[i], fxp_mult(y[i-j] , -a[j]));
+	   }
+   }
+}

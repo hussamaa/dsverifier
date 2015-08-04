@@ -12,6 +12,7 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../core/fixed-point.h"
 #include "../core/realizations.h"
 #include "../core/util.h"
+#include "../core/initialization.h"
 
 digital_system ds = {
 	.b = { 1.5, -0.5 },
@@ -32,48 +33,11 @@ hardware hw = { };
 /* inputs */
 fxp32_t x[25] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  };
 int x_size = 25;
-
 int generic_timer;
-
-/** function to set the necessary parameters to DSVerifier FXP library */
-void init(){
-	if (impl.frac_bits >= FXP_WIDTH){
-		printf("impl.frac_bits must be less than word width!\n");
-	}
-	if (impl.int_bits >= FXP_WIDTH - impl.frac_bits){
-	   printf("impl.int_bits must be less than word width subtracted by precision!\n");
-	   assert(0);
-	}
-	if(impl.frac_bits >= 31){
-		_fxp_one = 0x7fffffff;
-	}else{
-		_fxp_one = (0x00000001 << impl.frac_bits);
-	}
-
-	_fxp_half      = (0x00000001 << (impl.frac_bits - 1));
-	_fxp_minus_one = -(0x00000001 << impl.frac_bits);
-	_fxp_min       = -(0x00000001 << (impl.frac_bits + impl.int_bits - 1));
-	_fxp_max       = (0x00000001 << (impl.frac_bits + impl.int_bits - 1)) - 1;
-	_fxp_fmask     = ((((int32_t) 1) << impl.frac_bits) - 1);
-	_fxp_imask     = ((0x80000000) >> (FXP_WIDTH - impl.frac_bits - 1));
-
-	int i = 0;
-	/* applying scale in numerator coefficients */
-	if ((impl.scale == 0) || (impl.scale == 1)){
-		impl.scale = 1;
-		return;
-	}
-	if (PROPERTY != STABILITY_CLOSED_LOOP){
-		if (ds.b_size > 0){
-			for(i = 0; i < ds.b_size; i++)
-				ds.b[i] = ds.b[i] / impl.scale;
-		}
-	}
-}
 
 int main(){
 	
-	init();
+	initialization();
 
 	OVERFLOW_MODE = 3;
 
@@ -106,9 +70,10 @@ int main(){
 	/* update with values found in bmc machine */
 	fxp32_t w0[Nw];
 	fxp32_t waux[Nw];
-	waux[0] = -16384;
-	w0[0] = -16384;
-	w0[1] = 123;
+	waux[0] = 0;
+	waux[1] = 0;
+	w0[0] = 0;
+	w0[1] = 0;
 
 	int i, j;
 	/* prepare outputs */
