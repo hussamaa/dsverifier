@@ -69,10 +69,11 @@ int main(){
 
 	/* update with values found in bmc machine */
 	fxp32_t xaux[ds.b_size];
-	fxp32_t yaux[ds.a_size];
-	fxp32_t y0[ds.a_size];
-	yaux[0] = 8;
-	yaux[1] = 0;
+
+	int Nw = ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
+
+	fxp32_t waux[Nw];
+	fxp32_t w0[Nw];
 
 	int i, j;
 	/* prepare outputs */
@@ -94,9 +95,8 @@ int main(){
 
 	for (i = 0; i < x_size; i++) {
 
-		shiftL(x[i],xaux,ds.b_size);
-		y_fxp[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
-		shiftL(y[i],yaux,ds.a_size);
+		shiftR(0, waux, Nw);
+		y[i] = fxp_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
 
 /* zero input limit cycle verification */
 /*
