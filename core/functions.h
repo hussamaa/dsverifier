@@ -179,9 +179,11 @@ void fxp_check_limit_cycle(fxp32_t y[], int y_size){
 			}
 		}
 	}
+	__DSVERIFIER_assume(found_elements > 0);
 	printf("desired_elements %d\n", desired_elements);
 	printf("found_elements %d\n", found_elements);
-	__DSVERIFIER_assert(desired_elements != found_elements);
+	__DSVERIFIER_assume(found_elements == desired_elements);
+	__DSVERIFIER_assert(0);
 }
 
 /** function to check oscillations in an array (used in limit cycle property) */

@@ -396,7 +396,7 @@ void fxp_direct_form_1_impl2(fxp32_t x[], int x_size, fxp32_t b[], int b_size, f
    }
 
    /* system 2 h2(z) */
-   y[0] = 64; //v[0];
+   y[0] = v[0];
    for(i = 1; i < x_size; i++){
 	   y[i] = 0;
 	   y[i] = fxp_add(y[i], v[i]);

@@ -8,6 +8,7 @@ void __DSVERIFIER_assume(_Bool expression){
 	/* nothing to do here */
 }
 
+//#include "../core/compatibility.h"
 #include "../core/definitions.h"
 #include "../core/fixed-point.h"
 #include "../core/realizations.h"
@@ -15,25 +16,26 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../core/functions.h"
 #include "../core/initialization.h"
 
-digital_system ds = {
+digital_system ds = { 
 	.b = { 2002.0, -4000.0, 1998.0 },
 	.b_size = 3,
-	.a = { 1.0, -1.0 },
-	.a_size = 2
+	.a = { 1.0, 0.0, -1.0 },
+	.a_size = 3,
+	.sample_time = 0.001
 };
 
-implementation impl = {
-	.int_bits = 10,
-	.frac_bits = 6,
+implementation impl = { 
+	.int_bits = 13,
+	.frac_bits = 3,
+	.max = 1.0,
 	.min = -1.0,
-	.max = 1.0
 };
 
 hardware hw = { };
 
 /* inputs */
-fxp32_t x[6] = { 0, 0, 0, 0, 0, 0 };
-int x_size = 6;
+fxp32_t x[10] = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+int x_size = 10;
 int generic_timer;
 
 int main(){
@@ -70,10 +72,8 @@ int main(){
 	fxp32_t xaux[ds.b_size];
 	fxp32_t yaux[ds.a_size];
 	fxp32_t y0[ds.a_size];
-	y0[0] = 64;
-	y0[1] = 64;
-	yaux[0] = 64;
-	yaux[1] = 64;
+	yaux[0] = 8;
+	yaux[1] = 0;
 
 	int i, j;
 	/* prepare outputs */
@@ -93,16 +93,13 @@ int main(){
 	int count = 0;
 	int notzeros = 0;
 
-	fxp_direct_form_1_impl2(x, x_size, b_fxp, ds.b_size, a_fxp, ds.a_size, y_fxp);
-
-	/*
 	for (i = 0; i < x_size; i++) {
 
 		shiftL(x[i],xaux,ds.b_size);
 		y_fxp[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
 		shiftL(y[i],yaux,ds.a_size);
 
-		for (j = ds.a_size - 1; j >= 0; --j) {
+	/*	for (j = ds.a_size - 1; j >= 0; --j) {
 			if (yaux[j] == y0[j]) {
 				++count;
 			}
@@ -110,19 +107,20 @@ int main(){
 				++notzeros;
 			}
 		}
+
 		if (notzeros != 0) {
 			assert(count < ds.a_size);
 		}
 
 		count = 0;
-		notzeros = 0;
+		notzeros = 0;*/
 
 	}
-	*/
 
 	printf("\noutputs: \n");
 	print_fxp_array_elements("y_fxp", y_fxp, x_size);
 	fxp_to_double_array(y, y_fxp, x_size);
 	print_array_elements("y", y, x_size);
 
+	//fxp_check_limit_cycle(y_fxp, x_size);
 }
