@@ -32,8 +32,8 @@ implementation impl = {
 hardware hw = { };
 
 /* inputs */
-fxp32_t x[25] = { 8, 8, 8, 8, 8, 8  };
-int x_size = 5;
+fxp32_t x_fxp[20] = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+int x_size = 20;
 int generic_timer;
 
 int main(){
@@ -42,8 +42,11 @@ int main(){
 
 	OVERFLOW_MODE = 3;
 
+	double x[x_size];
 	printf("inputs: \n");
-	print_fxp_array_elements("x_fxp", x, x_size);
+	fxp_to_double_array(x, x_fxp, x_size);
+	print_array_elements("x", x, x_size);
+	print_fxp_array_elements("x_fxp", x_fxp, x_size);
 
 	printf("\noriginal coefficients: \n");
 	print_array_elements("ds.b", ds.b, ds.b_size);
@@ -73,9 +76,14 @@ int main(){
 
 	/* update with values found in bmc machine */
 	fxp32_t waux[Nw];
-	waux[0] = 0;
+	waux[0] = -2;
 	waux[1] = 0;
 	waux[2] = 0;
+
+	double waux_d[Nw];
+	print_fxp_array_elements("\nwaux_fxp", waux, Nw);
+	fxp_to_double_array(waux_d, waux, Nw);
+	print_array_elements("waux", waux_d, Nw);
 
 	int i, j;
 	/* prepare outputs */
@@ -91,7 +99,7 @@ int main(){
 
 	for (i = 0; i < x_size; i++) {
 
-		y_fxp[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
+		y_fxp[i] = fxp_transposed_direct_form_2(waux, x_fxp[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
 
 	}
 

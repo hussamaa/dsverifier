@@ -16,16 +16,16 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../core/initialization.h"
 
 digital_system ds = { 
-	.b = { 135.0, -8320, 4000},
+	.b = { 2002.0, -4000.0, 1998.0 },
 	.b_size = 3,
-	.a = { 1.0, -1.0, 0.0 },
+	.a = { 1.0, 0.0, -1.0 },
 	.a_size = 3,
-	.sample_time = 0.02
+	.sample_time = 0.001
 };
 
 implementation impl = { 
-	.int_bits = 11,
-	.frac_bits = 5,
+	.int_bits = 13,
+	.frac_bits = 3,
 	.max = 1.0,
 	.min = -1.0,
 };
@@ -33,8 +33,8 @@ implementation impl = {
 hardware hw = { };
 
 /* inputs */
-fxp32_t x[3] = { 1, 1, 1 };
-int x_size = 3;
+fxp32_t x_fxp[20] = { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
+int x_size = 20;
 int generic_timer;
 
 /** fixed point direct form 1 realization (implementation 2) */
@@ -51,9 +51,11 @@ void fxp_direct_form_1_impl2_debug(fxp32_t x[], int x_size, fxp32_t b[], int b_s
    }
 
    /* system 2 h2(z) */
-   y[0] = v[0];
+   y[0] = 8;
+   y[1] = 8;
+   y[2] = 0;
    /* input here the counterexample values */
-   for(i = 1; i < x_size; i++){
+   for(i = 3; i < x_size; i++){
 	   y[i] = 0;
 	   y[i] = fxp_add(y[i], v[i]);
 	   for(j = 1; j < a_size; j++){
@@ -69,8 +71,11 @@ int main(){
 
 	OVERFLOW_MODE = 3;
 
+	double x[x_size];
 	printf("inputs: \n");
-	print_fxp_array_elements("x_fxp", x, x_size);
+	fxp_to_double_array(x, x_fxp, x_size);
+	print_array_elements("x", x, x_size);
+	print_fxp_array_elements("x_fxp", x_fxp, x_size);
 
 	printf("\noriginal coefficients: \n");
 	print_array_elements("ds.b", ds.b, ds.b_size);
@@ -121,7 +126,7 @@ int main(){
 	int count = 0;
 	int notzeros = 0;
 
-	fxp_direct_form_1_impl2_debug(x, x_size, b_fxp, ds.b_size, a_fxp, ds.a_size, y_fxp);
+	fxp_direct_form_1_impl2_debug(x_fxp, x_size, b_fxp, ds.b_size, a_fxp, ds.a_size, y_fxp);
 
 	printf("\noutputs: \n");
 	print_fxp_array_elements("y_fxp", y_fxp, x_size);

@@ -16,16 +16,16 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../core/initialization.h"
 
 digital_system ds = { 
-	.b = { 135.0, -260.0, 125.0 },
+	.b = { 2002.0, -4000.0, 1998.0 },
 	.b_size = 3,
-	.a = { 1.0, -1.0, 0.0 },
+	.a = { 1.0, 0.0, -1.0 },
 	.a_size = 3,
-	.sample_time = 0.02
+	.sample_time = 0.001
 };
 
 implementation impl = { 
-	.int_bits = 11,
-	.frac_bits = 5,
+	.int_bits = 13,
+	.frac_bits = 3,
 	.max = 1.0,
 	.min = -1.0,
 };
@@ -33,8 +33,8 @@ implementation impl = {
 hardware hw = { };
 
 /* inputs */
-fxp32_t x[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-int x_size = 10;
+fxp32_t x_fxp[20] ={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+int x_size = 20;
 int generic_timer;
 
 int main(){
@@ -43,8 +43,11 @@ int main(){
 
 	OVERFLOW_MODE = 3;
 
+	double x[x_size];
 	printf("inputs: \n");
-	print_fxp_array_elements("x_fxp", x, x_size);
+	fxp_to_double_array(x, x_fxp, x_size);
+	print_array_elements("x", x, x_size);
+	print_fxp_array_elements("x_fxp", x_fxp, x_size);
 
 	printf("\noriginal coefficients: \n");
 	print_array_elements("ds.b", ds.b, ds.b_size);
@@ -74,11 +77,16 @@ int main(){
 
 	/* update with values found in bmc machine */
 	fxp32_t waux[Nw];
-	waux[0] = 32;
-	waux[1] = 32;
-	waux[2] = 32;
+	waux[0] = -1;
+	waux[1] = -2;
+	waux[2] = -1;
 
-	int i, j;
+	double waux_d[Nw];
+	print_fxp_array_elements("\nwaux_fxp", waux, Nw);
+	fxp_to_double_array(waux_d, waux, Nw);
+	print_array_elements("waux", waux_d, Nw);
+
+	int i;
 	/* prepare outputs */
 	double y[x_size];
 	fxp32_t y_fxp[x_size];
@@ -87,14 +95,9 @@ int main(){
 		y[i] = 0;
 	}
 
-	fxp32_t xk;
-	fxp32_t *aptr, *bptr, *xptr, *yptr, *wptr;
-	int count = 0;
-	int notzeros = 0;
-
 	for (i = 0; i < x_size; i++) {
 		shiftR(0, waux, Nw);
-		y_fxp[i] = fxp_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
+		y_fxp[i] = fxp_direct_form_2(waux, x_fxp[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
 	}
 
 	printf("\noutputs: \n");
