@@ -16,16 +16,16 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../core/initialization.h"
 
 digital_system ds = { 
-	.b = { 2002.0, -4000.0, 1998.0 },
+	.b = { 135.0, -8320, 4000},
 	.b_size = 3,
-	.a = { 1.0, 0.0, -1.0 },
+	.a = { 1.0, -1.0, 0.0 },
 	.a_size = 3,
-	.sample_time = 0.001
+	.sample_time = 0.02
 };
 
 implementation impl = { 
-	.int_bits = 13,
-	.frac_bits = 3,
+	.int_bits = 11,
+	.frac_bits = 5,
 	.max = 1.0,
 	.min = -1.0,
 };
@@ -33,9 +33,35 @@ implementation impl = {
 hardware hw = { };
 
 /* inputs */
-fxp32_t x[10] = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
-int x_size = 10;
+fxp32_t x[3] = { 1, 1, 1 };
+int x_size = 3;
 int generic_timer;
+
+/** fixed point direct form 1 realization (implementation 2) */
+void fxp_direct_form_1_impl2_debug(fxp32_t x[], int x_size, fxp32_t b[], int b_size, fxp32_t a[], int a_size, fxp32_t y[]){
+   int i = 0; int j = 0;
+   /* system 1 h1(z) */
+   fxp32_t v[x_size];
+   for(i = 0; i < x_size; i++){
+      v[i] = 0;
+      for(j = 0; j < b_size; j++){
+         if (j > i) break;
+         v[i] = fxp_add(v[i], fxp_mult(x[i-j], b[j]));
+      }
+   }
+
+   /* system 2 h2(z) */
+   y[0] = v[0];
+   /* input here the counterexample values */
+   for(i = 1; i < x_size; i++){
+	   y[i] = 0;
+	   y[i] = fxp_add(y[i], v[i]);
+	   for(j = 1; j < a_size; j++){
+		   if (j > i) break;
+		   y[i] = fxp_add(y[i], fxp_mult(y[i-j] , -a[j]));
+	   }
+   }
+}
 
 int main(){
 	
@@ -71,7 +97,7 @@ int main(){
 	fxp32_t xaux[ds.b_size];
 	fxp32_t yaux[ds.a_size];
 	fxp32_t y0[ds.a_size];
-	yaux[0] = 8;
+	yaux[0] = 0;
 	yaux[1] = 0;
 
 	int i, j;
@@ -92,32 +118,7 @@ int main(){
 	int count = 0;
 	int notzeros = 0;
 
-	for (i = 0; i < x_size; i++) {
-
-		shiftL(x[i],xaux,ds.b_size);
-		y_fxp[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
-		shiftL(y[i],yaux,ds.a_size);
-
-/* zero input limit cycle verification */
-/*
-		for (j = ds.a_size - 1; j >= 0; --j) {
-			if (yaux[j] == y0[j]) {
-				++count;
-			}
-			if (yaux[j] != 0) {
-				++notzeros;
-			}
-		}
-
-		if (notzeros != 0) {
-			assert(count < ds.a_size);
-		}
-
-		count = 0;
-		notzeros = 0;
-*/
-
-	}
+	fxp_direct_form_1_impl2_debug(x, x_size, b_fxp, ds.b_size, a_fxp, ds.a_size, y_fxp);
 
 	printf("\noutputs: \n");
 	print_fxp_array_elements("y_fxp", y_fxp, x_size);

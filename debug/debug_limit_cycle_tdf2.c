@@ -15,24 +15,25 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../core/initialization.h"
 
 digital_system ds = {
-	.b = { 1.5, -0.5 },
-	.b_size = 2,
-	.a = { 1.0 },
-	.a_size = 1
+	.b = { 2002.0, -4000.0, 1998.0 },
+	.b_size = 3,
+	.a = { 1.0, 0.0, -1.0 },
+	.a_size = 3,
+	.sample_time = 0.001
 };
 
 implementation impl = {
-	.int_bits = 2,
-	.frac_bits = 14,
+	.int_bits = 13,
+	.frac_bits = 3,
+	.max = 1.0,
 	.min = -1.0,
-	.max = 1.0
 };
 
 hardware hw = { };
 
 /* inputs */
-fxp32_t x[25] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  };
-int x_size = 25;
+fxp32_t x[25] = { 8, 8, 8, 8, 8, 8  };
+int x_size = 5;
 int generic_timer;
 
 int main(){
@@ -68,12 +69,10 @@ int main(){
 	int Nw = ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
 
 	/* update with values found in bmc machine */
-	fxp32_t w0[Nw];
 	fxp32_t waux[Nw];
 	waux[0] = 0;
 	waux[1] = 0;
-	w0[0] = 0;
-	w0[1] = 0;
+	waux[2] = 0;
 
 	int i, j;
 	/* prepare outputs */
@@ -86,31 +85,10 @@ int main(){
 
 	fxp32_t xk;
 	fxp32_t *aptr, *bptr, *xptr, *yptr, *wptr;
-	int count = 0;
-	int notzeros = 0;
 
 	for (i = 0; i < x_size; i++) {
 
 		y_fxp[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
-
-		for (j = Nw - 1; j >= 0; --j) {
-			printf("\nwaux[%d] (%d) == w0[%d] (%d)\n",j, waux[j], j, w0[j]);
-			if (waux[j] == w0[j]) {
-				printf("count ++\n");
-				++count;
-			}
-			if (waux[j] != 0) {
-				printf("notzeros ++\n");
-				++notzeros;
-			}
-		}
-		if (notzeros != 0) {
-			printf("count < Nw ----> %d < %d\n", count, Nw);
-			assert(count < Nw);
-		}
-
-		count = 0;
-		notzeros = 0;
 
 	}
 
