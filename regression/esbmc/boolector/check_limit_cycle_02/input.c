@@ -1,5 +1,5 @@
-#include "../../../../core/compatibility.h"
-#include "../../../../core/util.h"
+#include "../../../../bmc/core/compatibility.h"
+#include "../../../../bmc/core/util.h"
 
 int main(){
 	double y[17] = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 150, 2, 150 };

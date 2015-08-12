@@ -1,4 +1,4 @@
-#include "dsverifier.h"
+#include "../bmc/dsverifier.h"
 
 digital_system plant = {
 	.b = { -4.15622356143379e-06, -1.24686706843014e-05, -1.24686706843014e-05, -4.15622356143379e-06 },

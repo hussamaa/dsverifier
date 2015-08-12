@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include "../../../../core/util.h"
-#include "../../../../core/delta-operator.h"
+#include "../../../../bmc/core/util.h"
+#include "../../../../bmc/core/delta-operator.h"
 
 int main(){
    double a[3] = { 1.0, -1.9, 0.8925 };

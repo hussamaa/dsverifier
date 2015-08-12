@@ -1,5 +1,5 @@
-#include "../../../../core/compatibility.h"
-#include "../../../../core/util.h"
+#include "../../../../bmc/core/compatibility.h"
+#include "../../../../bmc/core/util.h"
 
 int main(){
 	double y[6] = { -0.5, 0.5, -0.5, 0.5, -0.5, 0.5 };

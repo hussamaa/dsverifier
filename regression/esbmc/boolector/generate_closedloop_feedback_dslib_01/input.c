@@ -1,12 +1,12 @@
 #include <stdlib.h>
-#include "../../../../core/util.h"
-#include "../../../../core/definitions.h"
-#include "../../../../core/compatibility.h"
-#include "../../../../core/fixed-point.h"
-#include "../../../../core/functions.h"
-#include "../../../../core/realizations.h"
-#include "../../../../core/delta-operator.h"
-#include "../../../../core/closed-loop.h"
+#include "../../../../bmc/core/util.h"
+#include "../../../../bmc/core/definitions.h"
+#include "../../../../bmc/core/compatibility.h"
+#include "../../../../bmc/core/fixed-point.h"
+#include "../../../../bmc/core/functions.h"
+#include "../../../../bmc/core/realizations.h"
+#include "../../../../bmc/core/delta-operator.h"
+#include "../../../../bmc/core/closed-loop.h"
 
 digital_system control = {
         .a = { 1.0, 0.4, -0.19, 0.014, 0.0},
