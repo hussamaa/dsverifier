@@ -1,9 +1,9 @@
-#include "../../../../dsverifier.h"
+#include "../../../bmc/dsverifier.h"
 
 digital_system control = {
-        .a = { 1.0f, 1.3f, 0.17f, -0.157f, 0.0126f},
+        .a = { 1.0, 1.3, 0.17, -0.157, 0.0126},
         .a_size = 5,
-        .b = {0.15f, -0.075f, -0.051f, 0.012f},
+        .b = {0.15, -0.075, -0.051, 0.012},
         .b_size = 4,
         .sample_time = 0.01
 };
@@ -18,8 +18,8 @@ implementation impl = {
 };
 
 digital_system plant = {
-        .b = { 2.0f, -4.0f },
+        .b = { 2.0, -4.0 },
         .b_size = 2,
-        .a = { 1.0f, -0.1f,  -0.3f },
+        .a = { 1.0, -0.1, -0.3 },
         .a_size = 3
 };
