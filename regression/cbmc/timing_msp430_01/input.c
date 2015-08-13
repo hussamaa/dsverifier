@@ -1,4 +1,4 @@
-#include "../../../../dsverifier.h"
+#include "../../../bmc/dsverifier.h"
 
 digital_system ds = {
         .a = { 1.0, 1.0, 0.31, 0.03 },       
@@ -14,7 +14,7 @@ implementation impl = {
         .delta = 0.25,
         .max = 1.0,
         .min = -1.0,
-        .scale = 1e6
+        .scale = 1000000
 };
 
 hardware hw = {	
