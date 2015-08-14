@@ -1,8 +1,8 @@
 CC=g++
 CFLAGS=-I.
 
-dsverifier: dsverifier.c
-	$(CC) -o dsverifier dsverifier.c -I.
+dsverifier: dsverifier.cpp
+	$(CC) -o dsverifier dsverifier.cpp -I.
 
 clean:
 	rm -rf dsverifier
