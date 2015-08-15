@@ -15,11 +15,12 @@
 */
 
 /* model checkers */
-#define ESBMC 0
-#define CBMC  1
+#define NONE  0
+#define ESBMC 1
+#define CBMC  2
 
 #ifndef BMC
-	#define BMC	0
+	#define BMC	1
 #endif
 
 /* realizations (use: -DREALIZATION=DIRECTFORMI) */

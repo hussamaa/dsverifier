@@ -17,8 +17,30 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
+#include <complex>
+#include <algorithm>
+#include <cmath>
 
-#define VERSION 1.2
+typedef bool _Bool;
+
+#define BMC 3
+
+#include "bmc/core/definitions.h"
+#include "bmc/core/compatibility.h"
+#include "bmc/core/fixed-point.h"
+#include "bmc/core/util.h"
+#include "bmc/core/delta-operator.h"
+#include "bmc/core/initialization.h"
+
+/* eigen dependencies */
+#include <unsupported/Eigen/Polynomials>
+typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootType RootType;
+typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
+
+#include <fstream>
+#include <boost/algorithm/string.hpp>
+
+#define DSVERIFIER_VERSION 1.2
 
 const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "TIMING", "STABILITY", "MINIMUM_PHASE" };
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
@@ -36,7 +58,7 @@ std::string desired_macro_parameters;
 
 void help () {
 	std::cout << std::endl;
-	std::cout << "* * *           DSVerifier " << VERSION << "          * * *" << std::endl;
+	std::cout << "* * *           DSVerifier " << DSVERIFIER_VERSION << "          * * *" << std::endl;
 	std::cout << "" << std::endl;
 	std::cout << "Usage:                       Purpose:" << std::endl;
 	std::cout << "" << std::endl;
@@ -179,6 +201,21 @@ void bind_parameters(int argc, char* argv[]){
 	check_required_parameters();
 }
 
+std::string execute_command_line(std::string command){
+	FILE* pipe = popen(command.c_str(), "r");
+	if (!pipe) return "ERROR";
+	char buffer[128];
+	std::string result = "";
+	while(!feof(pipe)) {
+		if(fgets(buffer, 128, pipe) != NULL){
+			std::cout << buffer;
+			result += buffer;
+		}
+	}
+	pclose(pipe);
+	return result;
+}
+
 std::string prepare_bmc_command_line(){
 	std::string command_line;
 	if (desired_bmc == "ESBMC"){
@@ -187,10 +224,10 @@ std::string prepare_bmc_command_line(){
 			command_line += " --timeout " + desired_timeout;
 		}
 	}else if (desired_bmc == "CBMC"){
-		command_line = "cbmc " + desired_filename + " -DBMC=CBMC";
+		command_line = "cbmc --fixedbv " + desired_filename + " -DBMC=CBMC";
 	}
 	if (desired_solver.size() > 0){
-		command_line += " " + desired_solver;
+		command_line += " --" + desired_solver;
 	}
 	if (desired_realization.size() > 0){
 		command_line += " -DREALIZATION=" + desired_realization;
@@ -205,8 +242,266 @@ std::string prepare_bmc_command_line(){
 	return command_line;
 }
 
+digital_system ds;
+implementation impl;
+
+/* print array elements */
+void cplus_print_fxp_array_elements(const char * name, fxp32_t * v, int n){
+   printf("%s = {", name);
+   int i;
+   for(i=0; i < n; i++){
+      printf(" %d ", v[i]);
+   }
+   printf("}\n");
+}
+
+/* print array elements */
+void cplus_print_array_elements(const char * name, double * v, int n){
+   printf("%s = {", name);
+   int i;
+   for(i=0; i < n; i++){
+      printf(" %.32f ", v[i]);
+   }
+   printf("}\n");
+}
+
+int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<RootType> & roots){
+
+	unsigned int size = poly_size;
+
+	/* coefficients */
+	std::vector<double> coefficients_vector;
+	for (int i=0; i< poly_size; i++){
+		coefficients_vector.push_back(polynomial[i]);
+	}
+
+	/* remove leading zeros */
+	std::vector<double>::iterator it=coefficients_vector.begin();
+	while(it != coefficients_vector.end()){
+		if(*it != 0.0)
+			break;
+		it=coefficients_vector.erase(it);
+	}
+
+	size=coefficients_vector.size();
+
+	/* check if there is any element left on the vector */
+	if(!size)
+	return 2;
+
+	Eigen::VectorXd coefficients(coefficients_vector.size());
+
+	/* copy elements from the list to the array - insert in reverse order */
+	unsigned int i=0;
+	for(it=coefficients_vector.begin();
+			it!=coefficients_vector.end();
+			++it, ++i){
+		coefficients[size-i-1] = *it;
+	}
+
+	/* eigen solver object */
+	Eigen::PolynomialSolver<double, Eigen::Dynamic> solver;
+
+	/* solve denominator using QR decomposition */
+	solver.compute(coefficients);
+
+	RootsType solver_roots = solver.roots();
+	for(unsigned int i=0; i<solver_roots.rows(); ++i)
+	roots.push_back(solver_roots[i]);
+
+	return 0;
+}
+
+bool check_delta_stability_margin(std::vector<RootType> roots){
+	std::cout << "checking delta stability margin" << std::endl;
+	bool stable = true;
+	for(unsigned int i=0; i<roots.size(); i++){
+		std::complex<double> eig = roots.at(i);
+		eig.real(eig.real() * impl.delta);
+		eig.imag(eig.imag() * impl.delta);
+		eig.real(eig.real() + 1);
+		if ((std::abs(eig) < 1) == false){
+			stable = false;
+			break;
+		}
+	}
+	return stable;
+}
+
+void show_delta_not_representable(){
+	std::cout << "[ERROR] Does not possible to represent this value in delta using this precision" << std::endl;
+}
+
+void show_verification_successful(){
+	std::cout << std::endl << "VERIFICATION SUCCESSFUL" << std::endl;
+}
+
+void show_verification_failed(){
+	std::cout << std::endl << "VERIFICATION FAILED" << std::endl;
+}
+
+void check_stability_delta_domain(){
+	std::cout << std::endl;
+	double da[ds.a_size];
+	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
+	generate_delta_coefficients(ds.a, da, ds.a_size, impl.delta);
+	cplus_print_array_elements("delta denominator", da, ds.a_size);
+	fxp32_t da_fxp[ds.a_size];
+	fxp_double_to_fxp_array(da, da_fxp, ds.a_size);
+	if ((da[0] != 0) && (da_fxp[0] == 0)){
+		std::cout << std::endl;
+		std::cout << "ds.a[0] = "<< std::to_string(da[0]) << " ----> " << std::to_string(da_fxp[0]) << std::endl;
+		show_delta_not_representable();
+		exit(1);
+	}
+	double da_qtz[ds.a_size];
+	fxp_to_double_array(da_qtz, da_fxp, ds.a_size);
+	cplus_print_array_elements("quantized delta denominator", da_qtz, ds.a_size);
+	std::vector<RootType> poly_roots;
+	get_roots_from_polynomial(da_qtz, ds.a_size, poly_roots);
+	bool is_stable = check_delta_stability_margin(poly_roots);
+	if (is_stable){
+		show_verification_successful();
+	}else{
+		show_verification_failed();
+	}
+}
+
+bool check_if_file_exists (const std::string & name) {
+    if (FILE *file = fopen(name.c_str(), "r")) {
+        fclose(file);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void check_minimum_phase_delta_domain(){
+	std::cout << std::endl;
+	double db[ds.b_size];
+	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
+	generate_delta_coefficients(ds.b, db, ds.b_size, impl.delta);
+	cplus_print_array_elements("delta numerator", db, ds.b_size);
+	fxp32_t db_fxp[ds.b_size];
+	fxp_double_to_fxp_array(db, db_fxp, ds.b_size);
+	if ((db[0] != 0) && (db_fxp[0] == 0)){
+		std::cout << std::endl;
+		std::cout << "ds.b[0] = "<< std::to_string(db[0]) << " ----> " << std::to_string(db_fxp[0]) << std::endl;
+		show_delta_not_representable();
+		exit(1);
+	}
+	double db_qtz[ds.b_size];
+	fxp_to_double_array(db_qtz, db_fxp, ds.b_size);
+	cplus_print_array_elements("quantized delta numerator", db_qtz, ds.b_size);
+	std::vector<RootType> poly_roots;
+	get_roots_from_polynomial(db_qtz, ds.b_size, poly_roots);
+	bool is_stable = check_delta_stability_margin(poly_roots);
+	if (is_stable){
+		show_verification_successful();
+	}else{
+		show_verification_failed();
+	}
+}
+
+void check_file_exists(){
+	/* check if the specified file exists */
+	if (check_if_file_exists(desired_filename) == false){
+		std::cout << "file " << desired_filename << ": failed to open input file" << std::endl;
+		exit(1);
+	}
+}
+
+std::string replace_all_string(std::string str, const std::string& from, const std::string& to) {
+    size_t start_pos = 0;
+    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
+    }
+    return str;
+}
+
+void extract_data_from_file(){
+	std::ifstream verification_file(desired_filename);
+	for(std::string current_line; getline( verification_file, current_line );){
+		std::string::size_type ds_a = current_line.find(".a = ", 0 );
+		if (ds_a != std::string::npos){
+			/* removing whitespaces */
+			current_line = replace_all_string(current_line, " ", "");
+			current_line = replace_all_string(current_line, "\t", "");
+			/* check the last comma, and remove it */
+			if (current_line.back() == ','){
+				current_line.pop_back();
+			}
+			std::vector<std::string> coefficients;
+			boost::split(coefficients, current_line, boost::is_any_of(","));
+			for(int i=0; i< coefficients.size(); i++){
+				std::string coefficient = coefficients.at(i);
+				coefficient = replace_all_string(coefficient, ".a={", "");
+				coefficient = replace_all_string(coefficient, "}", "");
+				ds.a[i] = std::atof(coefficient.c_str());
+				ds.a_size = coefficients.size();
+			}
+		}
+		std::string::size_type ds_b = current_line.find(".b = ", 0 );
+		if (ds_b != std::string::npos){
+			/* removing whitespaces */
+			current_line = replace_all_string(current_line, " ", "");
+			current_line = replace_all_string(current_line, "\t", "");
+			/* check the last comma, and remove it */
+			if (current_line.back() == ','){
+				current_line.pop_back();
+			}
+			std::vector<std::string> coefficients;
+			boost::split(coefficients, current_line, boost::is_any_of(","));
+			for(int i=0; i< coefficients.size(); i++){
+				std::string coefficient = coefficients.at(i);
+				coefficient = replace_all_string(coefficient, ".b={", "");
+				coefficient = replace_all_string(coefficient, "}", "");
+				ds.b[i] = std::atof(coefficient.c_str());
+				ds.b_size = coefficients.size();
+			}
+		}
+	}
+
+}
+
 int main(int argc, char* argv[]){
+
 	bind_parameters(argc, argv);
-	std::string command_line = prepare_bmc_command_line();
-	std::cout << command_line << std::endl;
+
+	check_file_exists();
+
+	std::cout << "Running: Digital Systems Verifier (DSVerifier)" << std::endl;
+	bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
+	bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
+
+	if (!(is_restricted_property && is_delta_realization)){
+
+		/* normal flow using bmc */
+		std::string command_line = prepare_bmc_command_line();
+		std::cout << "Back-end Verification: " << command_line << std::endl;
+		execute_command_line(command_line);
+		exit(0);
+
+	}else{
+
+		extract_data_from_file();
+
+		/* pending */
+		impl.int_bits = 15;
+		impl.frac_bits = 10;
+		impl.delta = 0.1;
+		/* ******* */
+
+		initialization();
+
+		if ((is_delta_realization == true) && desired_property == "STABILITY"){
+			check_stability_delta_domain();
+			exit(0);
+		} else if ((is_delta_realization == true) && desired_property == "MINIMUM_PHASE"){
+			check_minimum_phase_delta_domain();
+			exit(0);
+		}
+
+	}
 }
