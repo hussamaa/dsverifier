@@ -56,6 +56,7 @@ std::string desired_timeout;
 std::string desired_bmc;
 std::string desired_solver;
 std::string desired_macro_parameters;
+std::string desired_ds_id;
 
 void help () {
 	std::cout << std::endl;
@@ -193,6 +194,13 @@ void bind_parameters(int argc, char* argv[]){
 			std::string::size_type loc = parameter.find("-D", 0 );
 			if( loc != std::string::npos ) {
 				desired_macro_parameters += " " + parameter;
+				/* check if there is an desired benchmark */
+				std::string::size_type find_desired_ds_id = parameter.find("-DDS_ID=", 0 );
+				if( find_desired_ds_id != std::string::npos ) {
+					std::vector<std::string> parts;
+					boost::split(parts, parameter, boost::is_any_of("="));
+					desired_ds_id = "DS_ID==" + parts.at(1);
+				}
 			}else{
 				std::cout << "invalid parameter: " << argv[i] << std::endl;
 				exit(1);
@@ -288,7 +296,7 @@ int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<Ro
 
 	/* check if there is any element left on the vector */
 	if(!size){
-		std::cout << std::endl << "[INTERNAL ERROR] - No remaining elements in polynomial vector" << std::endl;
+		std::cout << std::endl << "No remaining elements in polynomial vector";
 		throw std::runtime_error ("tla");
 	}
 	return 2;
@@ -433,8 +441,14 @@ std::string replace_all_string(std::string str, const std::string& from, const s
 }
 
 void extract_data_from_file(){
+
 	std::ifstream verification_file(desired_filename);
+	int readed_attributes = 0;
+	int expected_attributes = 5;
+	bool ds_id_found = false;
+
 	for(std::string current_line; getline( verification_file, current_line );){
+
 		/* removing whitespaces */
 		current_line = replace_all_string(current_line, " ", "");
 		current_line = replace_all_string(current_line, "\t", "");
@@ -442,7 +456,25 @@ void extract_data_from_file(){
 		if (current_line.back() == ','){
 			current_line.pop_back();
 		}
-		std::string::size_type ds_a = current_line.find(".a=", 0 );
+
+		/* check if there is an desired ds_id and find the region*/
+		if (desired_ds_id.size() != 0){
+			std::string::size_type find_desired_ds_id = current_line.find(desired_ds_id, 0);
+			if (ds_id_found == false){
+				if (find_desired_ds_id != std::string::npos){
+					ds_id_found = true;
+				} else {
+					continue; /* go to next line */
+				}
+			}
+		}
+
+		/* check if all expected attributes were found */
+		if (readed_attributes == expected_attributes){
+			break;
+		}
+
+		std::string::size_type ds_a = current_line.find(".a=", 0);
 		if (ds_a != std::string::npos){
 			std::vector<std::string> coefficients;
 			boost::split(coefficients, current_line, boost::is_any_of(","));
@@ -453,8 +485,10 @@ void extract_data_from_file(){
 				ds.a[i] = std::atof(coefficient.c_str());
 				ds.a_size = coefficients.size();
 			}
+			readed_attributes++;
+			continue;
 		}
-		std::string::size_type ds_b = current_line.find(".b=", 0 );
+		std::string::size_type ds_b = current_line.find(".b=", 0);
 		if (ds_b != std::string::npos){
 			std::vector<std::string> coefficients;
 			boost::split(coefficients, current_line, boost::is_any_of(","));
@@ -465,26 +499,35 @@ void extract_data_from_file(){
 				ds.b[i] = std::atof(coefficient.c_str());
 				ds.b_size = coefficients.size();
 			}
+			readed_attributes++;
+			continue;
 		}
-		std::string::size_type impl_int_bits = current_line.find(".int_bits", 0 );
+		std::string::size_type impl_int_bits = current_line.find(".int_bits", 0);
 		if (impl_int_bits != std::string::npos){
 			current_line = replace_all_string(current_line, ".int_bits=", "");
 			impl.int_bits = std::atoi(current_line.c_str());
+			readed_attributes++;
+			continue;
 		}
-		std::string::size_type impl_frac_bits = current_line.find(".frac_bits", 0 );
+		std::string::size_type impl_frac_bits = current_line.find(".frac_bits", 0);
 		if (impl_frac_bits != std::string::npos){
 			current_line = replace_all_string(current_line, ".frac_bits=", "");
 			impl.frac_bits = std::atoi(current_line.c_str());
+			readed_attributes++;
+			continue;
 		}
-		std::string::size_type impl_delta = current_line.find(".delta", 0 );
+		std::string::size_type impl_delta = current_line.find(".delta", 0);
 		if (impl_delta != std::string::npos){
 			current_line = replace_all_string(current_line, ".delta=", "");
 			impl.delta = std::atof(current_line.c_str());
+			readed_attributes++;
+			continue;
 		}
 	}
 
 }
 
+/* main function */
 int main(int argc, char* argv[]){
 
 	bind_parameters(argc, argv);
