@@ -20,6 +20,7 @@
 #include <complex>
 #include <algorithm>
 #include <cmath>
+#include <exception>
 
 typedef bool _Bool;
 
@@ -62,7 +63,7 @@ void help () {
 	std::cout << "" << std::endl;
 	std::cout << "Usage:                       Purpose:" << std::endl;
 	std::cout << "" << std::endl;
-	std::cout << "dsverifier [-?] [--help]           show help" << std::endl;
+	std::cout << "dsverifier [-h] [--help]           show help" << std::endl;
 	std::cout << "dsverifier file.c ...              source file name" << std::endl;
 	std::cout << "" << std::endl;
 	std::cout << "Options:" << std::endl;
@@ -286,7 +287,10 @@ int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<Ro
 	size=coefficients_vector.size();
 
 	/* check if there is any element left on the vector */
-	if(!size)
+	if(!size){
+		std::cout << std::endl << "[INTERNAL ERROR] - No remaining elements in polynomial vector" << std::endl;
+		throw std::runtime_error ("tla");
+	}
 	return 2;
 
 	Eigen::VectorXd coefficients(coefficients_vector.size());
@@ -329,7 +333,7 @@ bool check_delta_stability_margin(std::vector<RootType> roots){
 }
 
 void show_delta_not_representable(){
-	std::cout << "[ERROR] Does not possible to represent this value in delta using this precision" << std::endl;
+	std::cout << "[EXCEPTION] Does not possible to represent this value in delta using this precision" << std::endl;
 }
 
 void show_verification_successful(){
@@ -340,7 +344,14 @@ void show_verification_failed(){
 	std::cout << std::endl << "VERIFICATION FAILED" << std::endl;
 }
 
+void show_implementation_parameters(){
+	std::cout << std::endl << "implementation int_bits: " << impl.int_bits << std::endl;
+	std::cout << "implementation frac_bits: " << impl.frac_bits << std::endl;
+	std::cout << "implementation delta: " << impl.delta << std::endl;
+}
+
 void check_stability_delta_domain(){
+	show_implementation_parameters();
 	std::cout << std::endl;
 	double da[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
@@ -377,6 +388,7 @@ bool check_if_file_exists (const std::string & name) {
 }
 
 void check_minimum_phase_delta_domain(){
+	show_implementation_parameters();
 	std::cout << std::endl;
 	double db[ds.b_size];
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
@@ -423,15 +435,15 @@ std::string replace_all_string(std::string str, const std::string& from, const s
 void extract_data_from_file(){
 	std::ifstream verification_file(desired_filename);
 	for(std::string current_line; getline( verification_file, current_line );){
-		std::string::size_type ds_a = current_line.find(".a = ", 0 );
+		/* removing whitespaces */
+		current_line = replace_all_string(current_line, " ", "");
+		current_line = replace_all_string(current_line, "\t", "");
+		/* check the last comma, and remove it */
+		if (current_line.back() == ','){
+			current_line.pop_back();
+		}
+		std::string::size_type ds_a = current_line.find(".a=", 0 );
 		if (ds_a != std::string::npos){
-			/* removing whitespaces */
-			current_line = replace_all_string(current_line, " ", "");
-			current_line = replace_all_string(current_line, "\t", "");
-			/* check the last comma, and remove it */
-			if (current_line.back() == ','){
-				current_line.pop_back();
-			}
 			std::vector<std::string> coefficients;
 			boost::split(coefficients, current_line, boost::is_any_of(","));
 			for(int i=0; i< coefficients.size(); i++){
@@ -442,15 +454,8 @@ void extract_data_from_file(){
 				ds.a_size = coefficients.size();
 			}
 		}
-		std::string::size_type ds_b = current_line.find(".b = ", 0 );
+		std::string::size_type ds_b = current_line.find(".b=", 0 );
 		if (ds_b != std::string::npos){
-			/* removing whitespaces */
-			current_line = replace_all_string(current_line, " ", "");
-			current_line = replace_all_string(current_line, "\t", "");
-			/* check the last comma, and remove it */
-			if (current_line.back() == ','){
-				current_line.pop_back();
-			}
 			std::vector<std::string> coefficients;
 			boost::split(coefficients, current_line, boost::is_any_of(","));
 			for(int i=0; i< coefficients.size(); i++){
@@ -460,6 +465,21 @@ void extract_data_from_file(){
 				ds.b[i] = std::atof(coefficient.c_str());
 				ds.b_size = coefficients.size();
 			}
+		}
+		std::string::size_type impl_int_bits = current_line.find(".int_bits", 0 );
+		if (impl_int_bits != std::string::npos){
+			current_line = replace_all_string(current_line, ".int_bits=", "");
+			impl.int_bits = std::atoi(current_line.c_str());
+		}
+		std::string::size_type impl_frac_bits = current_line.find(".frac_bits", 0 );
+		if (impl_frac_bits != std::string::npos){
+			current_line = replace_all_string(current_line, ".frac_bits=", "");
+			impl.frac_bits = std::atoi(current_line.c_str());
+		}
+		std::string::size_type impl_delta = current_line.find(".delta", 0 );
+		if (impl_delta != std::string::npos){
+			current_line = replace_all_string(current_line, ".delta=", "");
+			impl.delta = std::atof(current_line.c_str());
 		}
 	}
 
@@ -484,24 +504,19 @@ int main(int argc, char* argv[]){
 		exit(0);
 
 	}else{
+		try{
+			extract_data_from_file();
+			initialization();
 
-		extract_data_from_file();
-
-		/* pending */
-		impl.int_bits = 15;
-		impl.frac_bits = 10;
-		impl.delta = 0.1;
-		/* ******* */
-
-		initialization();
-
-		if ((is_delta_realization == true) && desired_property == "STABILITY"){
-			check_stability_delta_domain();
-			exit(0);
-		} else if ((is_delta_realization == true) && desired_property == "MINIMUM_PHASE"){
-			check_minimum_phase_delta_domain();
-			exit(0);
+			if ((is_delta_realization == true) && desired_property == "STABILITY"){
+				check_stability_delta_domain();
+				exit(0);
+			} else if ((is_delta_realization == true) && desired_property == "MINIMUM_PHASE"){
+				check_minimum_phase_delta_domain();
+				exit(0);
+			}
+		}catch(std::exception & e){
+			std::cout << std::endl << "[INTERNAL ERROR] - An unexpected event occurred " << std::endl;
 		}
-
 	}
 }
