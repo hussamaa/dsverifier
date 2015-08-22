@@ -8,7 +8,7 @@
 #
 # ------------------------------------------------------
 #
-# Script to run many benchmarks in DSVerifier
+# Script to run many benchmarks using CBMC in DSVerifier
 # 
 # Usage Example:
 # $ sh script benchmark_file.c
@@ -20,10 +20,10 @@ if test $# -ne 1; then
    exit 1
 fi
 
-PROPERTIES=( LIMIT_CYCLE )
+PROPERTIES=( OVERFLOW LIMIT_CYCLE TIMING_MSP430 STABILITY MINIMUM_PHASE )
 REALIZATIONS=( DFI DFII TDFII )
-TIMEOUT="24h"
-X_SIZE=25
+TIMEOUT="7200" # seconds
+X_SIZE=10
 
 ## default parameters
 # PROPERTIES=( OVERFLOW ZERO_INPUT_LIMIT_CYCLE TIMING STABILITY MINIMUM_PHASE );
@@ -33,8 +33,8 @@ BENCHMARKS_LIBRARY="$1";
 BENCHMARKS=$(cat $BENCHMARKS_LIBRARY | grep 'DS_ID\|IMPLEMENTATION_COUNT')
 TOTAL_DS=$(echo "$BENCHMARKS" | grep 'DS_ID' | wc -l)
 OUTPUT_LOGS_DIRECTORY="./logs"
-BMC_EXECUTABLE="esbmc"
-BMC_PARAMETERS="--boolector --no-bounds-check --no-pointer-check --no-div-by-zero-check --memlimit 5g"
+BMC_EXECUTABLE="cbmc"
+BMC_PARAMETERS="-DBMC=CBMC --fixedbv"
 
 # header 
 INITIAL_TIMESTAMP=$(date +%s)
@@ -78,27 +78,36 @@ while [ $AUX -le $(($TOTAL_DS * 2)) ]; do
 
               # do the verification
               INITIAL_EXECUTION_TIMESTAMP=$(date +%s)
-              { time $BMC_EXECUTABLE $BMC_PARAMETERS $BENCHMARKS_LIBRARY -DDS_ID=$CURRENT_DS_ID -DIMPLEMENTATION_ID=$CURRENT_IMPLEMENTATION -DREALIZATION=$CURRENT_REALIZATION -DPROPERTY=$CURRENT_PROPERTY -DX_SIZE=$X_SIZE --timeout $TIMEOUT > $OUT_FILE; } 2>> $OUT_FILE ;
+              timeout $TIMEOUT bash -c "{ time $BMC_EXECUTABLE $BMC_PARAMETERS $BENCHMARKS_LIBRARY -DDS_ID=$CURRENT_DS_ID -DIMPLEMENTATION_ID=$CURRENT_IMPLEMENTATION -DREALIZATION=$CURRENT_REALIZATION -DPROPERTY=$CURRENT_PROPERTY -DX_SIZE=$X_SIZE > $OUT_FILE; } 2>> $OUT_FILE ";
               FINAL_EXECUTION_TIMESTAMP=$(date +%s)
 
               # analyse the result 
-              OUT=$(cat $OUT_FILE);		
+              OUT=$(cat $OUT_FILE);	
               TIME=$((FINAL_EXECUTION_TIMESTAMP - INITIAL_EXECUTION_TIMESTAMP));
               VERIFICATION_SUCCESSFUL=$(echo "$OUT" | grep "SUCCESSFUL" | wc -l); 
               VERIFICATION_FAILED=$(echo "$OUT" | grep "FAILED" | wc -l);
               VERIFICATION_TIMEOUT=$(echo "$OUT" | grep "Timed out" | wc -l);
+
+              # check if manual timeout for cbmc
+              if [ $VERIFICATION_SUCCESSFUL -eq 0 ] && [ $VERIFICATION_FAILED -eq 0 ] && [ $VERIFICATION_TIMEOUT -eq 0 ]; then
+                  TIME_PARAMETERS=$(cat $OUT_FILE | grep -w "real\|user\|sys" | wc -l)
+                  if [ $TIME_PARAMETERS -lt 3 ]; then
+                     VERIFICATION_TIMEOUT=1;
+                  fi               
+              fi
+
               TOTAL_EXECUTIONS=$((TOTAL_EXECUTIONS + 1));
               if [ $VERIFICATION_SUCCESSFUL -eq 1 ]; then
-            	   TOTAL_SUCCESS=$((TOTAL_SUCCESS + 1));
-                 echo "$(echo -e "\033[0;32msuccess\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";       
+            	  TOTAL_SUCCESS=$((TOTAL_SUCCESS + 1));
+                  echo "$(echo -e "\033[0;32msuccess\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";       
               elif [ $VERIFICATION_FAILED -eq 1 ]; then
-            	   TOTAL_FAILS=$((TOTAL_FAILS + 1));
-                 echo "$(echo -e "\033[0;31mfail\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
+            	  TOTAL_FAILS=$((TOTAL_FAILS + 1));
+                  echo "$(echo -e "\033[0;31mfail\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
               elif [ $VERIFICATION_TIMEOUT -eq 1 ]; then
-            	   TOTAL_TIMEOUTS=$((TOTAL_TIMEOUTS + 1));
-                 echo "$(echo -e "\033[1;35mtimeout\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
+            	  TOTAL_TIMEOUTS=$((TOTAL_TIMEOUTS + 1));
+                  echo "$(echo -e "\033[1;35mtimeout\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
               else
-                 echo "$(echo -e "\033[0;33munknown\033[0m" | cut -d " " -f2) ($OUT_FILE)"; 
+                  echo "$(echo -e "\033[0;33munknown\033[0m" | cut -d " " -f2) ($OUT_FILE)"; 
               fi
 
            done
