@@ -16,7 +16,7 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../bmc/core/initialization.h"
 
 digital_system ds = { 
-	.b = { 1.5, -0.5 },
+	.b = { 110.0, -100.0 },
 	.b_size = 2,
 	.a = { 1.0, 0.0 },
 	.a_size = 2,
@@ -24,8 +24,8 @@ digital_system ds = {
 };
 
 implementation impl = { 
-	.int_bits = 4,
-	.frac_bits = 12,
+	.int_bits = 9, 
+	.frac_bits = 7,
 	.max = 1.0,
 	.min = -1.0,
 };
@@ -69,7 +69,7 @@ int main(){
 
 	OVERFLOW_MODE = 1;
 
-	double x[10] = { -0.9998779296875, -0.9998779296875, -0.9998779296875, -1.0, 1.0, -0.9998779296875, -1.0, -1.0, 0.9998779296875, 1.0 } ;
+	double x[10] = { -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, 1.0, -0.99218750, -0.99218750 } ;
 	printf("inputs: \n");
 	fxp_double_to_fxp_array(x, x_fxp, x_size);
 	print_array_elements("x", x, x_size);
