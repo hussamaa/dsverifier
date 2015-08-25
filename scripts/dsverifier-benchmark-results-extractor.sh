@@ -75,7 +75,7 @@ for file in $FILES; do
 	TIME=$((MINUTES * 60 + SECONDS))
 	
 	if [ $TIME -eq 0 ]; then
-		TIME="<1";
+		TIME="0";
 	fi
 
 	if [ $ERROR -ge 1 ] && [ $FAILED -eq 0 ] && [ $TIMEOUT -eq 0 ]; then

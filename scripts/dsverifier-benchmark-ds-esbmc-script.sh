@@ -20,9 +20,9 @@ if test $# -ne 1; then
    exit 1
 fi
 
-PROPERTIES=( OVERFLOW LIMIT_CYCLE TIMING_MSP430 STABILITY MINIMUM_PHASE )
+PROPERTIES=( OVERFLOW LIMIT_CYCLE STABILITY MINIMUM_PHASE )
 REALIZATIONS=( DFI DFII TDFII )
-TIMEOUT="2h"
+TIMEOUT="4h"
 X_SIZE=10
 
 ## default parameters
@@ -34,7 +34,7 @@ BENCHMARKS=$(cat $BENCHMARKS_LIBRARY | grep 'DS_ID\|IMPLEMENTATION_COUNT')
 TOTAL_DS=$(echo "$BENCHMARKS" | grep 'DS_ID' | wc -l)
 OUTPUT_LOGS_DIRECTORY="./logs"
 BMC_EXECUTABLE="esbmc"
-BMC_PARAMETERS="--boolector --no-bounds-check --no-pointer-check --no-div-by-zero-check --memlimit 15g"
+BMC_PARAMETERS="--no-bounds-check --no-pointer-check --no-div-by-zero-check --memlimit 15g --yices"
 
 # header 
 INITIAL_TIMESTAMP=$(date +%s)
