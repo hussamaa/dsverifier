@@ -8,24 +8,24 @@ void __DSVERIFIER_assume(_Bool expression){
 	/* nothing to do here */
 }
 
-#include "../core/definitions.h"
-#include "../core/fixed-point.h"
-#include "../core/realizations.h"
-#include "../core/util.h"
-#include "../core/functions.h"
-#include "../core/initialization.h"
+#include "../bmc/core/definitions.h"
+#include "../bmc/core/fixed-point.h"
+#include "../bmc/core/realizations.h"
+#include "../bmc/core/util.h"
+#include "../bmc/core/functions.h"
+#include "../bmc/core/initialization.h"
 
 digital_system ds = { 
-	.b = { 2002.0, -4000.0, 1998.0 },
-	.b_size = 3,
-	.a = { 1.0, 0.0, -1.0 },
-	.a_size = 3,
-	.sample_time = 0.001
+	.b = { 1.5, -0.5 },
+	.b_size = 2,
+	.a = { 1.0, 0.0 },
+	.a_size = 2,
+	.sample_time = 0.02
 };
 
 implementation impl = { 
-	.int_bits = 13,
-	.frac_bits = 3,
+	.int_bits = 4,
+	.frac_bits = 12,
 	.max = 1.0,
 	.min = -1.0,
 };
@@ -33,8 +33,8 @@ implementation impl = {
 hardware hw = { };
 
 /* inputs */
-fxp32_t x_fxp[20] = { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
-int x_size = 20;
+fxp32_t x_fxp[10];
+int x_size = 10;
 int generic_timer;
 
 /** fixed point direct form 1 realization (implementation 2) */
@@ -51,11 +51,9 @@ void fxp_direct_form_1_impl2_debug(fxp32_t x[], int x_size, fxp32_t b[], int b_s
    }
 
    /* system 2 h2(z) */
-   y[0] = 8;
-   y[1] = 8;
-   y[2] = 0;
+   y[0] = v[0];
    /* input here the counterexample values */
-   for(i = 3; i < x_size; i++){
+   for(i = 1; i < x_size; i++){
 	   y[i] = 0;
 	   y[i] = fxp_add(y[i], v[i]);
 	   for(j = 1; j < a_size; j++){
@@ -69,11 +67,11 @@ int main(){
 	
 	initialization();
 
-	OVERFLOW_MODE = 3;
+	OVERFLOW_MODE = 1;
 
-	double x[x_size];
+	double x[10] = { -0.9998779296875, -0.9998779296875, -0.9998779296875, -1.0, 1.0, -0.9998779296875, -1.0, -1.0, 0.9998779296875, 1.0 } ;
 	printf("inputs: \n");
-	fxp_to_double_array(x, x_fxp, x_size);
+	fxp_double_to_fxp_array(x, x_fxp, x_size);
 	print_array_elements("x", x, x_size);
 	print_fxp_array_elements("x_fxp", x_fxp, x_size);
 
