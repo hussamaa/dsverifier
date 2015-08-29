@@ -21,13 +21,21 @@
 #include <algorithm>
 #include <cmath>
 #include <exception>
+#include <assert.h>
 
 typedef bool _Bool;
 
-#define BMC 3
+void __DSVERIFIER_assume(_Bool expression){
+	/* do nothing */
+}
+
+void __DSVERIFIER_assert(_Bool expression){
+	if (expression == 0){
+		 throw 0;
+	}
+}
 
 #include "bmc/core/definitions.h"
-#include "bmc/core/compatibility.h"
 #include "bmc/core/fixed-point.h"
 #include "bmc/core/util.h"
 #include "bmc/core/delta-operator.h"
@@ -366,7 +374,13 @@ void check_stability_delta_domain(){
 	generate_delta_coefficients(ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta denominator", da, ds.a_size);
 	fxp32_t da_fxp[ds.a_size];
-	fxp_double_to_fxp_array(da, da_fxp, ds.a_size);
+	try{
+		fxp_double_to_fxp_array(da, da_fxp, ds.a_size);
+	} catch (int e){
+		std::cout << "an fixed-point arithmetic overflow occurs after delta transformation" << std::endl;
+		show_verification_failed();
+		exit(1);
+	}
 	if ((da[0] != 0) && (da_fxp[0] == 0)){
 		std::cout << std::endl;
 		std::cout << "ds.a[0] = "<< std::to_string(da[0]) << " ----> " << std::to_string(da_fxp[0]) << std::endl;
@@ -550,7 +564,6 @@ int main(int argc, char* argv[]){
 		try{
 			extract_data_from_file();
 			initialization();
-
 			if ((is_delta_realization == true) && desired_property == "STABILITY"){
 				check_stability_delta_domain();
 				exit(0);
