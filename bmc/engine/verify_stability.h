@@ -22,6 +22,9 @@ extern digital_system ds;
 extern implementation impl;
 
 int verify_stability(void){
+
+	OVERFLOW_MODE = 0;
+
 	/* check the realization */
 	#if ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
 		fxp32_t a_fxp[ds.a_size];
@@ -38,7 +41,7 @@ int verify_stability(void){
 		generate_delta_coefficients(ds.a, da, ds.a_size, impl.delta);
 		/* check stability using delta domain (intrinsic function) */
 		/* assert(__DSVERIFIER_check_delta_stability(da, ds.sample_time, impl.int_bits, impl.frac_bits)); */
-		printf("*** FUNCTION PENDING (CHECK STABILITY IN DELTA DOMAIN ***");
+		printf("*** FUNCTION PENDING FOR BMC (CHECK STABILITY IN DELTA DOMAIN ***");
 		assert(0);
 		exit(1);
 	#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII)|| (REALIZATION == CTDFII))

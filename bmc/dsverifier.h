@@ -82,12 +82,6 @@ int main(){
 
 /** validate the required parameters to use DSVerifier and your properties verification. */
 void validation(){
-	if (impl.frac_bits > 16){
-		printf("\n\n*************************************************************************************\n");
-		printf("* Sorry, Processors with precision > 16 bits doesn't is supported by DSVerifier yet *\n");
-		printf("*************************************************************************************\n");
-		__DSVERIFIER_assert(0);
-	}
 	if (((PROPERTY != STABILITY_CLOSED_LOOP) && (PROPERTY != LIMIT_CYCLE_CLOSED_LOOP)) && (ds.a_size == 0 || ds.b_size == 0)){
 		printf("\n\n****************************************************************************\n");
 		printf("* It is necessary to set (ds and impl) parameters to check with DSVerifier *\n");

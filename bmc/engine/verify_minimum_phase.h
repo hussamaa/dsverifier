@@ -22,6 +22,9 @@ extern digital_system ds;
 extern implementation impl;
 
 int verify_minimum_phase(void){
+
+	OVERFLOW_MODE = 0;
+
 	/* check the realization */
 	#if ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
 		fxp32_t b_fxp[ds.b_size];
@@ -40,7 +43,7 @@ int verify_minimum_phase(void){
 		/* quantize delta numerator using fxp */
 		fxp_double_to_fxp_array(db, b_fxp, ds.b_size);
 		/* __DSVERIFIER_assert(__DSVERIFIER_check_delta_stability(db, DEADLINE, impl.int_bits, impl.frac_bits)); */
-		printf("*** FUNCTION PENDING (CHECK MINIMUM PHASE IN DELTA DOMAIN ***");
+		printf("*** FUNCTION PENDING FOR BMC (CHECK MINIMUM PHASE IN DELTA DOMAIN ***");
 		assert(0);
 		exit(1);
 	#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
