@@ -307,7 +307,6 @@ int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<Ro
 		std::cout << std::endl << "No remaining elements in polynomial vector";
 		throw std::runtime_error ("tla");
 	}
-	return 2;
 
 	Eigen::VectorXd coefficients(coefficients_vector.size());
 
