@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.concurrent.TimeUnit;
 
 import br.edu.ufam.dsverifier.domain.Verification;
@@ -12,7 +13,7 @@ import br.edu.ufam.dsverifier.util.DSVerifierUtils;
 
 public class DSVerifierService {
 
-	public static final String ESBMC_EXECUTABLE = "./esbmc";
+	public static final String ESBMC_EXECUTABLE = "./dsverifier";
 	public static final String ESBMC_PARAMETERS = "-DSVERIFIER --no-div-by-zero-check --no-bounds-check --no-pointer-check --boolector";
 	
 	private static DSVerifierService instance;
@@ -30,14 +31,15 @@ public class DSVerifierService {
 	public void callDSVerifier(Verification verification) throws Exception {	
 		File verificationFile = verification.getFile();
 		String verificationFilePath = verificationFile.getAbsolutePath();
-		StringBuilder commandLine = new StringBuilder(ESBMC_EXECUTABLE + " " + verificationFilePath + "  " + ESBMC_PARAMETERS);
+//		StringBuilder commandLine = new StringBuilder(ESBMC_EXECUTABLE + " " + verificationFilePath + "  " + ESBMC_PARAMETERS);
+		StringBuilder commandLine = new StringBuilder(ESBMC_EXECUTABLE + " " + verificationFilePath);
 		
 		/* include the property */
-		commandLine.append(" -DPROPERTY=" + verification.getProperty());
+		commandLine.append(" --property " + verification.getProperty());
 		/* include the realization */
-		commandLine.append(" -DREALIZATION=" + verification.getImplementation().getRealization());	
+		commandLine.append(" --realization " + verification.getImplementation().getRealization());	
 		/* include x size */
-		commandLine.append(" -DX_SIZE=" + verification.getBound());	
+		commandLine.append(" --x-size " + verification.getBound());	
 		
 		System.out.println("COMMAND LINE: " + commandLine.toString());
 		
@@ -65,7 +67,7 @@ public class DSVerifierService {
 	public void generateVerificationFile(Verification verification) throws IOException{
 		
 		StringBuilder content = new StringBuilder();			
-		content.append("#include<dsverifier.h>\n\n");
+		content.append("#include \"bmc/dsverifier.h\"\n\n");
 		content.append("digital_system ds = {\n");
 		content.append("\t.a = " + verification.getDigitalSystem().getDenominator() + ",\n");
 		content.append("\t.a_size = " + verification.getDigitalSystem().getDenominatorSize() + ",\n");
@@ -88,7 +90,8 @@ public class DSVerifierService {
 		
 		/* create file content */
 		verification.setFileContent(content.toString());		
-		File verificationTmpFile = File.createTempFile("dsverifier", ".c");
+			
+		File verificationTmpFile = File.createTempFile("dsverifier", ".c", new File("."));
 		verification.setFile(verificationTmpFile);
 		
 		/* write in temporary file */

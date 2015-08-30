@@ -132,12 +132,15 @@ public class PrincipalController implements Initializable{
 		cbRealization.getItems().add(DigitalSystemRealizations.DDFI.getRealization());
 		cbRealization.getItems().add(DigitalSystemRealizations.DDFII.getRealization());
 		cbRealization.getItems().add(DigitalSystemRealizations.TDDFII.getRealization());
+		
+		/*
 		cbRealization.getItems().add(DigitalSystemRealizations.CDFI.getRealization());
 		cbRealization.getItems().add(DigitalSystemRealizations.CDFII.getRealization());
 		cbRealization.getItems().add(DigitalSystemRealizations.CTDFII.getRealization());
 		cbRealization.getItems().add(DigitalSystemRealizations.CDDFI.getRealization());
 		cbRealization.getItems().add(DigitalSystemRealizations.CDDFII.getRealization());
 		cbRealization.getItems().add(DigitalSystemRealizations.CTDDFII.getRealization());		
+		*/
 		
 		/* set required fields */
         validationSupport.registerValidator(tfNumerator, Validator.createEmptyValidator("Digital System Numerator is Required"));	
