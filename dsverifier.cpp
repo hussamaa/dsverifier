@@ -308,25 +308,38 @@ int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<Ro
 		throw std::runtime_error ("tla");
 	}
 
-	Eigen::VectorXd coefficients(coefficients_vector.size());
+	/* check the polynomial order */
+	if (coefficients_vector.size() >= 3){
 
-	/* copy elements from the list to the array - insert in reverse order */
-	unsigned int i=0;
-	for(it=coefficients_vector.begin();
-			it!=coefficients_vector.end();
-			++it, ++i){
-		coefficients[size-i-1] = *it;
+		Eigen::VectorXd coefficients(coefficients_vector.size());
+
+		/* copy elements from the list to the array - insert in reverse order */
+		unsigned int i=0;
+		for(it=coefficients_vector.begin();
+				it!=coefficients_vector.end();
+				++it, ++i){
+			coefficients[size-i-1] = *it;
+		}
+
+		/* eigen solver object */
+		Eigen::PolynomialSolver<double, Eigen::Dynamic> solver;
+
+		/* solve denominator using QR decomposition */
+		solver.compute(coefficients);
+
+		RootsType solver_roots = solver.roots();
+		for(unsigned int i=0; i<solver_roots.rows(); ++i){
+			roots.push_back(solver_roots[i]);
+		}
+
+	} else if (coefficients_vector.size() == 2){
+
+		double root = - coefficients_vector.at(1) / coefficients_vector.at(0);
+		roots.push_back(root);
+
+	} else {
+		/* nothing to do */
 	}
-
-	/* eigen solver object */
-	Eigen::PolynomialSolver<double, Eigen::Dynamic> solver;
-
-	/* solve denominator using QR decomposition */
-	solver.compute(coefficients);
-
-	RootsType solver_roots = solver.roots();
-	for(unsigned int i=0; i<solver_roots.rows(); ++i)
-	roots.push_back(solver_roots[i]);
 
 	return 0;
 }
