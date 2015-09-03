@@ -1,12 +1,47 @@
 #include "../../bmc/dsverifier.h"
 
+hardware hw = {
+	.clock = 16000000,
+	.assembly = {
+		.push = 2,
+		.in = 1,
+		.sbiw = 2,
+		.cli = 1,
+		.out = 1,
+		.std = 2,
+		.ldd = 2,
+		.subi = 1,
+		.sbci = 1,
+		.lsl = 1,
+		.rol = 1,
+		.add = 1,
+		.adc = 1,
+		.adiw = 2,
+		.rjmp = 2,
+		.mov = 1,
+		.sbc = 1,
+		.ld = 2,
+		.rcall = 4,
+		.cp = 1,
+		.cpc = 1,
+		.ldi = 1,
+		.brge = 2,
+		.pop = 2,
+		.ret = 5,
+		.st = 2,
+		.brlt = 2,
+		.cpi = 1
+	}
+};
+
 #if DS_ID == 1
 
 	digital_system ds = {
 		.b = { 0.15, 0.05, 0.4 },
 		.b_size = 3,
 		.a = { 1.0, 0.0, 0.3 },
-		.a_size = 3 
+		.a_size = 3,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -30,7 +65,8 @@
 		.b = { 2.000000, -4.000000, 2.000000 },
 		.b_size = 3,
 		.a = { 1.000000, 0.000000, -0.250000 },
-		.a_size = 3 
+		.a_size = 3,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -54,7 +90,8 @@
 		.b = { 0.2, -0.4, 0.2 },
 		.b_size = 3,
 		.a = { 1.0, 0.0, -0.25 },
-		.a_size = 3 
+		.a_size = 3,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -78,7 +115,8 @@
 		.b = { 1.0, -2.819, 2.637, -0.8187 },
 		.b_size = 4,
 		.a = { 1.0, -1.97, 1.033, -0.06068 },
-		.a_size = 4 
+		.a_size = 4,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -102,7 +140,8 @@
 		.b = { 0.0937, -0.3582, 0.5201, -0.3482, 0.1003, -0.0078 },
 		.b_size = 6,
 		.a = { 1.0000, 9.1122, -2.2473, -8.6564, 0.6569, 0.1355 },
-		.a_size = 6 
+		.a_size = 6,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -126,7 +165,8 @@
 		.b = { 0.00937, -0.03582, 0.05201, -0.03482, 0.01003, -0.00078 },
 		.b_size = 6,
 		.a = { 1.0000, 9.1122, -2.2473, -8.6564, 0.6569, 0.1355 },
-		.a_size = 6 
+		.a_size = 6,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -150,7 +190,8 @@
 		.b = { 0.1, -0.2819, 0.2637, -0.08187 },
 		.b_size = 4,
 		.a = { 1.0, -2.574, 2.181, -0.6068 },
-		.a_size = 4 
+		.a_size = 4,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -174,7 +215,8 @@
 		.b = { 0.10, -0.28, 0.26, -0.08 },
 		.b_size = 4,
 		.a = { 1.0, -2.57, 2.18, -0.60 },
-		.a_size = 4 
+		.a_size = 4,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -198,7 +240,8 @@
 		.b = { 0.1, -0.28, 0.26, -0.08 },
 		.b_size = 4,
 		.a = { 1.0, -2.57, 2.18, -0.60 },
-		.a_size = 4 
+		.a_size = 4,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -222,7 +265,8 @@
 		.b = { 0.2, -0.4, 0.2 },
 		.b_size = 3,
 		.a = { 1.0, 0.0, -0.25 },
-		.a_size = 3 
+		.a_size = 3,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -246,7 +290,8 @@
 		.b = { 0.10, -0.30, 0.30, -0.10 },
 		.b_size = 4,
 		.a = { 1.000, 1.800, 1.140, 0.272 },
-		.a_size = 4 
+		.a_size = 4,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -270,7 +315,8 @@
 		.b = { 0.100, -0.250, 0.200, -0.050 },
 		.b_size = 4,
 		.a = { 1.000, 1.500, 0.680, 0.096 },
-		.a_size = 4 
+		.a_size = 4,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -294,7 +340,8 @@
 		.b = { 0.0937, -0.3582, 0.5201, -0.3482, 0.1003, -0.0078 },
 		.b_size = 6,
 		.a = { 1.0000, 9.1122, -2.2473, -8.6564, 0.6569, 0.1355 },
-		.a_size = 6 
+		.a_size = 6,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -318,7 +365,8 @@
 		.b = { 0.010, -0.030, 0.030, -0.010 },
 		.b_size = 4,
 		.a = { 1.00, 1.800, 1.140, 0.272 },
-		.a_size = 4
+		.a_size = 4,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -342,7 +390,8 @@
 		.b = { 0.100, -0.250, 0.200, -0.050 },
 		.b_size = 4,
 		.a = { 1.000, 1.500, 0.680, 0.096 },
-		.a_size = 4
+		.a_size = 4,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -366,7 +415,8 @@
 		.b = { 0.1, -0.28, 0.26, -0.08 },
 		.b_size = 4,
 		.a = { 1.0, -2.57, 2.18, -0.60 },
-		.a_size = 4
+		.a_size = 4,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -390,7 +440,8 @@
 		.b = { 7.936, -2.919 },
 		.b_size = 2,
 		.a = { 1.00000000, 0.3890000 },
-		.a_size = 2
+		.a_size = 2,
+		.sample_time = 0.5
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -414,7 +465,8 @@
 		.b = { 0.9411, -0.4229 },
 		.b_size = 2,
 		.a = { 1.00000000, 0.2480000 },
-		.a_size = 2
+		.a_size = 2,
+		.sample_time = 0.4
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -438,7 +490,8 @@
 		.b = { 1.1000, -0.6039 },
 		.b_size = 2,
 		.a = { 1.00000000, 0.0340000 },
-		.a_size = 2
+		.a_size = 2,
+		.sample_time = 0.3
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -462,7 +515,8 @@
 		.b = { 1.2670, -0.8493 },
 		.b_size = 2,
 		.a = { 1.0000000, -0.2543000 },
-		.a_size = 2
+		.a_size = 2,
+		.sample_time = 0.2
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -486,7 +540,8 @@
 		.b = { 1.4340, -1.174 },
 		.b_size = 2,
 		.a = { 1.0000000, -0.6080000 },
-		.a_size = 2
+		.a_size = 2,
+		.sample_time = 0.1
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -510,7 +565,8 @@
 		.b = { 1.5000f, -1.357f },
 		.b_size = 2,
 		.a = { 1.0000000f, -0.8010000f },
-		.a_size = 2
+		.a_size = 2,
+		.sample_time = 0.05
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -534,7 +590,8 @@
 		.b = { 1.5000f, -1.357f },
 		.b_size = 2,
 		.a = { 1.0000000f, -0.8010000f },
-		.a_size = 2
+		.a_size = 2,
+		.sample_time = 0.025
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -558,7 +615,8 @@
 		.b = { 1.5840, -1.553 },
 		.b_size = 2,
 		.a = { 1.0000000, -0.9600000 },
-		.a_size = 2
+		.a_size = 2,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -582,7 +640,8 @@
 		.b = { 2.81300000,-0.0163, -1.8720000 },
 		.b_size = 3,
 		.a = { 1.000, 1.068, 0.1239 },
-		.a_size = 3
+		.a_size = 3,
+		.sample_time = 0.5
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -606,7 +665,8 @@
 		.b = { 1.611, 3.079, -3.794 },
 		.b_size = 3,
 		.a = { 1.00000000, 1.0840000, 0.1289 },
-		.a_size = 3
+		.a_size = 3,
+		.sample_time = 0.4
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -630,7 +690,8 @@
 		.b = { -1.692, 10.43, -7.915 },
 		.b_size = 3,
 		.a = { 1.00000000, 1.0460000, 0.08148 },
-		.a_size = 3
+		.a_size = 3,
+		.sample_time = 0.3
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -654,7 +715,8 @@
 		.b = { -1.099, 2.978, -1.812 },
 		.b_size = 3,
 		.a = { 1.00000000, 0.9068000, -0.06514 },
-		.a_size = 3
+		.a_size = 3,
+		.sample_time = 0.2
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -678,7 +740,8 @@
 		.b = { -0.4603, 1.006, -0.5421 },
 		.b_size = 3,
 		.a = { 1.00000000, 0.5949000, -0.3867 },
-		.a_size = 3
+		.a_size = 3,
+		.sample_time = 0.1
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -702,7 +765,8 @@
 		.b = { -1.239, 2.565, -1.323 },
 		.b_size = 3,
 		.a = { 1.00000000, 0.3423000, -0.6468 },
-		.a_size = 3
+		.a_size = 3,
+		.sample_time = 0.05
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -726,7 +790,8 @@
 		.b = { -2.813, 5.719, -2.905 },
 		.b_size = 3,
 		.a = { 1.00000000, 0.18330, -0.8107 },
-		.a_size = 3
+		.a_size = 3,
+		.sample_time = 0.025
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -750,7 +815,8 @@
 		.b = { -0.753, 1.519, -0.766 },
 		.b_size = 3,
 		.a = { 1.00000000, 0.0762700, -0.9212 },
-		.a_size = 3
+		.a_size = 3,
+		.sample_time = 0.01
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
@@ -774,7 +840,8 @@
 		.b = { -1.553, 3.119, -1.566 },
 		.b_size = 3,
 		.a = { 1.00000000, 0.0387300, -0.96 },
-		.a_size = 3
+		.a_size = 3,
+		.sample_time = 0.005
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
