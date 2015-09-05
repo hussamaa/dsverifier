@@ -1,12 +1,12 @@
 /**
- * DSVerifier - Digital Systems Verifier (Limit Cycle)
+ * DSVerifier - Digital Systems Verifier (Zero Input Limit Cycle)
  *
  * Federal University of Amazonas - UFAM
  *
+ * Authors:       Hussama Ismail <hussamaismail@gmail.com>
+ *
  * ------------------------------------------------------
- * Authors:       Renato Abreu   <renatobabreu@yahoo.com.br>
- *				  Iury Bessa     <iury.bessa@gmail.com>
- *                Hussama Ismail <hussamaismail@gmail.com>
+ *
  * ------------------------------------------------------
 */
 
@@ -80,20 +80,18 @@ int verify_zero_input_limit_cycle(void){
 	fxp32_t y[X_SIZE_VALUE];
 	fxp32_t x[X_SIZE_VALUE];
 
-	/* prepare inputs */
+	/* prepare zero inputs */
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
 		y[i] = 0;
 		x[i] = 0;
 	}
 
 	int Nw = 0;
-	/* check if cascade mode */
 	#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
 		Nw = a_cascade_size > b_cascade_size ? a_cascade_size : b_cascade_size;
 	#else
 		Nw = ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
 	#endif
-	assert(Nw != 0);
 
 	fxp32_t yaux[ds.a_size];
 	fxp32_t xaux[ds.b_size];
@@ -102,38 +100,35 @@ int verify_zero_input_limit_cycle(void){
 	fxp32_t y0[ds.a_size];
 	fxp32_t w0[Nw];
 
-	for (i = 0; i < ds.a_size; ++i) {
-		#if (REALIZATION == DFI || REALIZATION == CDFI || REALIZATION == DDFI || REALIZATION == CDDFI)
+	#if (REALIZATION == DFI || REALIZATION == CDFI || REALIZATION == DDFI || REALIZATION == CDDFI)
+		for (i = 0; i < ds.a_size; ++i) {
 			yaux[i] = nondet_int();
 			__DSVERIFIER_assume(yaux[i] >= min_fxp && yaux[i] <= max_fxp);
-			y0[i] = yaux[i]; /* stores initial value for later comparison */
-		#else
+			y0[i] = yaux[i];
+		}
+	#else
+		for (i = 0; i < Nw; ++i) {
 			waux[i] = nondet_int();
 			__DSVERIFIER_assume(waux[i] >= min_fxp && waux[i] <= max_fxp);
-			w0[i] = waux[i]; /* stores initial value for later comparison */
-		#endif
-	}
+			w0[i] = waux[i];
+		}
+	#endif
 
 	for (i = 0; i < ds.b_size; ++i) {
-		xaux[i] = 0; /* xaux[i] = nondet_int(); // Implement it */
+		xaux[i] = 0;
 	}
 
-	int j;
-	int count = 0;
-	int window = order(ds.a_size, ds.b_size);
-	int notzeros = 0;
-
-	fxp32_t xk;
+	fxp32_t xk, temp;
 	fxp32_t *aptr, *bptr, *xptr, *yptr, *wptr;
 
-	int VALOR_X = 0;
+	int j;
 	for(i=0; i<X_SIZE_VALUE; ++i){
 
 		/* direct form I realization */
 		#if ((REALIZATION == DFI) || (REALIZATION == DDFI))
-			shiftL(x[i],xaux,ds.b_size);
+			shiftL(x[i], xaux, ds.b_size);
 			y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
-			shiftL(y[i],yaux,ds.a_size);
+			shiftL(y[i], yaux, ds.a_size);
 		#endif
 
 		/* direct form II realization */
@@ -143,15 +138,15 @@ int verify_zero_input_limit_cycle(void){
 		#endif
 
 		/* transposed direct form II realization */
-		#if ((REALIZATION == TDFII) || (REALIZATION == TDDFII))
+		#if ((REALIZATION == TDFII) || (REALIZATION ==TDDFII))
 			y[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
 		#endif
 
 		/* cascade direct form I realization (or delta cascade) */
 		#if ((REALIZATION == CDFI) || (REALIZATION == CDDFI))
-			assert((Nw % 3) == 0 && ds.a_size == ds.b_size); //Necessary for this implementation of cascade filters
+			assert((Nw % 3) == 0 && a_cascade_size == b_cascade_size);
 			xk = x[i];
-			for (j = 0; j < Nw; j += 3) {
+			for (j = 0; j < a_cascade_size; j += 3) {
 				aptr = &ac_fxp[j];
 				bptr = &bc_fxp[j];
 				xptr = &xaux[j];
@@ -165,11 +160,10 @@ int verify_zero_input_limit_cycle(void){
 
 		/* cascade direct form II realization (or delta cascade) */
 		#if ((REALIZATION == CDFII) || (REALIZATION == CDDFII))
-			assert((Nw % 3) == 0 && ds.a_size == ds.b_size); //Necessary for this implementation of cascade filters
-			xk = x[i];
-			for (j = 0; j < Nw; j += 3) {
-				aptr = &a_fxp[j];
-				bptr = &b_fxp[j];
+			assert((Nw % 3) == 0 && a_cascade_size == b_cascade_size);
+			for (j = 0; j < a_cascade_size; j += 3) {
+				aptr = &ac_fxp[j];
+				bptr = &bc_fxp[j];
 				wptr = &waux[j];
 				shiftR(0, wptr, 3);
 				y[i] = fxp_direct_form_2(wptr, xk, aptr, bptr, 3, 3);
@@ -179,47 +173,20 @@ int verify_zero_input_limit_cycle(void){
 
 		/* cascade transposed direct form II realization (or delta cascade) */
 		#if ((REALIZATION == CTDFII) || (REALIZATION == CTDDFII))
-			assert((Nw % 3) == 0 && ds.a_size == ds.b_size); //Necessary for this implementation of cascade filters
+			assert((Nw % 3) == 0 && a_cascade_size == b_cascade_size);
 			xk = x[i];
-			for (j = 0; j < Nw; j += 3) {
-				aptr = &a_fxp[j];
-				bptr = &b_fxp[j];
+			for (j = 0; j < a_cascade_size; j += 3) {
+				aptr = &ac_fxp[j];
+				bptr = &bc_fxp[j];
 				wptr = &waux[j];
 				y[i] = fxp_transposed_direct_form_2(wptr, xk, aptr, bptr, 3, 3);
 				xk = y[i];
 			}
 		#endif
-
-		/* verify if previous states of y repeats (method 2) */
-		#if ((REALIZATION == DFI) || (REALIZATION == CDFI) || (REALIZATION == DDFI) || (REALIZATION == CDDFI) )
-			for (j = ds.a_size - 1; j >= 0; --j) {
-				if (yaux[j] == y0[j]) {
-					++count;
-				}
-				if (yaux[j] != 0) {
-					++notzeros;
-				}
-			}
-			if (notzeros != 0) {
-				assert(count < ds.a_size);
-			}
-		#else
-			for (j = Nw - 1; j >= 0; --j) {
-				if (waux[j] == w0[j]) {
-					++count;
-				}
-				if (waux[j] != 0) {
-					++notzeros;
-				}
-			}
-			if (notzeros != 0) {
-				printf("NAAAAAAAAAAO %f", notzeros);
-				assert(count < Nw);
-			}
-		#endif
-
-		count = 0;
-		notzeros = 0;
 	}
+
+	/* check oscillations in produced output */
+	fxp_check_limit_cycle(y, X_SIZE_VALUE);
+
 	return 0;
 }

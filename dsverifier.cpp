@@ -51,7 +51,7 @@ typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 
 #define DSVERIFIER_VERSION 1.2
 
-const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "TIMING", "STABILITY", "MINIMUM_PHASE" };
+const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "MINIMUM_PHASE" };
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
 const char * bmcs [] = { "ESBMC", "CBMC" };
 
