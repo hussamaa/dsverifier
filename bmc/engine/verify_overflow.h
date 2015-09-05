@@ -123,6 +123,9 @@ int verify_overflow(void) {
 		#if ((REALIZATION == DFI) || (REALIZATION == DDFI))
 			shiftL(x[i], xaux, ds.b_size);
 			y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
+			#ifdef JACKSON_RULE
+				fxp_quant(y[i]);
+			#endif
 			shiftL(y[i], yaux, ds.a_size);
 		#endif
 
@@ -130,11 +133,17 @@ int verify_overflow(void) {
 		#if ((REALIZATION == DFII) || (REALIZATION == DDFII))
 			shiftR(0, waux, Nw);
 			y[i] = fxp_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
+			#ifdef JACKSON_RULE
+				fxp_quant(y[i]);
+			#endif
 		#endif
 
 		/* transposed direct form II realization */
 		#if ((REALIZATION == TDFII) || (REALIZATION ==TDDFII))
 			y[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
+			#ifdef JACKSON_RULE
+				fxp_quant(y[i]);
+			#endif
 		#endif
 
 		/* cascade direct form I realization (or delta cascade) */

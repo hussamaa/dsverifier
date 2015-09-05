@@ -148,26 +148,24 @@ float fxp_to_float(fxp32_t fxp);
 fxp32_t fxp_quant(int64_t aquant) {
 	if (OVERFLOW_MODE == 2) { /* SATURATE */
 		if(aquant < _fxp_min) {
-	//		printf("fxp_quant: overflow!\n Returning min representable value!\n");
+			/* printf("fxp_quant: overflow!\n Returning min representable value!\n"); */
 			return _fxp_min;
 		}
 		else if(aquant > _fxp_max) {
-	//    	printf("fxp_quant: overflow!\n Returning max representable value!\n");
+			/* printf("fxp_quant: overflow!\n Returning max representable value!\n"); */
 			return _fxp_max;
 		}
 	}
 	else if (OVERFLOW_MODE == 3) { /* WRAPAROUND */
 		if(aquant < _fxp_min || aquant > _fxp_max) {
-		//	printf("fxp_quant: overflow!\n Wrapping around!\n");
+			/* printf("fxp_quant: overflow!\n Wrapping around!\n"); */
 			return wrap(aquant, _fxp_min, _fxp_max);
 		}
 	}
-
 	/* check if is a closed loop verification (ignore) */
     if (PROPERTY != STABILITY_CLOSED_LOOP && OVERFLOW_MODE != 0){
     	__DSVERIFIER_assert(aquant <= _fxp_max && aquant >= _fxp_min);
     }
-
 	return (fxp32_t) aquant; //TRUNCATE
 }
 
@@ -275,18 +273,14 @@ void fxp_double_to_fxp_array(double f[], fxp32_t r[], int N) {
  *        fxp -> float, now is used fxp -> int.
  */
 float fxp_to_float(fxp32_t fxp) {
-
 	float f;
-
 	int f_int = (int) fxp;
 	f =  f_int * scale_factor_inv[impl.frac_bits];
 
 	return f;
 }
 double fxp_to_double(fxp32_t fxp) {
-
 	double f;
-
 	int f_int = (int) fxp;
 	f = f_int * scale_factor_inv[impl.frac_bits];
 
@@ -319,11 +313,13 @@ void fxp_to_double_array(double f[], fxp32_t r[], int N) {
  * @return absolute value of a
  */
 fxp32_t fxp_abs(fxp32_t a) {
-
-	//return ((a < 0) ?  -a : a);
-	 int64_t tmp;
-	 tmp = ((a < 0) ?  -(int64_t)(a) :  a);
-	 return fxp_quant(tmp);
+	int64_t tmp;
+	tmp = ((a < 0) ?  -(int64_t)(a) :  a);
+	#ifndef JACKSON_RULE
+		return fxp_quant(tmp);
+	#else
+		return tmp;
+	#endif
 }
 
 /**
@@ -333,11 +329,13 @@ fxp32_t fxp_abs(fxp32_t a) {
  * @return result of summing the inputs
  */
 fxp32_t fxp_add(fxp32_t aadd, fxp32_t badd) {
-
 	int64_t tmpadd;
-
 	tmpadd = (int64_t)((int64_t)(aadd) + (int64_t)(badd));
-	return fxp_quant(tmpadd);
+	#ifndef JACKSON_RULE
+		return fxp_quant(tmpadd);
+	#else
+		return tmpadd;
+	#endif
 }
 
 /**
@@ -347,11 +345,13 @@ fxp32_t fxp_add(fxp32_t aadd, fxp32_t badd) {
  * @return result of subtracting the inputs
  */
 fxp32_t fxp_sub(fxp32_t asub, fxp32_t bsub) {
-
 	int64_t tmpsub;
-
 	tmpsub = (int64_t)((int64_t)(asub) - (int64_t)(bsub));
-	return fxp_quant(tmpsub);
+	#ifndef JACKSON_RULE
+		return fxp_quant(tmpsub);
+	#else
+		return tmpsub;
+	#endif
 }
 
 /**
@@ -366,21 +366,16 @@ fxp32_t fxp_mult(fxp32_t amult, fxp32_t bmult) {
 
 	tmpmult = (int64_t)((int64_t)(amult)*(int64_t)(bmult));
 
-	// rounding on truncation
-
-//	tmpmultprec = (tmpmult >> impl.frac_bits) | ((tmpmult >> (impl.frac_bits - 1)) & (0x0001 & (tmpmult >= 0)));
-
-//	tmpmultprec = (tmpmult >> impl.frac_bits) | ((tmpmult >> (impl.frac_bits - 1)) & 0x0001);
-
-//	tmpmultprec = (tmpmult + ((tmpmult & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits;
-
 	if (tmpmult >= 0) {
 		tmpmultprec = (tmpmult + ((tmpmult & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits;
 	} else {
 		tmpmultprec = -(((-tmpmult) + (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits);
 	}
-
-	return fxp_quant(tmpmultprec);
+	#ifndef JACKSON_RULE
+		return fxp_quant(tmpmultprec);
+	#else
+		return tmpmultprec;
+	#endif
 }
 
 /**
@@ -389,12 +384,13 @@ fxp32_t fxp_mult(fxp32_t amult, fxp32_t bmult) {
  * @return -a;
  */
 fxp32_t fxp_neg(fxp32_t aneg) {
-
-	 int64_t tmpneg;
-	 tmpneg = -(int64_t)(aneg);
-	 return fxp_quant(tmpneg);
-
-	 //return (-a);
+	int64_t tmpneg;
+	tmpneg = -(int64_t)(aneg);
+	#ifndef JACKSON_RULE
+		return fxp_quant(tmpneg);
+	#else
+		return tmpneg;
+	#endif
 }
 
 /**
@@ -415,7 +411,6 @@ fxp32_t fxp_sign(fxp32_t a) {
  * @return logical right shift a, "shift" bits to the right
  */
 fxp32_t fxp_shrl(fxp32_t in, int shift) {
-
 	return (fxp32_t) (((unsigned int) in) >> shift);
 }
 
@@ -425,22 +420,18 @@ fxp32_t fxp_shrl(fxp32_t in, int shift) {
  * @return the square of a
  */
 fxp32_t fxp_square(fxp32_t a) {
-
 	return fxp_mult(a, a);
 }
 
 void fxp_print_int(fxp32_t a) {
-
 	printf("\n%i", (int32_t)a);
 }
 
 void fxp_print_float(fxp32_t a) {
-
 	printf("\n%f", fxp_to_float(a));
 }
 
 void fxp_print_float_array(fxp32_t a[], int N) {
-
 	int i;
 	for(i = 0; i < N; ++i) {
 		printf("\n%f", fxp_to_float(a[i]));

@@ -155,6 +155,12 @@ void validation(){
 			}
 		}
 	}
+	if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII)){
+		printf("\n\n******************************************\n");
+		printf("* Temporarily the cascade modes are disabled *\n");
+		printf("**********************************************\n");
+		__DSVERIFIER_assert(0);
+	}
 }
 
 /** method to call the verification task considering or not the uncertainty for digital system (ds struct) */
