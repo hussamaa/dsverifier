@@ -51,3 +51,19 @@ void generate_delta_coefficients(double vetor[], double out[], int n, double del
    }
    revert_array(_a, out, n);
 }
+
+/* get a transfer function in delta domain */
+void get_delta_transfer_function(double b[], double b_out[], int b_size, double a[], double a_out[], int a_size, double delta){
+	/* generate delta coefficients */
+	generate_delta_coefficients(b, b_out, b_size, delta);
+	generate_delta_coefficients(a, a_out, a_size, delta);
+	int i = 0;
+	double base = a_out[0];
+	/** applying base in numerator coefficients */
+	for (i=0; i < b_size; i++){
+		b_out[i] = b_out[i] / base;
+	}
+	for (i=0; i < a_size; i++){
+		a_out[i] = a_out[i] / base;
+	}
+}
