@@ -383,7 +383,7 @@ void check_stability_delta_domain(){
 	std::cout << std::endl;
 	double da[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
-	generate_delta_coefficients(ds.a, da, ds.a_size, impl.delta);
+	generate_delta_coefficients_with_base(ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta denominator", da, ds.a_size);
 	fxp32_t da_fxp[ds.a_size];
 	try{
@@ -426,7 +426,7 @@ void check_minimum_phase_delta_domain(){
 	std::cout << std::endl;
 	double db[ds.b_size];
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
-	generate_delta_coefficients(ds.b, db, ds.b_size, impl.delta);
+	generate_delta_coefficients_with_base(ds.b, db, ds.b_size, impl.delta);
 	cplus_print_array_elements("delta numerator", db, ds.b_size);
 	fxp32_t db_fxp[ds.b_size];
 	fxp_double_to_fxp_array(db, db_fxp, ds.b_size);

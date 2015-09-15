@@ -52,6 +52,16 @@ void generate_delta_coefficients(double vetor[], double out[], int n, double del
    revert_array(_a, out, n);
 }
 
+/** calculate the delta coefficients for a polynomial */
+void generate_delta_coefficients_with_base(double vetor[], double out[], int n, double delta){
+	generate_delta_coefficients(vetor, out, n, delta);
+	int i;
+	double base = out[0];
+	for(i=0; i<n; i++){
+		out[i] = out[i] / base;
+	}
+}
+
 /* get a transfer function in delta domain */
 void get_delta_transfer_function(double b[], double b_out[], int b_size, double a[], double a_out[], int a_size, double delta){
 	/* generate delta coefficients */
