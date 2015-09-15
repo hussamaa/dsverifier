@@ -1,4 +1,4 @@
-#include "../../bmc/dsverifier.h"
+#include "../../../bmc/dsverifier.h"
 
 hardware hw = {
 	.clock = 16000000,
