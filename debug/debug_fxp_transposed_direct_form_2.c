@@ -8,23 +8,24 @@ void __DSVERIFIER_assume(_Bool expression){
 	/* nothing to do here */
 }
 
-#include "../core/definitions.h"
-#include "../core/fixed-point.h"
-#include "../core/realizations.h"
-#include "../core/util.h"
-#include "../core/initialization.h"
+#include "../bmc/core/definitions.h"
+#include "../bmc/core/fixed-point.h"
+#include "../bmc/core/realizations.h"
+#include "../bmc/core/util.h"
+#include "../bmc/core/initialization.h"
 
-digital_system ds = {
-	.b = { 2002.0, -4000.0, 1998.0 },
-	.b_size = 3,
-	.a = { 1.0, 0.0, -1.0 },
-	.a_size = 3,
-	.sample_time = 0.001
+
+digital_system ds = { 
+	.b = { 0.012500000000000, 0.004525000000000, -0.000050000000000,  -0.000070000000000 },
+	.b_size = 4,
+	.a = { 0.125000000000000, 0.106500000000000, 0.016500000000000,  0.000200000000000 },
+	.a_size = 4,
+	.sample_time = 0.02
 };
 
 implementation impl = {
-	.int_bits = 13,
-	.frac_bits = 3,
+	.int_bits = 15,
+	.frac_bits = 16,
 	.max = 1.0,
 	.min = -1.0,
 };
@@ -32,7 +33,7 @@ implementation impl = {
 hardware hw = { };
 
 /* inputs */
-fxp32_t x_fxp[20] = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+fxp32_t x_fxp[20];
 int x_size = 20;
 int generic_timer;
 
@@ -42,9 +43,9 @@ int main(){
 
 	OVERFLOW_MODE = 3;
 
-	double x[x_size];
+	double x[10] = { -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, 1.0, -0.99218750, -0.99218750 } ;
 	printf("inputs: \n");
-	fxp_to_double_array(x, x_fxp, x_size);
+	fxp_double_to_fxp_array(x, x_fxp, x_size);
 	print_array_elements("x", x, x_size);
 	print_fxp_array_elements("x_fxp", x_fxp, x_size);
 
@@ -76,9 +77,11 @@ int main(){
 
 	/* update with values found in bmc machine */
 	fxp32_t waux[Nw];
-	waux[0] = -2;
+	waux[0] = 0;
 	waux[1] = 0;
 	waux[2] = 0;
+	waux[3] = 0;
+	waux[4] = 0;
 
 	double waux_d[Nw];
 	print_fxp_array_elements("\nwaux_fxp", waux, Nw);
@@ -98,9 +101,7 @@ int main(){
 	fxp32_t *aptr, *bptr, *xptr, *yptr, *wptr;
 
 	for (i = 0; i < x_size; i++) {
-
 		y_fxp[i] = fxp_transposed_direct_form_2(waux, x_fxp[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
-
 	}
 
 	printf("\noutputs: \n");
