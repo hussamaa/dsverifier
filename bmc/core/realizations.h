@@ -33,7 +33,7 @@ fxp32_t fxp_direct_form_1(fxp32_t y[], fxp32_t x[], fxp32_t a[], fxp32_t b[], in
 	for (j = 1; j < Na; j++) {
 		sum = fxp_sub(sum, fxp_mult(*a_ptr++, *y_ptr--));
 	}
-	//sum = (sum / a[0]); how do div in fxp?
+	sum = fxp_div(sum,a[0]);
 	return sum;
 }
 
@@ -49,7 +49,7 @@ fxp32_t fxp_direct_form_2(fxp32_t w[], fxp32_t x, fxp32_t a[], fxp32_t b[], int 
 		w[0] = fxp_sub(w[0], fxp_mult(*a_ptr++, *w_ptr++));
 	}
 	w[0] = fxp_add(w[0], x); //w[0] += x;
-	//w[0] = w[0] / a[0]; how do div in fxp?
+	w[0] = fxp_div(w[0], a[0]);
 	w_ptr = &w[0];
 	for (k = 0; k < Nb; k++) {
 		sum = fxp_add(sum, fxp_mult(*b_ptr++, *w_ptr++));
@@ -65,7 +65,7 @@ fxp32_t fxp_transposed_direct_form_2(fxp32_t w[], fxp32_t x, fxp32_t a[], fxp32_
 	b_ptr = &b[0];
 	int Nw = Na > Nb ? Na : Nb;
 	yout = fxp_add(fxp_mult(*b_ptr++, x), w[0]);
-	// yout = yout / a[0];
+	yout[0] = fxp_div(yout[0], a[0]);
 	int j;
 	for (j = 0; j < Nw - 1; j++) {
 		w[j] = w[j + 1];

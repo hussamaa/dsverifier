@@ -414,6 +414,50 @@ fxp32_t fxp_shrl(fxp32_t in, int shift) {
 	return (fxp32_t) (((unsigned int) in) >> shift);
 }
 
+fxp32_t fxp_div(fxp32_t a, fxp32_t b){
+	double da = fxp_to_double(a);
+	double db = fxp_to_double(b);
+	double div = da/db;
+	fxp32_t tmpdiv = fxp_double_to_fxp(div);
+/*
+	fxp64_t tmpdiv;
+	if ( b != 0 ) {
+		tmpdiv = ((fxp32_t) a << 15) / ((fxp32_t) b);
+	} else {
+		printf("division by zero error\n");
+		assert(0);
+	}
+*/
+	#ifndef JACKSON_RULE
+		return fxp_quant(tmpdiv);
+	#else
+		return tmpadd;
+	#endif
+}
+
+/*
+// 32 bit sub
+int16_t fxp_L_sub(int16_t L_var1,int16_t L_var2) {
+        return (L_var1>2147483647LL+L_var2)?2147483647LL:((L_var1<-2147483648LL+L_var2)?-2147483648LL:L_var1-L_var2);
+}
+// 16 bit div
+int16_t fxp_div(int16_t var1,int16_t var2) {
+        int32_t L_num=var1;
+        int32_t L_denum=var2;
+        int16_t div=0;
+        int8_t k;
+        for(k=0;k<15;k++) {
+                div<<=1;
+                L_num<<=1;
+                if(L_num>=L_denum) {
+                        L_num=fxp_L_sub(L_num,L_denum);
+                        div=fxp_add(div,1);
+                }
+        }
+        return div;
+}
+*/
+
 /**
  * Fixed point square.
  * @param [a] fixed point parameter
