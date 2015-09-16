@@ -121,6 +121,7 @@ typedef struct {
    int default_realization;
    double delta;
    int scale;
+   double max_error;
 } implementation;
 
 /* assembly structure */

@@ -116,6 +116,17 @@ double shiftRdouble(double zIn, double z[], int N) {
 	return zOut;
 }
 
+double shiftLDouble(double zIn, double z[], int N) {
+	int i;
+	double zOut;
+	zOut = z[0];
+	for (i = 0; i < N - 1; i++) {
+		z[i] = z[i + 1];
+	}
+	z[N - 1] = zIn;
+	return (zOut);
+}
+
 void shiftLboth(float zfIn, float zf[], fxp32_t zIn, fxp32_t z[], int N) {
 	int i;
 	fxp32_t zOut;

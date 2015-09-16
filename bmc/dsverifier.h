@@ -26,6 +26,7 @@
 
 #include "engine/verify_overflow.h"
 #include "engine/verify_limit_cycle.h"
+#include "engine/verify_error.h"
 #include "engine/verify_zero_input_limit_cycle.h"
 #include "engine/verify_generic_timing.h"
 #include "engine/verify_timing_msp430.h"
@@ -57,6 +58,9 @@ int main(){
 	}
 	if (PROPERTY == LIMIT_CYCLE){
 		call_verification_task(&verify_limit_cycle);
+	}
+	if (PROPERTY == ERROR){
+		call_verification_task(&verify_error);
 	}
 	if (PROPERTY == ZERO_INPUT_LIMIT_CYCLE){
 		call_verification_task(&verify_zero_input_limit_cycle);
@@ -108,7 +112,7 @@ void validation(){
 		printf("***************************************************************************************\n");
 		__DSVERIFIER_assert(0);
 	}
-	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) || (PROPERTY == TIMING_MSP430 || PROPERTY == TIMING)){
+	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) || (PROPERTY == TIMING_MSP430 || PROPERTY == TIMING) || PROPERTY == ERROR){
 		if (X_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* It is necessary to set a X_SIZE to use this property in DSVerifier (use: -DX_SIZE=VALUE) *\n");
@@ -125,10 +129,10 @@ void validation(){
 		__DSVERIFIER_assert(0);
 	}
 	if (PROPERTY == ERROR){
-		if (CONNECTION_MODE == 0){
-			printf("\n\n*************************************************************************\n");
-			printf("* You need to inform the maximum expected error (use: -DEXPECTED_ERROR) *\n");
-			printf("*************************************************************************\n");
+		if (impl.max_error == 0){
+			printf("\n\n***********************************************************************\n");
+			printf("* You need to inform the maximum expected error (use: impl.max_error) *\n");
+			printf("***********************************************************************\n");
 			__DSVERIFIER_assert(0);
 		}
 	}
