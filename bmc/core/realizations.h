@@ -65,7 +65,7 @@ fxp32_t fxp_transposed_direct_form_2(fxp32_t w[], fxp32_t x, fxp32_t a[], fxp32_
 	b_ptr = &b[0];
 	int Nw = Na > Nb ? Na : Nb;
 	yout = fxp_add(fxp_mult(*b_ptr++, x), w[0]);
-	yout[0] = fxp_div(yout[0], a[0]);
+	yout = fxp_div(yout, a[0]);
 	int j;
 	for (j = 0; j < Nw - 1; j++) {
 		w[j] = w[j + 1];
