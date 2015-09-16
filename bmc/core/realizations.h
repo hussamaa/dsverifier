@@ -27,14 +27,13 @@ fxp32_t fxp_direct_form_1(fxp32_t y[], fxp32_t x[], fxp32_t a[], fxp32_t b[], in
 	b_ptr = &b[0];
 	x_ptr = &x[Nb - 1];
 	int i, j;
-
 	for (i = 0; i < Nb; i++) {
 		sum = fxp_add(sum, fxp_mult(*b_ptr++, *x_ptr--));
 	}
-
 	for (j = 1; j < Na; j++) {
 		sum = fxp_sub(sum, fxp_mult(*a_ptr++, *y_ptr--));
 	}
+	sum = (sum / a[0]);
 	return sum;
 }
 
@@ -96,6 +95,7 @@ double double_direct_form_1(double y[], double x[], double a[], double b[], int 
 	for (j = 1; j < Na; j++) {
 		sum -= *a_ptr++ * *y_ptr--;
 	}
+	sum = (sum / a[0]);
 	return sum;
 }
 
@@ -148,14 +148,13 @@ float float_direct_form_1(float y[], float x[], float a[], float b[], int Na, in
 	b_ptr = &b[0];
 	x_ptr = &x[Nb - 1];
 	int i, j;
-
 	for (i = 0; i < Nb; i++) {
 		sum += *b_ptr++ * *x_ptr--;
 	}
-
 	for (j = 1; j < Na; j++) {
 		sum -= *a_ptr++ * *y_ptr--;
 	}
+	sum = (sum / a[0]);
 	return sum;
 }
 
