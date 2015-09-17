@@ -33,10 +33,7 @@ int verify_zero_input_limit_cycle(void){
 	#elif ((REALIZATION == DDFI)||(REALIZATION == DDFII)||(REALIZATION == TDDFII))
 		double da[ds.a_size];
 		double db[ds.b_size];
-		/* generate delta coefficients for denominator */
-		generate_delta_coefficients(ds.a, da, ds.a_size, impl.delta);
-		/* generate delta coefficients for numerator */
-		generate_delta_coefficients(ds.b, db, ds.b_size, impl.delta);
+		get_delta_transfer_function(ds.b, db, ds.b_size,ds.a, da, ds.a_size, impl.delta);
 		fxp32_t a_fxp[ds.a_size];
 		fxp32_t b_fxp[ds.b_size];
 		/* quantize delta denominators using fxp */
