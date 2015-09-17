@@ -67,6 +67,11 @@ void get_delta_transfer_function(double b[], double b_out[], int b_size, double 
 	/* generate delta coefficients */
 	generate_delta_coefficients(b, b_out, b_size, delta);
 	generate_delta_coefficients(a, a_out, a_size, delta);
+}
+
+/* get a transfer function in delta domain using as base the first denominator element */
+void get_delta_transfer_function_with_base(double b[], double b_out[], int b_size, double a[], double a_out[], int a_size, double delta){
+	get_delta_transfer_function(b, b_out, b_size, a, a_out, a_size, delta);
 	int i = 0;
 	double base = a_out[0];
 	/** applying base in numerator coefficients */

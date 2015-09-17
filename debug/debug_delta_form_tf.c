@@ -17,10 +17,10 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../bmc/core/delta-operator.h"
 
 digital_system ds = { 
-	.b = {  0.10000000000000000555111512312578, -0.28189999999999998392397060342773,  0.26369999999999998996358385738858,  -0.08186999999999999833022457096376 },
-	.b_size = 4,
-	.a = {  1.00000000000000000000000000000000,  -2.57399999999999984368059813277796,  2.18100000000000004973799150320701,  -0.60680000000000000603961325396085  },
-	.a_size = 4,
+	.b = {  1.0, -1.9, 0.9025 },
+	.b_size = 3,
+	.a = {  1.0, -1.9, 0.8925 },
+	.a_size = 3,
 	.sample_time = 0.02
 };
 
@@ -46,7 +46,7 @@ digital_system ds = {
 implementation impl = { 
 	.int_bits = 15, 
 	.frac_bits = 16,
-	.delta = 0.125,
+	.delta = 0.1,
 	.max = 1.0,
 	.min = -1.0
 };
@@ -67,7 +67,7 @@ int main(){
 	double da[ds.a_size];
 	double db[ds.b_size];
 
-	print_array_elements("a", ds.b, ds.b_size);
+	print_array_elements("b", ds.b, ds.b_size);
 	print_array_elements("a", ds.a, ds.a_size);
 
 	printf("\ndelta: %.5f\n\n", impl.delta);

@@ -26,7 +26,7 @@
 typedef bool _Bool;
 
 void __DSVERIFIER_assume(_Bool expression){
-	/* do nothing */
+	/* nothing to do */
 }
 
 void __DSVERIFIER_assert(_Bool expression){
@@ -383,7 +383,7 @@ void check_stability_delta_domain(){
 	std::cout << std::endl;
 	double da[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
-	generate_delta_coefficients_with_base(ds.a, da, ds.a_size, impl.delta);
+	generate_delta_coefficients(ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta denominator", da, ds.a_size);
 	fxp32_t da_fxp[ds.a_size];
 	try{
@@ -426,7 +426,7 @@ void check_minimum_phase_delta_domain(){
 	std::cout << std::endl;
 	double db[ds.b_size];
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
-	generate_delta_coefficients_with_base(ds.b, db, ds.b_size, impl.delta);
+	generate_delta_coefficients(ds.b, db, ds.b_size, impl.delta);
 	cplus_print_array_elements("delta numerator", db, ds.b_size);
 	fxp32_t db_fxp[ds.b_size];
 	fxp_double_to_fxp_array(db, db_fxp, ds.b_size);
@@ -560,7 +560,6 @@ int main(int argc, char* argv[]){
 	OVERFLOW_MODE = 0;
 
 	bind_parameters(argc, argv);
-
 	check_file_exists();
 
 	std::cout << "Running: Digital Systems Verifier (DSVerifier)" << std::endl;
@@ -568,13 +567,11 @@ int main(int argc, char* argv[]){
 	bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
 
 	if (!(is_restricted_property && is_delta_realization)){
-
 		/* normal flow using bmc */
 		std::string command_line = prepare_bmc_command_line();
 		std::cout << "Back-end Verification: " << command_line << std::endl;
 		execute_command_line(command_line);
 		exit(0);
-
 	}else{
 		try{
 			extract_data_from_file();
