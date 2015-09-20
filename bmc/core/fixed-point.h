@@ -431,7 +431,7 @@ fxp32_t fxp_div(fxp32_t a, fxp32_t b){
 	#ifndef JACKSON_RULE
 		return fxp_quant(tmpdiv);
 	#else
-		return tmpadd;
+		return tmpdiv;
 	#endif
 }
 
