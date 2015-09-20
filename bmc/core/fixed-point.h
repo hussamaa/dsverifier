@@ -145,6 +145,26 @@ fxp32_t fxp_get_frac_part(fxp32_t in) {
  */
 float fxp_to_float(fxp32_t fxp);
 
+fxp32_t fxp_quant_only_saturate_and_wrap(int64_t aquant) {
+	if (OVERFLOW_MODE == 2) { /* SATURATE */
+		if(aquant < _fxp_min) {
+			/* printf("fxp_quant: overflow!\n Returning min representable value!\n"); */
+			return _fxp_min;
+		}
+		else if(aquant > _fxp_max) {
+			/* printf("fxp_quant: overflow!\n Returning max representable value!\n"); */
+			return _fxp_max;
+		}
+	}
+	else if (OVERFLOW_MODE == 3) { /* WRAPAROUND */
+		if(aquant < _fxp_min || aquant > _fxp_max) {
+			/* printf("fxp_quant: overflow!\n Wrapping around!\n"); */
+			return wrap(aquant, _fxp_min, _fxp_max);
+		}
+	}
+	return (fxp32_t) aquant; //TRUNCATE
+}
+
 fxp32_t fxp_quant(int64_t aquant) {
 	if (OVERFLOW_MODE == 2) { /* SATURATE */
 		if(aquant < _fxp_min) {
@@ -221,6 +241,44 @@ fxp32_t fxp_float_to_fxp(float f) {
 	}
 
 	return fxp_quant(tmp);
+}
+
+fxp32_t fxp_double_to_fxp_without_overflow(double f) {
+
+	int64_t tmp;
+	double ftemp;
+
+	f=f;
+
+	ftemp = f*scale_factor[impl.frac_bits];
+
+	if(f >= 0) {
+		tmp = (int64_t)(ftemp + 0.5);
+	}
+	else {
+		tmp = (int64_t)(ftemp - 0.5);
+	}
+
+	return tmp;
+}
+
+fxp32_t fxp_double_to_fxp_only_saturate_and_wrap(double f) {
+
+	int64_t tmp;
+	double ftemp;
+
+	f=f;
+
+	ftemp = f*scale_factor[impl.frac_bits];
+
+	if(f >= 0) {
+		tmp = (int64_t)(ftemp + 0.5);
+	}
+	else {
+		tmp = (int64_t)(ftemp - 0.5);
+	}
+
+	return fxp_quant_only_saturate_and_wrap(tmp);
 }
 
 fxp32_t fxp_double_to_fxp(double f) {
@@ -418,7 +476,7 @@ fxp32_t fxp_div(fxp32_t a, fxp32_t b){
 	double da = fxp_to_double(a);
 	double db = fxp_to_double(b);
 	double div = da/db;
-	fxp32_t tmpdiv = fxp_double_to_fxp(div);
+	fxp32_t tmpdiv = fxp_double_to_fxp_only_saturate_and_wrap(div);
 /*
 	fxp64_t tmpdiv;
 	if ( b != 0 ) {

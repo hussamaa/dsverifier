@@ -74,8 +74,8 @@ int verify_overflow(void) {
 	fxp32_t min_fxp;
 	fxp32_t max_fxp;
 
-	min_fxp = fxp_double_to_fxp(impl.min);
-	max_fxp = fxp_double_to_fxp(impl.max);
+	min_fxp = fxp_double_to_fxp_without_overflow(impl.min);
+	max_fxp = fxp_double_to_fxp_without_overflow(impl.max);
 
 	fxp32_t y[X_SIZE_VALUE];
 	fxp32_t x[X_SIZE_VALUE];
