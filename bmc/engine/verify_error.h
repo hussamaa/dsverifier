@@ -19,7 +19,7 @@ extern implementation impl;
 
 int verify_error(void){
 
-	OVERFLOW_MODE = 3;
+	DSVERIFIER_OVERFLOW_MODE = 3;
 
 	double a_cascade[100];
 	int a_cascade_size;

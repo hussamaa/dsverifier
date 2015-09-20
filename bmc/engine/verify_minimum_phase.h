@@ -23,7 +23,7 @@ extern implementation impl;
 
 int verify_minimum_phase(void){
 
-	OVERFLOW_MODE = 0;
+	DSVERIFIER_OVERFLOW_MODE = 0;
 
 	/* check the realization */
 	#if ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))

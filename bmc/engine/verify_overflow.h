@@ -22,8 +22,8 @@ extern implementation impl;
 
 int verify_overflow(void) {
 
-	/* enable overflow detection */
-	OVERFLOW_MODE = 1;
+	/* disable overflow detection for coefficients */
+	DSVERIFIER_OVERFLOW_MODE = 0;
 
 	/* check the realization */
 	#if	((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
@@ -80,6 +80,9 @@ int verify_overflow(void) {
 	fxp32_t y[X_SIZE_VALUE];
 	fxp32_t x[X_SIZE_VALUE];
 
+	/* enable overflow detection for realization */
+	DSVERIFIER_OVERFLOW_MODE = 1;
+
 	int i;
 	/* prepare de inputs with the possibles values (min ~ max) */
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
@@ -121,7 +124,7 @@ int verify_overflow(void) {
 			shiftL(x[i], xaux, ds.b_size);
 			y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
 			#ifdef JACKSON_RULE
-				fxp_quant(y[i]);
+				y[i] = fxp_quant(y[i]);
 			#endif
 			shiftL(y[i], yaux, ds.a_size);
 		#endif
@@ -186,5 +189,8 @@ int verify_overflow(void) {
 		#endif
 
 	}
+
+//	assert(0);
+
 	return 0;
 }

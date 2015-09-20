@@ -89,7 +89,7 @@
 
 /* overflow and x_size parameters */
 int X_SIZE_VALUE = 0;
-int OVERFLOW_MODE = 1; 						/* DETECT_OVERFLOW */
+int DSVERIFIER_OVERFLOW_MODE = 1; 			/* DETECT_OVERFLOW */
 
 /* connection mode for control + model (use: -DCONNECTION_MODE=SERIES) */
 #define SERIES 								1

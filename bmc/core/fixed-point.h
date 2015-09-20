@@ -146,7 +146,7 @@ fxp32_t fxp_get_frac_part(fxp32_t in) {
 float fxp_to_float(fxp32_t fxp);
 
 fxp32_t fxp_quant_only_saturate_and_wrap(int64_t aquant) {
-	if (OVERFLOW_MODE == 2) { /* SATURATE */
+	if (DSVERIFIER_OVERFLOW_MODE == 2) { /* SATURATE */
 		if(aquant < _fxp_min) {
 			/* printf("fxp_quant: overflow!\n Returning min representable value!\n"); */
 			return _fxp_min;
@@ -156,7 +156,7 @@ fxp32_t fxp_quant_only_saturate_and_wrap(int64_t aquant) {
 			return _fxp_max;
 		}
 	}
-	else if (OVERFLOW_MODE == 3) { /* WRAPAROUND */
+	else if (DSVERIFIER_OVERFLOW_MODE == 3) { /* WRAPAROUND */
 		if(aquant < _fxp_min || aquant > _fxp_max) {
 			/* printf("fxp_quant: overflow!\n Wrapping around!\n"); */
 			return wrap(aquant, _fxp_min, _fxp_max);
@@ -166,7 +166,7 @@ fxp32_t fxp_quant_only_saturate_and_wrap(int64_t aquant) {
 }
 
 fxp32_t fxp_quant(int64_t aquant) {
-	if (OVERFLOW_MODE == 2) { /* SATURATE */
+	if (DSVERIFIER_OVERFLOW_MODE == 2) { /* SATURATE */
 		if(aquant < _fxp_min) {
 			/* printf("fxp_quant: overflow!\n Returning min representable value!\n"); */
 			return _fxp_min;
@@ -176,14 +176,14 @@ fxp32_t fxp_quant(int64_t aquant) {
 			return _fxp_max;
 		}
 	}
-	else if (OVERFLOW_MODE == 3) { /* WRAPAROUND */
+	else if (DSVERIFIER_OVERFLOW_MODE == 3) { /* WRAPAROUND */
 		if(aquant < _fxp_min || aquant > _fxp_max) {
 			/* printf("fxp_quant: overflow!\n Wrapping around!\n"); */
 			return wrap(aquant, _fxp_min, _fxp_max);
 		}
 	}
 	/* check if is a closed loop verification (ignore) */
-    if (PROPERTY != STABILITY_CLOSED_LOOP && OVERFLOW_MODE != 0){
+    if (PROPERTY != STABILITY_CLOSED_LOOP && DSVERIFIER_OVERFLOW_MODE != 0){
     	__DSVERIFIER_assert(aquant <= _fxp_max && aquant >= _fxp_min);
     }
 	return (fxp32_t) aquant; //TRUNCATE
@@ -264,12 +264,27 @@ fxp32_t fxp_double_to_fxp_without_overflow(double f) {
 
 fxp32_t fxp_double_to_fxp_only_saturate_and_wrap(double f) {
 
-	int64_t tmp;
-	double ftemp;
+	int64_t tmp = 0;
+	double ftemp = 0;
 
-	f=f;
+	ftemp = f * scale_factor[impl.frac_bits];
 
-	ftemp = f*scale_factor[impl.frac_bits];
+	if(f >= 0) {
+		tmp = (int64_t)(ftemp + 0.5);
+	}
+	else {
+		tmp = (int64_t)(ftemp - 0.5);
+	}
+
+	return fxp_quant_only_saturate_and_wrap(tmp);
+}
+
+fxp32_t fxp_float_to_fxp_only_saturate_and_wrap(float f) {
+
+	int64_t tmp = 0;
+	double ftemp = 0;
+
+	ftemp = f * scale_factor[impl.frac_bits];
 
 	if(f >= 0) {
 		tmp = (int64_t)(ftemp + 0.5);
@@ -334,14 +349,12 @@ float fxp_to_float(fxp32_t fxp) {
 	float f;
 	int f_int = (int) fxp;
 	f =  f_int * scale_factor_inv[impl.frac_bits];
-
 	return f;
 }
 double fxp_to_double(fxp32_t fxp) {
-	double f;
+	double f = 0;
 	int f_int = (int) fxp;
 	f = f_int * scale_factor_inv[impl.frac_bits];
-
 	return f;
 }
 
@@ -387,13 +400,30 @@ fxp32_t fxp_abs(fxp32_t a) {
  * @return result of summing the inputs
  */
 fxp32_t fxp_add(fxp32_t aadd, fxp32_t badd) {
-	int64_t tmpadd;
-	tmpadd = (int64_t)((int64_t)(aadd) + (int64_t)(badd));
+
+	// FIX-ME
+	// int64_t tmpadd;
+	// tmpadd = (int64_t)((int64_t)(aadd) + (int64_t)(badd));
+
+	double da = fxp_to_double(aadd);
+	double db = fxp_to_double(badd);
+	double dadd = da + db;
+
+	printf("DEBUG - ADD da: %.5f \n",da);
+	printf("DEBUG - ADD db: %.5f \n",db);
+	printf("DEBUG - ADD result: %.5f \n",dadd);
+
+	fxp32_t tmpadd = fxp_double_to_fxp_only_saturate_and_wrap(dadd);
+
+	printf("DEBUG - ADD result (fxp): %d \n",tmpadd);
+
+
 	#ifndef JACKSON_RULE
 		return fxp_quant(tmpadd);
 	#else
 		return tmpadd;
 	#endif
+
 }
 
 /**
@@ -403,13 +433,29 @@ fxp32_t fxp_add(fxp32_t aadd, fxp32_t badd) {
  * @return result of subtracting the inputs
  */
 fxp32_t fxp_sub(fxp32_t asub, fxp32_t bsub) {
-	int64_t tmpsub;
-	tmpsub = (int64_t)((int64_t)(asub) - (int64_t)(bsub));
+
+	// FIX-ME
+	// int64_t tmpsub = 0 ;
+	// tmpsub = (int64_t)((int64_t)(asub) - (int64_t)(bsub));
+
+	double da = fxp_to_double(asub);
+	double db = fxp_to_double(bsub);
+	double dsub = da - db;
+
+	printf("DEBUG - SUB da: %.5f \n",da);
+	printf("DEBUG - SUB db: %.5f \n",db);
+	printf("DEBUG - SUB result: %.5f \n",dsub);
+
+	fxp32_t tmpsub = fxp_double_to_fxp_only_saturate_and_wrap(dsub);
+
+	printf("DEBUG - SUB result (fxp): %d \n",tmpsub);
+
 	#ifndef JACKSON_RULE
 		return fxp_quant(tmpsub);
 	#else
 		return tmpsub;
 	#endif
+
 }
 
 /**
@@ -420,15 +466,27 @@ fxp32_t fxp_sub(fxp32_t asub, fxp32_t bsub) {
  */
 fxp32_t fxp_mult(fxp32_t amult, fxp32_t bmult) {
 
-	int64_t tmpmult, tmpmultprec;
+	// FIX-ME
+	//	int64_t tmpmult, tmpmultprec;
+	//	tmpmult = (int64_t)((int64_t)(amult)*(int64_t)(bmult));
+	//	if (tmpmult >= 0) {
+	//		tmpmultprec = (tmpmult + ((tmpmult & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits;
+	//	} else {
+	//		tmpmultprec = -(((-tmpmult) + (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits);
+	//	}
 
-	tmpmult = (int64_t)((int64_t)(amult)*(int64_t)(bmult));
+	/* here is necessary use float due of BMC fixed-point library */
+	float da = fxp_to_float(amult);
+	float db = fxp_to_float(bmult);
+	float mult = da * db;
+	fxp32_t tmpmultprec = fxp_float_to_fxp_only_saturate_and_wrap(mult);
 
-	if (tmpmult >= 0) {
-		tmpmultprec = (tmpmult + ((tmpmult & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits;
-	} else {
-		tmpmultprec = -(((-tmpmult) + (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits);
-	}
+	printf("DEBUG - MUL da: %.5f \n",da);
+	printf("DEBUG - MUL db: %.5f \n",db);
+	printf("DEBUG - MUL result: %.5f \n",mult);
+
+	printf("DEBUG - MUL result (fxp): %d \n",tmpmultprec);
+
 	#ifndef JACKSON_RULE
 		return fxp_quant(tmpmultprec);
 	#else
@@ -472,11 +530,26 @@ fxp32_t fxp_shrl(fxp32_t in, int shift) {
 	return (fxp32_t) (((unsigned int) in) >> shift);
 }
 
-fxp32_t fxp_div(fxp32_t a, fxp32_t b){
-	double da = fxp_to_double(a);
-	double db = fxp_to_double(b);
-	double div = da/db;
-	fxp32_t tmpdiv = fxp_double_to_fxp_only_saturate_and_wrap(div);
+fxp32_t fxp_div(fxp32_t fxp_a, fxp32_t fxp_b){
+
+	printf("\n");
+	double tmp_da = 0;
+	tmp_da = fxp_to_double(fxp_a);
+
+	double tmp_db = fxp_to_double(fxp_b);
+
+	double tmp_ddiv = 0;
+	tmp_ddiv = tmp_da/tmp_db;
+	fxp32_t tmpdiv = fxp_double_to_fxp_only_saturate_and_wrap(tmp_ddiv);
+
+	printf("DEBUG: DOUBLE(a): %.10f\n", tmp_da);
+	printf("DEBUG: DOUBLE(b): %.10f\n", tmp_db);
+	printf("DEBUG: DOUBLE(result): %.10f\n", tmp_ddiv);
+
+	printf("DEBUG: FXP(a): %d\n", fxp_a);
+	printf("DEBUG: FXP(b): %d\n",  fxp_b);
+	printf("DEBUG: FXP(result): %d\n", tmpdiv);
+
 /*
 	fxp64_t tmpdiv;
 	if ( b != 0 ) {

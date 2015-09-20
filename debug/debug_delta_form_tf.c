@@ -62,7 +62,7 @@ int main(){
 	
 	initialization();
 
-	OVERFLOW_MODE = 0;
+	DSVERIFIER_OVERFLOW_MODE = 0;
 
 	double da[ds.a_size];
 	double db[ds.b_size];

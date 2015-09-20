@@ -557,7 +557,7 @@ void extract_data_from_file(){
 int main(int argc, char* argv[]){
 
 	/* without overflow */
-	OVERFLOW_MODE = 0;
+	DSVERIFIER_OVERFLOW_MODE = 0;
 
 	bind_parameters(argc, argv);
 	check_file_exists();

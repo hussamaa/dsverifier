@@ -52,7 +52,7 @@ double generic_timing_shift_r_double(double zIn, double z[], int N) {
 
 fxp32_t shiftL(fxp32_t zIn, fxp32_t z[], int N) {
 	int i;
-	fxp32_t zOut;
+	fxp32_t zOut = 0;
 	zOut = z[0];
 	for (i = 0; i < N - 1; i++) {
 		z[i] = z[i + 1];

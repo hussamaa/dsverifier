@@ -15,7 +15,7 @@ extern implementation impl;
 
 int verify_zero_input_limit_cycle(void){
 
-	OVERFLOW_MODE = 3; /* WRAPAROUND */
+	DSVERIFIER_OVERFLOW_MODE = 3; /* WRAPAROUND */
 
 	int i;
 	int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;

@@ -41,7 +41,7 @@ int main(){
 	
 	initialization();
 
-	OVERFLOW_MODE = 3;
+	DSVERIFIER_OVERFLOW_MODE = 3;
 
 	double x[10] = { -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, 1.0, -0.99218750, -0.99218750 } ;
 	printf("inputs: \n");

@@ -19,21 +19,35 @@ extern hardware hw;
 extern int generic_timer;
 
 /** direct form I realization in fixed point */
-fxp32_t fxp_direct_form_1(fxp32_t y[], fxp32_t x[], fxp32_t a[], fxp32_t b[], int Na,	int Nb) {
+fxp32_t fxp_direct_form_1(fxp32_t y[], fxp32_t x[], fxp32_t a[], fxp32_t b[], int Na, int Nb) {
 	fxp32_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
 	fxp32_t sum = 0;
 	a_ptr = &a[1];
+	y_ptr = 0;
+	int y_ptr_current = Na - 1;
 	y_ptr = &y[Na - 1];
 	b_ptr = &b[0];
 	x_ptr = &x[Nb - 1];
 	int i, j;
+
+	printf("\n");
+
 	for (i = 0; i < Nb; i++) {
-		sum = fxp_add(sum, fxp_mult(*b_ptr++, *x_ptr--));
+		fxp32_t mul_add = fxp_mult(*b_ptr++, *x_ptr--);
+		sum = fxp_add(sum, mul_add);
 	}
+	printf("DEBUG: AFTER SUM %d\n\n", sum);
+
 	for (j = 1; j < Na; j++) {
-		sum = fxp_sub(sum, fxp_mult(*a_ptr++, *y_ptr--));
+		printf("DEBUG: BEFORE MUL SUB, %d and %d (%d) \n\n", *a_ptr, *y_ptr, y_ptr_current--);
+		fxp32_t mul_sub = fxp_mult(*a_ptr++, *y_ptr--);
+		sum = fxp_sub(sum, mul_sub);
 	}
-	sum = fxp_div(sum,a[0]);
+	printf("DEBUG: AFTER SUB %d\n", sum);
+
+	printf("DEBUG: SUM BEFORE DIV: %d", sum);
+
+	sum = fxp_div(sum, a[0]);
 	return sum;
 }
 

@@ -15,26 +15,65 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../bmc/core/functions.h"
 #include "../bmc/core/initialization.h"
 
-digital_system ds = { 
-	.b = { 110.0, -100.0 },
-	.b_size = 2,
-	.a = { 1.0, 0.0 },
-	.a_size = 2,
-	.sample_time = 0.02
+/*
+digital_system ds = {
+	.b = { 0.00156250000000000008673617379884, 0.00113125000000000378030939884866, -0.00002499999999998336885909111516, -0.00006999999999998673949619387713 },
+	.b_size = 4,
+	.a = { 0.01562500000000000000000000000000, 0.02662500000000000976996261670138, 0.00825000000000009059419880941277, 0.00020000000000020001778011646820 },
+	.a_size = 4,
+	.sample_time = 0.01
+};
+*/
+
+digital_system ds = {
+	.b = { 0.00156250000000000008673617379884, 0.00113125000000000378030939884866, -0.00002499999999998336885909111516, -0.00006999999999998673949619387713 },
+	.b_size = 4,
+	.a = { 0.01562500000000000000000000000000, 0.02662500000000000976996261670138, 0.00825000000000009059419880941277, 0.00020000000000020001778011646820 },
+	.a_size = 4,
+	.sample_time = 0.01
 };
 
-implementation impl = { 
-	.int_bits = 9, 
-	.frac_bits = 7,
-	.max = 1.0,
-	.min = -1.0,
+implementation impl = {
+	.int_bits = 3,
+	.frac_bits = 16,
+	.delta = 0.25,
+	.min = -4.0,
+	.max = 4.0
 };
+
+/*
+digital_system ds = { 
+        .b = { 0.012500000000000, 0.004525000000000, -0.000050000000000,  -0.000070000000000 },
+        .b_size = 4,
+        .a = { 0.125000000000000, 0.106500000000000, 0.016500000000000,  0.000200000000000 },
+        .a_size = 4,
+        .sample_time = 0.02
+};
+*/
+/*
+digital_system ds = {
+	.b = { 0.100000000000000,   0.036200000000000,  -0.000400000000000,  -0.000560000000000 },
+	.b_size = 4,
+	.a = { 1.000000000000000,   0.852000000000000,   0.132000000000001,   0.001600000000002 },
+	.a_size = 4,
+	.sample_time = 0.02
+};
+*/
+/*
+implementation impl = {
+	.int_bits = 15,
+	.frac_bits = 16,
+	.delta = 0.25,
+	.min = -1.0,
+	.max = 1.0
+};
+*/
 
 hardware hw = { };
 
 /* inputs */
-fxp32_t x_fxp[10];
-int x_size = 10;
+fxp32_t x_fxp[7] = { -262144, 262144, -262144, 262144, -262144, -262144, -262144 };
+int x_size = 7;
 int generic_timer;
 
 /** fixed point direct form 1 realization (implementation 2) */
@@ -67,13 +106,13 @@ int main(){
 	
 	initialization();
 
-	OVERFLOW_MODE = 1;
+	DSVERIFIER_OVERFLOW_MODE = 1;
 
-	double x[10] = { -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, 1.0, -0.99218750, -0.99218750 } ;
+	double x[6]; // = { -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, 1.0, -0.99218750, -0.99218750 } ;
 	printf("inputs: \n");
-	fxp_double_to_fxp_array(x, x_fxp, x_size);
-	print_array_elements("x", x, x_size);
 	print_fxp_array_elements("x_fxp", x_fxp, x_size);
+	fxp_to_double_array(x, x_fxp, x_size);
+	print_array_elements("x", x, x_size);
 
 	printf("\noriginal coefficients: \n");
 	print_array_elements("ds.b", ds.b, ds.b_size);
@@ -105,6 +144,8 @@ int main(){
 	fxp32_t y0[ds.a_size];
 	yaux[0] = 0;
 	yaux[1] = 0;
+	yaux[2] = 0;
+	yaux[3] = 0;
 
 	int i, j;
 	/* prepare outputs */
@@ -124,7 +165,17 @@ int main(){
 	int count = 0;
 	int notzeros = 0;
 
-	fxp_direct_form_1_impl2_debug(x_fxp, x_size, b_fxp, ds.b_size, a_fxp, ds.a_size, y_fxp);
+/*	fxp_direct_form_1_impl2_debug(x_fxp, x_size, b_fxp, ds.b_size, a_fxp, ds.a_size, y_fxp); */
+
+	for (i = 0; i < x_size; ++i) {
+
+		shiftL(x_fxp[i], xaux, ds.b_size);
+		y_fxp[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
+		#ifdef JACKSON_RULE
+			fxp_quant(y_fxp[i]);
+		#endif
+		shiftL(y[i], yaux, ds.a_size);
+	}
 
 	printf("\noutputs: \n");
 	print_fxp_array_elements("y_fxp", y_fxp, x_size);
