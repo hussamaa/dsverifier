@@ -15,7 +15,7 @@ extern implementation impl;
 
 int verify_zero_input_limit_cycle(void){
 
-	OVERFLOW_MODE = 3; /* WRAPAROUND */
+	OVERFLOW_MODE = 0; /* without overflows during coefficient generation */
 
 	int i;
 	int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;
@@ -33,7 +33,7 @@ int verify_zero_input_limit_cycle(void){
 	#elif ((REALIZATION == DDFI)||(REALIZATION == DDFII)||(REALIZATION == TDDFII))
 		double da[ds.a_size];
 		double db[ds.b_size];
-		get_delta_transfer_function(ds.b, db, ds.b_size,ds.a, da, ds.a_size, impl.delta);
+		get_delta_transfer_function_with_base(ds.b, db, ds.b_size,ds.a, da, ds.a_size, impl.delta);
 		fxp32_t a_fxp[ds.a_size];
 		fxp32_t b_fxp[ds.b_size];
 		/* quantize delta denominators using fxp */
@@ -73,6 +73,8 @@ int verify_zero_input_limit_cycle(void){
 
 	min_fxp = fxp_double_to_fxp(impl.min);
 	max_fxp = fxp_double_to_fxp(impl.max);
+
+	OVERFLOW_MODE = 3; /* WRAPAROUND */
 
 	fxp32_t y[X_SIZE_VALUE];
 	fxp32_t x[X_SIZE_VALUE];

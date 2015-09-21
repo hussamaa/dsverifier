@@ -17,11 +17,11 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../bmc/core/delta-operator.h"
 
 digital_system ds = { 
-	.b = {  1.0, -1.9, 0.9025 },
+	.b = { 2002.0, -4000.0, 1998.0 },
 	.b_size = 3,
-	.a = {  1.0, -1.9, 0.8925 },
-	.a_size = 3,
-	.sample_time = 0.02
+	.a = { 1.0, 0.0, -1.0 },
+	.a_size = 3,	
+	.sample_time = 0.001
 };
 
 /*
@@ -46,7 +46,7 @@ digital_system ds = {
 implementation impl = { 
 	.int_bits = 15, 
 	.frac_bits = 16,
-	.delta = 0.1,
+	.delta = 1,
 	.max = 1.0,
 	.min = -1.0
 };
