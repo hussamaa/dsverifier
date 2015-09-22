@@ -15,7 +15,7 @@ extern implementation impl;
 
 int verify_limit_cycle(void){
 
-	OVERFLOW_MODE = 0; /* without overflows during coefficient generation */
+	OVERFLOW_MODE = 3; /* WRAPAROUND */
 
 	int i;
 	int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;
@@ -73,8 +73,6 @@ int verify_limit_cycle(void){
 
 	min_fxp = fxp_double_to_fxp(impl.min);
 	max_fxp = fxp_double_to_fxp(impl.max);
-
-	OVERFLOW_MODE = 3; /* WRAPAROUND */
 
 	fxp32_t y[X_SIZE_VALUE];
 	fxp32_t x[X_SIZE_VALUE];
@@ -146,7 +144,7 @@ int verify_limit_cycle(void){
 		#endif
 
 		/* transposed direct form II realization */
-		#if ((REALIZATION == TDFII) || (REALIZATION ==TDDFII))
+		#if ((REALIZATION == TDFII) || (REALIZATION == TDDFII))
 			y[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
 			#ifdef JACKSON_RULE
 				fxp_quant(y[i]);
