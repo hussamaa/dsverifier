@@ -42,12 +42,21 @@ void initialization(){
 	_fxp_fmask     = ((((int32_t) 1) << impl.frac_bits) - 1);
 	_fxp_imask     = ((0x80000000) >> (FXP_WIDTH - impl.frac_bits - 1));
 
-	int i = 0;
-	/* applying scale in numerator coefficients */
+	/* check if the scale exists */
 	if ((impl.scale == 0) || (impl.scale == 1)){
 		impl.scale = 1;
 		return;
 	}
+	/** applying scale in dynamical range */
+	if (impl.min != 0){
+		impl.min = impl.min / impl.scale;
+	}
+	if (impl.max != 0){
+		impl.max = impl.max / impl.scale;
+	}
+
+	/* TODO - (REMOVE IT) SCALE BASED IN COFFICIENTS
+	 * int i = 0;
 	if (PROPERTY != STABILITY_CLOSED_LOOP){
 		if (ds.b_size > 0){
 			for(i = 0; i < ds.b_size; i++)
@@ -59,4 +68,5 @@ void initialization(){
 				control.b[i] = control.b[i] / impl.scale;
 		}
 	}
+	*/
 }
