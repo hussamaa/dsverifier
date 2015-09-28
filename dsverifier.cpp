@@ -399,9 +399,6 @@ void check_stability_delta_domain(){
 		show_delta_not_representable();
 		exit(1);
 	}
-
-	show_verification_successful();
-	/*
 	double da_qtz[ds.a_size];
 	fxp_to_double_array(da_qtz, da_fxp, ds.a_size);
 	cplus_print_array_elements("quantized delta denominator", da_qtz, ds.a_size);
@@ -412,7 +409,7 @@ void check_stability_delta_domain(){
 		show_verification_successful();
 	}else{
 		show_verification_failed();
-	}*/
+	}
 }
 
 bool check_if_file_exists (const std::string & name) {
@@ -432,21 +429,13 @@ void check_minimum_phase_delta_domain(){
 	generate_delta_coefficients_with_base(ds.b, db, ds.b_size, impl.delta);
 	cplus_print_array_elements("delta numerator", db, ds.b_size);
 	fxp32_t db_fxp[ds.b_size];
-	try{
-		fxp_double_to_fxp_array(db, db_fxp, ds.b_size);
-	} catch (int e){
-		std::cout << "an fixed-point arithmetic overflow occurs after delta transformation" << std::endl;
-		show_verification_failed();
-		exit(1);
-	}
+	fxp_double_to_fxp_array(db, db_fxp, ds.b_size);
 	if ((db[0] != 0) && (db_fxp[0] == 0)){
 		std::cout << std::endl;
 		std::cout << "ds.b[0] = "<< std::to_string(db[0]) << " ----> " << std::to_string(db_fxp[0]) << std::endl;
 		show_delta_not_representable();
 		exit(1);
 	}
-	show_verification_successful();
-	/*
 	double db_qtz[ds.b_size];
 	fxp_to_double_array(db_qtz, db_fxp, ds.b_size);
 	cplus_print_array_elements("quantized delta numerator", db_qtz, ds.b_size);
@@ -457,7 +446,7 @@ void check_minimum_phase_delta_domain(){
 		show_verification_successful();
 	}else{
 		show_verification_failed();
-	}*/
+	}
 }
 
 void check_file_exists(){
@@ -568,7 +557,7 @@ void extract_data_from_file(){
 int main(int argc, char* argv[]){
 
 	/* without overflow */
-	OVERFLOW_MODE = 1;
+	OVERFLOW_MODE = 0;
 
 	bind_parameters(argc, argv);
 	check_file_exists();
