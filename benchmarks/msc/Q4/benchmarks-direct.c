@@ -559,7 +559,7 @@ hardware hw = {
 		.b = { 2002.0, -4000.0, 1998.0 },
 		.b_size = 3,
 		.a = { 1.0, 0.0, -1.0 },
-		.a_size = 3,	
+		.a_size = 3,
 		.sample_time = 0.001
 	};
 
@@ -567,7 +567,7 @@ hardware hw = {
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = { 
-			.int_bits = 13,
+			.int_bits = 27,
 			.frac_bits = 4,
 			.max = 1.0,
 			.min = -1.0

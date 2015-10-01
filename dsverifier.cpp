@@ -236,12 +236,12 @@ std::string execute_command_line(std::string command){
 std::string prepare_bmc_command_line(){
 	std::string command_line;
 	if (desired_bmc == "ESBMC"){
-		command_line = "esbmc " + desired_filename + " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC";
+		command_line = "./model-checker/esbmc " + desired_filename + " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC";
 		if (desired_timeout.size() > 0){
 			command_line += " --timeout " + desired_timeout;
 		}
 	}else if (desired_bmc == "CBMC"){
-		command_line = "cbmc --fixedbv " + desired_filename + " -DBMC=CBMC";
+		command_line = "./model-checker/cbmc --fixedbv " + desired_filename + " -DBMC=CBMC";
 	}
 	if (desired_solver.size() > 0){
 		command_line += " --" + desired_solver;

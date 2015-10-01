@@ -14,36 +14,35 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../bmc/core/util.h"
 #include "../bmc/core/initialization.h"
 
-
-digital_system ds = { 
-	.b = { 0.012500000000000, 0.004525000000000, -0.000050000000000,  -0.000070000000000 },
+digital_system ds = {
+	.b = { 0.1, -0.2819, 0.2637, -0.08187 },
 	.b_size = 4,
-	.a = { 0.125000000000000, 0.106500000000000, 0.016500000000000,  0.000200000000000 },
+	.a = { 1.0, -2.574, 2.181, -0.6068 },
 	.a_size = 4,
-	.sample_time = 0.02
+	.sample_time = 0.01
 };
 
 implementation impl = {
-	.int_bits = 15,
-	.frac_bits = 16,
-	.max = 1.0,
-	.min = -1.0,
+	.int_bits = 3,
+	.frac_bits = 4,
+	.min = -4.0,
+	.max = 4.0
 };
 
 hardware hw = { };
 
 /* inputs */
-fxp32_t x_fxp[20];
-int x_size = 20;
+fxp32_t x_fxp[11];
+int x_size = 11;
 int generic_timer;
 
 int main(){
 	
 	initialization();
 
-	OVERFLOW_MODE = 3;
+	OVERFLOW_MODE = 0;
 
-	double x[10] = { -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, 1.0, -0.99218750, -0.99218750 } ;
+	double x[11] = { 3.875, 3.875, 3.875, -3.975, 3.875, 4.0, 3.875, -3.9375, 3.875, 4.0, 3.875 } ;
 	printf("inputs: \n");
 	fxp_double_to_fxp_array(x, x_fxp, x_size);
 	print_array_elements("x", x, x_size);
@@ -102,6 +101,7 @@ int main(){
 
 	for (i = 0; i < x_size; i++) {
 		y_fxp[i] = fxp_transposed_direct_form_2(waux, x_fxp[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
+		fxp_quant(y_fxp[i]);
 	}
 
 	printf("\noutputs: \n");

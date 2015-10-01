@@ -20,7 +20,7 @@ if test $# -ne 1; then
    exit 1
 fi
 
-PROPERTIES=( OVERFLOW LIMIT_CYCLE ZERO_INPUT_LIMIT_CYCLE )
+PROPERTIES=( OVERFLOW LIMIT_CYCLE STABILITY MINIMUM_PHASE )
 REALIZATIONS=( DFI DFII TDFII )
 TIMEOUT="2h"
 X_SIZE=10
@@ -34,7 +34,7 @@ BENCHMARKS=$(cat $BENCHMARKS_LIBRARY | grep 'DS_ID\|IMPLEMENTATION_COUNT')
 TOTAL_DS=$(echo "$BENCHMARKS" | grep 'DS_ID' | wc -l)
 OUTPUT_LOGS_DIRECTORY="./logs"
 BMC_EXECUTABLE="esbmc"
-BMC_PARAMETERS="--no-bounds-check --no-pointer-check --no-div-by-zero-check --memlimit 15g --yices"
+BMC_PARAMETERS="--no-bounds-check --no-pointer-check --no-div-by-zero-check --memlimit 15g --yices -DJACKSON_RULE"
 
 # header 
 INITIAL_TIMESTAMP=$(date +%s)

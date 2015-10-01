@@ -15,26 +15,26 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../bmc/core/functions.h"
 #include "../bmc/core/initialization.h"
 
-digital_system ds = { 
-	.b = { 0.100000000000000,   0.036200000000000,  -0.000400000000000,  -0.000560000000000 },
-	.b_size = 4,
-	.a = { 1.000000000000000,   0.852000000000000,   0.132000000000001,   0.001600000000002 },
-	.a_size = 4,
-	.sample_time = 0.02
+digital_system ds = {
+	.b = { -0.753, 1.519, -0.766 },
+	.b_size = 3,
+	.a = { 1.00000000, 0.0762700, -0.9212 },
+	.a_size = 3,
+	.sample_time = 0.01
 };
 
-implementation impl = { 
-	.int_bits = 15,
-	.frac_bits = 16,
-	.max = 1.0,
-	.min = -1.0,
+implementation impl = {
+	.int_bits = 13,
+	.frac_bits = 4,
+	.min = -3.0,
+	.max = 3.0
 };
 
 hardware hw = { };
 
 /* inputs */
-fxp32_t x_fxp[20];
-int x_size = 20;
+fxp32_t x_fxp[10];
+int x_size = 10;
 int generic_timer;
 
 int main(){
@@ -43,7 +43,7 @@ int main(){
 
 	OVERFLOW_MODE = 3;
 
-	double x[10] = { -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, 1.0, -0.99218750, -0.99218750 } ;
+	double x[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } ;
 	printf("inputs: \n");
 	fxp_double_to_fxp_array(x, x_fxp, x_size);
 	print_array_elements("x", x, x_size);
@@ -77,11 +77,9 @@ int main(){
 
 	/* update with values found in bmc machine */
 	fxp32_t waux[Nw];
-	waux[0] = 0;
+	waux[0] = 4;
 	waux[1] = 0;
 	waux[2] = 0;
-	waux[3] = 0;
-	waux[4] = 0;
 
 	double waux_d[Nw];
 	print_fxp_array_elements("\nwaux_fxp", waux, Nw);
@@ -100,6 +98,7 @@ int main(){
 	for (i = 0; i < x_size; i++) {
 		shiftR(0, waux, Nw);
 		y_fxp[i] = fxp_direct_form_2(waux, x_fxp[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
+		fxp_quant(y_fxp[i]);
 	}
 
 	printf("\noutputs: \n");
@@ -107,4 +106,11 @@ int main(){
 	fxp_to_double_array(y, y_fxp, x_size);
 	print_array_elements("y", y, x_size);
 
-}
+	double a = -0.1875;
+	double b = -0.1875;
+
+        printf("A: %.6f, B: %.6f, A*B: %.6f\n", a, b, fxp_to_double(fxp_mult(fxp_double_to_fxp(a), fxp_double_to_fxp(b))));
+        printf("A: %.6f, B: %.6f, A+B: %.6f\n", a, b, fxp_to_double(fxp_add(fxp_double_to_fxp(a), fxp_double_to_fxp(b))));
+
+
+} 
