@@ -15,11 +15,12 @@
 */
 
 extern digital_system plant;
+extern digital_system plant_cbmc;
 extern digital_system control;
 
 int verify_stability_closedloop_using_dslib(void){
 
-	/* generating closed loop for series or feedback */
+	/* generating closed loop for series or feedback */	
 	double * c_num = control.b;
 	int c_num_size = control.b_size;
 	double * c_den = control.a;
@@ -38,10 +39,17 @@ int verify_stability_closedloop_using_dslib(void){
 	fxp_to_double_array(c_den_qtz, c_den_fxp, control.a_size);
 
 	/* getting plant coefficients */
-	double * p_num = plant.b;
-	int p_num_size = plant.b_size;
-	double * p_den = plant.a;
-	int p_den_size = plant.a_size;
+	#if (BMC == ESBMC)
+		double * p_num = plant.b;
+		int p_num_size = plant.b_size;
+		double * p_den = plant.a;
+		int p_den_size = plant.a_size;
+	#elif (BMC == CBMC)
+		double * p_num = plant_cbmc.b;
+		int p_num_size = plant.b_size;
+		double * p_den = plant_cbmc.a;
+		int p_den_size = plant.a_size;
+	#endif
 
 	double ans_num[100];
 	int ans_num_size = control.b_size + plant.b_size - 1;

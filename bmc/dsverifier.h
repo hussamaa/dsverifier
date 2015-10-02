@@ -36,6 +36,7 @@
 
 extern digital_system ds;
 extern digital_system plant;
+digital_system plant_cbmc;
 extern digital_system control;
 extern implementation impl;
 extern hardware hw;
@@ -240,8 +241,17 @@ void call_closedloop_verification_task(void * closedloop_verification_task){
 				base_case_executed = 1;
 			}
 
-			plant.b[i] = nondet_double();
-			__DSVERIFIER_assume((plant.b[i] >= min) && (plant.b[i] <= max));
+			#if (BMC == ESBMC)
+				plant.b[i] = nondet_double();
+				__DSVERIFIER_assume((plant.b[i] >= min) && (plant.b[i] <= max));
+			#elif (BMC == CBMC)
+				plant_cbmc.b[i] = nondet_double();
+				__DSVERIFIER_assume((plant_cbmc.b[i] >= min) && (plant_cbmc.b[i] <= max));
+			#endif
+		}else{
+			#if (BMC == CBMC)
+				plant_cbmc.b[i] = plant.b[i];
+			#endif
 		}
 	}
 
@@ -261,8 +271,17 @@ void call_closedloop_verification_task(void * closedloop_verification_task){
 				base_case_executed = 1;
 			}
 
-			plant.a[i] = nondet_double();
-			__DSVERIFIER_assume((plant.a[i] >= min) && (plant.a[i] <= max));
+			#if (BMC == ESBMC)
+				plant.a[i] = nondet_double();
+				__DSVERIFIER_assume((plant.a[i] >= min) && (plant.a[i] <= max));
+			#elif (BMC == CBMC)
+				plant_cbmc.a[i] = nondet_double();
+				__DSVERIFIER_assume((plant_cbmc.a[i] >= min) && (plant_cbmc.a[i] <= max));
+			#endif
+		}else{
+			#if (BMC == CBMC)
+				plant_cbmc.a[i] = plant.a[i];
+			#endif
 		}
 	}
 
