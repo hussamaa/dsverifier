@@ -1,4 +1,4 @@
-#include "../../../../bmc/dsverifier.h"
+#include "../../../../../bmc/dsverifier.h"
 
 #define SCHEMA_COUNT 8
 
