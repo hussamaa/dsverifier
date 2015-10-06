@@ -22,7 +22,7 @@ fi
 
 PROPERTIES=( STABILITY_CLOSED_LOOP );
 REALIZATIONS=( DFI );
-TIMEOUT="2h"
+TIMEOUT="7200" # seconds
 CONNECTION_MODE=SERIES; # SERIES FEEDBACK
 X_SIZE=10
 
@@ -103,7 +103,7 @@ for CURRENT_SCHEMA in $(seq 1 $TOTAL_SCHEMAS); do
 
                     # do the verification
                    INITIAL_EXECUTION_TIMESTAMP=$(date +%s)
-                   { time /home/ceteli04/dsverifier/esbmc -DSVERIFIER --boolector $BENCHMARKS_LIBRARY -DSCHEMA_ID=$CURRENT_SCHEMA -DPLANT_ID=$CURRENT_PLANT -DCONTROL_ID=$CURRENT_CONTROL_ID -DIMPLEMENTATION_ID=$CURRENT_IMPLEMENTATION -DREALIZATION=$CURRENT_REALIZATION -DPROPERTY=$CURRENT_PROPERTY -DX_SIZE=$X_SIZE --timeout $TIMEOUT -DCONNECTION_MODE=$CONNECTION_MODE > $OUT_FILE; } 2>> $OUT_FILE ;
+                   timeout $TIMEOUT bash -c "{ time /home/ceteli04/dsverifier/cbmc --fixedbv -DBMC=CBMC -DSVERIFIER $BENCHMARKS_LIBRARY -DSCHEMA_ID=$CURRENT_SCHEMA -DPLANT_ID=$CURRENT_PLANT -DCONTROL_ID=$CURRENT_CONTROL_ID -DIMPLEMENTATION_ID=$CURRENT_IMPLEMENTATION -DREALIZATION=$CURRENT_REALIZATION -DPROPERTY=$CURRENT_PROPERTY -DX_SIZE=$X_SIZE -DCONNECTION_MODE=$CONNECTION_MODE > $OUT_FILE; } 2>> $OUT_FILE" ;
                    FINAL_EXECUTION_TIMESTAMP=$(date +%s)
 
                    # analyse the result 
@@ -112,19 +112,28 @@ for CURRENT_SCHEMA in $(seq 1 $TOTAL_SCHEMAS); do
                    VERIFICATION_SUCCESSFUL=$(echo "$OUT" | grep "SUCCESSFUL" | wc -l); 
                    VERIFICATION_FAILED=$(echo "$OUT" | grep "FAILED" | wc -l);
                    VERIFICATION_TIMEOUT=$(echo "$OUT" | grep "Timed out" | wc -l);
+                  
+                   # check if manual timeout for cbmc
+                   if [ $VERIFICATION_SUCCESSFUL -eq 0 ] && [ $VERIFICATION_FAILED -eq 0 ] && [ $VERIFICATION_TIMEOUT -eq 0 ]; then
+                       TIME_PARAMETERS=$(cat $OUT_FILE | grep -w "real\|user\|sys" | wc -l)
+                       if [ $TIME_PARAMETERS -lt 3 ]; then
+                           VERIFICATION_TIMEOUT=1;
+                       fi               
+                   fi
+
                    TOTAL_EXECUTIONS=$((TOTAL_EXECUTIONS + 1));
                    if [ $VERIFICATION_SUCCESSFUL -eq 1 ]; then
-            	      TOTAL_SUCCESS=$((TOTAL_SUCCESS + 1));
+            	        TOTAL_SUCCESS=$((TOTAL_SUCCESS + 1));
                       echo "$(echo -e "\033[0;32msuccess\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";       
                    elif [ $VERIFICATION_FAILED -eq 1 ]; then
                       TOTAL_FAILS=$((TOTAL_FAILS + 1));
                       echo "$(echo -e "\033[0;31mfail\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
-                  elif [ $VERIFICATION_TIMEOUT -eq 1 ]; then
+                   elif [ $VERIFICATION_TIMEOUT -eq 1 ]; then
                       TOTAL_TIMEOUTS=$((TOTAL_TIMEOUTS + 1));
                       echo "$(echo -e "\033[1;35mtimeout\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
-                  else
+                   else
                       echo "$(echo -e "\033[0;33munknown\033[0m" | cut -d " " -f2) ($OUT_FILE)"; 
-                  fi
+                   fi
 
                  done
        
