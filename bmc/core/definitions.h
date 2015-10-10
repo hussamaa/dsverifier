@@ -6,6 +6,7 @@
  * Authors:       Hussama Ismail <hussamaismail@gmail.com>
  *                Iury Bessa     <iury.bessa@gmail.com>
  *                Renato Abreu   <renatobabreu@yahoo.com.br>
+ *                Felipe Monteiro <felipemonteiro@ufam.edu.br>
  *
  * ------------------------------------------------------
  *
@@ -22,6 +23,8 @@
 #ifndef BMC
 	#define BMC	1
 #endif
+
+#define LIMIT 20
 
 /* realizations (use: -DREALIZATION=DIRECTFORMI) */
 #define DIRECTFORMI							1
@@ -63,6 +66,7 @@
 #define MINIMUM_PHASE 						8
 #define STABILITY_CLOSED_LOOP				9
 #define LIMIT_CYCLE_CLOSED_LOOP				10
+#define ERROR_SPACE_STATE					11
 
 /** Check Required Parameters */
 #ifndef PROPERTY
@@ -73,6 +77,9 @@
 #endif
 #ifndef X_SIZE
 	#define X_SIZE 							0
+#endif
+#ifndef K_SIZE
+	#define K_SIZE 							0
 #endif
 #ifndef EXPECTED_ERROR
 	#define EXPECTED_ERROR 					-1
@@ -111,6 +118,30 @@ typedef struct {
   double a_uncertainty[100];
   double b_uncertainty[100];
 } digital_system;
+
+typedef struct {
+    double A[LIMIT][LIMIT];
+    unsigned int rowA;
+    unsigned int columnA;
+    double B[LIMIT][LIMIT];
+    unsigned int rowB;
+    unsigned int columnB;
+    double C[LIMIT][LIMIT];
+    unsigned int rowC;
+    unsigned int columnC;
+    double D[LIMIT][LIMIT];
+    unsigned int rowD;
+    unsigned int columnD;
+    double states[LIMIT][LIMIT];
+    unsigned int rowStates;
+    unsigned int columnStates;
+    double outputs[LIMIT][LIMIT];
+    unsigned int rowOutputs;
+    unsigned int columnOutputs;
+    double inputs[LIMIT][LIMIT];
+    unsigned int rowInputs;
+    unsigned int columnInputs;
+} digital_system_space_state;
 
 /* implementation structure */
 typedef struct {
