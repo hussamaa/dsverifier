@@ -16,6 +16,7 @@
 
 #include <stdlib.h>
 #include <assert.h>
+#include <stdio.h>
 
 void __DSVERIFIER_assume(_Bool expression){
 	#if  (BMC == ESBMC)
@@ -31,5 +32,10 @@ void __DSVERIFIER_assume(_Bool expression){
 }
 
 void __DSVERIFIER_assert(_Bool expression){
+	assert(expression);
+}
+
+void __DSVERIFIER_assert_msg(_Bool expression, char * msg){
+	printf("%c", msg);
 	assert(expression);
 }
