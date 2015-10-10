@@ -6,6 +6,7 @@
  * Authors:       Hussama Ismail <hussamaismail@gmail.com>
  *                Iury Bessa     <iury.bessa@gmail.com>
  *                Renato Abreu   <renatobabreu@yahoo.com.br>
+ *                Felipe Monteiro <felipemonteiro@ufam.edu.br>
  *
  * ------------------------------------------------------
  *
@@ -17,7 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/** initialize an array with zeroes */
+/** initialise an array with zeroes */
 void initialize_array(double v[], int n){
    int i;
    for(i=0; i<n; i++){
@@ -44,7 +45,7 @@ double internal_pow(double a, double b){
    return acc;
 }
 
-/** calculate the fatorial of a number */
+/** calculate the factorial of a number */
 int fatorial(int n){
    return n == 0 ? 1 : n * fatorial(n-1);
 }
@@ -166,7 +167,7 @@ void double_check_oscillations(double * y, int y_size){
 			/* check bound of outputs */
 			int window_index = j + window_size;
 			if (window_index < y_size){
-				/* check if window occurr */
+				/* check if window occurs */
 				if (y[j] == y[window_index]){
 					window_count++;
 					/* window_count == window_size (the repeats occurs) */
@@ -180,7 +181,7 @@ void double_check_oscillations(double * y, int y_size){
 	}
 }
 
-/* verify limit_cycle oscilations in last outputs */
+/* verify limit_cycle oscillations in last outputs */
 void double_check_limit_cycle(double * y, int y_size){
 	/* last element is the reference */
 	double reference = y[y_size - 1];
@@ -224,4 +225,50 @@ void print_array_elements(char * name, double * v, int n){
       printf(" %.32f ", v[i]);
    }
    printf("}\n");
+}
+
+/* multiplies two matrices */
+void matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i2, unsigned int j2, double m1[LIMIT][LIMIT], double m2[LIMIT][LIMIT], double m3[LIMIT][LIMIT]){
+
+	unsigned int i, j, k;
+    if (j1 == i2) { //Checking if the multiplication is possible
+        // Initialising Matrix 3
+        for (i=0; i<i1; i++) {
+            for (j=0; j<j2; j++) {
+                m3[i][j] = 0;
+            }
+        }
+        //Calculating multiplication result
+        for (i=0;i<i1; i++) {
+            for (j=0; j<j2; j++) {
+                for (k=0; k<j1; k++) {
+                    //printf("i: %d \t j: %d\n", i,j);
+                    m3[i][j] = m3[i][j] + (m1[i][k] * m2[k][j]);
+                }
+                //printf("m3[%d][%d]: %d\n", i,j,m3[i][j]);
+            }
+        }
+    } else {
+        printf("\nError! Operation invalid, please enter with valid matrices.\n");
+    }
+}
+
+/* adds two matrices */
+void add_matrix( unsigned int lines,  unsigned int columns, double m1[LIMIT][LIMIT], double m2[LIMIT][LIMIT], double result[LIMIT][LIMIT]){
+	unsigned int i, j;
+    for (i = 0; i < lines; i++)
+        for (j = 0; j < columns; j++) result[i][j] = m1[i][j] + m2[i][j];
+}
+
+/* prints a matrix */
+void print_matrix(double matrix[LIMIT][LIMIT], unsigned int lines, unsigned int columns){
+    printf("\nMatrix\n=====================\n\n");
+    unsigned int i, j;
+    for (i=0; i<lines; i++) {
+        for (j=0; j<columns; j++) {
+            printf("%2.2f ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
 }
