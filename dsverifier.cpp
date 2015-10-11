@@ -408,6 +408,23 @@ void check_stability_shift_domain_using_jury(){
 	}
 }
 
+void check_minimum_phase_shift_domain_using_jury(){
+	show_implementation_parameters();
+	std::cout << std::endl;
+	double sb_fxp[ds.b_size];
+	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
+	fxp32_t b_fxp[ds.b_size];
+	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
+	fxp_to_double_array(sb_fxp, b_fxp, ds.b_size);
+	cplus_print_array_elements("quantized denominator", sb_fxp, ds.b_size);
+	bool is_stable = check_stability(sb_fxp, ds.b_size);
+	if (is_stable){
+		show_verification_successful();
+	}else{
+		show_verification_failed();
+	}
+}
+
 void check_stability_shift_domain_using_eigen(){
 	show_implementation_parameters();
 	std::cout << std::endl;
@@ -657,7 +674,7 @@ int main(int argc, char* argv[]){
 				check_stability_shift_domain_using_jury();
 				exit(0);
 			} else if ((desired_property == "MINIMUM_PHASE")){
-				check_minimum_phase_shift_domain();
+				check_minimum_phase_shift_domain_using_jury();
 				exit(0);
 			}
 		}catch(std::exception & e){
