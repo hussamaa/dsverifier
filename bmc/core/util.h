@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/** initialise an array with zeroes */
+/** initialize an array with zeroes */
 void initialize_array(double v[], int n){
    int i;
    for(i=0; i<n; i++){
@@ -35,7 +35,7 @@ void revert_array(double v[], double out[], int n){
    }
 }
 
-/** an simplify equivalent for Math.pow() */
+/** a simplify equivalent for Math.pow() */
 double internal_pow(double a, double b){
    int i;
    double acc = 1;
@@ -43,6 +43,11 @@ double internal_pow(double a, double b){
 	  acc = acc*a;
    }
    return acc;
+}
+
+/** a simplify equivalent for Math.abs() */
+double internal_abs(double a){
+   return a < 0 ? -a : a;
 }
 
 /** calculate the factorial of a number */
@@ -64,6 +69,34 @@ int check_stability(double a[], int n){
 	   current_stability[i] = a[i];
    }
 
+   /* check the first constraint condition F(1) > 0 */
+   double sum = 0;
+   for (i=0; i < n; i++){
+	   sum += a[i];
+   }
+   if (sum <= 0){
+	printf("[DEBUG] the first constraint of Jury criteria failed: (F(1) > 0)");
+	   return 0;
+   }
+
+   /* check the second constraint condition F(-1)*(-1)^n > 0 */
+   sum = 0;
+   for (i=0; i < n; i++){
+ 	  sum += a[i] * internal_pow(-1, n-1-i);
+   }
+   sum = sum * internal_pow(-1, n-1);
+   if (sum <= 0){
+	  printf("[DEBUG] the second constraint of Jury criteria failed: (F(-1)*(-1)^n > 0)");
+	  return 0;
+   }
+
+   /* check the third constraint condition abs(a0 < an*(z^n)  */
+   if (internal_abs(a[n-1]) > a[0]){
+	   printf("[DEBUG] the third constraint of Jury criteria failed: (abs(a0) < a_{n}*z^{n})");
+	   return 0;
+   }
+
+   /* check the fourth constraint of condition (Jury Table) */
    for (i=0; i < lines; i++){
 	  for (j=0; j < columns; j++){
 		 m[i][j] = 0;

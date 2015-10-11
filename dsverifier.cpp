@@ -360,6 +360,19 @@ bool check_delta_stability_margin(std::vector<RootType> roots){
 	return stable;
 }
 
+bool check_shift_stability_margin(std::vector<RootType> roots){
+	std::cout << "checking shift stability margin" << std::endl;
+		bool stable = true;
+		for(unsigned int i=0; i<roots.size(); i++){
+			std::complex<double> eig = roots.at(i);
+			if ((std::abs(eig) < 1) == false){
+				stable = false;
+				break;
+			}
+		}
+		return stable;
+}
+
 void show_delta_not_representable(){
 	std::cout << "[EXCEPTION] Does not possible to represent this value in delta using this precision" << std::endl;
 }
@@ -378,12 +391,68 @@ void show_implementation_parameters(){
 	std::cout << "implementation delta: " << impl.delta << std::endl;
 }
 
+void check_stability_shift_domain_using_jury(){
+	show_implementation_parameters();
+	std::cout << std::endl;
+	double sa_fxp[ds.a_size];
+	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
+	fxp32_t a_fxp[ds.a_size];
+	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
+	fxp_to_double_array(sa_fxp, a_fxp, ds.a_size);
+	cplus_print_array_elements("quantized denominator", sa_fxp, ds.a_size);
+	bool is_stable = check_stability(sa_fxp, ds.a_size);
+	if (is_stable){
+		show_verification_successful();
+	}else{
+		show_verification_failed();
+	}
+}
+
+void check_stability_shift_domain_using_eigen(){
+	show_implementation_parameters();
+	std::cout << std::endl;
+	double sa_fxp[ds.a_size];
+	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
+	fxp32_t a_fxp[ds.a_size];
+	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
+	fxp_to_double_array(sa_fxp, a_fxp, ds.a_size);
+	cplus_print_array_elements("quantized denominator", sa_fxp, ds.a_size);
+	std::vector<RootType> poly_roots;
+	get_roots_from_polynomial(sa_fxp, ds.a_size, poly_roots);
+	bool is_stable = check_shift_stability_margin(poly_roots);
+	if (is_stable){
+		show_verification_successful();
+	}else{
+		show_verification_failed();
+	}
+}
+
+void check_minimum_phase_shift_domain(){
+	show_implementation_parameters();
+	std::cout << std::endl;
+	double sb_fxp[ds.b_size];
+	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
+	fxp32_t b_fxp[ds.b_size];
+	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
+	fxp_to_double_array(sb_fxp, b_fxp, ds.b_size);
+	cplus_print_array_elements("quantized numerator", sb_fxp, ds.b_size);
+	bool is_stable = check_stability(sb_fxp, ds.b_size);
+	if (is_stable){
+		show_verification_successful();
+	}else{
+		show_verification_failed();
+	}
+}
+
 void check_stability_delta_domain(){
 	show_implementation_parameters();
 	std::cout << std::endl;
+	double db[ds.b_size];
 	double da[ds.a_size];
+	fxp32_t a_fxp[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
-	generate_delta_coefficients_with_base(ds.a, da, ds.a_size, impl.delta);
+	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
+	get_delta_transfer_function_with_base(ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta denominator", da, ds.a_size);
 	fxp32_t da_fxp[ds.a_size];
 	try{
@@ -425,8 +494,9 @@ void check_minimum_phase_delta_domain(){
 	show_implementation_parameters();
 	std::cout << std::endl;
 	double db[ds.b_size];
+	double da[ds.a_size];
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
-	generate_delta_coefficients_with_base(ds.b, db, ds.b_size, impl.delta);
+	get_delta_transfer_function_with_base(ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta numerator", db, ds.b_size);
 	fxp32_t db_fxp[ds.b_size];
 	fxp_double_to_fxp_array(db, db_fxp, ds.b_size);
@@ -563,10 +633,11 @@ int main(int argc, char* argv[]){
 	check_file_exists();
 
 	std::cout << "Running: Digital Systems Verifier (DSVerifier)" << std::endl;
+
 	bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
 	bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
 
-	if (!(is_restricted_property && is_delta_realization)){
+	if (!(is_restricted_property)){
 		/* normal flow using bmc */
 		std::string command_line = prepare_bmc_command_line();
 		std::cout << "Back-end Verification: " << command_line << std::endl;
@@ -581,6 +652,12 @@ int main(int argc, char* argv[]){
 				exit(0);
 			} else if ((is_delta_realization == true) && desired_property == "MINIMUM_PHASE"){
 				check_minimum_phase_delta_domain();
+				exit(0);
+			} else if ((desired_property == "STABILITY")){
+				check_stability_shift_domain_using_jury();
+				exit(0);
+			} else if ((desired_property == "MINIMUM_PHASE")){
+				check_minimum_phase_shift_domain();
 				exit(0);
 			}
 		}catch(std::exception & e){
