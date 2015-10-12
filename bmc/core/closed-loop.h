@@ -77,8 +77,29 @@ int check_stability_closedloop(double a[], int n, double plant_num[], int p_num_
    double m[2 * n - 1][n];
    int i,j;
    int first_is_positive = 0;  
+
    double * p_num = plant_num;
    double * p_den = plant_den;
+
+   /* check the first constraint condition F(1) > 0 */
+   double sum = 0;
+   for (i=0; i < n; i++){
+	   sum += a[i];
+   }
+   __DSVERIFIER_assert(sum > 0);
+   
+   /* check the second constraint condition F(-1)*(-1)^n > 0 */
+   sum = 0;
+   for (i=0; i < n; i++){
+ 	  sum += a[i] * internal_pow(-1, n-1-i);
+   }
+   sum = sum * internal_pow(-1, n-1);
+   __DSVERIFIER_assert(sum > 0);
+
+   /* check the third constraint condition abs(a0 < an*(z^n)  */
+   __DSVERIFIER_assert(internal_abs(a[n-1]) < a[0]);
+
+   /* check the fourth constraint of condition (Jury Table) */
    for (i=0; i < 2 * n - 1; i++){
 	  for (j=0; j < columns; j++){
 		 m[i][j] = 0;
