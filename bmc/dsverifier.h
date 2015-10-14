@@ -16,14 +16,14 @@
 
 #include "core/definitions.h"
 #include "core/compatibility.h"
-#include "core/util.h"
 #include "core/fixed-point.h"
+#include "core/util.h"
 #include "core/functions.h"
 #include "core/realizations.h"
 #include "core/delta-operator.h"
 #include "core/closed-loop.h"
 #include "core/initialization.h"
-#include "core/space-state.h"
+#include "core/state-space.h"
 
 #include "engine/verify_overflow.h"
 #include "engine/verify_limit_cycle.h"
@@ -34,7 +34,7 @@
 #include "engine/verify_stability.h"
 #include "engine/verify_minimum_phase.h"
 #include "engine/verify_stability_closedloop.h"
-#include "engine/verify_error_space_state.h"
+#include "engine/verify_error_state_space.h"
 
 extern digital_system ds;
 extern digital_system plant;
@@ -42,7 +42,7 @@ digital_system plant_cbmc;
 extern digital_system control;
 extern implementation impl;
 extern hardware hw;
-extern digital_system_space_state _controller;
+extern digital_system_state_space _controller;
 
 extern void initials();
 
@@ -54,7 +54,7 @@ double nondet_double();
 
 int main(){
 
-	//initialization();
+	initialization();
 	validation();
 
 	/* instrumentation step */
@@ -86,8 +86,8 @@ int main(){
 	if (PROPERTY == STABILITY_CLOSED_LOOP){
 		call_closedloop_verification_task(&verify_stability_closedloop_using_dslib);		
 	}
-	if (PROPERTY == ERROR_SPACE_STATE){
-		verify_error_space_state();
+	if (PROPERTY == ERROR_STATE_SPACE){
+		verify_error_state_space();
 	}
 
 	return 0;
@@ -95,7 +95,7 @@ int main(){
 
 /** validate the required parameters to use DSVerifier and your properties verification. */
 void validation(){
-	if (PROPERTY == ERROR_SPACE_STATE){
+	if (PROPERTY == ERROR_STATE_SPACE){
 		if (K_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* It is necessary to set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");

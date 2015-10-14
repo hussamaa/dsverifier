@@ -260,8 +260,15 @@ void print_array_elements(char * name, double * v, int n){
    printf("}\n");
 }
 
+/* adds two matrices */
+void double_add_matrix( unsigned int lines,  unsigned int columns, double m1[LIMIT][LIMIT], double m2[LIMIT][LIMIT], double result[LIMIT][LIMIT]){
+	unsigned int i, j;
+    for (i = 0; i < lines; i++)
+    	for (j = 0; j < columns; j++) result[i][j] = m1[i][j] + m2[i][j];
+}
+
 /* multiplies two matrices */
-void matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i2, unsigned int j2, double m1[LIMIT][LIMIT], double m2[LIMIT][LIMIT], double m3[LIMIT][LIMIT]){
+void double_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i2, unsigned int j2, double m1[LIMIT][LIMIT], double m2[LIMIT][LIMIT], double m3[LIMIT][LIMIT]){
 
 	unsigned int i, j, k;
     if (j1 == i2) { //Checking if the multiplication is possible
@@ -286,11 +293,36 @@ void matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i2, u
     }
 }
 
-/* adds two matrices */
-void add_matrix( unsigned int lines,  unsigned int columns, double m1[LIMIT][LIMIT], double m2[LIMIT][LIMIT], double result[LIMIT][LIMIT]){
+/* multiplies two matrices, fixed point version */
+void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i2, unsigned int j2, fxp32_t m1[LIMIT][LIMIT], fxp32_t m2[LIMIT][LIMIT], fxp32_t m3[LIMIT][LIMIT]){
+	unsigned int i, j, k;
+    if (j1 == i2) { //Checking if the multiplication is possible
+        // Initialising Matrix 3
+        for (i=0; i<i1; i++) {
+            for (j=0; j<j2; j++) {
+                m3[i][j] = 0;
+            }
+        }
+        //Calculating multiplication result
+        for (i=0;i<i1; i++) {
+            for (j=0; j<j2; j++) {
+                for (k=0; k<j1; k++) {
+                    //printf("i: %d \t j: %d\n", i,j);
+                    m3[i][j] = fxp_add( m3[i][j], fxp_mult(m1[i][k] , m2[k][j]));
+                }
+                //printf("m3[%d][%d]: %d\n", i,j,m3[i][j]);
+            }
+        }
+    } else {
+        printf("\nError! Operation invalid, please enter with valid matrices.\n");
+    }
+}
+
+/* adds two matrices, fixed point version */
+void fxp_add_matrix( unsigned int lines,  unsigned int columns, fxp32_t m1[LIMIT][LIMIT], fxp32_t m2[LIMIT][LIMIT], fxp32_t result[LIMIT][LIMIT]){
 	unsigned int i, j;
     for (i = 0; i < lines; i++)
-        for (j = 0; j < columns; j++) result[i][j] = m1[i][j] + m2[i][j];
+    	for (j = 0; j < columns; j++) result[i][j] = fxp_add(m1[i][j] , m2[i][j]);
 }
 
 /* prints a matrix */
