@@ -5,7 +5,6 @@
  *
  * Authors:       Hussama Ismail <hussamaismail@gmail.com>
  *                Iury Bessa     <iury.bessa@gmail.com>
- *                Renato Abreu   <renatobabreu@yahoo.com.br>
  *                Felipe Monteiro <felipemonteiro@ufam.edu.br>
  *
  * ------------------------------------------------------
@@ -32,10 +31,7 @@ extern int columnStates;
 extern int rowOutputs;
 extern int columnOutputs;
 
-void double_state_space_representation(void){
-
-	//double resultX[LIMIT][LIMIT];
-	//double resultY[LIMIT][LIMIT];
+double double_state_space_representation(void){
 
 	double result1[LIMIT][LIMIT];
 	double result2[LIMIT][LIMIT];
@@ -43,18 +39,10 @@ void double_state_space_representation(void){
 	int i, j, k;
 	for(i=0; i<LIMIT;i++){
 		for(j=0; j<LIMIT;j++){
-			//resultX[i][j]=0;
-			//resultY[i][j]=0;
 			result1[i][j]=0;
 			result2[i][j]=0;
 		}
 	}
-
-	//for(i=0; i<_controller.rowStates;i++){
-	//   for(j=0; j<_controller.columnStates;j++){
-	//    resultX[i][j]= _controller.states[i][j];
-	//   }
-	//}
 
 	double_matrix_multiplication(rowC,columnC,rowStates,columnStates,_controller.C,_controller.states,result1);
 	double_matrix_multiplication(rowD,columnD,rowInputs,columnInputs,_controller.D,_controller.inputs,result2);
@@ -64,8 +52,6 @@ void double_state_space_representation(void){
 			result1,
 			result2,
 			_controller.outputs);
-
-	//resultY[0][0] = _controller.outputs[0][0];
 
 	for (i = 1; i < K_SIZE; i++) {
 		double_matrix_multiplication(rowA,columnA,rowStates,columnStates,_controller.A,_controller.states,result1);
@@ -77,9 +63,6 @@ void double_state_space_representation(void){
 				result2,
 				_controller.states);
 
-		//resultX[i][0] = _controller.states[0][0];
-		//resultX[i][1] = _controller.states[1][0];
-
 		double_matrix_multiplication(rowC,columnC,rowStates,columnStates,_controller.C,_controller.states,result1);
 		double_matrix_multiplication(rowD,columnD,rowInputs,columnInputs,_controller.D,_controller.inputs,result2);
 
@@ -88,12 +71,11 @@ void double_state_space_representation(void){
 				result1,
 				result2,
 				_controller.outputs);
-
-		//resultY[0][i] = _controller.outputs[0][0];
 	}
+	return _controller.outputs[0][0];
 }
 
-void fxp_state_space_representation(void){
+double fxp_state_space_representation(void){
 
 	fxp32_t result1[LIMIT][LIMIT];
 	fxp32_t result2[LIMIT][LIMIT];
@@ -238,4 +220,6 @@ void fxp_state_space_representation(void){
 			_controller.outputs[i][j]= fxp_to_double(outputs_fpx[i][j]);
 		}
 	}
+
+	return _controller.outputs[0][0];
 }

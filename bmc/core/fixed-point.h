@@ -6,6 +6,7 @@
  * Authors:       Hussama Ismail <hussamaismail@gmail.com>
  *                Iury Bessa     <iury.bessa@gmail.com>
  *                Renato Abreu   <renatobabreu@yahoo.com.br>
+ *                Felipe Monteiro <felipemonteiro@ufam.edu.br>
  *
  * ------------------------------------------------------
  *
