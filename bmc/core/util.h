@@ -314,8 +314,12 @@ void print_array_elements(char * name, double * v, int n){
 /* adds two matrices */
 void double_add_matrix( unsigned int lines,  unsigned int columns, double m1[LIMIT][LIMIT], double m2[LIMIT][LIMIT], double result[LIMIT][LIMIT]){
 	unsigned int i, j;
-    for (i = 0; i < lines; i++)
-    	for (j = 0; j < columns; j++) result[i][j] = m1[i][j] + m2[i][j];
+    for (i = 0; i < lines; i++){
+    	for (j = 0; j < columns; j++){
+    		result[i][j] = m1[i][j] + m2[i][j];
+    		//printf("[ADD] %.10f + %.10f = %.10f\n", m1[i][j], m2[i][j], result[i][j]);
+    	}
+	}
 }
 
 /* multiplies two matrices */
@@ -334,7 +338,12 @@ void double_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned in
             for (j=0; j<j2; j++) {
                 for (k=0; k<j1; k++) {
                     //printf("i: %d \t j: %d\n", i,j);
+                	double mult = (m1[i][k] * m2[k][j]);
+                	double m3temp = m3[i][j];
+                	double sum =  m3[i][j] + mult;
                     m3[i][j] = m3[i][j] + (m1[i][k] * m2[k][j]);
+            		//printf("[MULT] %.10f + %.10f = %.10f\n", m1[i][k], m2[k][j], mult);
+            		//printf("[ADD] %.10f + %.10f = %.10f\n", m3temp, mult, sum);
                 }
                 //printf("m3[%d][%d]: %d\n", i,j,m3[i][j]);
             }
@@ -345,7 +354,7 @@ void double_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned in
 }
 
 /* multiplies two matrices, fixed point version */
-void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i2, unsigned int j2, fxp32_t m1[LIMIT][LIMIT], fxp32_t m2[LIMIT][LIMIT], fxp32_t m3[LIMIT][LIMIT]){
+void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i2, unsigned int j2, fxp64_t m1[LIMIT][LIMIT], fxp64_t m2[LIMIT][LIMIT], fxp64_t m3[LIMIT][LIMIT]){
 	unsigned int i, j, k;
     if (j1 == i2) { //Checking if the multiplication is possible
         // Initialising Matrix 3
@@ -358,10 +367,8 @@ void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i
         for (i=0;i<i1; i++) {
             for (j=0; j<j2; j++) {
                 for (k=0; k<j1; k++) {
-                    //printf("i: %d \t j: %d\n", i,j);
-                    m3[i][j] = fxp_add( m3[i][j], fxp_mult(m1[i][k] , m2[k][j]));
+                    m3[i][j] = fxp64_add( m3[i][j], fxp64_mult(m1[i][k] , m2[k][j]));
                 }
-                //printf("m3[%d][%d]: %d\n", i,j,m3[i][j]);
             }
         }
     } else {
@@ -370,10 +377,10 @@ void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i
 }
 
 /* adds two matrices, fixed point version */
-void fxp_add_matrix( unsigned int lines,  unsigned int columns, fxp32_t m1[LIMIT][LIMIT], fxp32_t m2[LIMIT][LIMIT], fxp32_t result[LIMIT][LIMIT]){
+void fxp_add_matrix( unsigned int lines,  unsigned int columns, fxp64_t m1[LIMIT][LIMIT], fxp64_t m2[LIMIT][LIMIT], fxp64_t result[LIMIT][LIMIT]){
 	unsigned int i, j;
     for (i = 0; i < lines; i++)
-    	for (j = 0; j < columns; j++) result[i][j] = fxp_add(m1[i][j] , m2[i][j]);
+    	for (j = 0; j < columns; j++) result[i][j] = fxp64_add(m1[i][j] , m2[i][j]);
 }
 
 /* prints a matrix */

@@ -18,7 +18,7 @@ extern digital_system_state_space _controller;
 extern double error_limit;
 
 int verify_error_state_space(void){
-
+	OVERFLOW_MODE = 0;
 	digital_system_state_space __backupController;
 	int i;
 	int j;
@@ -116,5 +116,6 @@ int verify_error_state_space(void){
 	__quant_error = (((output_fxp - output_double)/output_double)) * 100;
 
 	assert(__quant_error < error_limit);
+
 	return 0;
 }

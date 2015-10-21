@@ -191,6 +191,30 @@ fxp32_t fxp_quant(int64_t aquant) {
 	return (fxp32_t) aquant; //TRUNCATE
 }
 
+fxp64_t fxp64_quant(int64_t aquant) {
+	if (OVERFLOW_MODE == 2) { /* SATURATE */
+		if(aquant < _fxp_min) {
+			/* printf("fxp_quant: overflow!\n Returning min representable value!\n"); */
+			return _fxp_min;
+		}
+		else if(aquant > _fxp_max) {
+			/* printf("fxp_quant: overflow!\n Returning max representable value!\n"); */
+			return _fxp_max;
+		}
+	}
+	else if (OVERFLOW_MODE == 3) { /* WRAPAROUND */
+		if(aquant < _fxp_min || aquant > _fxp_max) {
+			/* printf("fxp_quant: overflow!\n Wrapping around!\n"); */
+			return wrap(aquant, _fxp_min, _fxp_max);
+		}
+	}
+	/* check if is a closed loop verification (ignore) */
+    if (PROPERTY != STABILITY_CLOSED_LOOP && OVERFLOW_MODE != 0){
+    	__DSVERIFIER_assert(aquant <= _fxp_max && aquant >= _fxp_min);
+    }
+	return aquant; //TRUNCATE
+}
+
 /**
  * Converts a signed int to fxp representation
  * @param [a] number in 16 bits signed int format
@@ -302,7 +326,38 @@ fxp32_t fxp_double_to_fxp(double value) {
 		tmp = (int64_t) ftemp;
 	}
 
+/*	#ifndef JACKSON_RULE
+		return fxp_quant(tmp);
+	#else
+		return tmp;
+	#endif
+*/
 	return fxp_quant(tmp);
+}
+
+fxp64_t fxp64_double_to_fxp(double f) {
+
+	int64_t tmp;
+	double ftemp;
+
+	f=f;
+
+	ftemp = f*scale_factor[impl.frac_bits];
+
+	if(f >= 0) {
+		tmp = (int64_t)(ftemp + 0.5);
+	}
+	else {
+		tmp = (int64_t)(ftemp - 0.5);
+	}
+
+/*	#ifndef JACKSON_RULE
+		return fxp_quant(tmp);
+	#else
+		return tmp;
+	#endif
+*/
+	return fxp64_quant(tmp);
 }
 
 /**
@@ -342,6 +397,7 @@ float fxp_to_float(fxp32_t fxp) {
 
 	return f;
 }
+
 double fxp_to_double(fxp32_t fxp) {
 	double f;
 	int f_int = (int) fxp;
@@ -349,6 +405,13 @@ double fxp_to_double(fxp32_t fxp) {
 	return f;
 }
 
+double fxp64_to_double(fxp64_t fxp) {
+	double f;
+	int f_int = (int) fxp;
+	f = f_int * scale_factor_inv[impl.frac_bits];
+
+	return f;
+}
 /**
  * Converts an array of fixed point to single precision float representation
  * @param f array of fixed point to be converted
@@ -384,6 +447,16 @@ fxp32_t fxp_abs(fxp32_t a) {
 	#endif
 }
 
+fxp64_t fxp64_abs(fxp64_t a) {
+	int64_t tmp;
+	tmp = ((a < 0) ?  -(a) :  a);
+	#ifndef JACKSON_RULE
+		return fxp64_quant(tmp);
+	#else
+		return tmp;
+	#endif
+}
+
 /**
  * Fixed point addition out = a + b
  * @param [aadd] fixed point input
@@ -392,7 +465,7 @@ fxp32_t fxp_abs(fxp32_t a) {
  */
 fxp32_t fxp_add(fxp32_t aadd, fxp32_t badd) {
 	int64_t tmpadd;
-	tmpadd = (int64_t)((int64_t)(aadd) + (int64_t)(badd));
+	tmpadd = ((int64_t)(aadd) + (int64_t)(badd));
 	#ifndef JACKSON_RULE
 		return fxp_quant(tmpadd);
 	#else
@@ -400,6 +473,15 @@ fxp32_t fxp_add(fxp32_t aadd, fxp32_t badd) {
 	#endif
 }
 
+fxp64_t fxp64_add(fxp64_t aadd, fxp64_t badd) {
+	int64_t tmpadd;
+	tmpadd = ((aadd) + (badd));
+	#ifndef JACKSON_RULE
+		return fxp64_quant(tmpadd);
+	#else
+		return tmpadd;
+	#endif
+}
 /**
  * Fixed point subtraction out = a - b
  * @param [asub] fixed point input
@@ -409,6 +491,16 @@ fxp32_t fxp_add(fxp32_t aadd, fxp32_t badd) {
 fxp32_t fxp_sub(fxp32_t asub, fxp32_t bsub) {
 	int64_t tmpsub;
 	tmpsub = (int64_t)((int64_t)(asub) - (int64_t)(bsub));
+	#ifndef JACKSON_RULE
+		return fxp_quant(tmpsub);
+	#else
+		return tmpsub;
+	#endif
+}
+
+fxp64_t fxp64_sub(fxp64_t asub, fxp64_t bsub) {
+	int64_t tmpsub;
+	tmpsub = ((asub) - (bsub));
 	#ifndef JACKSON_RULE
 		return fxp_quant(tmpsub);
 	#else
@@ -433,6 +525,7 @@ fxp32_t fxp_mult(fxp32_t amult, fxp32_t bmult) {
 	} else {
 		tmpmultprec = -(((-tmpmult) + (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits);
 	}
+	printf("[MULT] - %.10f * %.10f = %.10f\n", fxp_to_double(amult), fxp_to_double(bmult), fxp_to_double(tmpmultprec));
 	#ifndef JACKSON_RULE
 		return fxp_quant(tmpmultprec);
 	#else
@@ -440,6 +533,23 @@ fxp32_t fxp_mult(fxp32_t amult, fxp32_t bmult) {
 	#endif
 }
 
+fxp64_t fxp64_mult(fxp64_t amult, fxp64_t bmult) {
+
+	int64_t tmpmult, tmpmultprec;
+
+	tmpmult = ((amult)*(bmult));
+
+	if (tmpmult >= 0) {
+		tmpmultprec = (tmpmult + ((tmpmult & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits;
+	} else {
+		tmpmultprec = -(((-tmpmult) + (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits);
+	}
+	#ifndef JACKSON_RULE
+		return fxp_quant(tmpmultprec);
+	#else
+		return tmpmultprec;
+	#endif
+}
 /**
  * Fixed point negate
  * @param [aneg] fixed point input
