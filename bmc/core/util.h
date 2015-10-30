@@ -250,6 +250,69 @@ void double_check_limit_cycle(double * y, int y_size){
 	__DSVERIFIER_assert(desired_elements != found_elements);
 }
 
+/* verify limit_cycle oscillations in last outputs */
+void double_check_persistent_limit_cycle(double * y, int y_size){
+
+	/* last element is the reference */
+	double reference = y[y_size - 1];
+	int idx = 0;
+	int window_size = 1;
+
+	/* find window size */
+	for(idx = (y_size-2); idx >= 0; idx--){
+		if (y[idx] != reference){
+			window_size++;
+		}else{
+			break;
+		}
+	}
+
+	/* check if there is at least one repetition */
+	__DSVERIFIER_assume(window_size != y_size && window_size != 1);
+	printf("window_size %d\n", window_size);
+	int desired_elements = 2 * window_size;
+	double lco_elements[desired_elements];
+	int lco_elements_index = desired_elements - 1;
+	int found_elements = 0;
+
+	/* check if final oscillations occurs */
+	for(idx = (y_size-1); idx >= 0; idx--){
+		if (idx > (y_size-window_size-1)){
+			printf("%.0f == %.0f\n", y[idx], y[idx-window_size]);
+			int cmp_idx = idx - window_size;
+			if ((cmp_idx > 0) && (y[idx] == y[idx-window_size])){
+				lco_elements[lco_elements_index--];
+				found_elements = found_elements + 2;
+			}else{
+				break;
+			}
+		}
+	}
+	printf("desired_elements %d\n", desired_elements);
+	printf("found_elements %d\n", found_elements);
+
+	/* check if the window was confirmed */
+	__DSVERIFIER_assume(desired_elements == found_elements);
+
+	/* check if there is a persistent lco */
+	idx = y_size - 1;
+	int lco_aux_idx = desired_elements - 1;
+	_Bool is_persistent = 0;
+	while (idx >= 0){
+		if(y[idx--] == lco_elements[lco_aux_idx--]){
+			is_persistent = 1;
+		}else{
+			is_persistent = 0;
+			break;
+		}
+		/* reset the aux index */
+		if (lco_aux_idx == -1){
+			lco_aux_idx = desired_elements - 1;
+		}
+	}
+	__DSVERIFIER_assert(is_persistent == 0);
+}
+
 /* print array elements */
 void print_array_elements(char * name, double * v, int n){
    printf("%s = {", name);

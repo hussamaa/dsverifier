@@ -15,19 +15,19 @@ void __DSVERIFIER_assume(_Bool expression){
 #include "../bmc/core/functions.h"
 #include "../bmc/core/initialization.h"
 
-digital_system ds = { 
-	.b = { 110.0, -100.0 },
-	.b_size = 2,
-	.a = { 1.0, 0.0 },
-	.a_size = 2,
-	.sample_time = 0.02
+digital_system ds = {
+	.b = { -1.553, 3.119, -1.566 },
+	.b_size = 3,
+	.a = { 1.00000000, 0.0387300, -0.96 },
+	.a_size = 3,
+	.sample_time = 0.005
 };
 
-implementation impl = { 
-	.int_bits = 9, 
-	.frac_bits = 7,
-	.max = 1.0,
-	.min = -1.0,
+implementation impl = {
+	.int_bits = 15,
+	.frac_bits = 8,
+	.min = -6.0,
+	.max = 6.0
 };
 
 hardware hw = { };
@@ -51,9 +51,11 @@ void fxp_direct_form_1_impl2_debug(fxp32_t x[], int x_size, fxp32_t b[], int b_s
    }
 
    /* system 2 h2(z) */
-   y[0] = v[0];
+   //y[0] = v[0];
+   y[0] = -640;
+   y[1] = 603;
    /* input here the counterexample values */
-   for(i = 1; i < x_size; i++){
+   for(i = 2; i < x_size; i++){
 	   y[i] = 0;
 	   y[i] = fxp_add(y[i], v[i]);
 	   for(j = 1; j < a_size; j++){
@@ -69,7 +71,7 @@ int main(){
 
 	OVERFLOW_MODE = 1;
 
-	double x[10] = { -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, -0.99218750, 1.0, -0.99218750, -0.99218750 } ;
+	double x[10] = { 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375 } ;
 	printf("inputs: \n");
 	fxp_double_to_fxp_array(x, x_fxp, x_size);
 	print_array_elements("x", x, x_size);
@@ -131,4 +133,12 @@ int main(){
 	fxp_to_double_array(y, y_fxp, x_size);
 	print_array_elements("y", y, x_size);
 
+	double xn=1.15234375;
+	fxp32_t xf = fxp_double_to_fxp(xn);
+	fxp32_t yn2 = 603;
+	fxp32_t yn1 = -640;
+
+	fxp32_t y_current = fxp_sub(fxp_sub(fxp_add(fxp_add(fxp_mult(b_fxp[0],xf),fxp_mult(b_fxp[1], xf)),fxp_mult(b_fxp[2],xf)),fxp_mult(a_fxp[1],yn1)),fxp_mult(a_fxp[2],yn2));
+
+	printf("y = %d\n", y_current);
 }
