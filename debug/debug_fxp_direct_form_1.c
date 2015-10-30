@@ -33,7 +33,7 @@ implementation impl = {
 hardware hw = { };
 
 /* inputs */
-fxp32_t x_fxp[10];
+fxp32_t x_fxp[10] = { -328, -328, -328, -328, -328, -328, -328, -328, -328, -328 };
 int x_size = 10;
 int generic_timer;
 
@@ -69,11 +69,11 @@ int main(){
 	
 	initialization();
 
-	OVERFLOW_MODE = 1;
+	OVERFLOW_MODE = 0;
 
-	double x[10] = { 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375 } ;
+	double x[10]; // = { 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375 } ;
 	printf("inputs: \n");
-	fxp_double_to_fxp_array(x, x_fxp, x_size);
+	fxp_to_double_array(x, x_fxp, x_size);
 	print_array_elements("x", x, x_size);
 	print_fxp_array_elements("x_fxp", x_fxp, x_size);
 
@@ -105,8 +105,18 @@ int main(){
 	fxp32_t xaux[ds.b_size];
 	fxp32_t yaux[ds.a_size];
 	fxp32_t y0[ds.a_size];
+	/*
 	yaux[0] = 0;
-	yaux[1] = 0;
+	yaux[1] = 603;
+	yaux[2] = -640;
+	*/
+	/*
+	yaux[1] = 359;
+	yaux[2] = -493;
+*/
+	yaux[0] = 0;
+	yaux[1] = -7;
+	yaux[2] = 57;
 
 	int i, j;
 	/* prepare outputs */
@@ -118,7 +128,7 @@ int main(){
 	}
 
 	for (i = 0; i < ds.b_size; ++i) {
-		xaux[i] = 0;
+		xaux[i] = -328;
 	}
 
 	fxp32_t xk;
@@ -126,19 +136,30 @@ int main(){
 	int count = 0;
 	int notzeros = 0;
 
-	fxp_direct_form_1_impl2_debug(x_fxp, x_size, b_fxp, ds.b_size, a_fxp, ds.a_size, y_fxp);
+	//fxp_dire	ct_form_1_impl2_debug(x_fxp, x_size, b_fxp, ds.b_size, a_fxp, ds.a_size, y_fxp);
+
+	for (i = 0; i < x_size; ++i) {
+		shiftL(x_fxp[i], xaux, ds.b_size);
+		y_fxp[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
+		fxp_quant(y_fxp[i]);
+		shiftL(y_fxp[i], yaux, ds.a_size);
+	}
 
 	printf("\noutputs: \n");
 	print_fxp_array_elements("y_fxp", y_fxp, x_size);
 	fxp_to_double_array(y, y_fxp, x_size);
 	print_array_elements("y", y, x_size);
 
-	double xn=1.15234375;
+
+	double xn=-1.2812;
 	fxp32_t xf = fxp_double_to_fxp(xn);
-	fxp32_t yn2 = 603;
-	fxp32_t yn1 = -640;
+	fxp32_t yn2 = 57;
+	//fxp32_t yn2 = 276;
+	//fxp32_t yn1 = -260;
+	fxp32_t yn1 = 7;
 
 	fxp32_t y_current = fxp_sub(fxp_sub(fxp_add(fxp_add(fxp_mult(b_fxp[0],xf),fxp_mult(b_fxp[1], xf)),fxp_mult(b_fxp[2],xf)),fxp_mult(a_fxp[1],yn1)),fxp_mult(a_fxp[2],yn2));
 
 	printf("y = %d\n", y_current);
+
 }
