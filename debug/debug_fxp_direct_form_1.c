@@ -25,7 +25,7 @@ digital_system ds = {
 
 implementation impl = {
 	.int_bits = 15,
-	.frac_bits = 8,
+	.frac_bits = 4,
 	.min = -6.0,
 	.max = 6.0
 };
@@ -33,7 +33,7 @@ implementation impl = {
 hardware hw = { };
 
 /* inputs */
-fxp32_t x_fxp[10] = { -328, -328, -328, -328, -328, -328, -328, -328, -328, -328 };
+fxp32_t x_fxp[10] = { -54, -54, -54, -54, -54, -54, -54, -54, -54, -54 };
 int x_size = 10;
 int generic_timer;
 
@@ -115,8 +115,8 @@ int main(){
 	yaux[2] = -493;
 */
 	yaux[0] = 0;
-	yaux[1] = -7;
-	yaux[2] = 57;
+	yaux[1] = -3;
+	yaux[2] = -23;
 
 	int i, j;
 	/* prepare outputs */
@@ -128,7 +128,7 @@ int main(){
 	}
 
 	for (i = 0; i < ds.b_size; ++i) {
-		xaux[i] = -328;
+		xaux[i] = -54;
 	}
 
 	fxp32_t xk;
@@ -151,12 +151,12 @@ int main(){
 	print_array_elements("y", y, x_size);
 
 
-	double xn=-1.2812;
+	double xn=-3.375;
 	fxp32_t xf = fxp_double_to_fxp(xn);
-	fxp32_t yn2 = 57;
+	fxp32_t yn2 = -23;
 	//fxp32_t yn2 = 276;
 	//fxp32_t yn1 = -260;
-	fxp32_t yn1 = 7;
+	fxp32_t yn1 = -3;
 
 	fxp32_t y_current = fxp_sub(fxp_sub(fxp_add(fxp_add(fxp_mult(b_fxp[0],xf),fxp_mult(b_fxp[1], xf)),fxp_mult(b_fxp[2],xf)),fxp_mult(a_fxp[1],yn1)),fxp_mult(a_fxp[2],yn2));
 

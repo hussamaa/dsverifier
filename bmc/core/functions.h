@@ -197,64 +197,50 @@ void fxp_check_limit_cycle(fxp32_t y[], int y_size){
 	__DSVERIFIER_assert(0);
 }
 
-/* verify limit_cycle oscillations in last outputs */
+/* verify persistent limit_cycle oscillations in last outputs */
 void fxp_check_persistent_limit_cycle(fxp32_t * y, int y_size){
 
-	/* last element is the reference */
-	fxp32_t reference = y[y_size - 1];
-	int idx = 0;
-	int window_size = 1;
+	/* first element is the reference */
+	int idy = 0;
+	int count_same = 0;
+	int window_size = 0;
+	fxp32_t reference = y[0];
 
-	/* find window size */
-	for(idx = (y_size-2); idx >= 0; idx--){
-		if (y[idx] != reference){
+	/* find the window size (X X Y Y), is equivalent to 2 */
+	for(idy = 0; idy < y_size; idy++){
+		if (y[idy] != reference){
 			window_size++;
-		}else{
+		} else if (window_size != 0){
 			break;
+	  } else {
+			count_same++;
 		}
 	}
+	window_size += count_same;
 
 	/* check if there is at least one repetition */
-	__DSVERIFIER_assume(window_size != y_size && window_size != 1);
-	printf("window_size %d\n", window_size);
-	int desired_elements = 2 * window_size;
-	fxp32_t lco_elements[desired_elements];
-	int lco_elements_index = desired_elements - 1;
-	int found_elements = 0;
+	__DSVERIFIER_assume(window_size > 1 && window_size != y_size);
 
-	/* check if final oscillations occurs */
-	for(idx = (y_size-1); idx >= 0; idx--){
-		if (idx > (y_size-window_size-1)){
-			printf("%.0f == %.0f\n", y[idx], y[idx-window_size]);
-			int cmp_idx = idx - window_size;
-			if ((cmp_idx > 0) && (y[idx] == y[idx-window_size])){
-				lco_elements[lco_elements_index--];
-				found_elements = found_elements + 2;
-			}else{
-				break;
-			}
-		}
+	/* get the window elements */
+	fxp32_t lco_elements[window_size];
+	for(idy = 0; idy < window_size; idy++){
+		lco_elements[idy] = y[idy];
 	}
-	printf("desired_elements %d\n", desired_elements);
-	printf("found_elements %d\n", found_elements);
-
-	/* check if the window was confirmed */
-	__DSVERIFIER_assume(desired_elements == found_elements);
 
 	/* check if there is a persistent lco */
-	idx = y_size - 1;
-	int lco_aux_idx = desired_elements - 1;
+	idy = 0;
+	int lco_idy = 0;
 	_Bool is_persistent = 0;
-	while (idx >= 0){
-		if(y[idx--] == lco_elements[lco_aux_idx--]){
+	while (idy < y_size){
+		if(y[idy++] == lco_elements[lco_idy++]){
 			is_persistent = 1;
 		}else{
 			is_persistent = 0;
 			break;
 		}
-		/* reset the aux index */
-		if (lco_aux_idx == -1){
-			lco_aux_idx = desired_elements - 1;
+		/* reset lco index */
+		if (lco_idy == window_size){
+			lco_idy = 0;
 		}
 	}
 	__DSVERIFIER_assert(is_persistent == 0);

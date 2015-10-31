@@ -20,7 +20,7 @@ int verify_limit_cycle(void){
 	int i;
 	int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;
 	printf("X_SIZE must be at least 2 * ds.a_size");
-	assert(X_SIZE_VALUE >= Set_xsize_at_least_two_times_Na);
+	__DSVERIFIER_assert(X_SIZE_VALUE >= Set_xsize_at_least_two_times_Na);
 
 	/* check the realization */
 	#if	((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
@@ -68,22 +68,22 @@ int verify_limit_cycle(void){
 		fxp_double_to_fxp_array(db_cascade, bc_fxp, b_cascade_size);
 	#endif
 
-	fxp32_t min_fxp;
-	fxp32_t max_fxp;
-
-	min_fxp = fxp_double_to_fxp(impl.min);
-	max_fxp = fxp_double_to_fxp(impl.max);
-
 	fxp32_t y[X_SIZE_VALUE];
 	fxp32_t x[X_SIZE_VALUE];
 
-	int nondet_constant_input = nondet_int();
-	__DSVERIFIER_assume(nondet_constant_input >= min_fxp && nondet_constant_input <= max_fxp);
+	fxp32_t min_fxp = fxp_double_to_fxp(impl.min);
+	fxp32_t max_fxp = fxp_double_to_fxp(impl.max);
 
 	/* prepare inputs (all possibles values in dynamical range) */
+	fxp32_t xaux[ds.b_size];
+	int nondet_constant_input = nondet_int();
+	__DSVERIFIER_assume(nondet_constant_input >= min_fxp && nondet_constant_input <= max_fxp);
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
-		y[i] = 0;
 		x[i] = nondet_constant_input;
+		y[i] = 0;
+	}
+	for (i = 0; i < ds.b_size; ++i) {
+		xaux[i] = nondet_constant_input;
 	}
 
 	int Nw = 0;
@@ -94,10 +94,9 @@ int verify_limit_cycle(void){
 	#endif
 
 	fxp32_t yaux[ds.a_size];
-	fxp32_t xaux[ds.b_size];
-	fxp32_t waux[Nw];
-
 	fxp32_t y0[ds.a_size];
+
+	fxp32_t waux[Nw];
 	fxp32_t w0[Nw];
 
 	#if (REALIZATION == DFI || REALIZATION == CDFI || REALIZATION == DDFI || REALIZATION == CDDFI)
@@ -113,10 +112,6 @@ int verify_limit_cycle(void){
 			w0[i] = waux[i];
 		}
 	#endif
-
-	for (i = 0; i < ds.b_size; ++i) {
-		xaux[i] = 0;
-	}
 
 	fxp32_t xk, temp;
 	fxp32_t *aptr, *bptr, *xptr, *yptr, *wptr;
@@ -195,7 +190,7 @@ int verify_limit_cycle(void){
 	}
 
 	/* check oscillations in produced output */
-	fxp_check_limit_cycle(y, X_SIZE_VALUE);
+	fxp_check_persistent_limit_cycle(y, X_SIZE_VALUE);
 
 	return 0;
 }
