@@ -17,7 +17,7 @@ int verify_zero_input_limit_cycle(void){
 
 	OVERFLOW_MODE = 3; /* WRAPAROUND */
 
-	int i;
+	int i,j;
 	int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;
 	printf("X_SIZE must be at least 2 * ds.a_size");
 	assert(X_SIZE_VALUE >= Set_xsize_at_least_two_times_Na);
@@ -68,11 +68,8 @@ int verify_zero_input_limit_cycle(void){
 		fxp_double_to_fxp_array(db_cascade, bc_fxp, b_cascade_size);
 	#endif
 
-	fxp32_t min_fxp;
-	fxp32_t max_fxp;
-
-	min_fxp = fxp_double_to_fxp(impl.min);
-	max_fxp = fxp_double_to_fxp(impl.max);
+	fxp32_t min_fxp = fxp_double_to_fxp(impl.min);
+	fxp32_t max_fxp = fxp_double_to_fxp(impl.max);
 
 	fxp32_t y[X_SIZE_VALUE];
 	fxp32_t x[X_SIZE_VALUE];
@@ -118,7 +115,6 @@ int verify_zero_input_limit_cycle(void){
 	fxp32_t xk, temp;
 	fxp32_t *aptr, *bptr, *xptr, *yptr, *wptr;
 
-	int j;
 	for(i=0; i<X_SIZE_VALUE; ++i){
 
 		/* direct form I realization */
@@ -192,7 +188,7 @@ int verify_zero_input_limit_cycle(void){
 	}
 
 	/* check oscillations in produced output */
-	fxp_check_limit_cycle(y, X_SIZE_VALUE);
+	fxp_check_persistent_limit_cycle(y, X_SIZE_VALUE);
 
 	return 0;
 }
