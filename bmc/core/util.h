@@ -259,7 +259,7 @@ void double_check_persistent_limit_cycle(double * y, int y_size){
 	int window_size = 0;
 	double reference = y[0];
 
-	/* find the window size (X X Y Y), is equivalent to 2 */
+	/* find the window size (X X Y Y), is equivalent to 4 */
 	for(idy = 0; idy < y_size; idy++){
 		if (y[idy] != reference){
 			window_size++;
@@ -272,7 +272,7 @@ void double_check_persistent_limit_cycle(double * y, int y_size){
 	window_size += count_same;
 
 	/* check if there is at least one repetition */
-	__DSVERIFIER_assume(window_size > 1 && window_size != y_size);
+	__DSVERIFIER_assume(window_size > 1 && window_size <= y_size/2);
 
 	/* get the window elements */
 	double lco_elements[window_size];
