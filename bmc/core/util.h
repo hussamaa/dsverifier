@@ -62,7 +62,7 @@ int check_stability(double a[], int n){
    double m[lines][n];
    int i,j;
 
-   /* to put current values in stability counter-example 
+   /* to put current values in stability counter-example
     * look for current_stability (use: --no-slice) */
    double current_stability[n];
    for (i=0; i < n; i++){
@@ -276,8 +276,10 @@ void double_check_persistent_limit_cycle(double * y, int y_size){
 
 	/* get the window elements */
 	double lco_elements[window_size];
-	for(idy = 0; idy < window_size; idy++){
-		lco_elements[idy] = y[idy];
+	for(idy = 0; idy < y_size; idy++){
+    if (idy < window_size){
+		    lco_elements[idy] = y[idy];
+    }
 	}
 
 	/* check if there is a persistent lco */

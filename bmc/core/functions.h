@@ -223,8 +223,11 @@ void fxp_check_persistent_limit_cycle(fxp32_t * y, int y_size){
 
 	/* get the window elements */
 	fxp32_t lco_elements[window_size];
-	for(idy = 0; idy < window_size; idy++){
-		lco_elements[idy] = y[idy];
+	for(idy = 0; idy < y_size; idy++){
+		/* condition to avoid unwinding assertion */
+		if (idy < window_size){
+			lco_elements[idy] = y[idy];
+		}
 	}
 
 	/* check if there is a persistent lco */
