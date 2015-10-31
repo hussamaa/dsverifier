@@ -36,11 +36,17 @@ extern implementation impl;
 	#define FXP_WIDTH		32
 #endif
 
+/*****************************************************
+/* XXX - TODO - REFACTOR TO USE ONLY ONE TYPE: fxp_t *
+/*****************************************************
+
 /** fixed point type definition for signed variables 32-bits */
-typedef int32_t fxp32_t;
+typedef int64_t fxp32_t;
 
 /** fixed point type definition for signed variables 64-bits */
 typedef int64_t fxp64_t;
+
+/******************************************************
 
 /** fixed point type definition for unsigned variables */
 typedef uint32_t ufxp32_t;
