@@ -15,16 +15,15 @@
  * ------------------------------------------------------
 */
 
+#define LIMIT 3
+
 /* model checkers */
 #define NONE  0
 #define ESBMC 1
 #define CBMC  2
-
 #ifndef BMC
 	#define BMC	1
 #endif
-
-#define LIMIT 3
 
 /* realizations (use: -DREALIZATION=DIRECTFORMI) */
 #define DIRECTFORMI							1
@@ -94,9 +93,20 @@
 #define DEADLINE 							1 / SAMPLERATE
 #define OVERHEAD							0
 
-/* overflow and x_size parameters */
+/* overflow mode */
+#define DETECT_OVERFLOW						1
+#define SATURATE							2
+#define WRAPAROUND							3
+
+/** rounding mode */
+#define ROUNDING							0
+#define FLOOR								1
+#define CEIL								2
+
+/* overflow, x_size, and round parameters */
 int X_SIZE_VALUE = 0;
 int OVERFLOW_MODE = 1; 						/* DETECT_OVERFLOW */
+int ROUNDING_MODE = 0;
 
 /* connection mode for control + model (use: -DCONNECTION_MODE=SERIES) */
 #define SERIES 								1

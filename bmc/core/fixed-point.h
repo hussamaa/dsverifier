@@ -24,11 +24,6 @@
 #include <stdio.h>
 #include <stdint.h>
 
-/* overflow mode */
-#define DETECT_OVERFLOW		1
-#define SATURATE			2
-#define WRAPAROUND			3
-
 extern implementation impl;
 
 /** definition of fixed point width */
@@ -288,20 +283,24 @@ fxp32_t fxp_double_to_fxp_only_saturate_and_wrap(double f) {
 	return fxp_quant_only_saturate_and_wrap(tmp);
 }
 
-fxp32_t fxp_double_to_fxp(double f) {
+fxp32_t fxp_double_to_fxp(double value) {
 
 	int64_t tmp;
-	double ftemp;
+	double ftemp = value * scale_factor[impl.frac_bits];
 
-	f=f;
-
-	ftemp = f*scale_factor[impl.frac_bits];
-
-	if(f >= 0) {
-		tmp = (int64_t)(ftemp + 0.5);
-	}
-	else {
-		tmp = (int64_t)(ftemp - 0.5);
+	if (ROUNDING_MODE == ROUNDING){
+		if(value >= 0) {
+			tmp = (int64_t)(ftemp + 0.5);
+		}
+		else {
+			tmp = (int64_t)(ftemp - 0.5);
+		}
+	} else if(ROUNDING_MODE == FLOOR){
+		/* XXX - this floor mode has noise with > 8 bits precision (Negative Part) */
+		if (value < 0){
+			ftemp = ftemp - 1;
+		}
+		tmp = (int64_t) ftemp;
 	}
 
 	return fxp_quant(tmp);
@@ -348,7 +347,6 @@ double fxp_to_double(fxp32_t fxp) {
 	double f;
 	int f_int = (int) fxp;
 	f = f_int * scale_factor_inv[impl.frac_bits];
-
 	return f;
 }
 
