@@ -47,7 +47,7 @@
                      <content>
                         <ScrollPane prefHeight="367.0" prefViewportHeight="369.0" prefViewportWidth="232.0" prefWidth="224.0">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="509.0" prefWidth="231.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="509.0" prefWidth="215.0">
                                  <children>
                                     <Label layoutX="4.0" layoutY="38.0" text="Numerator" />
                                     <TextField fx:id="tfNumeratorControl" layoutX="5.0" layoutY="59.0" prefHeight="25.0" prefWidth="208.0" text="" />
@@ -81,8 +81,8 @@
                                        </font>
                                     </Label>
                                     <Label layoutX="5.0" layoutY="394.0" text="Numerator" />
-                                    <TextField fx:id="tfDenominatorPlant1" layoutX="5.0" layoutY="467.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                                    <TextField fx:id="tfNumeratorPlant1" layoutX="5.0" layoutY="415.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                    <TextField fx:id="tfDenominatorPlantUncertainty" layoutX="5.0" layoutY="467.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                    <TextField fx:id="tfNumeratorPlantUncertainty" layoutX="5.0" layoutY="415.0" prefHeight="25.0" prefWidth="208.0" text="" />
                                  </children>
                               </AnchorPane>
                            </content>
