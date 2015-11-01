@@ -9,6 +9,8 @@ import br.edu.ufam.dsverifier.domain.enums.VerificationStatus;
 public class Verification {
 
 	private DigitalSystem digitalSystem;
+	private DigitalSystem control;
+	private DigitalSystem plant;
 	private Implementation implementation;
 	private DigitalSystemProperties property;
 	private Integer bound;
@@ -99,6 +101,22 @@ public class Verification {
 
 	public void setBound(Integer bound) {
 		this.bound = bound;
+	}
+
+	public DigitalSystem getControl() {
+		return control;
+	}
+
+	public void setControl(DigitalSystem control) {
+		this.control = control;
+	}
+
+	public DigitalSystem getPlant() {
+		return plant;
+	}
+
+	public void setPlant(DigitalSystem plant) {
+		this.plant = plant;
 	}
 
 }

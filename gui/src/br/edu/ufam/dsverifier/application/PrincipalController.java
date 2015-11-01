@@ -66,6 +66,18 @@ public class PrincipalController implements Initializable{
 	@FXML
 	private TextField tfDenominator;
 	
+	/* digital system (control) */
+	@FXML
+	private TextField tfNumeratorControl;
+	@FXML
+	private TextField tfDenominatorControl;
+	
+	/* digital system (plant) */
+	@FXML
+	private TextField tfNumeratorPlant;
+	@FXML
+	private TextField tfDenominatorPlant;
+	
 	/* implementation */
 	@FXML
 	private Slider sliderIntegerBits;
@@ -85,6 +97,10 @@ public class PrincipalController implements Initializable{
 	private CheckBox checkOverflow;	
 	@FXML
 	private CheckBox checkLimitCycle;	
+	@FXML
+	private CheckBox checkZeroInputLimitCycle;
+	@FXML
+	private CheckBox checkStabilityClosedLoop;
 	@FXML
 	private CheckBox checkTiming;	
 	@FXML
@@ -145,6 +161,10 @@ public class PrincipalController implements Initializable{
 		/* set required fields */
         validationSupport.registerValidator(tfNumerator, Validator.createEmptyValidator("Digital System Numerator is Required"));	
         validationSupport.registerValidator(tfDenominator, Validator.createEmptyValidator("Digital System Denominator is Required"));        
+        validationSupport.registerValidator(tfNumeratorControl, Validator.createEmptyValidator("Control Numerator is Required"));	
+        validationSupport.registerValidator(tfDenominatorControl, Validator.createEmptyValidator("Control Denominator is Required"));
+        validationSupport.registerValidator(tfNumeratorPlant, Validator.createEmptyValidator("Control Numerator is Required"));	
+        validationSupport.registerValidator(tfDenominatorPlant, Validator.createEmptyValidator("Control Denominator is Required"));        
         validationSupport.registerValidator(sliderIntegerBits, Validator.createEmptyValidator("Integer Bits of Implementation is Required"));	
         validationSupport.registerValidator(sliderPrecisionBits, Validator.createEmptyValidator("Precision Bits of Implementation is Required"));
         validationSupport.registerValidator(cbRealization, Validator.createEmptyValidator("Is necessary inform a Realization in Implementation"));              
@@ -296,9 +316,19 @@ public class PrincipalController implements Initializable{
 	 */
 	public List<Verification> validate() throws IOException{
 		
-		/* digital system */
-		DigitalSystem ds = validateDigitalSystem();
-		if (ds == null) return null;
+		/* digital systems check */
+		DigitalSystem ds = null;
+		DigitalSystem control = null;
+		DigitalSystem plant = null;
+		if (!isClosedLoopVerification()){
+			ds = validateDigitalSystem();
+			if (ds == null) return null;
+		}else{
+			control = validateControlDigitalSystem();
+			if (control == null) return null;
+			plant = validatePlantDigitalSystem();
+			if (plant == null) return null;
+		}
 	
 		/* implementation */
 		Implementation impl = validateImplementation();
@@ -309,23 +339,39 @@ public class PrincipalController implements Initializable{
 		if (properties == null) return null;
 		
 		/* create the verification list */
-		List<Verification> verifications = new ArrayList<Verification>();		
-		for (DigitalSystemProperties property : properties) {
-			Verification verification = new Verification();
-			verification.setDigitalSystem(ds);
-			verification.setImplementation(impl);
-			verification.setProperty(property);
-			DSVerifierService.getInstance().generateVerificationFile(verification);
-			verification.setBound((int) sliderBound.getValue()); 
-			verifications.add(verification);
-		}			
+		List<Verification> verifications = new ArrayList<Verification>();
+		if (!isClosedLoopVerification()){
+			for (DigitalSystemProperties property : properties) {
+				Verification verification = new Verification();
+				verification.setDigitalSystem(ds);
+				verification.setImplementation(impl);
+				verification.setProperty(property);
+				DSVerifierService.getInstance().generateVerificationFile(verification);
+				verification.setBound((int) sliderBound.getValue()); 
+				verifications.add(verification);			
+			}			
+		}else{
+			/* closedloop verification */
+			Verification cloopVerification = new Verification();
+			cloopVerification.setPlant(plant);
+			cloopVerification.setControl(plant);
+			cloopVerification.setImplementation(impl);			
+			DSVerifierService.getInstance().generateClosedLoopVerificationFile(cloopVerification);
+			cloopVerification.setProperty(DigitalSystemProperties.STABILITY_CLOSED_LOOP);
+			cloopVerification.setBound(1);
+			verifications.add(cloopVerification);
+		}
 		
 		return verifications;
 	}
 	
+	public boolean isClosedLoopVerification(){
+		return checkStabilityClosedLoop.isSelected();
+	}
+	
 	/* generate digital system */
 	public DigitalSystem validateDigitalSystem(){
-		
+				
 		String numerator = tfNumerator.getText();
 		String denominator = tfDenominator.getText();
 
@@ -347,6 +393,80 @@ public class PrincipalController implements Initializable{
 		      .message( "You need to input the digital system denominator")
 		      .showWarning();
 			tfDenominator.requestFocus();
+			return null;
+		}
+		int denominatorSize = denominator.split(",").length;
+
+		DigitalSystem ds =  new DigitalSystem();
+		ds.setNumerator(numerator);
+		ds.setNumeratorSize(numeratorSize);
+		ds.setDenominator(denominator);
+		ds.setDenominatorSize(denominatorSize);
+
+		return ds;
+	}
+	
+	/* generate digital system */
+	public DigitalSystem validateControlDigitalSystem(){
+				
+		String numerator = tfNumeratorControl.getText();
+		String denominator = tfDenominatorControl.getText();
+
+		if (numerator.length() == 0){
+			accordionPane.setExpandedPane(titledPanes[1]);
+			Dialogs.create()
+		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
+		      .message( "You need to input the control numerator")
+		      .showWarning();
+			tfNumeratorControl.requestFocus();
+			return null;
+		}		
+		int numeratorSize = numerator.split(",").length;
+			
+		if (denominator.length() == 0){
+			accordionPane.setExpandedPane(titledPanes[1]);
+			Dialogs.create()
+		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
+		      .message( "You need to input the control denominator")
+		      .showWarning();
+			tfDenominatorControl.requestFocus();
+			return null;
+		}
+		int denominatorSize = denominator.split(",").length;
+
+		DigitalSystem ds =  new DigitalSystem();
+		ds.setNumerator(numerator);
+		ds.setNumeratorSize(numeratorSize);
+		ds.setDenominator(denominator);
+		ds.setDenominatorSize(denominatorSize);
+
+		return ds;
+	}
+	
+	/* generate digital system */
+	public DigitalSystem validatePlantDigitalSystem(){
+				
+		String numerator = tfNumeratorPlant.getText();
+		String denominator = tfDenominatorPlant.getText();
+
+		if (numerator.length() == 0){
+			accordionPane.setExpandedPane(titledPanes[1]);
+			Dialogs.create()
+		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
+		      .message( "You need to input the plant numerator")
+		      .showWarning();
+			tfNumeratorPlant.requestFocus();
+			return null;
+		}		
+		int numeratorSize = numerator.split(",").length;
+			
+		if (denominator.length() == 0){
+			accordionPane.setExpandedPane(titledPanes[1]);
+			Dialogs.create()
+		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
+		      .message( "You need to input the plant denominator")
+		      .showWarning();
+			tfDenominatorPlant.requestFocus();
 			return null;
 		}
 		int denominatorSize = denominator.split(",").length;
@@ -396,7 +516,7 @@ public class PrincipalController implements Initializable{
 		}else if (DigitalSystemRealizations.CTDDFII.getRealization().equals(realization)){
 			impl.setRealization(DigitalSystemRealizations.CTDDFII);	
 		}else{
-			accordionPane.setExpandedPane(titledPanes[1]);
+			accordionPane.setExpandedPane(titledPanes[2]);
 			Dialogs.create()
 		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
 		      .message( "You need to select a realization")
@@ -412,7 +532,7 @@ public class PrincipalController implements Initializable{
 		    (impl.getRealization() == DigitalSystemRealizations.CDDFII)  || 		   
 		    (impl.getRealization() == DigitalSystemRealizations.CTDDFII)) {
 			if (tfDelta.getText().length() == 0){
-				accordionPane.setExpandedPane(titledPanes[1]);
+				accordionPane.setExpandedPane(titledPanes[2]);
 				Dialogs.create()
 			      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
 			      .message( "You need to inform a delta value")
@@ -421,7 +541,7 @@ public class PrincipalController implements Initializable{
 			}			
 			Double delta;
 			if ((delta = DSVerifierUtils.getInstance().isNumeric(tfDelta.getText())) == null){
-				accordionPane.setExpandedPane(titledPanes[1]);
+				accordionPane.setExpandedPane(titledPanes[2]);
 				Dialogs.create()
 			      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
 			      .message("Delta value needs to be a number")
@@ -435,10 +555,10 @@ public class PrincipalController implements Initializable{
 		impl.setMinimum(Double.valueOf(tfMin.getText()));			
 		
 		if (tfScale.getText().length() == 0){
-			accordionPane.setExpandedPane(titledPanes[1]);
+			accordionPane.setExpandedPane(titledPanes[2]);
 			Dialogs.create()
 		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
-		      .message( "You need to inform a scale for numerator")
+		      .message( "You need to inform a scaling factor")
 		      .showWarning();
 			return null;
 		}			
@@ -477,15 +597,19 @@ public class PrincipalController implements Initializable{
 			properties.add(DigitalSystemProperties.OVERFLOW);
 		if (checkLimitCycle.isSelected())
 			properties.add(DigitalSystemProperties.LIMIT_CYCLE);
+		if (checkZeroInputLimitCycle.isSelected())
+			properties.add(DigitalSystemProperties.ZERO_INPUT_LIMIT_CYCLE);
 		if (checkTiming.isSelected())
 			properties.add(DigitalSystemProperties.TIMING);		
 		if (checkMinimumPhase.isSelected())
 			properties.add(DigitalSystemProperties.MINIMUM_PHASE);
 		if (checkStability.isSelected())
 			properties.add(DigitalSystemProperties.STABILITY);
+		if (checkStabilityClosedLoop.isSelected())
+			properties.add(DigitalSystemProperties.STABILITY_CLOSED_LOOP);
 		
 		if (properties.size() == 0){
-			accordionPane.setExpandedPane(titledPanes[2]);
+			accordionPane.setExpandedPane(titledPanes[3]);
 			Dialogs.create()
 		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
 		      .message( "You need to select a property to check")

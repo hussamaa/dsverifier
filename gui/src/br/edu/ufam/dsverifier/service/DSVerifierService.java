@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.concurrent.TimeUnit;
 
 import br.edu.ufam.dsverifier.domain.Verification;
@@ -13,8 +12,8 @@ import br.edu.ufam.dsverifier.util.DSVerifierUtils;
 
 public class DSVerifierService {
 
-	public static final String ESBMC_EXECUTABLE = "./dsverifier";
-	public static final String ESBMC_PARAMETERS = "-DSVERIFIER --no-div-by-zero-check --no-bounds-check --no-pointer-check --boolector";
+	public static final String DSVERIFIER_EXECUTABLE = "./dsverifier";
+	public static final String DSVERIFIER_PARAMETERS = "-DBMC=ESBMC -DJACKSON_RULE";
 	
 	private static DSVerifierService instance;
 	
@@ -32,7 +31,7 @@ public class DSVerifierService {
 		File verificationFile = verification.getFile();
 		String verificationFilePath = verificationFile.getAbsolutePath();
 //		StringBuilder commandLine = new StringBuilder(ESBMC_EXECUTABLE + " " + verificationFilePath + "  " + ESBMC_PARAMETERS);
-		StringBuilder commandLine = new StringBuilder(ESBMC_EXECUTABLE + " " + verificationFilePath);
+		StringBuilder commandLine = new StringBuilder(DSVERIFIER_EXECUTABLE + " " + verificationFilePath);
 		
 		/* include the property */
 		commandLine.append(" --property " + verification.getProperty());
@@ -60,7 +59,7 @@ public class DSVerifierService {
 	}
 	
 	public String prepareCommandLine(Verification verification){
-		String commandLine = ESBMC_EXECUTABLE + " " + ESBMC_PARAMETERS + " ";
+		String commandLine = DSVERIFIER_EXECUTABLE + " " + DSVERIFIER_PARAMETERS + " ";
 		return commandLine;		
 	}	
 	
@@ -92,6 +91,49 @@ public class DSVerifierService {
 		verification.setFileContent(content.toString());		
 			
 		File verificationTmpFile = File.createTempFile("dsverifier", ".c", new File("."));
+		verification.setFile(verificationTmpFile);
+		
+		/* write in temporary file */
+		FileWriter fileWriter = new FileWriter(verificationTmpFile.getAbsoluteFile());
+		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+		bufferedWriter.write(content.toString());
+		bufferedWriter.close();		
+		
+	}
+	
+	public void generateClosedLoopVerificationFile(Verification verification) throws IOException{
+		
+		StringBuilder content = new StringBuilder();			
+		content.append("#include \"bmc/dsverifier.h\"\n\n");
+		content.append("digital_system control = {\n");
+		content.append("\t.a = " + verification.getControl().getDenominator() + ",\n");
+		content.append("\t.a_size = " + verification.getControl().getDenominatorSize() + ",\n");
+		content.append("\t.b = " + verification.getControl().getNumerator() + ",\n");
+		content.append("\t.b_size = " + verification.getControl().getNumeratorSize() + "\n");
+		content.append("};\n");
+		
+		content.append("\ndigital_system plant = {\n");
+		content.append("\t.a = " + verification.getPlant().getDenominator() + ",\n");
+		content.append("\t.a_size = " + verification.getPlant().getDenominatorSize() + ",\n");
+		content.append("\t.b = " + verification.getPlant().getNumerator() + ",\n");
+		content.append("\t.b_size = " + verification.getPlant().getNumeratorSize() + "\n");
+		content.append("};\n");
+		
+		content.append("\nimplementation impl = {\n");
+		content.append("\t.int_bits = " + verification.getImplementation().getIntegerBits() + ",\n");
+		content.append("\t.frac_bits = " + verification.getImplementation().getPrecisionBits() + ",\n");
+		content.append("\t.scale = " + verification.getImplementation().getScale() + "");
+
+		if (verification.getImplementation().getDelta() != null){
+			content.append(",\n\t.delta = " + verification.getImplementation().getDelta() + "");
+		}
+		
+		content.append("\n};\n");
+		
+		/* create file content */
+		verification.setFileContent(content.toString());		
+			
+		File verificationTmpFile = File.createTempFile("dsverifier-cloop", ".c", new File("."));
 		verification.setFile(verificationTmpFile);
 		
 		/* write in temporary file */
