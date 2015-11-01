@@ -43,37 +43,50 @@
                         </AnchorPane>
                   </content>
                 </TitledPane>
-                  <TitledPane animated="false" expanded="true" layoutX="10.0" layoutY="10.0" prefHeight="421.0" prefWidth="244.0" text="Digital Systems (Closed Loop)">
+                  <TitledPane animated="false" expanded="true" layoutX="10.0" layoutY="10.0" prefHeight="500.0" prefWidth="244.0" text="Digital Systems (Closed Loop)">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="12.0" layoutY="40.0" text="Numerator" />
-                              <TextField fx:id="tfNumeratorControl" layoutX="13.0" layoutY="61.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                              <TextField fx:id="tfDenominatorControl" layoutX="13.0" layoutY="113.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                              <Label layoutX="13.0" layoutY="92.0" text="Denominator" />
-                              <Label layoutX="12.0" layoutY="16.0" text="Digital Control" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="tfDenominatorPlant" layoutX="13.0" layoutY="250.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                              <TextField fx:id="tfNumeratorPlant" layoutX="13.0" layoutY="198.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                              <Label layoutX="13.0" layoutY="177.0" text="Numerator" />
-                              <Label layoutX="13.0" layoutY="229.0" text="Denominator" />
-                              <Label layoutX="13.0" layoutY="153.0" text="Plant (Model)" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <CheckBox fx:id="checkSeries" layoutX="13.0" layoutY="312.0" mnemonicParsing="false" text="Series" />
-                              <CheckBox fx:id="checkFeedback" layoutX="13.0" layoutY="337.0" mnemonicParsing="false" text="Feedback" />
-                              <Label layoutX="13.0" layoutY="290.0" text="Connection Mode" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
+                        <ScrollPane prefHeight="367.0" prefViewportHeight="369.0" prefViewportWidth="232.0" prefWidth="224.0">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="509.0" prefWidth="231.0">
+                                 <children>
+                                    <Label layoutX="4.0" layoutY="38.0" text="Numerator" />
+                                    <TextField fx:id="tfNumeratorControl" layoutX="5.0" layoutY="59.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                    <TextField fx:id="tfDenominatorControl" layoutX="5.0" layoutY="111.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                    <Label layoutX="5.0" layoutY="90.0" text="Denominator" />
+                                    <Label layoutX="4.0" layoutY="14.0" text="Digital Control" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="tfDenominatorPlant" layoutX="5.0" layoutY="248.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                    <TextField fx:id="tfNumeratorPlant" layoutX="5.0" layoutY="196.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                    <Label layoutX="5.0" layoutY="175.0" text="Numerator" />
+                                    <Label layoutX="5.0" layoutY="227.0" text="Denominator" />
+                                    <Label layoutX="5.0" layoutY="151.0" text="Plant (Model)" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <CheckBox fx:id="checkSeries" layoutX="5.0" layoutY="310.0" mnemonicParsing="false" text="Series" />
+                                    <CheckBox fx:id="checkFeedback" layoutX="5.0" layoutY="335.0" mnemonicParsing="false" text="Feedback" />
+                                    <Label layoutX="5.0" layoutY="288.0" text="Connection Mode" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="5.0" layoutY="446.0" text="Denominator" />
+                                    <Label layoutX="5.0" layoutY="370.0" text="Plant (Uncertainty)" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="5.0" layoutY="394.0" text="Numerator" />
+                                    <TextField fx:id="tfDenominatorPlant1" layoutX="5.0" layoutY="467.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                    <TextField fx:id="tfNumeratorPlant1" layoutX="5.0" layoutY="415.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
                      </content>
                   </TitledPane>
                 <TitledPane animated="false" expanded="false" text="Implementation">
