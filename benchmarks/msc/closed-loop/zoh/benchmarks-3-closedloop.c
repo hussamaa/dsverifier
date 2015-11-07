@@ -1,4 +1,4 @@
-#include "../../../bmc/dsverifier.h"
+#include "../../../../bmc/dsverifier.h"
 
 #define SCHEMA_COUNT 8
 
@@ -69,7 +69,7 @@
 			.b = { 0.0927027117013712, -0.102460891523910 },
 			.b_uncertainty = { 0, 0 },
 			.b_size = 2,
-			.a = { 1.0, -1,95610851441198, 0.951229424500714 },
+			.a = { 1.0, -1.95610851441198, 0.951229424500714 },
 			.a_uncertainty = { 0, 0, 0 },
 			.a_size = 3,
 			.sample_time = 0.1

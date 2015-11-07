@@ -57,6 +57,7 @@ int main(){
 
 	initialization();
 	validation();
+	ROUNDING_MODE = FLOOR;
 
 	/* instrumentation step */
 
