@@ -296,7 +296,6 @@ fxp32_t fxp_double_to_fxp(double value) {
 			tmp = (int64_t)(ftemp - 0.5);
 		}
 	} else if(ROUNDING_MODE == FLOOR){
-		/* XXX - this floor mode has noise with > 8 bits precision (Negative Part) */
 		if (value < 0){
 			ftemp = ftemp - 1;
 		}

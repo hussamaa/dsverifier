@@ -32,9 +32,9 @@ int main(){
 
 	fxp32_t a_fxp[ds.a_size];
 	fxp32_t b_fxp[ds.b_size];
-	
+
 	/* quantize the numerator using fxp */
-	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);	
+	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 
 	/* quantize the denominator using fxp */
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
@@ -45,7 +45,7 @@ int main(){
 	fxp_to_double_array(b_qtz, b_fxp, ds.b_size);
 	fxp_to_double_array(a_qtz, a_fxp, ds.a_size);
 
-	__DSVERIFIER_assert(b_qtz[0] == -1.552978515625);
+	__DSVERIFIER_assert(b_qtz[0] == -1.55322265625);
 	__DSVERIFIER_assert(b_qtz[1] ==  3.118896484375);
 	__DSVERIFIER_assert(b_qtz[2] == -1.566162109375);
 
