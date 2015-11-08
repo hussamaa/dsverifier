@@ -11,50 +11,38 @@
 
 digital_system control = {
 	.b = { 2020.0, -3254.0, -126.1, 2096.0, -735.9 },
-	.b_size = 4,
+	.b_size = 5,
 	.a = { 1.0, -2.9, 2.8, -0.9 },
+	.a_size = 4,
+	.sample_time = 0.1
+};
+
+digital_system plant = {
+	.b = { 0.01551, -0.0001007, -0.01541 },
+	.b_uncertainty = {9.8001, 9.4935, 9.7988},
+	.b_size = 3,
+	.a = { 1.0, -3.225, 3.203, -0.9808},
+	.a_uncertainty = {0, 2.4496, 2.4664, 0.102},
 	.a_size = 4,
 	.sample_time = 0.1
 };
 
 implementation impl = {
 	.int_bits = 15,
-	.frac_bits = 16
+	.frac_bits = 4
 };
 
+digital_system plant_cbmc;
+
 double nondet_double();
+void call_closedloop_verification_task();
 
 int main(){
-	
-	/* plant model */
-	double mass = 0.3;
-	/*
-	double mass = nondet_double();
-	__DSVERIFIER_assume(mass >= 0.1 && mass <= 0.5);
-	*/
 
-	double M = 0.5;
-	double b = 0.1;
-	double I = 0.006;
-	double g = 9.8;
-	double l = 0.6;
-
-	double q = (M + mass) * (I+mass*internal_pow(l,2)) - internal_pow((mass*l),2);
-	double plant_num[100];
-	double plant_den[100];
-
-	plant_num[0] = mass*l/q ;
-	plant_num[1] = 0;
-
-	plant_den[0] = 1.0;
-	plant_den[1] = b*(I+mass*internal_pow(l,2))/q;
-	plant_den[2] = -(M+mass)*mass*g*l/q;
-	plant_den[3] = -b*mass*g*l/q;
-
-	int plant_num_size = 2;
-	int plant_den_size = 4;
+	ROUNDING_MODE = FLOOR;
 
 	initialization();
+	call_closedloop_verification_task();
 
 	/* generating closed loop for series or feedback */
 	double * c_num = control.b;
@@ -75,10 +63,17 @@ int main(){
 	fxp_to_double_array(c_den_qtz, c_den_fxp, control.a_size);
 
 	/* getting plant coefficients */
-	double * p_num = plant_num;
-	int p_num_size = plant_num_size;
-	double * p_den = plant_den;
-	int p_den_size = plant_den_size;
+	#if (BMC == ESBMC)
+		double * p_num = plant.b;
+		int p_num_size = plant.b_size;
+		double * p_den = plant.a;
+		int p_den_size = plant.a_size;
+	#elif (BMC == CBMC)
+		double * p_num = plant_cbmc.b;
+		int p_num_size = plant.b_size;
+		double * p_den = plant_cbmc.a;
+		int p_den_size = plant.a_size;
+	#endif
 
 	double ans_num[100];
 	int ans_num_size = control.b_size + p_num_size - 1;
@@ -93,4 +88,71 @@ int main(){
 
 	return 0;
 
+}
+
+/** call the closedloop verification task */
+void call_closedloop_verification_task(){
+
+	/* base case is the execution using all parameters without uncertainty */
+	_Bool base_case_executed = 0;
+
+	/* considering uncertainty for numerator coefficients */
+	int i=0;
+	for(i=0; i<plant.b_size; i++){
+		if (plant.b_uncertainty[i] > 0){
+			double factor = ((plant.b[i] * plant.b_uncertainty[i]) / 100);
+			factor = factor < 0 ? factor * (-1) : factor;
+			double min = plant.b[i] - factor;
+			double max = plant.b[i] + factor;
+
+			/* Eliminate redundant executions  */
+			if ((factor == 0) && (base_case_executed == 1)){
+				continue;
+			}else if ((factor == 0) && (base_case_executed == 0)){
+				base_case_executed = 1;
+			}
+
+			#if (BMC == ESBMC)
+				plant.b[i] = nondet_double();
+				__DSVERIFIER_assume((plant.b[i] >= min) && (plant.b[i] <= max));
+			#elif (BMC == CBMC)
+				plant_cbmc.b[i] = nondet_double();
+				__DSVERIFIER_assume((plant_cbmc.b[i] >= min) && (plant_cbmc.b[i] <= max));
+			#endif
+		}else{
+			#if (BMC == CBMC)
+				plant_cbmc.b[i] = plant.b[i];
+			#endif
+		}
+	}
+
+	/* considering uncertainty for denominator coefficients */
+	for(i=0; i<plant.a_size; i++){
+		if (plant.a_uncertainty[i] > 0){
+			double factor = ((plant.a[i] * plant.a_uncertainty[i]) / 100);
+			factor = factor < 0 ? factor * (-1) : factor;
+
+			double min = plant.a[i] - factor;
+			double max = plant.a[i] + factor;
+
+			/* eliminate redundant executions  */
+			if ((factor == 0) && (base_case_executed == 1)){
+				continue;
+			}else if ((factor == 0) && (base_case_executed == 0)){
+				base_case_executed = 1;
+			}
+
+			#if (BMC == ESBMC)
+				plant.a[i] = nondet_double();
+				__DSVERIFIER_assume((plant.a[i] >= min) && (plant.a[i] <= max));
+			#elif (BMC == CBMC)
+				plant_cbmc.a[i] = nondet_double();
+				__DSVERIFIER_assume((plant_cbmc.a[i] >= min) && (plant_cbmc.a[i] <= max));
+			#endif
+		}else{
+			#if (BMC == CBMC)
+				plant_cbmc.a[i] = plant.a[i];
+			#endif
+		}
+	}
 }
