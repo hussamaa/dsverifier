@@ -46,7 +46,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 3,
@@ -72,7 +72,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 4,
@@ -98,7 +98,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 4,
@@ -124,7 +124,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 5,
@@ -150,7 +150,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 9,
@@ -176,7 +176,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 4,
@@ -202,7 +202,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 4,
@@ -228,7 +228,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 4,
@@ -254,7 +254,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 4,
@@ -280,7 +280,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 4,
@@ -306,7 +306,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 11,
@@ -332,7 +332,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 14,
@@ -358,7 +358,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 11,
@@ -384,7 +384,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 10,
@@ -410,7 +410,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 12,
@@ -436,7 +436,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 15,
@@ -462,7 +462,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 13,
@@ -488,7 +488,7 @@ hardware hw = {
 
 	#define	IMPLEMENTATION_COUNT 1
 
-	#if IMPLEMENTATION_ID == 1 
+	#if IMPLEMENTATION_ID == 1
 
 		implementation impl = {
 			.int_bits = 15,
@@ -504,7 +504,7 @@ hardware hw = {
 
 #if DS_ID == 19
 
-	digital_system ds = { 
+	digital_system ds = {
 		.b = { 60.0, -50.0 },
 		.b_size = 2,
 		.a = { 1.0, 0.0 },
@@ -515,7 +515,7 @@ hardware hw = {
 	#define	IMPLEMENTATION_COUNT 1
 
 	#if IMPLEMENTATION_ID == 1
-		implementation impl = { 
+		implementation impl = {
 			.int_bits = 8,
 			.frac_bits = 4,
 			.delta = 0.5,
@@ -528,7 +528,7 @@ hardware hw = {
 
 #if DS_ID == 20
 
-	digital_system ds = { 
+	digital_system ds = {
 		.b = { 110.0, -100.0 },
 		.b_size = 2,
 		.a = { 1.0, 0.0 },
@@ -539,8 +539,8 @@ hardware hw = {
 	#define	IMPLEMENTATION_COUNT 1
 
 	#if IMPLEMENTATION_ID == 1
-		implementation impl = { 
-			.int_bits = 9, 
+		implementation impl = {
+			.int_bits = 9,
 			.frac_bits = 4,
 			.delta = 0.5,
 			.max = 1.0,
@@ -552,7 +552,7 @@ hardware hw = {
 
 #if DS_ID == 21
 
-	digital_system ds = { 
+	digital_system ds = {
 		.b = { 135.0, -260.0, 125.0 },
 		.b_size = 3,
 		.a = { 1.0, -1.0, 0.0 },
@@ -563,7 +563,7 @@ hardware hw = {
 	#define	IMPLEMENTATION_COUNT 1
 
 	#if IMPLEMENTATION_ID == 1
-		implementation impl = { 
+		implementation impl = {
 			.int_bits = 10,
 			.frac_bits = 4,
 			.delta = 0.5,
@@ -576,18 +576,18 @@ hardware hw = {
 
 #if DS_ID == 22
 
-	digital_system ds = { 
+	digital_system ds = {
 		.b = { 2002.0, -4000.0, 1998.0 },
 		.b_size = 3,
 		.a = { 1.0, 0.0, -1.0 },
-		.a_size = 3,	
+		.a_size = 3,
 		.sample_time = 0.001
 	};
 
 	#define	IMPLEMENTATION_COUNT 1
 
 	#if IMPLEMENTATION_ID == 1
-		implementation impl = { 
+		implementation impl = {
 			.int_bits = 13,
 			.frac_bits = 4,
 			.delta = 0.5,

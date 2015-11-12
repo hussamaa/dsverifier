@@ -1,14 +1,14 @@
 #include <dsverifier.h>
 
-#define SCHEMA_COUNT 9
+#define SCHEMA_COUNT 8
 
 #if DS_ID == 1
 
 	digital_system ds = {
-		.b = { -18.7913011069951, 11.3839445828215 },
-		.b_size = 2,
-		.a = { 1.0, 3.63545078000333 },
-		.a_size = 2,
+		.b = { -2.70561932258292, 4.91891416097458, -2.98975424265897, 0.607457221322442 },
+		.b_size = 4,
+		.a = { 1.0, -0.246954439828182, -0.800014083515246, 0.356805858742342 },
+		.a_size = 4,
 		.sample_time = 0.5
 	};
 
@@ -17,24 +17,21 @@
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
+			.frac_bits = 4
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 8,
-			.scale = 1
+			.frac_bits = 8
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 12,
-			.scale = 1
+			.frac_bits = 12
 		};
 	#endif
 
@@ -43,10 +40,10 @@
 #if DS_ID == 2
 
 	digital_system ds = {
-		.b = { 18.5304651429392, -16.7960874196180 },
-		.b_size = 2,
-		.a = { 1.0, -2.08535650257322 },
-		.a_size = 2,
+		.b = { -10.6541798765226, 28.9820624061405, -26.2822459536125, 7.94546415262250 },
+		.b_size = 4,
+		.a = { 1.0, -0.976750653540241, -0.695199955503643, 0.688265939892838 },
+		.a_size = 4,
 		.sample_time = 0.1
 	};
 
@@ -55,24 +52,21 @@
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
+			.frac_bits = 4
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 8,
-			.scale = 1
+			.frac_bits = 8
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 12,
-			.scale = 1
+			.frac_bits = 12
 		};
 	#endif
 
@@ -81,36 +75,33 @@
 #if DS_ID == 3
 
 	digital_system ds = {
-		.b = { 14.2344952240432, -13.5523885821810 },
-		.b_size = 2,
-		.a = { 1.0, -1.42685562045612 },
-		.a_size = 2,
+		.b = { -19.2414736482723, 54.9701308152594, -52.3486145801513, 16.6178011176798 },
+		.b_size = 4,
+		.a = { 1.0, -1.20633950872401, -0.423011266643906, 0.633303983755908 },
+		.a_size = 4,
 		.sample_time = 0.05
 	};
 
-	#define	IMPLEMENTATION_COUNT 1
+	#define	IMPLEMENTATION_COUNT 3
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
+			.frac_bits = 4
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
+			.frac_bits = 8
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
+			.frac_bits = 12
 		};
 	#endif
 
@@ -119,36 +110,33 @@
 #if DS_ID == 4
 
 	digital_system ds = {
-		.b = { 12.9891735487942, -12.6121006969068 },
-		.b_size = 2,
-		.a = { 1.0, -1.23596847805225},
-		.a_size = 2,
+		.b = { -28.8602335012427, 84.0786290054145, -81.6496235908929, 26.4305091092668 },
+		.b_size = 4,
+		.a = { 1.0, -1.39914676903959, -0.111714450559205, 0.512179344931653 },
+		.a_size = 4,
 		.sample_time = 0.03
 	};
 
-	#define IMPLEMENTATION_COUNT 3
+	#define	IMPLEMENTATION_COUNT 3
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
+			.frac_bits = 4
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 8,
-			.scale = 1
+			.frac_bits = 8
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 12,
-			.scale = 1
+			.frac_bits = 12
 		};
 	#endif
 
@@ -157,10 +145,10 @@
 #if DS_ID == 5
 
 	digital_system ds = {
-		.b = { 11.9254708617320, -11.8089453595694 },
-		.b_size = 2,
-		.a = { 1.0, -1.07292051194339 },
-		.a_size = 2,
+		.b = { -10.6541798765226, 28.9820624061405, -26.2822459536125, 7.94546415262250 },
+		.b_size = 4,
+		.a = { 1.0, -0.976750653540241, -0.695199955503643, 0.688265939892838 },
+		.a_size = 4,
 		.sample_time = 0.01
 	};
 
@@ -169,24 +157,21 @@
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
+			.frac_bits = 4
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 8,
-			.scale = 1
+			.frac_bits = 8
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 12,
-			.scale = 1
+			.frac_bits = 12
 		};
 	#endif
 
@@ -195,10 +180,10 @@
 #if DS_ID == 6
 
 	digital_system ds = {
-		.b = { 11.6833505110710, -11.6261308811661 },
-		.b_size = 2,
-		.a = { 1.0, -1.03580748101003 },
-		.a_size = 2,
+		.b = { -79.8561004850143, 238.400671160303, -237.238792985947, 78.6942127596070 },
+		.b_size = 4,
+		.a = { 1.0, -2.26995707001617, 1.54695565228205, -0.276981072005969 },
+		.a_size = 4,
 		.sample_time = 0.005
 	};
 
@@ -207,24 +192,21 @@
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
+			.frac_bits = 4
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 8,
-			.scale = 1
+			.frac_bits = 8
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 12,
-			.scale = 1
+			.frac_bits = 12
 		};
 	#endif
 
@@ -233,10 +215,10 @@
 #if DS_ID == 7
 
 	digital_system ds = {
-		.b = { 11.4958082843740, -11.4845259551093 },
-		.b_size = 2,
-		.a = { 1.0, -1.00706037056799 },
-		.a_size = 2,
+		.b = { -111.957457802305, 335.544346474481, -335.216643366135, 111.629754586207 },
+		.b_size = 4,
+		.a = { 1.0, -2.79568196431083, 2.59175994708314, -0.796077785225516 },
+		.a_size = 4,
 		.sample_time = 0.001
 	};
 
@@ -245,37 +227,34 @@
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
+			.frac_bits = 4
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 8,
-			.scale = 1
+			.frac_bits = 8
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 12,
-			.scale = 1
+			.frac_bits = 12
 		};
 	#endif
 
 #endif
 
-#ifdef DS_ID == 8
+#if DS_ID == 8
 
 	digital_system ds = {
-		.b = { 11.4502063947756, -11.4500939644139 },
+		.b = { -119.158714850888, 357.336454078930, -357.196818781631, 119.019079546242 },
 		.b_size = 4,
-		.a = { 1.0, -1.00007035781332 },
+		.a = { 1.0, -2.91304070183424, 2.82614887122274, -0.913108155920450 },
 		.a_size = 4,
-		.sample_time = 0.00001
+		.sample_time = 0.0004
 	};
 
 	#define	IMPLEMENTATION_COUNT 3
@@ -283,62 +262,21 @@
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
+			.frac_bits = 4
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 8,
-			.scale = 1
+			.frac_bits = 8
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
 			.int_bits = 16,
-			.frac_bits = 12,
-			.scale = 1
-		};
-	#endif
-
-#endif
-
-#if DS_ID == 9
-
-	digital_system ds = {
-		.b = { 11.4502063947756, -11.4500939644139 },
-		.b_size = 4,
-		.a = { 1.0, -1.00007035781332 },
-		.a_size = 4,
-		.sample_time = 0.000001
-	};
-
-	#define	IMPLEMENTATION_COUNT 3
-
-	#if IMPLEMENTATION_ID == 1
-		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 4,
-			.scale = 1
-		};
-	#endif
-
-	#if IMPLEMENTATION_ID == 2
-		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 8,
-			.scale = 1
-		};
-	#endif
-
-	#if IMPLEMENTATION_ID == 3
-		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 12,
-			.scale = 1
+			.frac_bits = 12
 		};
 	#endif
 
