@@ -14,7 +14,7 @@ sub run($$$) {
   my ($input, $options, $output) = @_;
   my $extraopts = $ENV{'ESBMC_TEST_EXTRA_ARGS'};
   $extraopts = "" unless defined($extraopts);
-  my $cmd = "cbmc $extraopts $options $input >$output 2>&1";
+  my $cmd = "../../../dsverifier $extraopts $options $input >$output 2>&1";
 
   print LOG "Running $cmd\n";
   my $tv = [gettimeofday()];
@@ -65,7 +65,7 @@ sub test($$) {
   my ($input, $options, @results) = load($test);
 
   my $output = $input;
-  $output =~ s/\.c$/.out/;
+  $output =~ s/\.ss$/.out/;
 
   if($output eq $input) {
     print("Error in test file -- $test\n");
