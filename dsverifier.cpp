@@ -10,7 +10,7 @@
  * DSVerifier wrapper file for BMC's
  *
  * ------------------------------------------------------
-*/
+ */
 
 #include <iostream>
 #include <stdlib.h>
@@ -22,6 +22,7 @@
 #include <cmath>
 #include <exception>
 #include <assert.h>
+#include <iomanip>
 
 typedef bool _Bool;
 
@@ -31,7 +32,7 @@ void __DSVERIFIER_assume(_Bool expression){
 
 void __DSVERIFIER_assert(_Bool expression){
 	if (expression == 0){
-		 throw 0;
+		throw 0;
 	}
 }
 
@@ -42,6 +43,7 @@ void __DSVERIFIER_assert(_Bool expression){
 #include "bmc/core/initialization.h"
 
 /* eigen dependencies */
+#include <Eigen/Eigenvalues>
 #include <unsupported/Eigen/Polynomials>
 typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootType RootType;
 typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
@@ -51,7 +53,8 @@ typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 
 #define DSVERIFIER_VERSION 1.2
 
-const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "MINIMUM_PHASE" };
+const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR"};
+
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
 const char * bmcs [] = { "ESBMC", "CBMC" };
 
@@ -65,6 +68,11 @@ std::string desired_bmc;
 std::string desired_solver;
 std::string desired_macro_parameters;
 std::string desired_ds_id;
+/* state space */
+bool stateSpaceVerification = false;
+bool closedloop = false;
+digital_system_state_space _controller;
+double desired_quantisation_limit = 0.0;
 
 void help () {
 	std::cout << std::endl;
@@ -132,10 +140,14 @@ void validate_selected_property(std::string data){
 }
 
 void validate_filename(std::string file){
-	std::string::size_type loc = file.find(".c", 0 );
-	if( loc == std::string::npos ) {
-		std::cout << file << ": failed to figure out type of file" << std::endl;
-		exit(1);
+	if(file.substr(file.size()-3, std::string::npos) != ".ss"){
+		std::string::size_type loc = file.find(".c", 0 );
+		if( loc == std::string::npos ) {
+			std::cout << file << ": failed to figure out type of file" << std::endl;
+			exit(1);
+		}
+	} else {
+		stateSpaceVerification = true;
 	}
 	desired_filename = file;
 }
@@ -196,6 +208,14 @@ void bind_parameters(int argc, char* argv[]){
 			} else {
 				show_required_argument_message(argv[i]);
 			}
+		} else if (std::string(argv[i]) == "--limit") {
+			if (i + 1 < argc) {
+				desired_quantisation_limit = std::stod(argv[++i]);
+			} else {
+				show_required_argument_message(argv[i]);
+			}
+		} else if (std::string(argv[i]) == "--closed-loop") {
+			closedloop = true;
 		} else {
 			/* get macro parameters */
 			std::string parameter = argv[i];
@@ -259,27 +279,52 @@ std::string prepare_bmc_command_line(){
 	return command_line;
 }
 
+std::string prepare_bmc_command_line_ss(){
+	std::string command_line;
+	if (desired_bmc == "ESBMC"){
+		command_line = "./model-checker/esbmc input.c --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC";
+		if (desired_timeout.size() > 0){
+			command_line += " --timeout " + desired_timeout;
+		}
+	}else if (desired_bmc == "CBMC"){
+		command_line = "cbmc --fixedbv input.c -DBMC=CBMC";
+	}
+	if (desired_solver.size() > 0){
+		command_line += " --" + desired_solver;
+	}
+	if (desired_realization.size() > 0){
+		command_line += " -DREALIZATION=" + desired_realization;
+	}
+	if (desired_property.size() > 0){
+		command_line += " -DPROPERTY=" + desired_property;
+	}
+	if (desired_x_size > 0){
+		command_line += " -DK_SIZE=" + std::to_string(desired_x_size);
+	}
+	command_line += desired_macro_parameters;
+	return command_line;
+}
 digital_system ds;
 implementation impl;
 
 /* print array elements */
 void cplus_print_fxp_array_elements(const char * name, fxp32_t * v, int n){
-   printf("%s = {", name);
-   int i;
-   for(i=0; i < n; i++){
-      printf(" %d ", v[i]);
-   }
-   printf("}\n");
+	printf("%s = {", name);
+	int i;
+	for(i=0; i < n; i++){
+		printf(" %d ", v[i]);
+	}
+	printf("}\n");
 }
 
 /* print array elements */
 void cplus_print_array_elements(const char * name, double * v, int n){
-   printf("%s = {", name);
-   int i;
-   for(i=0; i < n; i++){
-      printf(" %.32f ", v[i]);
-   }
-   printf("}\n");
+	printf("%s = {", name);
+	int i;
+	for(i=0; i < n; i++){
+		printf(" %.32f ", v[i]);
+	}
+	printf("}\n");
 }
 
 int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<RootType> & roots){
@@ -362,15 +407,15 @@ bool check_delta_stability_margin(std::vector<RootType> roots){
 
 bool check_shift_stability_margin(std::vector<RootType> roots){
 	std::cout << "checking shift stability margin" << std::endl;
-		bool stable = true;
-		for(unsigned int i=0; i<roots.size(); i++){
-			std::complex<double> eig = roots.at(i);
-			if ((std::abs(eig) < 1) == false){
-				stable = false;
-				break;
-			}
+	bool stable = true;
+	for(unsigned int i=0; i<roots.size(); i++){
+		std::complex<double> eig = roots.at(i);
+		if ((std::abs(eig) < 1) == false){
+			stable = false;
+			break;
 		}
-		return stable;
+	}
+	return stable;
 }
 
 void show_delta_not_representable(){
@@ -499,12 +544,12 @@ void check_stability_delta_domain(){
 }
 
 bool check_if_file_exists (const std::string & name) {
-    if (FILE *file = fopen(name.c_str(), "r")) {
-        fclose(file);
-        return true;
-    } else {
-        return false;
-    }
+	if (FILE *file = fopen(name.c_str(), "r")) {
+		fclose(file);
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void check_minimum_phase_delta_domain(){
@@ -536,6 +581,30 @@ void check_minimum_phase_delta_domain(){
 	}
 }
 
+void check_state_space_stability(){
+
+	Eigen::MatrixXd matrixA = Eigen::MatrixXd::Ones(_controller.nStates,_controller.nStates);
+	int i, j;
+	for(i=0; i<_controller.nStates;i++){
+		for(j=0; j<_controller.nStates;j++){
+			matrixA(i,j) = _controller.A[i][j]; //fxp_double_to_fxp(A[i][j]);
+		}
+	}
+
+	std::complex< double > lambda;
+	std::complex< double > margem(1,0);
+	for(i = 0; i < (matrixA.count() / 2); i++ ){
+		lambda = matrixA.eigenvalues()[i];
+		//std::cout << "abs(lambda): " << std::abs(lambda) << std::endl;
+		double v = std::abs(lambda);
+		if( v >= 1 ){
+			std::cout << "unstable" << std::endl;
+			exit(0);
+		}
+	}
+	std::cout << "stable" << std::endl;
+}
+
 void check_file_exists(){
 	/* check if the specified file exists */
 	if (check_if_file_exists(desired_filename) == false){
@@ -545,12 +614,12 @@ void check_file_exists(){
 }
 
 std::string replace_all_string(std::string str, const std::string& from, const std::string& to) {
-    size_t start_pos = 0;
-    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
-        str.replace(start_pos, from.length(), to);
-        start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
-    }
-    return str;
+	size_t start_pos = 0;
+	while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+		str.replace(start_pos, from.length(), to);
+		start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
+	}
+	return str;
 }
 
 void extract_data_from_file(){
@@ -640,6 +709,347 @@ void extract_data_from_file(){
 
 }
 
+void extract_data_from_ss_file(){
+	std::ifstream verification_file(desired_filename);
+	std::string current_line;
+	getline( verification_file, current_line );
+
+	/* getting implementation specifications */
+	std::string str_bits;
+	int i;
+	for(i = 0; current_line[i] != '<';i++);
+	i++;
+	for(; current_line[i] != ','; i++)
+		str_bits.push_back(current_line[i]);
+	impl.int_bits = std::stoi(str_bits);
+	str_bits.clear();
+	i++;
+	for(; current_line[i] != '>'; i++)
+		str_bits.push_back(current_line[i]);
+	impl.frac_bits = std::stoi(str_bits);
+	str_bits.clear();
+
+	getline( verification_file, current_line ); // states
+
+	for(i = 0; current_line[i] != '=';i++);
+		i++; i++;
+		for(; current_line[i] != ';'; i++)
+			str_bits.push_back(current_line[i]);
+		int states = std::stoi(str_bits);
+		str_bits.clear();
+
+	getline( verification_file, current_line ); // inputs
+
+	for(i = 0; current_line[i] != '=';i++);
+		i++; i++;
+		for(; current_line[i] != ';'; i++)
+			str_bits.push_back(current_line[i]);
+		int inputs = std::stoi(str_bits);
+		str_bits.clear();
+
+	getline( verification_file, current_line ); // outputs
+
+	for(i = 0; current_line[i] != '=';i++);
+		i++; i++;
+		for(; current_line[i] != ';'; i++)
+			str_bits.push_back(current_line[i]);
+		int outputs = std::stoi(str_bits);
+		str_bits.clear();
+
+	/* Updating _controller */
+	_controller.nStates = states;
+	_controller.nInputs = inputs;
+	_controller.nOutputs = outputs;
+
+	/* initialising matrix A */
+
+	getline( verification_file, current_line ); // matrix A
+	str_bits.clear();
+	for(i = 0; current_line[i] != '[';i++);
+	i++;
+	int lines = 0;
+	int columns = 0;
+	for(; current_line[i] != ']'; i++){
+		if(current_line[i] != ',' && current_line[i] != ';'){
+			str_bits.push_back(current_line[i]);
+		} else if(current_line[i] == ';'){
+			_controller.A[lines][columns] = std::stod(str_bits);
+			lines++;
+			columns = 0;
+			str_bits.clear();
+		} else {
+			_controller.A[lines][columns] = std::stod(str_bits);
+			columns++;
+			str_bits.clear();
+		}
+	}
+	_controller.A[lines][columns] = std::stod(str_bits);
+	str_bits.clear();
+
+	/* initialising matrix B */
+
+	getline( verification_file, current_line ); // matrix B
+	str_bits.clear();
+	for(i = 0; current_line[i] != '[';i++);
+	i++;
+	lines = 0;
+	columns = 0;
+	for(; current_line[i] != ']'; i++){
+		if(current_line[i] != ',' && current_line[i] != ';'){
+			str_bits.push_back(current_line[i]);
+		} else if(current_line[i] == ';'){
+			_controller.B[lines][columns] = std::stod(str_bits);
+			lines++;
+			columns = 0;
+			str_bits.clear();
+		} else {
+			_controller.B[lines][columns] = std::stod(str_bits);
+			columns++;
+			str_bits.clear();
+		}
+	}
+	_controller.B[lines][columns] = std::stod(str_bits);
+	str_bits.clear();
+
+	/* initialising matrix C */
+
+	getline( verification_file, current_line ); // matrix C
+	str_bits.clear();
+	for(i = 0; current_line[i] != '[';i++);
+	i++;
+	lines = 0;
+	columns = 0;
+	for(; current_line[i] != ']'; i++){
+		if(current_line[i] != ',' && current_line[i] != ';'){
+			str_bits.push_back(current_line[i]);
+		} else if(current_line[i] == ';'){
+			_controller.C[lines][columns] = std::stod(str_bits);
+			lines++;
+			columns = 0;
+			str_bits.clear();
+		} else {
+			_controller.C[lines][columns] = std::stod(str_bits);
+			columns++;
+			str_bits.clear();
+		}
+	}
+	_controller.C[lines][columns] = std::stod(str_bits);
+	str_bits.clear();
+
+	/* initialising matrix D */
+
+	getline( verification_file, current_line ); // matrix D
+	str_bits.clear();
+	for(i = 0; current_line[i] != '[';i++);
+	i++;
+	lines = 0;
+	columns = 0;
+	for(; current_line[i] != ']'; i++){
+		if(current_line[i] != ',' && current_line[i] != ';'){
+			str_bits.push_back(current_line[i]);
+		} else if(current_line[i] == ';'){
+			_controller.D[lines][columns] = std::stod(str_bits);
+			lines++;
+			columns = 0;
+			str_bits.clear();
+		} else {
+			_controller.D[lines][columns] = std::stod(str_bits);
+			columns++;
+			str_bits.clear();
+		}
+	}
+	_controller.D[lines][columns] = std::stod(str_bits);
+	str_bits.clear();
+
+	/* initialising matrix Inputs */
+
+	getline( verification_file, current_line ); // matrix inputs
+	str_bits.clear();
+	for(i = 0; current_line[i] != '[';i++);
+	i++;
+	lines = 0;
+	columns = 0;
+	for(; current_line[i] != ']'; i++){
+		if(current_line[i] != ',' && current_line[i] != ';'){
+			str_bits.push_back(current_line[i]);
+		} else if(current_line[i] == ';'){
+			_controller.inputs[lines][columns] = std::stod(str_bits);
+			lines++;
+			columns = 0;
+			str_bits.clear();
+		} else {
+			_controller.inputs[lines][columns] = std::stod(str_bits);
+			columns++;
+			str_bits.clear();
+		}
+	}
+	_controller.inputs[lines][columns] = std::stod(str_bits);
+	str_bits.clear();
+
+	if(closedloop){
+		getline( verification_file, current_line ); // matrix controller
+		str_bits.clear();
+		for(i = 0; current_line[i] != '[';i++);
+		i++;
+		lines = 0;
+		columns = 0;
+		for(; current_line[i] != ']'; i++){
+			if(current_line[i] != ',' && current_line[i] != ';'){
+				str_bits.push_back(current_line[i]);
+			} else if(current_line[i] == ';'){
+				_controller.K[lines][columns] = std::stod(str_bits);
+				lines++;
+				columns = 0;
+				str_bits.clear();
+			} else {
+				_controller.K[lines][columns] = std::stod(str_bits);
+				columns++;
+				str_bits.clear();
+			}
+		}
+		_controller.K[lines][columns] = std::stod(str_bits);
+	}
+
+	//print_matrix(_controller.K,1,states);
+	//print_matrix(_controller.B,states,inputs);
+	//print_matrix(_controller.C,outputs,states);
+	//print_matrix(_controller.D,outputs,inputs);
+}
+
+void state_space_parser(){
+	std::string verification_file;
+
+	std::string tmp;
+	std::ostringstream cf_value_precision;
+	unsigned int i, j;
+	cf_value_precision.precision(64);
+
+	verification_file = "#include \"../../../bmc/dsverifier.h\"\n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
+	verification_file.append(std::to_string(impl.int_bits));
+	verification_file.append(",\n .frac_bits = ");
+	verification_file.append(std::to_string(impl.frac_bits));
+	verification_file.append("};\n int nStates = ");
+	verification_file.append(std::to_string(_controller.nStates));
+	verification_file.append(";\n int nInputs = ");
+	verification_file.append(std::to_string(_controller.nInputs));
+	verification_file.append(";\n int nOutputs = ");
+	verification_file.append(std::to_string(_controller.nOutputs));
+	verification_file.append(";\n double error_limit = ");
+	cf_value_precision  << std::fixed << desired_quantisation_limit;
+	verification_file.append(cf_value_precision.str());
+	verification_file.append(";\n void initials(){\n");
+
+	for (i=0; i<_controller.nStates; i++) {
+		for (j=0; j<_controller.nStates; j++) {
+			verification_file.append("\t_controller.A[");
+			verification_file.append(std::to_string(i));
+			verification_file.append("][");
+			verification_file.append(std::to_string(j));
+			verification_file.append("] = ");
+			cf_value_precision.str(std::string());
+			cf_value_precision << std::fixed << _controller.A[i][j];
+			verification_file.append(cf_value_precision.str());
+			verification_file.append(";\n");
+		}
+	}
+
+	for (i=0; i<_controller.nStates; i++) {
+		for (j=0; j<_controller.nInputs; j++) {
+			verification_file.append("\t_controller.B[");
+			verification_file.append(std::to_string(i));
+			verification_file.append("][");
+			verification_file.append(std::to_string(j));
+			verification_file.append("] = ");
+			cf_value_precision.str(std::string());
+			cf_value_precision << std::fixed << _controller.B[i][j];
+			verification_file.append(cf_value_precision.str());
+			verification_file.append(";\n");
+		}
+	}
+
+	for (i=0; i<_controller.nOutputs; i++) {
+		for (j=0; j<_controller.nStates; j++) {
+			verification_file.append("\t_controller.C[");
+			verification_file.append(std::to_string(i));
+			verification_file.append("][");
+			verification_file.append(std::to_string(j));
+			verification_file.append("] = ");
+			cf_value_precision.str(std::string());
+			cf_value_precision << std::fixed << _controller.C[i][j];
+			verification_file.append(cf_value_precision.str());
+			verification_file.append(";\n");
+		}
+	}
+
+	for (i=0; i<_controller.nOutputs; i++) {
+		for (j=0; j<_controller.nInputs; j++) {
+			verification_file.append("\t_controller.D[");
+			verification_file.append(std::to_string(i));
+			verification_file.append("][");
+			verification_file.append(std::to_string(j));
+			verification_file.append("] = ");
+			cf_value_precision.str(std::string());
+			cf_value_precision << std::fixed << _controller.D[i][j];
+			verification_file.append(cf_value_precision.str());
+			verification_file.append(";\n");
+		}
+	}
+
+	for (i=0; i<_controller.nInputs; i++) {
+		for (j=0; j < 1; j++) {
+			verification_file.append("\t_controller.inputs[");
+			verification_file.append(std::to_string(i));
+			verification_file.append("][");
+			verification_file.append(std::to_string(j));
+			verification_file.append("] = ");
+			cf_value_precision.str(std::string());
+			cf_value_precision << std::fixed << _controller.inputs[i][j];
+			verification_file.append(cf_value_precision.str());
+			verification_file.append(";\n");
+		}
+	}
+
+	verification_file.append("}");
+
+	std::ofstream myfile ("input.c");
+	if (myfile.is_open())
+	{
+		myfile << verification_file;
+		myfile.close();
+	}
+	else std::cout << "Unable to open file";
+}
+
+void closed_loop(){
+
+	double result1[LIMIT][LIMIT];
+
+	int i, j, k;
+	for(i=0; i<LIMIT;i++)
+		for(j=0; j<LIMIT;j++)
+			result1[i][j]=0;
+
+	double_matrix_multiplication(_controller.nStates,_controller.nInputs,1,_controller.nStates,_controller.B,_controller.K,result1);
+
+	double_sub_matrix(_controller.nStates,
+			_controller.nStates,
+			_controller.A,
+			result1,
+			_controller.A);
+
+	for(i=0; i<LIMIT;i++)
+		for(j=0; j<LIMIT;j++)
+			result1[i][j]=0;
+
+	double_matrix_multiplication(_controller.nOutputs,_controller.nInputs,1,_controller.nStates,_controller.D,_controller.K,result1);
+
+	double_sub_matrix(_controller.nOutputs,
+			_controller.nStates,
+			_controller.C,
+			result1,
+			_controller.C);
+}
+
 /* main function */
 int main(int argc, char* argv[]){
 
@@ -647,38 +1057,61 @@ int main(int argc, char* argv[]){
 	OVERFLOW_MODE = 0;
 
 	bind_parameters(argc, argv);
+
+	if(desired_property == "QUANTISATION_ERROR" && desired_quantisation_limit == 0.0)
+		show_required_argument_message("QUANTISATION_ERROR");
+
 	check_file_exists();
 
 	std::cout << "Running: Digital Systems Verifier (DSVerifier)" << std::endl;
 
-	bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
-	bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
+	if (stateSpaceVerification){
+		extract_data_from_ss_file();
+		if(closedloop)
+			closed_loop();
+		if( desired_property == "STABILITY" ){
+			std::cout << "Checking stability..." << std::endl;
+			check_state_space_stability();
+			exit(0);
+		} else if( desired_property == "QUANTISATION_ERROR" ) {
+			state_space_parser();
+			std::string command_line = prepare_bmc_command_line_ss();
+			std::cout << "Back-end Verification: " << command_line << std::endl;
+			execute_command_line(command_line);
+			exit(0);
+		} else {
+			std::cout << "Nothing to check!" << std::endl;
+		}
+	} else {
+		bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
+		bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
 
-	if (!(is_restricted_property)){
-		/* normal flow using bmc */
-		std::string command_line = prepare_bmc_command_line();
-		std::cout << "Back-end Verification: " << command_line << std::endl;
-		execute_command_line(command_line);
-		exit(0);
-	}else{
-		try{
-			extract_data_from_file();
-			initialization();
-			if ((is_delta_realization == true) && desired_property == "STABILITY"){
-				check_stability_delta_domain();
-				exit(0);
-			} else if ((is_delta_realization == true) && desired_property == "MINIMUM_PHASE"){
-				check_minimum_phase_delta_domain();
-				exit(0);
-			} else if ((desired_property == "STABILITY")){
-				check_stability_shift_domain_using_jury();
-				exit(0);
-			} else if ((desired_property == "MINIMUM_PHASE")){
-				check_minimum_phase_shift_domain_using_jury();
-				exit(0);
+		if (!(is_restricted_property)){
+			std::string command_line = prepare_bmc_command_line();
+			std::cout << "Back-end Verification: " << command_line << std::endl;
+			execute_command_line(command_line);
+			exit(0);
+		}else{
+			try{
+				extract_data_from_file();
+				initialization();
+
+				if ((is_delta_realization == true) && desired_property == "STABILITY"){
+					check_stability_delta_domain();
+					exit(0);
+				} else if ((is_delta_realization == true) && desired_property == "MINIMUM_PHASE"){
+					check_minimum_phase_delta_domain();
+					exit(0);
+				} else if ((desired_property == "STABILITY")){
+					check_stability_shift_domain_using_jury();
+					exit(0);
+				} else if ((desired_property == "MINIMUM_PHASE")){
+					check_minimum_phase_shift_domain_using_jury();
+					exit(0);
+				}
+			}catch(std::exception & e){
+				std::cout << std::endl << "[INTERNAL ERROR] - An unexpected event occurred " << std::endl;
 			}
-		}catch(std::exception & e){
-			std::cout << std::endl << "[INTERNAL ERROR] - An unexpected event occurred " << std::endl;
 		}
 	}
 }
