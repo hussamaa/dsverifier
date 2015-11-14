@@ -502,7 +502,7 @@ fxp64_t fxp64_sub(fxp64_t asub, fxp64_t bsub) {
 	int64_t tmpsub;
 	tmpsub = ((asub) - (bsub));
 	#ifndef JACKSON_RULE
-		return fxp_quant(tmpsub);
+		return fxp64_quant(tmpsub);
 	#else
 		return tmpsub;
 	#endif
@@ -545,7 +545,7 @@ fxp64_t fxp64_mult(fxp64_t amult, fxp64_t bmult) {
 		tmpmultprec = -(((-tmpmult) + (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits);
 	}
 	#ifndef JACKSON_RULE
-		return fxp_quant(tmpmultprec);
+		return fxp64_quant(tmpmultprec);
 	#else
 		return tmpmultprec;
 	#endif

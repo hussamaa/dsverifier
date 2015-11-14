@@ -88,7 +88,7 @@ int main(){
 	if (PROPERTY == STABILITY_CLOSED_LOOP){
 		call_closedloop_verification_task(&verify_stability_closedloop_using_dslib);		
 	}
-	if (PROPERTY == ERROR_STATE_SPACE){
+	if (PROPERTY == QUANTISATION_ERROR){
 		verify_error_state_space();
 	}
 
@@ -97,7 +97,7 @@ int main(){
 
 /** validate the required parameters to use DSVerifier and your properties verification. */
 void validation(){
-	if (PROPERTY == ERROR_STATE_SPACE){
+	if (PROPERTY == QUANTISATION_ERROR){
 		if (K_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* It is necessary to set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");

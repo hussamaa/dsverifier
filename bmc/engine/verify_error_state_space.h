@@ -23,44 +23,44 @@ int verify_error_state_space(void){
 	int i;
 	int j;
 
-	for(i=0; i<rowA;i++){
-		for(j=0; j<columnA;j++){
+	for(i=0; i<nStates;i++){
+		for(j=0; j<nStates;j++){
 			__backupController.A[i][j]= (_controller.A[i][j]);
 		}
 	}
 
-	for(i=0; i<rowB;i++){
-		for(j=0; j<columnB;j++){
+	for(i=0; i<nStates;i++){
+		for(j=0; j<nInputs;j++){
 			__backupController.B[i][j]= (_controller.B[i][j]);
 		}
 	}
 
-	for(i=0; i<rowC;i++){
-		for(j=0; j<columnC;j++){
+	for(i=0; i<nOutputs;i++){
+		for(j=0; j<nStates;j++){
 			__backupController.C[i][j]= (_controller.C[i][j]);
 		}
 	}
 
-	for(i=0; i<rowD;i++){
-		for(j=0; j<columnD;j++){
+	for(i=0; i<nOutputs;i++){
+		for(j=0; j<nInputs;j++){
 			__backupController.D[i][j]= (_controller.D[i][j]);
 		}
 	}
 
-	for(i=0; i<rowStates;i++){
-		for(j=0; j<columnStates;j++){
+	for(i=0; i<nStates;i++){
+		for(j=0; j<1;j++){
 			__backupController.states[i][j]= (_controller.states[i][j]);
 		}
 	}
 
-	for(i=0; i<rowInputs;i++){
-		for(j=0; j<columnInputs;j++){
+	for(i=0; i<nInputs;i++){
+		for(j=0; j<1;j++){
 			__backupController.inputs[i][j]= (_controller.inputs[i][j]);
 		}
 	}
 
-	for(i=0; i<rowOutputs;i++){
-		for(j=0; j<columnOutputs;j++){
+	for(i=0; i<nOutputs;i++){
+		for(j=0; j<1;j++){
 			__backupController.outputs[i][j]= (_controller.outputs[i][j]);
 		}
 	}
@@ -69,44 +69,44 @@ int verify_error_state_space(void){
 
 	double output_double = double_state_space_representation();
 
-	for(i=0; i<rowA;i++){
-		for(j=0; j<columnA;j++){
+	for(i=0; i<nStates;i++){
+		for(j=0; j<nStates;j++){
 			_controller.A[i][j] = __backupController.A[i][j];
 		}
 	}
 
-	for(i=0; i<rowB;i++){
-		for(j=0; j<columnB;j++){
+	for(i=0; i<nStates;i++){
+		for(j=0; j<nInputs;j++){
 			_controller.B[i][j] = __backupController.B[i][j];
 		}
 	}
 
-	for(i=0; i<rowC;i++){
-		for(j=0; j<columnC;j++){
+	for(i=0; i<nOutputs;i++){
+		for(j=0; j<nStates;j++){
 			_controller.C[i][j] = __backupController.C[i][j];
 		}
 	}
 
-	for(i=0; i<rowD;i++){
-		for(j=0; j<columnD;j++){
+	for(i=0; i<nOutputs;i++){
+		for(j=0; j<nInputs;j++){
 			_controller.D[i][j] = __backupController.D[i][j];
 		}
 	}
 
-	for(i=0; i<rowStates;i++){
-		for(j=0; j<columnStates;j++){
+	for(i=0; i<nStates;i++){
+		for(j=0; j<1;j++){
 			_controller.states[i][j] = __backupController.states[i][j];
 		}
 	}
 
-	for(i=0; i<rowInputs;i++){
-		for(j=0; j<columnInputs;j++){
+	for(i=0; i<nInputs;i++){
+		for(j=0; j<1;j++){
 			_controller.inputs[i][j] = __backupController.inputs[i][j];
 		}
 	}
 
-	for(i=0; i<rowOutputs;i++){
-		for(j=0; j<columnOutputs;j++){
+	for(i=0; i<nOutputs;i++){
+		for(j=0; j<1;j++){
 			_controller.outputs[i][j] = __backupController.outputs[i][j];
 		}
 	}
@@ -115,7 +115,7 @@ int verify_error_state_space(void){
 
 	__quant_error = (((output_fxp - output_double)/output_double)) * 100;
 
-	assert(__quant_error < error_limit);
+	assert(__quant_error < error_limit && __quant_error > (-error_limit));
 
 	return 0;
 }
