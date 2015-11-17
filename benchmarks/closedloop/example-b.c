@@ -173,8 +173,6 @@
 
 #endif
 
-//
-
 #if SCHEMA_ID == 4
 
 	#define PLANT_COUNT 1
