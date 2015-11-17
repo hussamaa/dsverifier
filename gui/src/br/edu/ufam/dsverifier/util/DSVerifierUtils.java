@@ -31,13 +31,13 @@ public class DSVerifierUtils {
 		return instance;
 	}
 
-	public String callCommandLine(String commandLine) throws IOException,
+	public String callCommandLine(final String commandLine) throws IOException,
 			InterruptedException {
-		Process p = Runtime.getRuntime().exec(commandLine);
-		InputStream inputStream = p.getInputStream();
-		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-		StringBuilder output = new StringBuilder();
+		final Process p = Runtime.getRuntime().exec(commandLine);
+		final InputStream inputStream = p.getInputStream();
+		final InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+		final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+		final StringBuilder output = new StringBuilder();
 		String line;
 		while ((line = bufferedReader.readLine()) != null) {
 		//	System.out.println(line); // it prints all at once after command has
@@ -48,7 +48,7 @@ public class DSVerifierUtils {
 		return output.toString();
 	}
 	
-	public Region createHorizontalSlider(TextField minField, TextField maxField) {
+	public Region createHorizontalSlider(final TextField minField, final TextField maxField) {
         
 		minField.setPrefColumnCount(2);
         maxField.setPrefColumnCount(2);
@@ -71,7 +71,7 @@ public class DSVerifierUtils {
         minField.textProperty().bind(hSlider.lowValueProperty().asString("%.0f"));
         maxField.textProperty().bind(hSlider.highValueProperty().asString("%.0f"));
  
-        HBox box = new HBox(10);
+        final HBox box = new HBox(10);
         box.getChildren().addAll(minField, hSlider, maxField);
         box.setPadding(new Insets(20,0,0,20));
         box.setFillHeight(false);
@@ -80,13 +80,13 @@ public class DSVerifierUtils {
     }
 	
 	public void removeTemporaryFiles(){
-		String temporaryFolderPath = System.getProperty("java.io.tmpdir");
+		final String temporaryFolderPath = System.getProperty("java.io.tmpdir");
 		
-		File temporaryFolder = new File(temporaryFolderPath);		
-		File[] listFiles = temporaryFolder.listFiles();
+		final File temporaryFolder = new File(temporaryFolderPath);		
+		final File[] listFiles = temporaryFolder.listFiles();
 		
 		/* remove temporary files */
-		for (File file : listFiles) {
+		for (final File file : listFiles) {
 			if (file.isFile()){
 				if ((file.getName().indexOf("dsverifier") != -1) && (file.getName().endsWith(".c"))){
 					file.delete();
@@ -95,21 +95,21 @@ public class DSVerifierUtils {
 		}		
 	}
 	
-	public Double isNumeric(String str)  {  
+	public Double isNumeric(final String str)  {  
 		Double value;
 		try{  
 			value = Double.parseDouble(str);  
 		}  
-		catch(NumberFormatException nfe){  
+		catch(final NumberFormatException nfe){  
 			return null;  
 		}  
 		return value;  
 	}
 	
-	public double[] getArrayInputsFromVerification(Verification verification) throws FileNotFoundException, IOException{
+	public double[] getArrayInputsFromVerification(final Verification verification) throws FileNotFoundException, IOException{
 
-		int precisionBits = verification.getImplementation().getPrecisionBits();
-		String filename = verification.getFile().getName().substring(0, verification.getFile().getName().length() - 2);
+		final int precisionBits = verification.getImplementation().getPrecisionBits();
+		final String filename = verification.getFile().getName().substring(0, verification.getFile().getName().length() - 2);
 		
 		String inputString= ""; 
 		try(BufferedReader br = new BufferedReader(new StringReader(verification.getOutput()))) {
@@ -125,11 +125,15 @@ public class DSVerifierUtils {
 		inputString = inputString.replace(filename + "::verify_overflow::1::x={", "");
 		inputString = inputString.replace("}", "");
 		
-		String[] inputsStr = inputString.split(",");
-		double inputs[] = new double [inputsStr.length];
+		final String[] inputsStr = inputString.split(",");
+		final double inputs[] = new double [inputsStr.length];
 
 		for (int i=0; i < inputsStr.length; i++) {
-			inputs[i] = Double.valueOf(inputsStr[i]) / Math.pow(2,precisionBits);
+			double inputsParsed = 0.0;
+			if (!inputsStr[i].isEmpty()) {
+				inputsParsed = Double.valueOf(inputsStr[i]);
+			}
+			inputs[i] = inputsParsed / Math.pow(2,precisionBits);
 			System.out.println(inputs[i]);
 		}
 		
