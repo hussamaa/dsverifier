@@ -35,8 +35,9 @@ public class DSVerifierService {
 		
 		/* include the property */
 		commandLine.append(" --property " + verification.getProperty());
-		/* include the realization */
+		/* include the realization in cases of digital system*/
 		commandLine.append(" --realization " + verification.getImplementation().getRealization());	
+		
 		/* include x size */
 		commandLine.append(" --x-size " + verification.getBound());	
 		
@@ -100,7 +101,7 @@ public class DSVerifierService {
 		bufferedWriter.close();		
 		
 	}
-	
+
 	public void generateClosedLoopVerificationFile(Verification verification) throws IOException{
 		
 		StringBuilder content = new StringBuilder();			
