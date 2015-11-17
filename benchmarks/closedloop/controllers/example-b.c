@@ -16,22 +16,28 @@
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 4
+			.int_bits = 11,
+			.frac_bits = 4,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 8
+			.int_bits = 11,
+			.frac_bits = 8,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 12
+			.int_bits = 11,
+			.frac_bits = 12,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
@@ -51,22 +57,28 @@
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 4
+			.int_bits = 11,
+			.frac_bits = 4,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 8
+			.int_bits = 11,
+			.frac_bits = 8,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 12
+			.int_bits = 11,
+			.frac_bits = 12,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
@@ -86,22 +98,28 @@
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 4
+			.int_bits = 11,
+			.frac_bits = 4,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 8
+			.int_bits = 11,
+			.frac_bits = 8,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 12
+			.int_bits = 11,
+			.frac_bits = 12,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
@@ -121,22 +139,28 @@
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 4
+			.int_bits = 11,
+			.frac_bits = 4,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 8
+			.int_bits = 11,
+			.frac_bits = 8,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 12
+			.int_bits = 11,
+			.frac_bits = 12,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
@@ -145,9 +169,9 @@
 #if DS_ID == 5
 
 	digital_system ds = {
-		.b = { -10.6541798765226, 28.9820624061405, -26.2822459536125, 7.94546415262250 },
+		.b = { -58.8544737007610, 174.846413073101, -173.146281000398, 57.1542857242685 },
 		.b_size = 4,
-		.a = { 1.0, -0.976750653540241, -0.695199955503643, 0.688265939892838 },
+		.a = { 1.0, -1.92141324780054, 0.863510897744980, 0.0580048403364478 },
 		.a_size = 4,
 		.sample_time = 0.01
 	};
@@ -156,22 +180,28 @@
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 4
+			.int_bits = 11,
+			.frac_bits = 4,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 8
+			.int_bits = 11,
+			.frac_bits = 8,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 12
+			.int_bits = 11,
+			.frac_bits = 12,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
@@ -191,22 +221,28 @@
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 4
+			.int_bits = 11,
+			.frac_bits = 4,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 8
+			.int_bits = 11,
+			.frac_bits = 8,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 12
+			.int_bits = 11,
+			.frac_bits = 12,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
@@ -226,22 +262,28 @@
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 4
+			.int_bits = 12,
+			.frac_bits = 4,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 8
+			.int_bits = 12,
+			.frac_bits = 8,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 12
+			.int_bits = 12,
+			.frac_bits = 12,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
@@ -261,22 +303,28 @@
 
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 4
+			.int_bits = 12,
+			.frac_bits = 4,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 2
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 8
+			.int_bits = 12,
+			.frac_bits = 8,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
 	#if IMPLEMENTATION_ID == 3
 		implementation impl = {
-			.int_bits = 16,
-			.frac_bits = 12
+			.int_bits = 12,
+			.frac_bits = 12,
+			.min = -5.0,
+			.max = 5.0
 		};
 	#endif
 
