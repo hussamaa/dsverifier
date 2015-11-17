@@ -11,6 +11,7 @@ public class Verification {
 	private DigitalSystem digitalSystem;
 	private DigitalSystem control;
 	private DigitalSystem plant;
+	private SpaceState spaceState;
 	private Implementation implementation;
 	private DigitalSystemProperties property;
 	private Integer bound;
@@ -117,6 +118,14 @@ public class Verification {
 
 	public void setPlant(DigitalSystem plant) {
 		this.plant = plant;
+	}
+	
+	public SpaceState getSpaceState() {
+		return spaceState;
+	}
+
+	public void setSpaceState(SpaceState spaceState) {
+		this.spaceState = spaceState;
 	}
 
 }
