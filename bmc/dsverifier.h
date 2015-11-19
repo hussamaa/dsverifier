@@ -35,6 +35,7 @@
 #include "engine/verify_stability.h"
 #include "engine/verify_minimum_phase.h"
 #include "engine/verify_stability_closedloop.h"
+#include "engine/verify_limit_cycle_closedloop.h"
 #include "engine/verify_error_state_space.h"
 
 extern digital_system ds;
@@ -87,6 +88,9 @@ int main(){
 	}
 	if (PROPERTY == STABILITY_CLOSED_LOOP){
 		call_closedloop_verification_task(&verify_stability_closedloop_using_dslib);		
+	}
+	if (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP){
+		call_closedloop_verification_task(&verify_limit_cycle_closed_loop);
 	}
 	if (PROPERTY == QUANTISATION_ERROR){
 		verify_error_state_space();
