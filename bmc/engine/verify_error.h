@@ -153,7 +153,6 @@ int verify_error(void){
 			shiftLDouble(yf[i], yfaux, ds.a_size);
 		#endif
 
-/*
 		#if (REALIZATION == DFII)
 			shiftRboth(0.0f, wfaux, 0, waux, Nw);
 			y[i] = iirIIOutFixed(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
@@ -170,7 +169,6 @@ int verify_error(void){
 			y[i] = iirIItOutFixed(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
 			yf[i] = iirIItOutDouble(wfaux, xf[i], ds.a, ds.b, ds.a_size, ds.b_size);
 		#endif
-*/
 
 		/* error verification using a % setted by user */
 		double error_rate = 100 - (100 * fxp_to_double(y[i]) / yf[i]);
