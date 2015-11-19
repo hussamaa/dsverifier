@@ -7,8 +7,14 @@ Property Supported:
 * Overflow
 * Limit Cycle
 * Timing
+* Error
 * Stability
 * Minimum Phase
+
+Necessary Library:
+
+For Ubuntu x86-64:
+* apt-get install libc6-dev-i386
 
 DSVerifier is developed at the Federal University of Amazonas (UFAM). This project is supported by Samsung, CNPq, and FAPEAM grants.
 
