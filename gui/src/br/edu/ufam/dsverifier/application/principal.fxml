@@ -244,11 +244,6 @@
       </TabPane>
       <MenuBar layoutX="2.0" layoutY="-1.0" prefHeight="29.0" prefWidth="1024.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#closeDSVerifier" text="Close" />
-            </items>
-          </Menu>
             <Menu mnemonicParsing="false" text="Help">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#openBenchmarks" text="Benchmarks" />

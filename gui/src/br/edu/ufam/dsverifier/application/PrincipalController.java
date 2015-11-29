@@ -954,10 +954,6 @@ public class PrincipalController implements Initializable {
 		return properties;
 	}
 	
-	public void closeDSVerifier() throws Throwable{
-		this.finalize();
-	}
-	
 	public void isSpaceStateClosedLoop(){
 		if(checkQuantisationError.isSelected()){
 			labelErrorLimit.setVisible(true);
