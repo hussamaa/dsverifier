@@ -11,143 +11,253 @@
 
 <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufam.dsverifier.application.PrincipalController">
    <children>
-      <ImageView fitHeight="51.0" fitWidth="162.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="51.0" fitWidth="162.0" layoutX="14.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/logo.png" />
          </image>
       </ImageView>
-      <Pane layoutX="13.0" layoutY="66.0">
-         <children>
-            <ScrollPane prefHeight="523.0" prefWidth="234.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="518.0" prefWidth="232.0">
+      <TabPane layoutX="3.0" layoutY="79.0" prefHeight="519.0" prefWidth="1018.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabDigitalSystem" text="Transfer Function">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btVerify" layoutX="5.0" layoutY="478.0" mnemonicParsing="false" onAction="#verify" prefHeight="35.0" prefWidth="60.0" text="Verify" />
-                        <Button fx:id="btSummary" disable="true" layoutX="74.0" layoutY="478.0" mnemonicParsing="false" onAction="#summary" prefHeight="35.0" prefWidth="84.0" text="Results" />
-                        <Button fx:id="btReset" layoutX="166.0" layoutY="478.0" mnemonicParsing="false" onAction="#reset" prefHeight="35.0" prefWidth="60.0" text="Reset" />
+                        <SplitPane layoutX="268.0" orientation="VERTICAL" prefHeight="523.0" prefWidth="753.0">
+                           <items>
+                              <AnchorPane fx:id="taskPane" maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="487.0" prefWidth="751.0" />
+                           </items>
+                        </SplitPane>
+                        <Pane prefHeight="498.0" prefWidth="265.0">
+                           <children>
+                              <ScrollPane fx:id="scrollPaneDS" hbarPolicy="NEVER" prefHeight="497.0" prefWidth="267.0" vbarPolicy="NEVER">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="488.0" prefWidth="268.0">
+                                       <children>
+                                          <Button fx:id="btVerify" layoutX="6.0" layoutY="442.0" mnemonicParsing="false" onAction="#verify" prefHeight="35.0" prefWidth="60.0" text="Verify" />
+                                          <Button fx:id="btSummary" disable="true" layoutX="87.0" layoutY="443.0" mnemonicParsing="false" onAction="#summary" prefHeight="35.0" prefWidth="84.0" text="Results" />
+                                          <Button fx:id="btReset" layoutX="186.0" layoutY="443.0" mnemonicParsing="false" onAction="#resetDigitalSystem" prefHeight="35.0" prefWidth="60.0" text="Reset" />
+                                          <Accordion fx:id="accordionPaneDS" prefHeight="424.0" prefWidth="269.0">
+                                             <panes>
+                                                <TitledPane animated="false" expanded="true" prefHeight="421.0" prefWidth="244.0" text="Digital System">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Label layoutX="11.0" layoutY="16.0" text="Numerator" />
+                                                            <TextField fx:id="tfNumerator" layoutX="12.0" layoutY="37.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                                            <TextField fx:id="tfDenominator" layoutX="12.0" layoutY="97.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                                            <Label layoutX="12.0" layoutY="76.0" text="Denominator" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane animated="false" expanded="true" layoutX="10.0" layoutY="10.0" prefHeight="500.0" prefWidth="244.0" text="Digital Systems (Closed Loop)">
+                                                   <content>
+                                                      <ScrollPane prefHeight="367.0" prefViewportHeight="369.0" prefViewportWidth="232.0" prefWidth="224.0">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="509.0" prefWidth="215.0">
+                                                               <children>
+                                                                  <Label layoutX="4.0" layoutY="38.0" text="Numerator" />
+                                                                  <TextField fx:id="tfNumeratorControl" layoutX="5.0" layoutY="59.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                                                  <TextField fx:id="tfDenominatorControl" layoutX="5.0" layoutY="111.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                                                  <Label layoutX="5.0" layoutY="90.0" text="Denominator" />
+                                                                  <Label layoutX="4.0" layoutY="14.0" text="Digital Controller" wrapText="true">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="13.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <TextField fx:id="tfDenominatorPlant" layoutX="5.0" layoutY="248.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                                                  <TextField fx:id="tfNumeratorPlant" layoutX="5.0" layoutY="196.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                                                  <Label layoutX="5.0" layoutY="175.0" text="Numerator" />
+                                                                  <Label layoutX="5.0" layoutY="227.0" text="Denominator" />
+                                                                  <Label layoutX="5.0" layoutY="151.0" text="Plant" wrapText="true">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="13.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <CheckBox fx:id="checkSeries" layoutX="5.0" layoutY="310.0" mnemonicParsing="false" text="Series" />
+                                                                  <CheckBox fx:id="checkFeedback" layoutX="5.0" layoutY="335.0" mnemonicParsing="false" text="Feedback" />
+                                                                  <Label layoutX="5.0" layoutY="288.0" text="Connection Mode" wrapText="true">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="13.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label layoutX="5.0" layoutY="446.0" text="Denominator" />
+                                                                  <Label layoutX="5.0" layoutY="370.0" text="Plant (Uncertainty)" wrapText="true">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="13.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label layoutX="5.0" layoutY="394.0" text="Numerator" />
+                                                                  <TextField fx:id="tfDenominatorPlantUncertainty" layoutX="5.0" layoutY="467.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                                                  <TextField fx:id="tfNumeratorPlantUncertainty" layoutX="5.0" layoutY="415.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane animated="false" expanded="false" prefHeight="402.0" prefWidth="273.0" text="Implementation">
+                                                   <content>
+                                                      <ScrollPane hbarPolicy="NEVER" prefHeight="427.0" prefViewportHeight="344.0" prefViewportWidth="241.0" prefWidth="267.0">
+                                                         <content>
+                                                            <ScrollPane prefHeight="367.0" prefViewportHeight="359.0" prefViewportWidth="241.0" prefWidth="254.0">
+                                                               <content>
+                                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <Label layoutX="11.0" layoutY="16.0" text="Integer Bits" />
+                                                                        <Label layoutX="12.0" layoutY="79.0" text="Precision Bits" />
+                                                                        <Label layoutX="12.0" layoutY="142.0" text="Min and Max" />
+                                                                        <Label layoutX="14.0" layoutY="205.0" text="Realization" />
+                                                                        <ComboBox fx:id="cbRealization" layoutX="12.0" layoutY="226.0" prefHeight="25.0" prefWidth="206.0" />
+                                                                        <Label layoutX="14.0" layoutY="260.0" text="Delta" />
+                                                                        <TextField fx:id="tfDelta" layoutX="14.0" layoutY="281.0" prefHeight="25.0" prefWidth="208.0" />
+                                                                        <Pane fx:id="paneMinMax" layoutY="146.0" prefHeight="35.0" prefWidth="234.0" />
+                                                                        <Slider fx:id="sliderIntegerBits" blockIncrement="1" layoutX="11.0" layoutY="35.0" majorTickUnit="1" max="16.0" min="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="210.0" showTickLabels="true" showTickMarks="true" value="8" />
+                                                                        <Slider fx:id="sliderPrecisionBits" blockIncrement="1.0" layoutX="13.0" layoutY="97.0" majorTickUnit="1.0" max="16.0" min="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="210.0" showTickLabels="true" showTickMarks="true" value="8.0" />
+                                                                        <TextField fx:id="tfScale" layoutX="15.0" layoutY="334.0" prefHeight="25.0" prefWidth="208.0" text="1" />
+                                                                        <Label layoutX="15.0" layoutY="313.0" text="Scale" />
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                               </content>
+                                                            </ScrollPane>
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane animated="false" expanded="false" prefHeight="351.0" prefWidth="272.0" text="Properties">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dce0e4" height="200.0" layoutX="7.0" layoutY="7.0" stroke="#dce0e4" strokeMiterLimit="1.0" strokeType="INSIDE" width="255.0" />
+                                                            <CheckBox fx:id="checkOverflow" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Overflow" />
+                                                            <CheckBox fx:id="checkLimitCycle" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" text="Limit Cycle" />
+                                                            <CheckBox fx:id="checkStability" layoutX="11.0" layoutY="211.0" mnemonicParsing="false" text="Stability" />
+                                                            <CheckBox fx:id="checkTiming" layoutX="16.0" layoutY="109.0" mnemonicParsing="false" text="Timing" />
+                                                            <CheckBox fx:id="checkMinimumPhase" layoutX="12.0" layoutY="243.0" mnemonicParsing="false" text="Minimum Phase" />
+                                                            <Slider fx:id="sliderBound" blockIncrement="1.0" layoutX="13.0" layoutY="170.0" majorTickUnit="1.0" max="10.0" min="1.0" prefHeight="16.0" prefWidth="209.0" showTickLabels="true" showTickMarks="true" value="5.0" />
+                                                            <Label layoutX="12.0" layoutY="142.0" text="Bound" />
+                                                            <CheckBox fx:id="checkStabilityClosedLoop" layoutX="12.0" layoutY="274.0" mnemonicParsing="false" text="Stability (Closed Loop)" />
+                                                            <CheckBox fx:id="checkZeroInputLimitCycle" layoutX="14.0" layoutY="76.0" mnemonicParsing="false" text="Zero Input Limit Cycle" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </TitledPane>
+                                             </panes>
+                                          </Accordion>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
-              </content>
-            </ScrollPane>
-            <Accordion fx:id="accordionPane" layoutX="1.0" prefHeight="470.0" prefWidth="234.0">
-              <panes>
-                <TitledPane animated="false" expanded="true" prefHeight="421.0" prefWidth="244.0" text="Digital System">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            </content>
+          </Tab>
+          <Tab fx:id="tabSpaceState" text="Space State">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="11.0" layoutY="16.0" text="Numerator" />
-                              <TextField fx:id="tfNumerator" layoutX="12.0" layoutY="37.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                              <TextField fx:id="tfDenominator" layoutX="12.0" layoutY="97.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                              <Label layoutX="12.0" layoutY="76.0" text="Denominator" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </TitledPane>
-                  <TitledPane animated="false" expanded="true" layoutX="10.0" layoutY="10.0" prefHeight="500.0" prefWidth="244.0" text="Digital Systems (Closed Loop)">
-                     <content>
-                        <ScrollPane prefHeight="367.0" prefViewportHeight="369.0" prefViewportWidth="232.0" prefWidth="224.0">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="509.0" prefWidth="215.0">
+                              <SplitPane layoutX="268.0" orientation="VERTICAL" prefHeight="523.0" prefWidth="753.0">
+                                 <items>
+                                    <AnchorPane fx:id="taskPaneSpaceState" maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="751.0" />
+                                 </items>
+                              </SplitPane>
+                              <Pane prefHeight="498.0" prefWidth="265.0">
                                  <children>
-                                    <Label layoutX="4.0" layoutY="38.0" text="Numerator" />
-                                    <TextField fx:id="tfNumeratorControl" layoutX="5.0" layoutY="59.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                                    <TextField fx:id="tfDenominatorControl" layoutX="5.0" layoutY="111.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                                    <Label layoutX="5.0" layoutY="90.0" text="Denominator" />
-                                    <Label layoutX="4.0" layoutY="14.0" text="Digital Control" wrapText="true">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="tfDenominatorPlant" layoutX="5.0" layoutY="248.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                                    <TextField fx:id="tfNumeratorPlant" layoutX="5.0" layoutY="196.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                                    <Label layoutX="5.0" layoutY="175.0" text="Numerator" />
-                                    <Label layoutX="5.0" layoutY="227.0" text="Denominator" />
-                                    <Label layoutX="5.0" layoutY="151.0" text="Plant (Model)" wrapText="true">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </Label>
-                                    <CheckBox fx:id="checkSeries" layoutX="5.0" layoutY="310.0" mnemonicParsing="false" text="Series" />
-                                    <CheckBox fx:id="checkFeedback" layoutX="5.0" layoutY="335.0" mnemonicParsing="false" text="Feedback" />
-                                    <Label layoutX="5.0" layoutY="288.0" text="Connection Mode" wrapText="true">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="5.0" layoutY="446.0" text="Denominator" />
-                                    <Label layoutX="5.0" layoutY="370.0" text="Plant (Uncertainty)" wrapText="true">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="5.0" layoutY="394.0" text="Numerator" />
-                                    <TextField fx:id="tfDenominatorPlantUncertainty" layoutX="5.0" layoutY="467.0" prefHeight="25.0" prefWidth="208.0" text="" />
-                                    <TextField fx:id="tfNumeratorPlantUncertainty" layoutX="5.0" layoutY="415.0" prefHeight="25.0" prefWidth="208.0" text="" />
+                                    <ScrollPane fx:id="scrollPaneDS1" hbarPolicy="NEVER" prefHeight="497.0" prefWidth="267.0" vbarPolicy="NEVER">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="490.0" prefWidth="268.0">
+                                             <children>
+                                                <Button fx:id="btVerifySpaceState" layoutX="8.0" layoutY="443.0" mnemonicParsing="false" onAction="#verify" prefHeight="35.0" prefWidth="60.0" text="Verify" />
+                                                <Button fx:id="btSummarySpaceState" disable="true" layoutX="90.0" layoutY="442.0" mnemonicParsing="false" onAction="#summary" prefHeight="35.0" prefWidth="84.0" text="Results" />
+                                                <Button layoutX="188.0" layoutY="441.0" mnemonicParsing="false" onAction="#resetSpaceState" prefHeight="35.0" prefWidth="60.0" text="Reset" />
+                                                <Accordion fx:id="accordionPaneSS" prefHeight="427.0" prefWidth="269.0">
+                                                   <panes>
+                                                      <TitledPane animated="false" expanded="true" prefHeight="370.0" prefWidth="278.0" text="Space States">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <TextField fx:id="stateVariables" layoutX="124.0" layoutY="18.0" prefHeight="25.0" prefWidth="106.0" text="" />
+                                                                  <Label layoutX="18.0" layoutY="19.0" text="State variables:" />
+                                                                  <Label layoutX="18.0" layoutY="52.0" text="Inputs:" />
+                                                                  <TextField fx:id="inputs" layoutX="122.0" layoutY="52.0" prefHeight="25.0" prefWidth="110.0" text="" />
+                                                                  <TextField fx:id="outputs" layoutX="121.0" layoutY="86.0" prefHeight="25.0" prefWidth="112.0" text="" />
+                                                                  <Label layoutX="17.0" layoutY="87.0" prefHeight="15.0" prefWidth="88.0" text="Outputs:" />
+                                                                  <Button fx:id="btGenerateValues" layoutX="25.0" layoutY="157.0" mnemonicParsing="false" onAction="#generateSpaceStateValues" prefHeight="35.0" prefWidth="207.0" text="Set Values" wrapText="true" />
+                                                                  <CheckBox fx:id="checkStabilityClosedLoopSpaceState" layoutX="15.0" layoutY="122.0" mnemonicParsing="false" text="Closed Loop" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" expanded="false" text="Implementation">
+                                                         <content>
+                                                            <ScrollPane hbarPolicy="NEVER" prefViewportHeight="344.0" prefViewportWidth="241.0" vbarPolicy="NEVER">
+                                                               <content>
+                                                                  <ScrollPane hbarPolicy="NEVER" prefHeight="367.0" prefViewportHeight="359.0" prefViewportWidth="241.0" prefWidth="264.0" vbarPolicy="NEVER">
+                                                                     <content>
+                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="256.0">
+                                                                           <children>
+                                                                              <Label layoutX="11.0" layoutY="16.0" text="Integer Bits" />
+                                                                              <Label layoutX="12.0" layoutY="79.0" text="Precision Bits" />
+                                                                              <Slider fx:id="sliderIntegerBitsSpaceState" blockIncrement="1.0" layoutX="11.0" layoutY="35.0" majorTickUnit="1" max="16.0" min="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="221.0" showTickLabels="true" showTickMarks="true" value="8" />
+                                                                              <Slider fx:id="sliderPrecisionBitsSpaceState" blockIncrement="1.0" layoutX="13.0" layoutY="97.0" majorTickUnit="1.0" max="16.0" min="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="217.0" showTickLabels="true" showTickMarks="true" value="8.0" />
+                                                                           </children>
+                                                                        </AnchorPane>
+                                                                     </content>
+                                                                  </ScrollPane>
+                                                               </content>
+                                                            </ScrollPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" expanded="false" prefHeight="351.0" prefWidth="272.0" text="Properties">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dce0e4" height="197.0" layoutX="7.0" layoutY="7.0" stroke="#dce0e4" strokeMiterLimit="1.0" strokeType="INSIDE" width="255.0" />
+                                                                  <CheckBox fx:id="checkStabilitySpaceState" layoutX="10.0" layoutY="19.0" mnemonicParsing="false" text="Stability" />
+                                                                  <Slider fx:id="sliderBoundSpaceState" blockIncrement="1.0" layoutX="11.0" layoutY="161.0" majorTickUnit="1.0" max="10.0" min="1.0" prefHeight="16.0" prefWidth="241.0" showTickLabels="true" showTickMarks="true" value="5.0" />
+                                                                  <Label layoutX="14.0" layoutY="129.0" text="Bound" />
+                                                                  <CheckBox fx:id="checkQuantisationError" layoutX="8.0" layoutY="50.0" mnemonicParsing="false" onAction="#isSpaceStateClosedLoop" text="Quantisation Error" />
+                                                                  <TextField fx:id="errorLimit" layoutX="11.0" layoutY="252.0" prefHeight="25.0" prefWidth="205.0" text="" visible="false" />
+                                                                  <Label fx:id="labelErrorLimit" layoutX="11.0" layoutY="227.0" prefHeight="15.0" prefWidth="117.0" text="Error Limit (%):" visible="false" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                   </panes>
+                                                </Accordion>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </ScrollPane>
                                  </children>
-                              </AnchorPane>
-                           </content>
-                        </ScrollPane>
-                     </content>
-                  </TitledPane>
-                <TitledPane animated="false" expanded="false" text="Implementation">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="11.0" layoutY="16.0" text="Integer Bits" />
-                              <Label layoutX="12.0" layoutY="79.0" text="Precision Bits" />
-                              <Label layoutX="12.0" layoutY="142.0" text="Min and Max" />
-                              <Label layoutX="14.0" layoutY="205.0" text="Realization" />
-                              <ComboBox fx:id="cbRealization" layoutX="12.0" layoutY="226.0" prefHeight="25.0" prefWidth="206.0" />
-                              <Label layoutX="14.0" layoutY="260.0" text="Delta" />
-                              <TextField fx:id="tfDelta" layoutX="14.0" layoutY="281.0" prefHeight="25.0" prefWidth="208.0" />
-                              <Pane fx:id="paneMinMax" layoutY="146.0" prefHeight="35.0" prefWidth="234.0" />
-                              <Slider fx:id="sliderIntegerBits" blockIncrement="1" layoutX="11.0" layoutY="35.0" majorTickUnit="1" max="16.0" min="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="210.0" showTickLabels="true" showTickMarks="true" value="8" />
-                              <Slider fx:id="sliderPrecisionBits" blockIncrement="1.0" layoutX="13.0" layoutY="97.0" majorTickUnit="1.0" max="16.0" min="1.0" minorTickCount="1" prefHeight="38.0" prefWidth="210.0" showTickLabels="true" showTickMarks="true" value="8.0" />
-                              <TextField fx:id="tfScale" layoutX="15.0" layoutY="334.0" prefHeight="25.0" prefWidth="208.0" text="1" />
-                              <Label layoutX="15.0" layoutY="313.0" text="Scale" />
+                              </Pane>
                            </children>
                         </AnchorPane>
-                  </content>
-                </TitledPane>
-                <TitledPane animated="false" expanded="false" prefHeight="438.0" prefWidth="229.0" text="Properties">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dce0e4" height="190.0" layoutX="7.0" layoutY="7.0" stroke="#dce0e4" strokeMiterLimit="1.0" strokeType="INSIDE" width="217.0" />
-                              <CheckBox fx:id="checkOverflow" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Overflow" />
-                              <CheckBox fx:id="checkLimitCycle" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" text="Limit Cycle" />
-                              <CheckBox fx:id="checkStability" layoutX="11.0" layoutY="211.0" mnemonicParsing="false" text="Stability" />
-                              <CheckBox fx:id="checkTiming" layoutX="16.0" layoutY="109.0" mnemonicParsing="false" text="Timing" />
-                              <CheckBox fx:id="checkMinimumPhase" layoutX="12.0" layoutY="243.0" mnemonicParsing="false" text="Minimum Phase" />
-                              <Slider fx:id="sliderBound" blockIncrement="1.0" layoutX="11.0" layoutY="161.0" majorTickUnit="1.0" max="10.0" min="1.0" prefHeight="16.0" prefWidth="209.0" showTickLabels="true" showTickMarks="true" value="5.0" />
-                              <Label layoutX="12.0" layoutY="143.0" text="X Size (Bound)" />
-                              <CheckBox fx:id="checkStabilityClosedLoop" layoutX="12.0" layoutY="274.0" mnemonicParsing="false" text="Stability (Closed Loop)" />
-                              <CheckBox fx:id="checkZeroInputLimitCycle" layoutX="14.0" layoutY="76.0" mnemonicParsing="false" text="Zero Input Limit Cycle" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </TitledPane>
-              </panes>
-            </Accordion>
-         </children>
-      </Pane>
-      <SplitPane dividerPositions="0.5" layoutX="256.0" layoutY="66.0" orientation="VERTICAL" prefHeight="523.0" prefWidth="758.0">
-        <items>
-          <AnchorPane fx:id="taskPane" maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="745.0" />
-          <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="168.0" prefWidth="760.0">
-               <children>
-                  <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digital-Systems Verifier" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="14.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DSVerifier (Digital Systems Verifier) is a bounded model checker tool to aid enginners and designers to check for properties of digital systems related to overflow, limit cycle,  timing, stability, and minimum phase, considering finite word length (FWL) effects." textAlignment="JUSTIFY" wrappingWidth="726.7294921875" />
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-      <Button layoutX="639.0" layoutY="24.0" mnemonicParsing="false" onAction="#openBenchmarks" prefHeight="25.0" prefWidth="117.0" text="Benchmarks" />
-      <Button layoutX="756.0" layoutY="24.0" mnemonicParsing="false" onAction="#openDocumentation" prefHeight="25.0" prefWidth="128.0" text="Documentation" />
-      <Button layoutX="884.0" layoutY="24.0" mnemonicParsing="false" onAction="#openPublications" prefHeight="25.0" prefWidth="128.0" text="Publications" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <MenuBar layoutX="2.0" layoutY="-1.0" prefHeight="29.0" prefWidth="1024.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#closeDSVerifier" text="Close" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#openBenchmarks" text="Benchmarks" />
+                  <MenuItem mnemonicParsing="false" onAction="#openDocumentation" text="Documentation" />
+                  <MenuItem mnemonicParsing="false" onAction="#openPublications" text="Publications" />
+                  <MenuItem mnemonicParsing="false" onAction="#openAbout" text="About" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </Pane>

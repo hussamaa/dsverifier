@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="354.0" prefWidth="403.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="51.0" fitWidth="162.0" layoutX="14.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/logo.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="5.0" layoutY="99.0" maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="309.0" prefWidth="414.0">
+         <children>
+            <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digital-Systems Verifier" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="24.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DSVerifier (Digital Systems Verifier) is a bounded model checker tool to aid enginners and designers to check for properties of digital systems related to overflow, limit cycle,  timing, stability, and minimum phase, considering finite word length (FWL) effects." textAlignment="JUSTIFY" wrappingWidth="334.7294921875">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnClose" layoutX="152.0" layoutY="199.0" mnemonicParsing="false" onAction="#closeAbout" text="Close" />
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>

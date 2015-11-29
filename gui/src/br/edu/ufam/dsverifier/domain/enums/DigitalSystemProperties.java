@@ -8,11 +8,12 @@ public enum DigitalSystemProperties {
 	TIMING("Timing"), ERROR("Error"), 
 	STABILITY("Stability"), 
 	MINIMUM_PHASE("Minimum Phase"), 
-	STABILITY_CLOSED_LOOP("Stability in Closed Loop");
+	STABILITY_CLOSED_LOOP("Stability in Closed Loop"),
+	QUANTISATION_ERROR("Quantisation Error");;
 
 	private String name;
 
-	private DigitalSystemProperties(String propertyName) {
+	private DigitalSystemProperties(final String propertyName) {
 		this.name = propertyName;
 	}
 
@@ -20,7 +21,7 @@ public enum DigitalSystemProperties {
 		return name;
 	}
 
-	public void setName(String propertyName) {
+	public void setName(final String propertyName) {
 		this.name = propertyName;
 	}
 
