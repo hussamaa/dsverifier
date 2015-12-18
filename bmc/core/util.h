@@ -385,7 +385,43 @@ void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i
         printf("\nError! Operation invalid, please enter with valid matrices.\n");
     }
 }
+void fxp_exp_matrix(unsigned int lines,  unsigned int columns, fxp64_t m1[LIMIT][LIMIT], unsigned int expNumber, fxp64_t result[LIMIT][LIMIT]){
+	unsigned int i, j;
+	fxp64_t m2[LIMIT][LIMIT];
 
+	if(expNumber == 0){
+	    for (i = 0; i < lines; i++){
+	    	for (j = 0; j < columns; j++){
+	    		if(i == j){
+	    			result[i][j] = fxp64_double_to_fxp(1.0);
+	    		} else {
+	    			result[i][j] = 0.0;
+	    		}
+	    	}
+	    }
+	    return;
+	}
+
+	for (i = 0; i < lines; i++)
+		for (j = 0; j < columns; j++) result[i][j] = m1[i][j];
+
+	if(expNumber == 1){
+		return;
+	}
+	for(int l = 1; l < expNumber; l++){
+        for (i = 0; i < lines; i++)
+        	for (j = 0; j < columns; j++) m2[i][j] = result[i][j];
+        for (i = 0; i < lines; i++)
+        	for (j = 0; j < columns; j++) result[i][j] = 0;
+        for (i=0;i<lines; i++) {
+            for (j=0; j<columns; j++) {
+                for (int k=0; k<columns; k++) {
+                	result[i][j] = fxp64_add( result[i][j], fxp64_mult(m2[i][k] , m1[k][j]));
+                }
+            }
+        }
+	}
+}
 /* adds two matrices, fixed point version */
 void fxp_add_matrix( unsigned int lines,  unsigned int columns, fxp64_t m1[LIMIT][LIMIT], fxp64_t m2[LIMIT][LIMIT], fxp64_t result[LIMIT][LIMIT]){
 	unsigned int i, j;
@@ -411,4 +447,36 @@ void print_matrix(double matrix[LIMIT][LIMIT], unsigned int lines, unsigned int 
         printf("\n");
     }
     printf("\n");
+}
+
+/* Determinant of a Square Matrix */
+double determinant(double a[LIMIT][LIMIT],int n)
+{
+   int i,j,j1,j2;
+   double det = 0;
+   double m[LIMIT][LIMIT];
+
+   if (n < 1) { /* Error */
+
+   } else if (n == 1) { /* Shouldn't get used */
+      det = a[0][0];
+   } else if (n == 2) {
+      det = a[0][0] * a[1][1] - a[1][0] * a[0][1];
+   } else {
+      det = 0;
+      for (j1=0;j1<n;j1++) {
+         for (i=0;i<n-1;i++)
+         for (i=1;i<n;i++) {
+            j2 = 0;
+            for (j=0;j<n;j++) {
+               if (j == j1)
+                  continue;
+               m[i-1][j2] = a[i][j];
+               j2++;
+            }
+         }
+         det += pow(-1.0,1.0+j1+1.0) * a[0][j1] * determinant(m,n-1);
+      }
+   }
+   return(det);
 }

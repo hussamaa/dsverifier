@@ -53,7 +53,7 @@ typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 
 #define DSVERIFIER_VERSION 1.2
 
-const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR"};
+const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY"};
 
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
 const char * bmcs [] = { "ESBMC", "CBMC" };
@@ -312,7 +312,7 @@ void cplus_print_fxp_array_elements(const char * name, fxp32_t * v, int n){
 	printf("%s = {", name);
 	int i;
 	for(i=0; i < n; i++){
-		printf(" %d ", v[i]);
+		printf(" %jd ", v[i]);
 	}
 	printf("}\n");
 }
@@ -924,7 +924,7 @@ void state_space_parser(){
 	unsigned int i, j;
 	cf_value_precision.precision(64);
 
-	verification_file = "#include \"../../../bmc/dsverifier.h\"\n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
+	verification_file = "#include \"bmc/dsverifier.h\"\n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
 	verification_file.append(std::to_string(impl.int_bits));
 	verification_file.append(",\n .frac_bits = ");
 	verification_file.append(std::to_string(impl.frac_bits));
@@ -1074,6 +1074,18 @@ int main(int argc, char* argv[]){
 			check_state_space_stability();
 			exit(0);
 		} else if( desired_property == "QUANTISATION_ERROR" ) {
+			state_space_parser();
+			std::string command_line = prepare_bmc_command_line_ss();
+			std::cout << "Back-end Verification: " << command_line << std::endl;
+			execute_command_line(command_line);
+			exit(0);
+		} else if( desired_property == "CONTROLLABILITY" ) {
+			state_space_parser();
+			std::string command_line = prepare_bmc_command_line_ss();
+			std::cout << "Back-end Verification: " << command_line << std::endl;
+			execute_command_line(command_line);
+			exit(0);
+		} else if( desired_property == "OBSERVABILITY" ) {
 			state_space_parser();
 			std::string command_line = prepare_bmc_command_line_ss();
 			std::cout << "Back-end Verification: " << command_line << std::endl;

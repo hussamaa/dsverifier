@@ -37,6 +37,8 @@
 #include "engine/verify_stability_closedloop.h"
 #include "engine/verify_limit_cycle_closedloop.h"
 #include "engine/verify_error_state_space.h"
+#include "engine/verify_controllability.h"
+#include "engine/verify_observability.h"
 
 extern digital_system ds;
 extern digital_system plant;
@@ -95,6 +97,12 @@ int main(){
 	if (PROPERTY == QUANTISATION_ERROR){
 		verify_error_state_space();
 	}
+	if (PROPERTY == CONTROLLABILITY){
+		verify_controllability();
+	}
+	if (PROPERTY == OBSERVABILITY){
+		verify_observability();
+	}
 
 	return 0;
 }
@@ -102,6 +110,28 @@ int main(){
 /** validate the required parameters to use DSVerifier and your properties verification. */
 void validation(){
 	if (PROPERTY == QUANTISATION_ERROR){
+		if (K_SIZE == 0){
+			printf("\n\n********************************************************************************************\n");
+			printf("* It is necessary to set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");
+			printf("********************************************************************************************\n");
+			__DSVERIFIER_assert(0);
+			exit(1);
+		}
+		initials();
+		return;
+	}
+	if (PROPERTY == CONTROLLABILITY){
+		if (K_SIZE == 0){
+			printf("\n\n********************************************************************************************\n");
+			printf("* It is necessary to set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");
+			printf("********************************************************************************************\n");
+			__DSVERIFIER_assert(0);
+			exit(1);
+		}
+		initials();
+		return;
+	}
+	if (PROPERTY == OBSERVABILITY){
 		if (K_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* It is necessary to set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");

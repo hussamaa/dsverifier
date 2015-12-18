@@ -23,6 +23,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <inttypes.h>
 
 extern implementation impl;
 
@@ -659,7 +660,7 @@ void print_fxp_array_elements(char * name, fxp32_t * v, int n){
    printf("%s = {", name);
    int i;
    for(i=0; i < n; i++){
-      printf(" %d ", v[i]);
+      printf(" %jd ", v[i]);
    }
    printf("}\n");
 }

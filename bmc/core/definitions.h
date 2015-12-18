@@ -71,6 +71,8 @@
 #define STABILITY_CLOSED_LOOP				9
 #define LIMIT_CYCLE_CLOSED_LOOP				10
 #define QUANTISATION_ERROR					11
+#define CONTROLLABILITY						12
+#define OBSERVABILITY						13
 
 /** Check Required Parameters */
 
