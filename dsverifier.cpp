@@ -1,16 +1,35 @@
-/**
- * DSVerifier - Digital Systems Verifier (Main)
- *
- * Federal University of Amazonas - UFAM
- *
- * Authors:       Hussama Ismail <hussamaismail@gmail.com>
- *
- * ------------------------------------------------------
- *
- * DSVerifier wrapper file for BMC's
- *
- * ------------------------------------------------------
- */
+/*
+# --------------------------------------------------
+#
+#  Digital-Systems Verifier (DSVerifier)
+#
+# --------------------------------------------------
+#
+#  Federal University of Amazonas - UFAM
+#  Author: Hussama Ismail - hussamaismail@gmail.com
+#
+# --------------------------------------------------
+#
+#  Usage:
+#    ./dsverifier file.c or file.ss
+#         --realization DFI
+#         --property STABILITY
+#         --x-size 10
+#         --timeout 3600
+#
+#  Supported Properties:
+#  for transfer functions:
+#     OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE,
+#     TIMING, ERROR, STABILITY, STABILITY_CLOSED_LOOP MINIMUM_PHASE
+#
+#  Supported Realizations:
+#     DFI, DFII, TDFII,
+#     DDFI, DDFII, TDDFII
+#
+# --------------------------------------------------
+*/
+
+#define DSVERIFIER_VERSION 1.2
 
 #include <iostream>
 #include <stdlib.h>
@@ -51,10 +70,7 @@ typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 #include <fstream>
 #include <boost/algorithm/string.hpp>
 
-#define DSVERIFIER_VERSION 1.2
-
 const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY"};
-
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
 const char * bmcs [] = { "ESBMC", "CBMC" };
 
@@ -68,6 +84,7 @@ std::string desired_bmc;
 std::string desired_solver;
 std::string desired_macro_parameters;
 std::string desired_ds_id;
+
 /* state space */
 bool stateSpaceVerification = false;
 bool closedloop = false;
@@ -254,14 +271,22 @@ std::string execute_command_line(std::string command){
 }
 
 std::string prepare_bmc_command_line(){
+	char * dsverifier_home;
+  dsverifier_home = getenv("DSVERIFIER_HOME");
+  if (dsverifier_home == NULL){
+		std::cout << std::endl << "[ERROR] - You must set DSVERIFIER_HOME environment variable." << std::endl;
+		exit(1);
+	}
+	std::string bmc_path = std::string(dsverifier_home) + "/bmc";
+	std::string model_checker_path = std::string(dsverifier_home) + "/model-checker";
 	std::string command_line;
 	if (desired_bmc == "ESBMC"){
-		command_line = "./model-checker/esbmc " + desired_filename + " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC";
+		command_line = model_checker_path + "/esbmc " + desired_filename + " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " + bmc_path;
 		if (desired_timeout.size() > 0){
 			command_line += " --timeout " + desired_timeout;
 		}
 	}else if (desired_bmc == "CBMC"){
-		command_line = "./model-checker/cbmc --fixedbv " + desired_filename + " -DBMC=CBMC";
+		command_line =  model_checker_path + "/cbmc " + desired_filename + " --fixedbv -DBMC=CBMC -I " + bmc_path;
 	}
 	if (desired_solver.size() > 0){
 		command_line += " --" + desired_solver;
