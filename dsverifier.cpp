@@ -333,7 +333,7 @@ digital_system ds;
 implementation impl;
 
 /* print array elements */
-void cplus_print_fxp_array_elements(const char * name, fxp32_t * v, int n){
+void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n){
 	printf("%s = {", name);
 	int i;
 	for(i=0; i < n; i++){
@@ -466,7 +466,7 @@ void check_stability_shift_domain_using_jury(){
 	std::cout << std::endl;
 	double sa_fxp[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
-	fxp32_t a_fxp[ds.a_size];
+	fxp_t a_fxp[ds.a_size];
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 	fxp_to_double_array(sa_fxp, a_fxp, ds.a_size);
 	cplus_print_array_elements("quantized denominator", sa_fxp, ds.a_size);
@@ -483,7 +483,7 @@ void check_minimum_phase_shift_domain_using_jury(){
 	std::cout << std::endl;
 	double sb_fxp[ds.b_size];
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
-	fxp32_t b_fxp[ds.b_size];
+	fxp_t b_fxp[ds.b_size];
 	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 	fxp_to_double_array(sb_fxp, b_fxp, ds.b_size);
 	cplus_print_array_elements("quantized denominator", sb_fxp, ds.b_size);
@@ -500,7 +500,7 @@ void check_stability_shift_domain_using_eigen(){
 	std::cout << std::endl;
 	double sa_fxp[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
-	fxp32_t a_fxp[ds.a_size];
+	fxp_t a_fxp[ds.a_size];
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 	fxp_to_double_array(sa_fxp, a_fxp, ds.a_size);
 	cplus_print_array_elements("quantized denominator", sa_fxp, ds.a_size);
@@ -519,7 +519,7 @@ void check_minimum_phase_shift_domain(){
 	std::cout << std::endl;
 	double sb_fxp[ds.b_size];
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
-	fxp32_t b_fxp[ds.b_size];
+	fxp_t b_fxp[ds.b_size];
 	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 	fxp_to_double_array(sb_fxp, b_fxp, ds.b_size);
 	cplus_print_array_elements("quantized numerator", sb_fxp, ds.b_size);
@@ -536,12 +536,12 @@ void check_stability_delta_domain(){
 	std::cout << std::endl;
 	double db[ds.b_size];
 	double da[ds.a_size];
-	fxp32_t a_fxp[ds.a_size];
+	fxp_t a_fxp[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 	get_delta_transfer_function_with_base(ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta denominator", da, ds.a_size);
-	fxp32_t da_fxp[ds.a_size];
+	fxp_t da_fxp[ds.a_size];
 	try{
 		fxp_double_to_fxp_array(da, da_fxp, ds.a_size);
 	} catch (int e){
@@ -585,7 +585,7 @@ void check_minimum_phase_delta_domain(){
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
 	get_delta_transfer_function_with_base(ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta numerator", db, ds.b_size);
-	fxp32_t db_fxp[ds.b_size];
+	fxp_t db_fxp[ds.b_size];
 	fxp_double_to_fxp_array(db, db_fxp, ds.b_size);
 	if ((db[0] != 0) && (db_fxp[0] == 0)){
 		std::cout << std::endl;

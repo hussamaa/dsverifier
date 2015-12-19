@@ -27,7 +27,7 @@ int verify_stability(void){
 
 	/* check the realization */
 	#if ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
-		fxp32_t a_fxp[ds.a_size];
+		fxp_t a_fxp[ds.a_size];
 		/* quantize the array using fxp */
 		fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 		double _a[ds.a_size];
@@ -51,7 +51,7 @@ int verify_stability(void){
 		int b_cascade_size;
 		/* generate cascade values using a intrinsic function */
 		__DSVERIFIER_generate_cascade_controllers(&ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
-		fxp32_t a_cascade_fxp[100];
+		fxp_t a_cascade_fxp[100];
 		/* quantize cascade using fxp library */
 		fxp_double_to_fxp_array(a_cascade, a_cascade_fxp, a_cascade_size);
 		double a_cascade_qtz[100];

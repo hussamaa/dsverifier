@@ -28,8 +28,8 @@ int verify_error(void){
 
 	/* check the realization */
 	#if	((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
-		fxp32_t a_fxp[ds.a_size];
-		fxp32_t b_fxp[ds.b_size];
+		fxp_t a_fxp[ds.a_size];
+		fxp_t b_fxp[ds.b_size];
 		/* quantize the denominator using fxp */
 		fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 		/* quantize the numerator using fxp */
@@ -38,8 +38,8 @@ int verify_error(void){
 		double da[ds.a_size];
 		double db[ds.b_size];
 		get_delta_transfer_function(ds.b, db, ds.b_size,ds.a, da, ds.a_size, impl.delta);
-		fxp32_t a_fxp[ds.a_size];
-		fxp32_t b_fxp[ds.b_size];
+		fxp_t a_fxp[ds.a_size];
+		fxp_t b_fxp[ds.b_size];
 		/* quantize delta denominators using fxp */
 		fxp_double_to_fxp_array(da, a_fxp, ds.a_size);
 		/* quantize delta numerator using fxp */
@@ -47,8 +47,8 @@ int verify_error(void){
 	#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
 		/* generate cascade realization for digital system */
 		__DSVERIFIER_generate_cascade_controllers(&ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
-		fxp32_t ac_fxp[100];
-		fxp32_t bc_fxp[100];
+		fxp_t ac_fxp[100];
+		fxp_t bc_fxp[100];
 		/* quantize cascade denominators */
 		fxp_double_to_fxp_array(a_cascade, ac_fxp, a_cascade_size);
 		/* quantize cascade numerators */
@@ -58,23 +58,23 @@ int verify_error(void){
 		double db_cascade[100];
 		/* generate cascade realization with delta for the digital system */
 		__DSVERIFIER_generate_cascade_delta_controllers(&ds, da_cascade, a_cascade_size, db_cascade, b_cascade_size, impl.delta);
-		fxp32_t ac_fxp[100];
-		fxp32_t bc_fxp[100];
+		fxp_t ac_fxp[100];
+		fxp_t bc_fxp[100];
 		/* quantize cascade denominators */
 		fxp_double_to_fxp_array(da_cascade, ac_fxp, a_cascade_size);
 		/* quantize cascade numerators */
 		fxp_double_to_fxp_array(db_cascade, bc_fxp, b_cascade_size);
 	#endif
 
-	fxp32_t min_fxp;
-	fxp32_t max_fxp;
+	fxp_t min_fxp;
+	fxp_t max_fxp;
 
 	min_fxp = fxp_double_to_fxp(impl.min);
 	max_fxp = fxp_double_to_fxp(impl.max);
 
 	///////////////////////////// STATES ///////////////////////////////
-	fxp32_t y[X_SIZE_VALUE];
-	fxp32_t x[X_SIZE_VALUE];
+	fxp_t y[X_SIZE_VALUE];
+	fxp_t x[X_SIZE_VALUE];
 	double yf[X_SIZE_VALUE];
 	double xf[X_SIZE_VALUE];
 	double error[X_SIZE_VALUE];
@@ -88,21 +88,21 @@ int verify_error(void){
 		Nw = ds.a_size > ds.b_size ? ds.a_size : ds.b_size;
 	#endif
 
-	fxp32_t yaux[ds.a_size];
-	fxp32_t xaux[ds.b_size];
-	fxp32_t waux[Nw];
+	fxp_t yaux[ds.a_size];
+	fxp_t xaux[ds.b_size];
+	fxp_t waux[Nw];
 
 	double yfaux[ds.a_size];
 	double xfaux[ds.b_size];
 	double wfaux[Nw];
 
-	fxp32_t xk, temp;
-	fxp32_t *aptr, *bptr, *xptr, *yptr, *wptr;
+	fxp_t xk, temp;
+	fxp_t *aptr, *bptr, *xptr, *yptr, *wptr;
 
 	double xkf, tempf;
 	double *afptr, *bfptr, *xfptr, *yfptr, *wfptr;
 
-	fxp32_t sum;
+	fxp_t sum;
 	double sumf;
 
 	int i;

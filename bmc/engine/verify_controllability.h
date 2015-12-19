@@ -18,11 +18,11 @@ int verify_controllability(void){
 	int i;
 	int j;
 
-	fxp64_t A_fpx[LIMIT][LIMIT];
-	fxp64_t B_fpx[LIMIT][LIMIT];
-    fxp64_t controllabilityMatrix[LIMIT][LIMIT];
-    fxp64_t backup[LIMIT][LIMIT];
-    fxp64_t backupSecond[LIMIT][LIMIT];
+	fxp_t A_fpx[LIMIT][LIMIT];
+	fxp_t B_fpx[LIMIT][LIMIT];
+    fxp_t controllabilityMatrix[LIMIT][LIMIT];
+    fxp_t backup[LIMIT][LIMIT];
+    fxp_t backupSecond[LIMIT][LIMIT];
 	double controllabilityMatrix_double[LIMIT][LIMIT];
 
 	for(i=0; i<nStates;i++){
@@ -58,7 +58,7 @@ int verify_controllability(void){
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<nStates;j++){
-			controllabilityMatrix_double[i][j]= fxp64_to_double(controllabilityMatrix[i][j]);
+			controllabilityMatrix_double[i][j]= fxp_to_double(controllabilityMatrix[i][j]);
 		}
 	}
 

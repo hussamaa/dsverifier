@@ -364,7 +364,7 @@ void double_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned in
 }
 
 /* multiplies two matrices, fixed point version */
-void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i2, unsigned int j2, fxp64_t m1[LIMIT][LIMIT], fxp64_t m2[LIMIT][LIMIT], fxp64_t m3[LIMIT][LIMIT]){
+void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i2, unsigned int j2, fxp_t m1[LIMIT][LIMIT], fxp_t m2[LIMIT][LIMIT], fxp_t m3[LIMIT][LIMIT]){
 	unsigned int i, j, k;
     if (j1 == i2) { //Checking if the multiplication is possible
         // Initialising Matrix 3
@@ -377,7 +377,7 @@ void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i
         for (i=0;i<i1; i++) {
             for (j=0; j<j2; j++) {
                 for (k=0; k<j1; k++) {
-                    m3[i][j] = fxp64_add( m3[i][j], fxp64_mult(m1[i][k] , m2[k][j]));
+                    m3[i][j] = fxp_add( m3[i][j], fxp_mult(m1[i][k] , m2[k][j]));
                 }
             }
         }
@@ -385,15 +385,15 @@ void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i
         printf("\nError! Operation invalid, please enter with valid matrices.\n");
     }
 }
-void fxp_exp_matrix(unsigned int lines,  unsigned int columns, fxp64_t m1[LIMIT][LIMIT], unsigned int expNumber, fxp64_t result[LIMIT][LIMIT]){
+void fxp_exp_matrix(unsigned int lines,  unsigned int columns, fxp_t m1[LIMIT][LIMIT], unsigned int expNumber, fxp_t result[LIMIT][LIMIT]){
 	unsigned int i, j;
-	fxp64_t m2[LIMIT][LIMIT];
+	fxp_t m2[LIMIT][LIMIT];
 
 	if(expNumber == 0){
 	    for (i = 0; i < lines; i++){
 	    	for (j = 0; j < columns; j++){
 	    		if(i == j){
-	    			result[i][j] = fxp64_double_to_fxp(1.0);
+	    			result[i][j] = fxp_double_to_fxp(1.0);
 	    		} else {
 	    			result[i][j] = 0.0;
 	    		}
@@ -416,24 +416,24 @@ void fxp_exp_matrix(unsigned int lines,  unsigned int columns, fxp64_t m1[LIMIT]
         for (i=0;i<lines; i++) {
             for (j=0; j<columns; j++) {
                 for (int k=0; k<columns; k++) {
-                	result[i][j] = fxp64_add( result[i][j], fxp64_mult(m2[i][k] , m1[k][j]));
+                	result[i][j] = fxp_add( result[i][j], fxp_mult(m2[i][k] , m1[k][j]));
                 }
             }
         }
 	}
 }
 /* adds two matrices, fixed point version */
-void fxp_add_matrix( unsigned int lines,  unsigned int columns, fxp64_t m1[LIMIT][LIMIT], fxp64_t m2[LIMIT][LIMIT], fxp64_t result[LIMIT][LIMIT]){
+void fxp_add_matrix( unsigned int lines,  unsigned int columns, fxp_t m1[LIMIT][LIMIT], fxp_t m2[LIMIT][LIMIT], fxp_t result[LIMIT][LIMIT]){
 	unsigned int i, j;
     for (i = 0; i < lines; i++)
-    	for (j = 0; j < columns; j++) result[i][j] = fxp64_add(m1[i][j] , m2[i][j]);
+    	for (j = 0; j < columns; j++) result[i][j] = fxp_add(m1[i][j] , m2[i][j]);
 }
 
 /* subtracts two matrices, fixed point version */
-void fxp_sub_matrix( unsigned int lines,  unsigned int columns, fxp64_t m1[LIMIT][LIMIT], fxp64_t m2[LIMIT][LIMIT], fxp64_t result[LIMIT][LIMIT]){
+void fxp_sub_matrix( unsigned int lines,  unsigned int columns, fxp_t m1[LIMIT][LIMIT], fxp_t m2[LIMIT][LIMIT], fxp_t result[LIMIT][LIMIT]){
 	unsigned int i, j;
     for (i = 0; i < lines; i++)
-    	for (j = 0; j < columns; j++) result[i][j] = fxp64_sub(m1[i][j] , m2[i][j]);
+    	for (j = 0; j < columns; j++) result[i][j] = fxp_sub(m1[i][j] , m2[i][j]);
 }
 
 /* prints a matrix */

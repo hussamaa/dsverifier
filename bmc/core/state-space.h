@@ -66,8 +66,8 @@ double double_state_space_representation(void){
 
 double fxp_state_space_representation(void){
 
-	fxp64_t result1[LIMIT][LIMIT];
-	fxp64_t result2[LIMIT][LIMIT];
+	fxp_t result1[LIMIT][LIMIT];
+	fxp_t result2[LIMIT][LIMIT];
 
 	int i, j;
 	for(i=0; i<LIMIT;i++){
@@ -77,13 +77,13 @@ double fxp_state_space_representation(void){
 		}
 	}
 
-	fxp64_t A_fpx[LIMIT][LIMIT];
-	fxp64_t B_fpx[LIMIT][LIMIT];
-	fxp64_t C_fpx[LIMIT][LIMIT];
-	fxp64_t D_fpx[LIMIT][LIMIT];
-	fxp64_t states_fpx[LIMIT][LIMIT];
-	fxp64_t inputs_fpx[LIMIT][LIMIT];
-	fxp64_t outputs_fpx[LIMIT][LIMIT];
+	fxp_t A_fpx[LIMIT][LIMIT];
+	fxp_t B_fpx[LIMIT][LIMIT];
+	fxp_t C_fpx[LIMIT][LIMIT];
+	fxp_t D_fpx[LIMIT][LIMIT];
+	fxp_t states_fpx[LIMIT][LIMIT];
+	fxp_t inputs_fpx[LIMIT][LIMIT];
+	fxp_t outputs_fpx[LIMIT][LIMIT];
 
 	for(i=0; i<LIMIT;i++){
 		for(j=0; j<LIMIT;j++){
@@ -200,13 +200,13 @@ double fxp_state_space_representation(void){
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<1;j++){
-			_controller.states[i][j]= fxp64_to_double(states_fpx[i][j]);
+			_controller.states[i][j]= fxp_to_double(states_fpx[i][j]);
 		}
 	}
 
 	for(i=0; i<nOutputs;i++){
 		for(j=0; j<1;j++){
-			_controller.outputs[i][j]= fxp64_to_double(outputs_fpx[i][j]);
+			_controller.outputs[i][j]= fxp_to_double(outputs_fpx[i][j]);
 		}
 	}
 

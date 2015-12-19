@@ -31,22 +31,22 @@ int main(){
 	initialization();
 	OVERFLOW_MODE = 3;
 
-	fxp32_t a_fxp[ds.a_size];
-	fxp32_t b_fxp[ds.b_size];
+	fxp_t a_fxp[ds.a_size];
+	fxp_t b_fxp[ds.b_size];
 
 	/* quantize the denominator using fxp */
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 	/* quantize the numerator using fxp */
 	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 
-	fxp32_t min_fxp;
-	fxp32_t max_fxp;
+	fxp_t min_fxp;
+	fxp_t max_fxp;
 
 	min_fxp = fxp_double_to_fxp(impl.min);
 	max_fxp = fxp_double_to_fxp(impl.max);
 
-	fxp32_t y[x_size];
-	fxp32_t x[x_size];
+	fxp_t y[x_size];
+	fxp_t x[x_size];
 
 	int i;
 	/* prepare inputs (all possibles values in dynamical range) */
@@ -56,14 +56,14 @@ int main(){
 		y[i] = 0;
 		x[i] = nondet_constant_input;
 	}
-	fxp32_t xaux[ds.b_size];
+	fxp_t xaux[ds.b_size];
 	for (i = 0; i < ds.b_size; ++i) {
 		xaux[i] = nondet_constant_input;
 	}
 
 	/* prepare the previous states */
-	fxp32_t yaux[ds.a_size];
-	fxp32_t y0[ds.a_size];
+	fxp_t yaux[ds.a_size];
+	fxp_t y0[ds.a_size];
 	for (i = 0; i < ds.a_size; ++i) {
 		yaux[i] = nondet_int();
 		__DSVERIFIER_assume(yaux[i] >= min_fxp && yaux[i] <= max_fxp);
