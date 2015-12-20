@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pickOnBounds="false" prefHeight="447.0" prefWidth="610.0" scaleShape="false" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <AnchorPane>
+         <children>
+            <Pane prefHeight="440.0" prefWidth="601.0">
+               <children>
+                  <Accordion prefHeight="380.0" prefWidth="612.0">
+                     <panes>
+                        <TitledPane animated="false" text="Inputs Vector ( p x 1 )">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane prefHeight="252.0" prefWidth="610.0">
+                                       <content>
+                                          <GridPane fx:id="gridInputVector" alignment="CENTER" gridLinesVisible="true" />
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Matrix A ( n x n )">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="254.0" prefWidth="578.0">
+                                 <children>
+                                    <ScrollPane prefHeight="251.0" prefWidth="610.0">
+                                       <content>
+                                          <GridPane fx:id="gridMatrixA" alignment="CENTER" gridLinesVisible="true">
+                                    </GridPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Matrix B ( n x p )">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane prefHeight="252.0" prefWidth="610.0">
+                                       <content>
+                                          <GridPane fx:id="gridMatrixB" alignment="CENTER" gridLinesVisible="true">
+                                    </GridPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Matrix C ( q x n )">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane prefHeight="252.0" prefWidth="610.0">
+                                       <content>
+                                          <GridPane fx:id="gridMatrixC" alignment="CENTER" gridLinesVisible="true">
+                                    </GridPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Matrix D ( q x p )">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane prefHeight="252.0" prefWidth="610.0">
+                                       <content>
+                                          <GridPane fx:id="gridMatrixD" alignment="CENTER" gridLinesVisible="true">
+                                    </GridPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane fx:id="titledFeedback" animated="false" text="Matrix Feedback ( p x n)">
+                           <content>
+                              <AnchorPane fx:id="anchorFeedback" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane prefHeight="252.0" prefWidth="610.0">
+                                       <content>
+                                          <GridPane fx:id="gridFeedback" alignment="CENTER" gridLinesVisible="true" />
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                     </panes>
+                  </Accordion>
+                  <Button fx:id="btnSave" layoutX="506.0" layoutY="401.0" mnemonicParsing="false" onAction="#saveMatrix" prefHeight="25.0" prefWidth="78.0" text="Save" />
+                  <Button fx:id="btnReset" layoutX="416.0" layoutY="401.0" mnemonicParsing="false" onAction="#resetMatrix" prefHeight="25.0" prefWidth="81.0" text="Reset" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

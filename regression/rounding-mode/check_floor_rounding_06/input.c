@@ -23,7 +23,7 @@ int main(){
 	double value[5] = {-1.87238712461624, -3.18287581623761, -9.6712387123123, -3.1872837817283, -9.99999999999999};
 	double value_qtz_matlab[5] = {-1.872558593750000, -3.183105468750000, -9.671386718750000, -3.187500000000000, -10.000000000000000};
 
-	fxp_t value_fxp[5];
+	fxp32_t value_fxp[5];
 	fxp_double_to_fxp_array(value, value_fxp, 5);
 
 	double value_qtz_dsverifier[5];

@@ -1,35 +1,16 @@
-/*
-# --------------------------------------------------
-#
-#  Digital-Systems Verifier (DSVerifier)
-#
-# --------------------------------------------------
-#
-#  Federal University of Amazonas - UFAM
-#  Author: Hussama Ismail - hussamaismail@gmail.com
-#
-# --------------------------------------------------
-#
-#  Usage:
-#    ./dsverifier file.c or file.ss
-#         --realization DFI
-#         --property STABILITY
-#         --x-size 10
-#         --timeout 3600
-#
-#  Supported Properties:
-#  for transfer functions:
-#     OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE,
-#     TIMING, ERROR, STABILITY, STABILITY_CLOSED_LOOP MINIMUM_PHASE
-#
-#  Supported Realizations:
-#     DFI, DFII, TDFII,
-#     DDFI, DDFII, TDDFII
-#
-# --------------------------------------------------
-*/
-
-#define DSVERIFIER_VERSION 1.2
+/**
+ * DSVerifier - Digital Systems Verifier (Main)
+ *
+ * Federal University of Amazonas - UFAM
+ *
+ * Authors:       Hussama Ismail <hussamaismail@gmail.com>
+ *
+ * ------------------------------------------------------
+ *
+ * DSVerifier wrapper file for BMC's
+ *
+ * ------------------------------------------------------
+ */
 
 #include <iostream>
 #include <stdlib.h>
@@ -70,7 +51,10 @@ typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 #include <fstream>
 #include <boost/algorithm/string.hpp>
 
-const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY"};
+#define DSVERIFIER_VERSION 1.2
+
+const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR"};
+
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
 const char * bmcs [] = { "ESBMC", "CBMC" };
 
@@ -84,7 +68,6 @@ std::string desired_bmc;
 std::string desired_solver;
 std::string desired_macro_parameters;
 std::string desired_ds_id;
-
 /* state space */
 bool stateSpaceVerification = false;
 bool closedloop = false;
@@ -271,22 +254,14 @@ std::string execute_command_line(std::string command){
 }
 
 std::string prepare_bmc_command_line(){
-	char * dsverifier_home;
-  dsverifier_home = getenv("DSVERIFIER_HOME");
-  if (dsverifier_home == NULL){
-		std::cout << std::endl << "[ERROR] - You must set DSVERIFIER_HOME environment variable." << std::endl;
-		exit(1);
-	}
-	std::string bmc_path = std::string(dsverifier_home) + "/bmc";
-	std::string model_checker_path = std::string(dsverifier_home) + "/model-checker";
 	std::string command_line;
 	if (desired_bmc == "ESBMC"){
-		command_line = model_checker_path + "/esbmc " + desired_filename + " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " + bmc_path;
+		command_line = "./model-checker/esbmc " + desired_filename + " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC";
 		if (desired_timeout.size() > 0){
 			command_line += " --timeout " + desired_timeout;
 		}
 	}else if (desired_bmc == "CBMC"){
-		command_line =  model_checker_path + "/cbmc " + desired_filename + " --fixedbv -DBMC=CBMC -I " + bmc_path;
+		command_line = "./model-checker/cbmc --fixedbv " + desired_filename + " -DBMC=CBMC";
 	}
 	if (desired_solver.size() > 0){
 		command_line += " --" + desired_solver;
@@ -333,11 +308,11 @@ digital_system ds;
 implementation impl;
 
 /* print array elements */
-void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n){
+void cplus_print_fxp_array_elements(const char * name, fxp32_t * v, int n){
 	printf("%s = {", name);
 	int i;
 	for(i=0; i < n; i++){
-		printf(" %jd ", v[i]);
+		printf(" %d ", v[i]);
 	}
 	printf("}\n");
 }
@@ -466,7 +441,7 @@ void check_stability_shift_domain_using_jury(){
 	std::cout << std::endl;
 	double sa_fxp[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
-	fxp_t a_fxp[ds.a_size];
+	fxp32_t a_fxp[ds.a_size];
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 	fxp_to_double_array(sa_fxp, a_fxp, ds.a_size);
 	cplus_print_array_elements("quantized denominator", sa_fxp, ds.a_size);
@@ -483,7 +458,7 @@ void check_minimum_phase_shift_domain_using_jury(){
 	std::cout << std::endl;
 	double sb_fxp[ds.b_size];
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
-	fxp_t b_fxp[ds.b_size];
+	fxp32_t b_fxp[ds.b_size];
 	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 	fxp_to_double_array(sb_fxp, b_fxp, ds.b_size);
 	cplus_print_array_elements("quantized denominator", sb_fxp, ds.b_size);
@@ -500,7 +475,7 @@ void check_stability_shift_domain_using_eigen(){
 	std::cout << std::endl;
 	double sa_fxp[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
-	fxp_t a_fxp[ds.a_size];
+	fxp32_t a_fxp[ds.a_size];
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 	fxp_to_double_array(sa_fxp, a_fxp, ds.a_size);
 	cplus_print_array_elements("quantized denominator", sa_fxp, ds.a_size);
@@ -519,7 +494,7 @@ void check_minimum_phase_shift_domain(){
 	std::cout << std::endl;
 	double sb_fxp[ds.b_size];
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
-	fxp_t b_fxp[ds.b_size];
+	fxp32_t b_fxp[ds.b_size];
 	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 	fxp_to_double_array(sb_fxp, b_fxp, ds.b_size);
 	cplus_print_array_elements("quantized numerator", sb_fxp, ds.b_size);
@@ -536,12 +511,12 @@ void check_stability_delta_domain(){
 	std::cout << std::endl;
 	double db[ds.b_size];
 	double da[ds.a_size];
-	fxp_t a_fxp[ds.a_size];
+	fxp32_t a_fxp[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 	get_delta_transfer_function_with_base(ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta denominator", da, ds.a_size);
-	fxp_t da_fxp[ds.a_size];
+	fxp32_t da_fxp[ds.a_size];
 	try{
 		fxp_double_to_fxp_array(da, da_fxp, ds.a_size);
 	} catch (int e){
@@ -585,7 +560,7 @@ void check_minimum_phase_delta_domain(){
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
 	get_delta_transfer_function_with_base(ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta numerator", db, ds.b_size);
-	fxp_t db_fxp[ds.b_size];
+	fxp32_t db_fxp[ds.b_size];
 	fxp_double_to_fxp_array(db, db_fxp, ds.b_size);
 	if ((db[0] != 0) && (db_fxp[0] == 0)){
 		std::cout << std::endl;
@@ -949,7 +924,7 @@ void state_space_parser(){
 	unsigned int i, j;
 	cf_value_precision.precision(64);
 
-	verification_file = "#include \"bmc/dsverifier.h\"\n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
+	verification_file = "#include \"../../../bmc/dsverifier.h\"\n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
 	verification_file.append(std::to_string(impl.int_bits));
 	verification_file.append(",\n .frac_bits = ");
 	verification_file.append(std::to_string(impl.frac_bits));
@@ -1099,18 +1074,6 @@ int main(int argc, char* argv[]){
 			check_state_space_stability();
 			exit(0);
 		} else if( desired_property == "QUANTISATION_ERROR" ) {
-			state_space_parser();
-			std::string command_line = prepare_bmc_command_line_ss();
-			std::cout << "Back-end Verification: " << command_line << std::endl;
-			execute_command_line(command_line);
-			exit(0);
-		} else if( desired_property == "CONTROLLABILITY" ) {
-			state_space_parser();
-			std::string command_line = prepare_bmc_command_line_ss();
-			std::cout << "Back-end Verification: " << command_line << std::endl;
-			execute_command_line(command_line);
-			exit(0);
-		} else if( desired_property == "OBSERVABILITY" ) {
 			state_space_parser();
 			std::string command_line = prepare_bmc_command_line_ss();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
