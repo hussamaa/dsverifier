@@ -30,31 +30,31 @@ int main(){
 	initialization();
 	OVERFLOW_MODE = 3;
 
-	fxp32_t a_fxp[ds.a_size];
-	fxp32_t b_fxp[ds.b_size];
+	fxp_t a_fxp[ds.a_size];
+	fxp_t b_fxp[ds.b_size];
 
 	/* quantize the denominator using fxp */
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 	/* quantize the numerator using fxp */
 	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 
-	fxp32_t min_fxp = fxp_double_to_fxp(impl.min);
-	fxp32_t max_fxp = fxp_double_to_fxp(impl.max);
+	fxp_t min_fxp = fxp_double_to_fxp(impl.min);
+	fxp_t max_fxp = fxp_double_to_fxp(impl.max);
 
-	fxp32_t y[10];
-	fxp32_t x[] = { -54, -54, -54, -54, -54, -54, -54, -54, -54, -54 };
+	fxp_t y[10];
+	fxp_t x[] = { -54, -54, -54, -54, -54, -54, -54, -54, -54, -54 };
 
 	int i;
 	for (i = 0; i < x_size; ++i) {
 		y[i] = 0;
 	}
-	fxp32_t xaux[ds.b_size];
+	fxp_t xaux[ds.b_size];
 	for (i = 0; i < ds.b_size; ++i) {
 		xaux[i] = -54;
 	}
 
 	/* prepare the previous states */
-	fxp32_t yaux[ds.a_size];
+	fxp_t yaux[ds.a_size];
 	yaux[0] = 0;
 	yaux[1] = -3;
 	yaux[2] = -23;

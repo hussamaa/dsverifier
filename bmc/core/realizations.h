@@ -19,9 +19,9 @@ extern hardware hw;
 extern int generic_timer;
 
 /** direct form I realization in fixed point */
-fxp32_t fxp_direct_form_1(fxp32_t y[], fxp32_t x[], fxp32_t a[], fxp32_t b[], int Na,	int Nb) {
-	fxp32_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
-	fxp32_t sum = 0;
+fxp_t fxp_direct_form_1(fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], int Na,	int Nb) {
+	fxp_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
+	fxp_t sum = 0;
 	a_ptr = &a[1];
 	y_ptr = &y[Na - 1];
 	b_ptr = &b[0];
@@ -38,9 +38,9 @@ fxp32_t fxp_direct_form_1(fxp32_t y[], fxp32_t x[], fxp32_t a[], fxp32_t b[], in
 }
 
 /** direct form II realization in fixed point */
-fxp32_t fxp_direct_form_2(fxp32_t w[], fxp32_t x, fxp32_t a[], fxp32_t b[], int Na,	int Nb) {
-	fxp32_t *a_ptr, *b_ptr, *w_ptr;
-	fxp32_t sum = 0;
+fxp_t fxp_direct_form_2(fxp_t w[], fxp_t x, fxp_t a[], fxp_t b[], int Na,	int Nb) {
+	fxp_t *a_ptr, *b_ptr, *w_ptr;
+	fxp_t sum = 0;
 	a_ptr = &a[1];
 	b_ptr = &b[0];
 	w_ptr = &w[1];
@@ -58,9 +58,9 @@ fxp32_t fxp_direct_form_2(fxp32_t w[], fxp32_t x, fxp32_t a[], fxp32_t b[], int 
 }
 
 /** transposed direct form II realization in fixed point */
-fxp32_t fxp_transposed_direct_form_2(fxp32_t w[], fxp32_t x, fxp32_t a[], fxp32_t b[], int Na, int Nb) {
-	fxp32_t *a_ptr, *b_ptr;
-	fxp32_t yout = 0;
+fxp_t fxp_transposed_direct_form_2(fxp_t w[], fxp_t x, fxp_t a[], fxp_t b[], int Na, int Nb) {
+	fxp_t *a_ptr, *b_ptr;
+	fxp_t yout = 0;
 	a_ptr = &a[1];
 	b_ptr = &b[0];
 	int Nw = Na > Nb ? Na : Nb;
@@ -385,10 +385,10 @@ void double_direct_form_1_impl2(double x[], int x_size, double b[], int b_size, 
 }
 
 /** fixed point direct form 1 realization (implementation 2) */
-void fxp_direct_form_1_impl2(fxp32_t x[], int x_size, fxp32_t b[], int b_size, fxp32_t a[], int a_size, fxp32_t y[]){
+void fxp_direct_form_1_impl2(fxp_t x[], int x_size, fxp_t b[], int b_size, fxp_t a[], int a_size, fxp_t y[]){
    int i = 0; int j = 0;
    /* system 1 h1(z) */
-   fxp32_t v[x_size];
+   fxp_t v[x_size];
    for(i = 0; i < x_size; i++){
       v[i] = 0;
       for(j = 0; j < b_size; j++){

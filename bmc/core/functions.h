@@ -50,9 +50,9 @@ double generic_timing_shift_r_double(double zIn, double z[], int N) {
 	return zOut;
 }
 
-fxp32_t shiftL(fxp32_t zIn, fxp32_t z[], int N) {
+fxp_t shiftL(fxp_t zIn, fxp_t z[], int N) {
 	int i;
-	fxp32_t zOut;
+	fxp_t zOut;
 	zOut = z[0];
 	for (i = 0; i < N - 1; i++) {
 		z[i] = z[i + 1];
@@ -61,9 +61,9 @@ fxp32_t shiftL(fxp32_t zIn, fxp32_t z[], int N) {
 	return (zOut);
 }
 
-fxp32_t shiftR(fxp32_t zIn, fxp32_t z[], int N) {
+fxp_t shiftR(fxp_t zIn, fxp_t z[], int N) {
 	int i;
-	fxp32_t zOut;
+	fxp_t zOut;
 	zOut = z[N - 1];
 	for (i = N - 1; i > 0; i--) {
 		z[i] = z[i - 1];
@@ -127,9 +127,9 @@ double shiftLDouble(double zIn, double z[], int N) {
 	return (zOut);
 }
 
-void shiftLboth(float zfIn, float zf[], fxp32_t zIn, fxp32_t z[], int N) {
+void shiftLboth(float zfIn, float zf[], fxp_t zIn, fxp_t z[], int N) {
 	int i;
-	fxp32_t zOut;
+	fxp_t zOut;
 	float zfOut;
 	zOut = z[0];
 	zfOut = zf[0];
@@ -141,9 +141,9 @@ void shiftLboth(float zfIn, float zf[], fxp32_t zIn, fxp32_t z[], int N) {
 	zf[N - 1] = zfIn;
 }
 
-void shiftRboth(float zfIn, float zf[], fxp32_t zIn, fxp32_t z[], int N) {
+void shiftRboth(float zfIn, float zf[], fxp_t zIn, fxp_t z[], int N) {
 	int i;
-	fxp32_t zOut;
+	fxp_t zOut;
 	float zfOut;
 	zOut = z[N - 1];
 	zfOut = zf[N - 1];
@@ -160,9 +160,9 @@ int order(int Na, int Nb) {
 }
 
 /* verify limit_cycle oscilations in last outputs */
-void fxp_check_limit_cycle(fxp32_t y[], int y_size){
+void fxp_check_limit_cycle(fxp_t y[], int y_size){
 	/* last element is the reference */
-	fxp32_t reference = y[y_size - 1];
+	fxp_t reference = y[y_size - 1];
 	int idx = 0;
 	int window_size = 1;
 	/* find window size */
@@ -198,13 +198,13 @@ void fxp_check_limit_cycle(fxp32_t y[], int y_size){
 }
 
 /* verify persistent limit_cycle oscillations in last outputs */
-void fxp_check_persistent_limit_cycle(fxp32_t * y, int y_size){
+void fxp_check_persistent_limit_cycle(fxp_t * y, int y_size){
 
 	/* first element is the reference */
 	int idy = 0;
 	int count_same = 0;
 	int window_size = 0;
-	fxp32_t reference = y[0];
+	fxp_t reference = y[0];
 
 	/* find the window size (X X Y Y), is equivalent to 4 */
 	for(idy = 0; idy < y_size; idy++){
@@ -222,7 +222,7 @@ void fxp_check_persistent_limit_cycle(fxp32_t * y, int y_size){
 	__DSVERIFIER_assume(window_size > 1 && window_size <= y_size/2);
 
 	/* get the window elements */
-	fxp32_t lco_elements[window_size];
+	fxp_t lco_elements[window_size];
 	for(idy = 0; idy < y_size; idy++){
 		/* condition to avoid unwinding assertion */
 		if (idy < window_size){
@@ -250,7 +250,7 @@ void fxp_check_persistent_limit_cycle(fxp32_t * y, int y_size){
 }
 
 /** function to check oscillations in an array (used in limit cycle property) */
-void fxp_check_oscillations(fxp32_t y[]	, int y_size){
+void fxp_check_oscillations(fxp_t y[]	, int y_size){
 	/* check if the first elements are the same, and if last repeats */
 	__DSVERIFIER_assume((y[0] != y[y_size - 1]) && (y[y_size - 1] != y[y_size - 2]));
 	int window_timer = 0;
@@ -504,11 +504,11 @@ double iirIItOutTime_double(double w[], double x, double a[], double b[], int Na
 }
 
 void iirOutBoth(float yf[], float xf[], float af[], float bf[], float *sumf_ref,
-				fxp32_t y[], fxp32_t x[], fxp32_t a[], fxp32_t b[], fxp32_t *sum_ref, int Na, int Nb) {
+				fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], fxp_t *sum_ref, int Na, int Nb) {
 
-	fxp32_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
+	fxp_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
 	float *af_ptr, *yf_ptr, *bf_ptr, *xf_ptr;
-	fxp32_t sum = 0;
+	fxp_t sum = 0;
 	float sumf = 0;
 	a_ptr = &a[1];
 	y_ptr = &y[Na - 1];
@@ -533,9 +533,9 @@ void iirOutBoth(float yf[], float xf[], float af[], float bf[], float *sumf_ref,
 	*sumf_ref = sumf;
 }
 
-fxp32_t iirOutFixedL(fxp32_t y[], fxp32_t x[], fxp32_t xin, fxp32_t a[], fxp32_t b[], int Na,	int Nb) {
-	fxp32_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
-	fxp32_t sum = 0;
+fxp_t iirOutFixedL(fxp_t y[], fxp_t x[], fxp_t xin, fxp_t a[], fxp_t b[], int Na,	int Nb) {
+	fxp_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
+	fxp_t sum = 0;
 	a_ptr = &a[Na - 1];
 	y_ptr = &y[1];
 	b_ptr = &b[Nb - 1];
@@ -584,9 +584,9 @@ float iirOutFloatL(float y[], float x[], float xin, float a[], float b[], int Na
 }
 
 float iirOutBothL(float yf[], float xf[], float af[], float bf[], float xfin,
-		fxp32_t y[], fxp32_t x[], fxp32_t a[], fxp32_t b[], fxp32_t xin, int Na, int Nb) {
-	fxp32_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
-	fxp32_t sum = 0;
+		fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], fxp_t xin, int Na, int Nb) {
+	fxp_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
+	fxp_t sum = 0;
 	a_ptr = &a[Na - 1];
 	y_ptr = &y[1];
 	b_ptr = &b[Nb - 1];
@@ -624,9 +624,9 @@ float iirOutBothL(float yf[], float xf[], float af[], float bf[], float xfin,
 }
 
 float iirOutBothL2(float yf[], float xf[], float af[], float bf[], float xfin,
-		fxp32_t y[], fxp32_t x[], fxp32_t a[], fxp32_t b[], fxp32_t xin, int Na, int Nb) {
-	fxp32_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
-	fxp32_t sum = 0;
+		fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], fxp_t xin, int Na, int Nb) {
+	fxp_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
+	fxp_t sum = 0;
 	a_ptr = &a[Na - 1];
 	y_ptr = &y[1];
 	b_ptr = &b[Nb - 1];

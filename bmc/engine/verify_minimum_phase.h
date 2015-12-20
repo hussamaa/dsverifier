@@ -27,7 +27,7 @@ int verify_minimum_phase(void){
 
 	/* check the realization */
 	#if ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
-		fxp32_t b_fxp[ds.b_size];
+		fxp_t b_fxp[ds.b_size];
 		/* quantize the array using fxp */
 		fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 		double _b[ds.b_size];
@@ -39,7 +39,7 @@ int verify_minimum_phase(void){
 		double db[ds.b_size];
 		/* generate delta coefficients for numerator */
 		generate_delta_coefficients(ds.b, db, ds.b_size, impl.delta);
-		fxp32_t b_fxp[ds.b_size];
+		fxp_t b_fxp[ds.b_size];
 		/* quantize delta numerator using fxp */
 		fxp_double_to_fxp_array(db, b_fxp, ds.b_size);
 		/* __DSVERIFIER_assert(__DSVERIFIER_check_delta_stability(db, DEADLINE, impl.int_bits, impl.frac_bits)); */
@@ -53,7 +53,7 @@ int verify_minimum_phase(void){
 		int b_cascade_size;
 		/* generate cascade values using a intrinsic function */
 		__DSVERIFIER_generate_cascade_controllers(&ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
-		fxp32_t b_cascade_fxp[100];
+		fxp_t b_cascade_fxp[100];
 		/* quantize cascade using fxp library */
 		fxp_double_to_fxp_array(b_cascade, b_cascade_fxp, b_cascade_size);
 		double b_cascade_qtz[100];
