@@ -795,11 +795,7 @@ public class PrincipalController implements Initializable {
 			done();
 			return null;
 		}
-		
-		@Override
-		protected void succeeded() {
-			showVerificationResults();
-		}
+
 	}
 	
 	class VerificationSpaceStateTask extends Task<Void> {
@@ -820,19 +816,7 @@ public class PrincipalController implements Initializable {
 			done();
 			return null;
 		}
-		
-		@Override
-		protected void succeeded() {
-			showVerificationResults();
-		}
 
-	}
-	
-
-	public void showVerificationResults() {
-		if (totalThreads == finishedThreads.get()) {
-			summary();
-		}
 	}
 	
 	private void verifySpaceState() throws IOException{
