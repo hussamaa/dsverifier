@@ -24,7 +24,8 @@ void __DSVERIFIER_assume(_Bool expression){
 	#elif(BMC == CBMC)
 		__CPROVER_assume(expression);
 	#else
-		printf("\n*********************");
+	  printf("");
+		printf("*********************");
 		printf("* BMC NOT SUPPORTED *");
 		printf("*********************");
 		assert(0);

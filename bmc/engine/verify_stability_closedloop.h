@@ -20,16 +20,16 @@ extern digital_system control;
 
 int verify_stability_closedloop_using_dslib(void){
 
-	/* generating closed loop for series or feedback */	
+	/* generating closed loop for series or feedback */
 	double * c_num = control.b;
 	int c_num_size = control.b_size;
 	double * c_den = control.a;
 	int c_den_size = control.a_size;
 
 	/* quantizing controller coefficients */
-	fxp32_t c_num_fxp[control.b_size];
+	fxp_t c_num_fxp[control.b_size];
 	fxp_double_to_fxp_array(c_num, c_num_fxp, control.b_size);
-	fxp32_t c_den_fxp[control.a_size];
+	fxp_t c_den_fxp[control.a_size];
 	fxp_double_to_fxp_array(c_den, c_den_fxp, control.a_size);
 
 	/* getting quantized controller coefficients  */

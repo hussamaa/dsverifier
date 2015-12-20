@@ -30,11 +30,11 @@ int main(){
 	OVERFLOW_MODE = WRAPAROUND;
 	ROUNDING_MODE = FLOOR;
 
-	fxp32_t a_fxp[ds.a_size];
-	fxp32_t b_fxp[ds.b_size];
-	
+	fxp_t a_fxp[ds.a_size];
+	fxp_t b_fxp[ds.b_size];
+
 	/* quantize the numerator using fxp */
-	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);	
+	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 
 	/* quantize the denominator using fxp */
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);

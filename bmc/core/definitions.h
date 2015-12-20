@@ -23,78 +23,78 @@
 #define ESBMC                               1
 #define CBMC                                2
 #ifndef BMC
-	#define BMC	                            1
+	#define BMC	                            	1
 #endif
 
 /** required parameters */
-
 #define LIMIT 3
 
 /* realizations (use: -DREALIZATION=DIRECTFORMI) */
-#define DIRECTFORMI							1
-#define DIRECTFORMII						2
-#define TRANSPOSEDDIRECTFORMII				3
-#define DELTADIRECTFORMI					4
-#define DELTADIRECTFORMII					5
-#define DELTATRANSPOSEDDIRECTFORMII			6
-#define DIRECTFORMICASCADE   				7
-#define DIRECTFORMIICASCADE   				8
-#define TRANSPOSEDDIRECTFORMIICASCADE   	9
-#define DELTADIRECTFORMICASCADE   			10
-#define DELTADIRECTFORMIICASCADE   			11
+#define DIRECTFORMI													1
+#define DIRECTFORMII												2
+#define TRANSPOSEDDIRECTFORMII							3
+#define DELTADIRECTFORMI										4
+#define DELTADIRECTFORMII										5
+#define DELTATRANSPOSEDDIRECTFORMII					6
+#define DIRECTFORMICASCADE   								7
+#define DIRECTFORMIICASCADE   							8
+#define TRANSPOSEDDIRECTFORMIICASCADE   		9
+#define DELTADIRECTFORMICASCADE   					10
+#define DELTADIRECTFORMIICASCADE   					11
 #define DELTATRANSPOSEDDIRECTFORMIICASCADE 	12
 
 /* nickname for realizations (use: -DREALIZATION=DFI) */
-#define DFI									1
-#define DFII								2
-#define TDFII								3
-#define DDFI            					4
-#define DDFII								5
-#define TDDFII								6
-#define CDFI            					7
-#define CDFII								8
-#define CTDFII								9
-#define CDDFI            					10
-#define CDDFII								11
-#define CTDDFII								12
+#define DFI																	1
+#define DFII																2
+#define TDFII																3
+#define DDFI            										4
+#define DDFII																5
+#define TDDFII															6
+#define CDFI            										7
+#define CDFII																8
+#define CTDFII															9
+#define CDDFI            										10
+#define CDDFII															11
+#define CTDDFII															12
 
 /* property verification (use: -DPROPERTY=OVERFLOW) */
-#define NOTHING 							0
-#define OVERFLOW 							1
-#define ZERO_INPUT_LIMIT_CYCLE				2
-#define LIMIT_CYCLE 						3
-#define TIMING_MSP430						4
-#define TIMING      						5
-#define ERROR								6
-#define STABILITY 							7
-#define MINIMUM_PHASE 						8
-#define STABILITY_CLOSED_LOOP				9
-#define LIMIT_CYCLE_CLOSED_LOOP				10
-#define QUANTISATION_ERROR					11
+#define NOTHING 														0
+#define OVERFLOW 														1
+#define ZERO_INPUT_LIMIT_CYCLE							2
+#define LIMIT_CYCLE 												3
+#define TIMING_MSP430												4
+#define TIMING      												5
+#define ERROR																6
+#define STABILITY 													7
+#define MINIMUM_PHASE 											8
+#define STABILITY_CLOSED_LOOP								9
+#define LIMIT_CYCLE_CLOSED_LOOP							10
+#define QUANTISATION_ERROR									11
+#define CONTROLLABILITY											12
+#define OBSERVABILITY												13
 
 /** Check Required Parameters */
-
 #ifndef PROPERTY
-	#define PROPERTY                        0
+	#define PROPERTY              	          0
 #endif
 #ifndef REALIZATION
-	#define REALIZATION                     0
+	#define REALIZATION                     	0
 #endif
 #ifndef X_SIZE
-	#define X_SIZE                          0
+	#define X_SIZE                         		0
 #endif
 #ifndef K_SIZE
-	#define K_SIZE                          0
+	#define K_SIZE                        	  0
 #endif
 #ifndef EXPECTED_ERROR
-	#define EXPECTED_ERROR                  -1
+	#define EXPECTED_ERROR                	  -1
 #endif
 
 /** processor parameters (DEPRECATED) */
 #define CLOCK                               16000000
 #define CYCLE                               1 / CLOCK
 #ifndef SAMPLERATE
-	#define SAMPLERATE                      100
+	#define SAMPLERATE                    	  100
 #endif
 #define DEADLINE                            1 / SAMPLERATE
 #define OVERHEAD                            0
@@ -118,7 +118,7 @@ int ROUNDING_MODE = ROUNDING;
 #define SERIES                              1
 #define FEEDBACK                            2
 #ifndef CONNECTION_MODE
-	#define CONNECTION_MODE                 0
+	#define CONNECTION_MODE               	  0
 #endif
 
 /** device model */
