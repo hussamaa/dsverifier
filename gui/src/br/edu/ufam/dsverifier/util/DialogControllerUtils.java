@@ -100,5 +100,11 @@ public class DialogControllerUtils {
 				.styleClass(Dialog.STYLE_CLASS_UNDECORATED)
 				.message("Space State is ready to be verified!").showWarning();
 	}
+	
+	public static void showAlertDialog(){
+		Dialogs.create().lightweight()
+				.styleClass(Dialog.STYLE_CLASS_UNDECORATED)
+				.message("You must set valid values for matrices!").showWarning();
+	}
 
 }

@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import br.edu.ufam.dsverifier.util.DialogControllerUtils;
 import br.edu.ufam.dsverifier.util.FileUtils;
 
 public class ShowSpaceStateDialogController extends Stage implements
@@ -22,7 +23,7 @@ public class ShowSpaceStateDialogController extends Stage implements
 	private final int pInputs;
 	private final int qOutputs;
 	private final int nStates;
-
+	private boolean isClosedLoop;
 	@FXML
 	private TextArea textArea;
 
@@ -54,6 +55,7 @@ public class ShowSpaceStateDialogController extends Stage implements
 		this.pInputs = pInputsVariables;
 		this.qOutputs = qOutputsVariables;
 		this.nStates = nStateVariables;
+		this.isClosedLoop = isClosedLoop;
 	}
 
 	@Override
@@ -68,21 +70,47 @@ public class ShowSpaceStateDialogController extends Stage implements
 
 	public void saveMatrix() throws IOException {
 		final StringBuilder valuesMatrix = new StringBuilder();
+		boolean isValid;
 		valuesMatrix.append(" \n");
 		valuesMatrix.append(nStates + "\n");
 		valuesMatrix.append(pInputs + "\n");
 		valuesMatrix.append(qOutputs + "\n");
-		valuesMatrix.append(textArea.getText().toString());
+		isValid = validateSpaceState(textArea.getText().toString());
+		if (isValid) {
 
-		strBuilderSpaceState = valuesMatrix.toString();
+			valuesMatrix.append(textArea.getText().toString());
 
-		FileUtils.createFile("file_temp.ss", strBuilderSpaceState);
+			strBuilderSpaceState = valuesMatrix.toString();
 
-		if (FileUtils.isFileExists("file.ss")) {
-			FileUtils.deleteFile(new File("file.ss"));
+			FileUtils.createFile("file_temp.ss", strBuilderSpaceState);
+
+			if (FileUtils.isFileExists("file.ss")) {
+				FileUtils.deleteFile(new File("file.ss"));
+			}
+
+			this.close();
+
+		} else {
+			DialogControllerUtils.showAlertDialog();
+		}
+	}
+
+	public boolean validateSpaceState(String textArea) {
+		boolean isValid = false;
+		if (textArea.contains("A") && textArea.contains("B")
+				&& textArea.contains("C") && textArea.contains("D")
+				&& textArea.contains("inputs")) {
+			isValid = true;
 		}
 
-		this.close();
+		if (isClosedLoop && isValid) {
+			if (textArea.contains("K")) {
+				isValid = true;
+			} else {
+				isValid = false;
+			}
+		}
+		return isValid;
 	}
 
 }
