@@ -47,14 +47,28 @@ int verify_controllability(void){
 		}
 	}
 
-	for(j=0; j<nStates;j++){
-		fxp_exp_matrix(nStates,nStates,A_fpx,j,backup);
-		fxp_matrix_multiplication(nStates,nStates,nStates,nInputs,backup,B_fpx,backupSecond);
-		for(i = 0; i<nStates;i++){
-				controllabilityMatrix[i][j]= backupSecond[i][0];
+	if(nInputs > 1){
+		for(j=0; j<(nStates*nInputs);){
+			fxp_exp_matrix(nStates,nStates,A_fpx,j,backup);
+			fxp_matrix_multiplication(nStates,nStates,nStates,nInputs,backup,B_fpx,backupSecond);
+			for(int k = 0; k < nInputs; k++){
+				for(i = 0; i<nStates;i++){
+						controllabilityMatrix[i][j]= backupSecond[i][0];
+				}
+				j++;
+			}
 		}
-
+	} else {
+		for(j=0; j<nStates;j++){
+			fxp_exp_matrix(nStates,nStates,A_fpx,j,backup);
+			fxp_matrix_multiplication(nStates,nStates,nStates,nInputs,backup,B_fpx,backupSecond);
+			for(i = 0; i<nStates;i++){
+					controllabilityMatrix[i][j]= backupSecond[i][0];
+			}
+		}
 	}
+
+
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<nStates;j++){
