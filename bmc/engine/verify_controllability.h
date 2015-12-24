@@ -37,13 +37,13 @@ int verify_controllability(void){
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<nStates;j++){
-			A_fpx[i][j]= fxp64_double_to_fxp(_controller.A[i][j]);
+			A_fpx[i][j]= fxp_double_to_fxp(_controller.A[i][j]);
 		}
 	}
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<nInputs;j++){
-			B_fpx[i][j]= fxp64_double_to_fxp(_controller.B[i][j]);
+			B_fpx[i][j]= fxp_double_to_fxp(_controller.B[i][j]);
 		}
 	}
 

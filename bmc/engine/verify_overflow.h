@@ -117,7 +117,6 @@ int verify_overflow(void) {
 		#if ((REALIZATION == DFI) || (REALIZATION == DDFI))
 			shiftL(x[i], xaux, ds.b_size);
 			y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
-			fxp_verify_overflow(y[i]);
 			shiftL(y[i], yaux, ds.a_size);
 		#endif
 
@@ -125,13 +124,11 @@ int verify_overflow(void) {
 		#if ((REALIZATION == DFII) || (REALIZATION == DDFII))
 			shiftR(0, waux, Nw);
 			y[i] = fxp_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
-			fxp_verify_overflow(y[i]);
 		#endif
 
 		/* transposed direct form II realization */
 		#if ((REALIZATION == TDFII) || (REALIZATION ==TDDFII))
 			y[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
-			fxp_verify_overflow(y[i]);
 		#endif
 
 		/* cascade direct form I realization (or delta cascade) */
@@ -145,7 +142,6 @@ int verify_overflow(void) {
 				yptr = &yaux[j];
 				shiftL(xk, xptr, 3);
 				y[i] = fxp_direct_form_1(yptr, xptr, aptr, bptr, 3, 3);
-				fxp_verify_overflow(y[i]);
 				shiftL(y[i], yptr, 3);
 				xk = y[i];
 			}
@@ -160,7 +156,6 @@ int verify_overflow(void) {
 				wptr = &waux[j];
 				shiftR(0, wptr, 3);
 				y[i] = fxp_direct_form_2(wptr, xk, aptr, bptr, 3, 3);
-				fxp_verify_overflow(y[i]);
 				xk = y[i];
 			}
 		#endif
@@ -174,12 +169,13 @@ int verify_overflow(void) {
 				bptr = &bc_fxp[j];
 				wptr = &waux[j];
 				y[i] = fxp_transposed_direct_form_2(wptr, xk, aptr, bptr, 3, 3);
-				fxp_verify_overflow(y[i]);
 				xk = y[i];
 			}
 		#endif
 
 	}
+
+	fxp_verify_overflow_array(y, X_SIZE_VALUE);
 
 	return 0;
 }

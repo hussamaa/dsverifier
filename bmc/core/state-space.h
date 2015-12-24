@@ -129,43 +129,43 @@ double fxp_state_space_representation(void){
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<nStates;j++){
-			A_fpx[i][j]= fxp64_double_to_fxp(_controller.A[i][j]);
+			A_fpx[i][j]= fxp_double_to_fxp(_controller.A[i][j]);
 		}
 	}
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<nInputs;j++){
-			B_fpx[i][j]= fxp64_double_to_fxp(_controller.B[i][j]);
+			B_fpx[i][j]= fxp_double_to_fxp(_controller.B[i][j]);
 		}
 	}
 
 	for(i=0; i<nOutputs;i++){
 		for(j=0; j<nStates;j++){
-			C_fpx[i][j]= fxp64_double_to_fxp(_controller.C[i][j]);
+			C_fpx[i][j]= fxp_double_to_fxp(_controller.C[i][j]);
 		}
 	}
 
 	for(i=0; i<nOutputs;i++){
 		for(j=0; j<nInputs;j++){
-			D_fpx[i][j]= fxp64_double_to_fxp(_controller.D[i][j]);
+			D_fpx[i][j]= fxp_double_to_fxp(_controller.D[i][j]);
 		}
 	}
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<1;j++){
-			states_fpx[i][j]= fxp64_double_to_fxp(_controller.states[i][j]);
+			states_fpx[i][j]= fxp_double_to_fxp(_controller.states[i][j]);
 		}
 	}
 
 	for(i=0; i<nInputs;i++){
 		for(j=0; j<1;j++){
-			inputs_fpx[i][j]= fxp64_double_to_fxp(_controller.inputs[i][j]);
+			inputs_fpx[i][j]= fxp_double_to_fxp(_controller.inputs[i][j]);
 		}
 	}
 
 	for(i=0; i<nOutputs;i++){
 		for(j=0; j<1;j++){
-			outputs_fpx[i][j]= fxp64_double_to_fxp(_controller.outputs[i][j]);
+			outputs_fpx[i][j]= fxp_double_to_fxp(_controller.outputs[i][j]);
 		}
 	}
 
