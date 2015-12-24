@@ -332,6 +332,7 @@ void double_sub_matrix( unsigned int lines,  unsigned int columns, double m1[LIM
     	}
 	}
 }
+
 /* multiplies two matrices */
 void double_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i2, unsigned int j2, double m1[LIMIT][LIMIT], double m2[LIMIT][LIMIT], double m3[LIMIT][LIMIT]){
 
@@ -422,6 +423,7 @@ void fxp_exp_matrix(unsigned int lines,  unsigned int columns, fxp_t m1[LIMIT][L
         }
 	}
 }
+
 /* adds two matrices, fixed point version */
 void fxp_add_matrix( unsigned int lines,  unsigned int columns, fxp_t m1[LIMIT][LIMIT], fxp_t m2[LIMIT][LIMIT], fxp_t result[LIMIT][LIMIT]){
 	unsigned int i, j;
@@ -475,7 +477,7 @@ double determinant(double a[LIMIT][LIMIT],int n)
                j2++;
             }
          }
-         det += pow(-1.0,1.0+j1+1.0) * a[0][j1] * determinant(m,n-1);
+         det += internal_pow(-1.0,1.0+j1+1.0) * a[0][j1] * determinant(m,n-1);
       }
    }
    return(det);

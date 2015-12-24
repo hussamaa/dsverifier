@@ -93,7 +93,7 @@ static const float rand_uni[10000] = { -0.486240329978498f, -0.0886462298529236f
  * @param [kUpperBound] upper bound
  * @return number wrapped inside bounds
  */
-fxp_t wrap(int64_t kX, fxp_t kLowerBound, fxp_t kUpperBound)  		//from internet... need to check
+fxp_t wrap(fxp_t kX, fxp_t kLowerBound, fxp_t kUpperBound)  		//from internet... need to check
 {
 	int32_t range_size = kUpperBound - kLowerBound + 1;
 	if (kX < kLowerBound){
@@ -129,7 +129,7 @@ fxp_t fxp_get_frac_part(fxp_t in) {
  */
 float fxp_to_float(fxp_t fxp);
 
-fxp_t fxp_quant_only_saturate_and_wrap(int64_t aquant) {
+fxp_t fxp_quantize(fxp_t aquant) {
 	if (OVERFLOW_MODE == SATURATE) {
 		if(aquant < _fxp_min) {
 			return _fxp_min;
@@ -146,25 +146,16 @@ fxp_t fxp_quant_only_saturate_and_wrap(int64_t aquant) {
 	return (fxp_t) aquant;
 }
 
-fxp_t fxp_quant(int64_t aquant) {
-	if (OVERFLOW_MODE == SATURATE) {
-		if(aquant < _fxp_min) {
-			return _fxp_min;
-		}
-		else if(aquant > _fxp_max) {
-			return _fxp_max;
-		}
+void fxp_verify_overflow(fxp_t value){
+	fxp_quantize(value);
+	__DSVERIFIER_assert(value <= _fxp_max && value >= _fxp_min);
+}
+
+void fxp_verify_overflow_array(fxp_t array[], int n){
+	int i=0;
+	for(i=0; i<n;i++){
+		fxp_verify_overflow(array[i]);
 	}
-	else if (OVERFLOW_MODE == WRAPAROUND) {
-		if(aquant < _fxp_min || aquant > _fxp_max) {
-			return wrap(aquant, _fxp_min, _fxp_max);
-		}
-	}
-	/* check if is a closed loop verification (ignore) */
-  if (PROPERTY != STABILITY_CLOSED_LOOP && OVERFLOW_MODE != DETECT_OVERFLOW){
-  	__DSVERIFIER_assert(aquant <= _fxp_max && aquant >= _fxp_min);
-  }
-	return (fxp_t) aquant;
 }
 
 /**
@@ -173,9 +164,9 @@ fxp_t fxp_quant(int64_t aquant) {
  * @return number in fxp signed representation
  */
 fxp_t fxp_int_to_fxp(int in) {
-	int64_t lin;
-	lin = (int64_t) in*_fxp_one;
-	return fxp_quant(lin);
+	fxp_t lin;
+	lin = (fxp_t) in*_fxp_one;
+	return lin;
 }
 
 /**
@@ -201,61 +192,35 @@ int fxp_to_int(fxp_t fxp) {
  * @return fixed point representation of input.
  */
 fxp_t fxp_float_to_fxp(float f) {
-	int64_t tmp;
-	double ftemp;
-	ftemp = f * scale_factor[impl.frac_bits];
-  if(f >= 0) {
-		tmp = (int64_t)(ftemp + 0.5);
-	}
-	else {
-		tmp = (int64_t)(ftemp - 0.5);
-	}
-	return fxp_quant(tmp);
-}
-
-fxp_t fxp_double_to_fxp_without_overflow(double f) {
-	int64_t tmp;
+	fxp_t tmp;
 	double ftemp;
 	ftemp = f * scale_factor[impl.frac_bits];
 	if(f >= 0) {
-		tmp = (int64_t)(ftemp + 0.5);
+		tmp = (fxp_t)(ftemp + 0.5);
 	}
 	else {
-		tmp = (int64_t)(ftemp - 0.5);
+		tmp = (fxp_t)(ftemp - 0.5);
 	}
 	return tmp;
 }
 
-fxp_t fxp_double_to_fxp_only_saturate_and_wrap(double f) {
-	int64_t tmp;
-	double ftemp;
-	ftemp = f * scale_factor[impl.frac_bits];
-	if(f >= 0) {
-		tmp = (int64_t)(ftemp + 0.5);
-	}
-	else {
-		tmp = (int64_t)(ftemp - 0.5);
-	}
-	return fxp_quant_only_saturate_and_wrap(tmp);
-}
-
 fxp_t fxp_double_to_fxp(double value) {
-	int64_t tmp;
+	fxp_t tmp;
 	double ftemp = value * scale_factor[impl.frac_bits];
 	if (ROUNDING_MODE == ROUNDING){
 		if(value >= 0) {
-			tmp = (int64_t)(ftemp + 0.5);
+			tmp = (fxp_t)(ftemp + 0.5);
 		}
 		else {
-			tmp = (int64_t)(ftemp - 0.5);
+			tmp = (fxp_t)(ftemp - 0.5);
 		}
 	} else if(ROUNDING_MODE == FLOOR){
 		if (value < 0){
 			ftemp = ftemp - 1;
 		}
-		tmp = (int64_t) ftemp;
+		tmp = (fxp_t) ftemp;
 	}
-	return fxp_quant(tmp);
+	return tmp;
 }
 
 /**
@@ -328,13 +293,9 @@ void fxp_to_double_array(double f[], fxp_t r[], int N) {
  * @return absolute value of a
  */
 fxp_t fxp_abs(fxp_t a) {
-	int64_t tmp;
-	tmp = ((a < 0) ? -(int64_t)(a) : a);
-	#ifndef JACKSON_RULE
-		return fxp_quant(tmp);
-	#else
-		return tmp;
-	#endif
+	fxp_t tmp;
+	tmp = ((a < 0) ? -(fxp_t)(a) : a);
+	return tmp;
 }
 
 /**
@@ -344,13 +305,9 @@ fxp_t fxp_abs(fxp_t a) {
  * @return result of summing the inputs
  */
 fxp_t fxp_add(fxp_t aadd, fxp_t badd) {
-	int64_t tmpadd;
-	tmpadd = ((int64_t)(aadd) + (int64_t)(badd));
-	#ifndef JACKSON_RULE
-		return fxp_quant(tmpadd);
-	#else
-		return tmpadd;
-	#endif
+	fxp_t tmpadd;
+	tmpadd = ((fxp_t)(aadd) + (fxp_t)(badd));
+	return tmpadd;
 }
 
 /**
@@ -360,13 +317,9 @@ fxp_t fxp_add(fxp_t aadd, fxp_t badd) {
  * @return result of subtracting the inputs
  */
 fxp_t fxp_sub(fxp_t asub, fxp_t bsub) {
-	int64_t tmpsub;
-	tmpsub = (int64_t)((int64_t)(asub) - (int64_t)(bsub));
-	#ifndef JACKSON_RULE
-		return fxp_quant(tmpsub);
-	#else
-		return tmpsub;
-	#endif
+	fxp_t tmpsub;
+	tmpsub = (fxp_t)((fxp_t)(asub) - (fxp_t)(bsub));
+	return tmpsub;
 }
 
 /**
@@ -376,18 +329,14 @@ fxp_t fxp_sub(fxp_t asub, fxp_t bsub) {
  * @return product result out
  */
 fxp_t fxp_mult(fxp_t amult, fxp_t bmult) {
-	int64_t tmpmult, tmpmultprec;
-	tmpmult = (int64_t)((int64_t)(amult)*(int64_t)(bmult));
+	fxp_t tmpmult, tmpmultprec;
+	tmpmult = (fxp_t)((fxp_t)(amult)*(fxp_t)(bmult));
 	if (tmpmult >= 0) {
 		tmpmultprec = (tmpmult + ((tmpmult & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits;
 	} else {
 		tmpmultprec = -(((-tmpmult) + (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits);
 	}
-	#ifndef JACKSON_RULE
-		return fxp_quant(tmpmultprec);
-	#else
-		return tmpmultprec;
-	#endif
+	return tmpmultprec;
 }
 
 /**
@@ -400,12 +349,8 @@ fxp_t fxp_div(fxp_t a, fxp_t b){
 	double da = fxp_to_double(a);
 	double db = fxp_to_double(b);
 	double div = da/db;
-	fxp_t tmpdiv = fxp_double_to_fxp_only_saturate_and_wrap(div);
-	#ifndef JACKSON_RULE
-		return fxp_quant(tmpdiv);
-	#else
-		return tmpdiv;
-	#endif
+	fxp_t tmpdiv = fxp_double_to_fxp(div);
+	return tmpdiv;
 }
 
 /**
@@ -414,13 +359,9 @@ fxp_t fxp_div(fxp_t a, fxp_t b){
  * @return -a;
  */
 fxp_t fxp_neg(fxp_t aneg) {
-	int64_t tmpneg;
-	tmpneg = -(int64_t)(aneg);
-	#ifndef JACKSON_RULE
-		return fxp_quant(tmpneg);
-	#else
-		return tmpneg;
-	#endif
+	fxp_t tmpneg;
+	tmpneg = -(fxp_t)(aneg);
+	return tmpneg;
 }
 
 /**

@@ -28,13 +28,14 @@ int x_size = 10;
 int main(){
 
 	initialization();
-	OVERFLOW_MODE = 3;
+	OVERFLOW_MODE = WRAPAROUND;
 
 	fxp_t a_fxp[ds.a_size];
 	fxp_t b_fxp[ds.b_size];
 
 	/* quantize the denominator using fxp */
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
+
 	/* quantize the numerator using fxp */
 	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 
@@ -62,18 +63,19 @@ int main(){
 	for(i=0; i<x_size; ++i){
 		shiftL(x[i], xaux, ds.b_size);
 		y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
-		fxp_quant(y[i]);
+		y[i] = fxp_quantize(y[i]);
 		shiftL(y[i], yaux, ds.a_size);
 	}
 
-	assert(y[0] == -3);
-	assert(y[1] == -23);
-	assert(y[2] == -3);
-	assert(y[3] == -23);
-	assert(y[4] == -3);
-	assert(y[5] == -23);
-	assert(y[6] == -3);
-	assert(y[7] == -23);
-	assert(y[8] == -3);
-	assert(y[9] == -23);
+	__DSVERIFIER_assert(y[0] == -3);
+	__DSVERIFIER_assert(y[1] == -23);
+	__DSVERIFIER_assert(y[2] == -3);
+	__DSVERIFIER_assert(y[3] == -23);
+	__DSVERIFIER_assert(y[4] == -3);
+	__DSVERIFIER_assert(y[5] == -23);
+	__DSVERIFIER_assert(y[6] == -3);
+	__DSVERIFIER_assert(y[7] == -23);
+	__DSVERIFIER_assert(y[8] == -3);
+	__DSVERIFIER_assert(y[9] == -23);
+
 }
