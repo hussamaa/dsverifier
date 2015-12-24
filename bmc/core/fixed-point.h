@@ -204,11 +204,6 @@ fxp_t fxp_float_to_fxp(float f) {
 	return tmp;
 }
 
-fxp_t fxp_double_to_fxp_without_rounding(double value) {
-	double ftemp = value * scale_factor[impl.frac_bits];
-	return (fxp_t) ftemp;
-}
-
 fxp_t fxp_double_to_fxp(double value) {
 	fxp_t tmp;
 	double ftemp = value * scale_factor[impl.frac_bits];
@@ -220,10 +215,12 @@ fxp_t fxp_double_to_fxp(double value) {
 			tmp = (fxp_t)(ftemp - 0.5);
 		}
 	} else if(ROUNDING_MODE == FLOOR){
-		if (value < 0){
-			ftemp = ftemp - 1;
-		}
 		tmp = (fxp_t) ftemp;
+		double residue = ftemp - tmp;
+		if ((value < 0) && (residue != 0)){
+			ftemp = ftemp - 1;
+			tmp = (fxp_t) ftemp;
+		}
 	} else if (ROUNDING_MODE == NONE){
 		tmp = (fxp_t) ftemp;
 	}
@@ -356,7 +353,7 @@ fxp_t fxp_div(fxp_t a, fxp_t b){
 	double da = fxp_to_double(a);
 	double db = fxp_to_double(b);
 	double div = da/db;
-	fxp_t tmpdiv = fxp_double_to_fxp_without_rounding(div);
+	fxp_t tmpdiv = fxp_double_to_fxp(div);
 	return tmpdiv;
 }
 

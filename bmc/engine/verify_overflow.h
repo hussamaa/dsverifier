@@ -71,8 +71,8 @@ int verify_overflow(void) {
 		fxp_double_to_fxp_array(db_cascade, bc_fxp, b_cascade_size);
 	#endif
 
-	fxp_t min_fxp = fxp_double_to_fxp_without_rounding(impl.min);
-	fxp_t max_fxp = fxp_double_to_fxp_without_rounding(impl.max);
+	fxp_t min_fxp = fxp_double_to_fxp(impl.min);
+	fxp_t max_fxp = fxp_double_to_fxp(impl.max);
 
 	fxp_t y[X_SIZE_VALUE];
 	fxp_t x[X_SIZE_VALUE];

@@ -71,8 +71,8 @@ int verify_limit_cycle(void){
 	fxp_t y[X_SIZE_VALUE];
 	fxp_t x[X_SIZE_VALUE];
 
-	fxp_t min_fxp = fxp_double_to_fxp_without_rounding(impl.min);
-	fxp_t max_fxp = fxp_double_to_fxp_without_rounding(impl.max);
+	fxp_t min_fxp = fxp_double_to_fxp(impl.min);
+	fxp_t max_fxp = fxp_double_to_fxp(impl.max);
 
 	/* prepare inputs (all possibles values in dynamical range) */
 	fxp_t xaux[ds.b_size];
