@@ -37,13 +37,13 @@ int verify_observability(void){
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<nStates;j++){
-			A_fpx[i][j]= fxp64_double_to_fxp(_controller.A[i][j]);
+			A_fpx[i][j]= fxp_double_to_fxp(_controller.A[i][j]);
 		}
 	}
 
 	for(i=0; i<nOutputs;i++){
 		for(j=0; j<nStates;j++){
-			C_fpx[i][j]= fxp64_double_to_fxp(_controller.C[i][j]);
+			C_fpx[i][j]= fxp_double_to_fxp(_controller.C[i][j]);
 		}
 	}
 

@@ -8,81 +8,68 @@ void __DSVERIFIER_assume(_Bool expression){
 	/* nothing to do here */
 }
 
-#include "../bmc/core/definitions.h"
-#include "../bmc/core/fixed-point.h"
-#include "../bmc/core/realizations.h"
-#include "../bmc/core/util.h"
-#include "../bmc/core/functions.h"
-#include "../bmc/core/initialization.h"
+#include "../../bmc/core/definitions.h"
+#include "../../bmc/core/fixed-point.h"
+#include "../../bmc/core/realizations.h"
+#include "../../bmc/core/util.h"
+#include "../../bmc/core/functions.h"
+#include "../../bmc/core/initialization.h"
+#include <stdlib.h>
+#include <stdio.h>
+/*
+digital_system ds = {
+	.b = { 0.1, -0.2819, 0.2637, -0.08187 },
+	.b_size = 4,
+	.a = { 1.0, -2.574, 2.181, -0.6068 },
+	.a_size = 4,
+	.sample_time = 0.01
+};
+*/
 
 digital_system ds = {
-	.b = { -1.553, 3.119, -1.566 },
-	.b_size = 3,
-	.a = { 1.00000000, 0.0387300, -0.96 },
-	.a_size = 3,
-	.sample_time = 0.005
+	.b = { 0.0625, -0.3125, 0.25, -0.125 },
+	.b_size = 4,
+	.a = { 1, -2.625, 2.125, -0.625 },
+	.a_size = 4,
+	.sample_time = 0.01
 };
 
 implementation impl = {
-	.int_bits = 15,
+	.int_bits = 3,
 	.frac_bits = 4,
-	.min = -6.0,
-	.max = 6.0
+	.min = -4.0,
+	.max = 4.0
 };
 
 hardware hw = { };
 
 /* inputs */
-fxp32_t x_fxp[10] = { -54, -54, -54, -54, -54, -54, -54, -54, -54, -54 };
-int x_size = 10;
+fxp_t x_fxp[6];
+int x_size = 6;
 int generic_timer;
 
-/** fixed point direct form 1 realization (implementation 2) */
-void fxp_direct_form_1_impl2_debug(fxp32_t x[], int x_size, fxp32_t b[], int b_size, fxp32_t a[], int a_size, fxp32_t y[]){
-   int i = 0; int j = 0;
-   /* system 1 h1(z) */
-   fxp32_t v[x_size];
-   for(i = 0; i < x_size; i++){
-      v[i] = 0;
-      for(j = 0; j < b_size; j++){
-         if (j > i) break;
-         v[i] = fxp_add(v[i], fxp_mult(x[i-j], b[j]));
-      }
-   }
-
-   /* system 2 h2(z) */
-   //y[0] = v[0];
-   y[0] = -640;
-   y[1] = 603;
-   /* input here the counterexample values */
-   for(i = 2; i < x_size; i++){
-	   y[i] = 0;
-	   y[i] = fxp_add(y[i], v[i]);
-	   for(j = 1; j < a_size; j++){
-		   if (j > i) break;
-		   y[i] = fxp_add(y[i], fxp_mult(y[i-j] , -a[j]));
-	   }
-   }
-}
-
 int main(){
-	
+
 	initialization();
 
-	OVERFLOW_MODE = 0;
+	OVERFLOW_MODE = DETECT_OVERFLOW;
+	ROUNDING_MODE = FLOOR;
 
-	double x[10]; // = { 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375, 1.15234375 } ;
+	double x[6] = { 0.625, -0.0625, -4.0, -4.0, -2.4375, 4.0 };
 	printf("inputs: \n");
-	fxp_to_double_array(x, x_fxp, x_size);
+	fxp_double_to_fxp_array(x, x_fxp, x_size);
 	print_array_elements("x", x, x_size);
 	print_fxp_array_elements("x_fxp", x_fxp, x_size);
+	double x_qtz[6];
+	fxp_to_double_array(x_qtz, x_fxp, x_size);
+	print_array_elements("x_qtz", x, x_size);
 
 	printf("\noriginal coefficients: \n");
 	print_array_elements("ds.b", ds.b, ds.b_size);
 	print_array_elements("ds.a", ds.a, ds.a_size);
 
-	fxp32_t b_fxp[ds.b_size];
-	fxp32_t a_fxp[ds.a_size];
+	fxp_t b_fxp[ds.b_size];
+	fxp_t a_fxp[ds.a_size];
 
 	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
@@ -102,46 +89,35 @@ int main(){
 	print_array_elements("ds.a_fxp", da_fxp, ds.a_size);
 
 	/* update with values found in bmc machine */
-	fxp32_t xaux[ds.b_size];
-	fxp32_t yaux[ds.a_size];
-	fxp32_t y0[ds.a_size];
-	/*
+	fxp_t xaux[ds.b_size];
+	fxp_t yaux[ds.a_size];
+	fxp_t y0[ds.a_size];
 	yaux[0] = 0;
-	yaux[1] = 603;
-	yaux[2] = -640;
-	*/
-	/*
-	yaux[1] = 359;
-	yaux[2] = -493;
-*/
-	yaux[0] = 0;
-	yaux[1] = -3;
-	yaux[2] = -23;
+	yaux[1] = 0;
+	yaux[2] = 0;
+	yaux[3] = 0;
 
 	int i, j;
 	/* prepare outputs */
 	double y[x_size];
-	fxp32_t y_fxp[x_size];
+	fxp_t y_fxp[x_size];
 	for (i = 0; i < x_size; i++) {
 		y_fxp[i] = 0;
 		y[i] = 0;
 	}
 
 	for (i = 0; i < ds.b_size; ++i) {
-		xaux[i] = -54;
+		xaux[i] = 0;
 	}
 
-	fxp32_t xk;
-	fxp32_t *aptr, *bptr, *xptr, *yptr, *wptr;
+	fxp_t xk;
+	fxp_t *aptr, *bptr, *xptr, *yptr, *wptr;
 	int count = 0;
 	int notzeros = 0;
-
-	//fxp_dire	ct_form_1_impl2_debug(x_fxp, x_size, b_fxp, ds.b_size, a_fxp, ds.a_size, y_fxp);
 
 	for (i = 0; i < x_size; ++i) {
 		shiftL(x_fxp[i], xaux, ds.b_size);
 		y_fxp[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
-		fxp_quant(y_fxp[i]);
 		shiftL(y_fxp[i], yaux, ds.a_size);
 	}
 
@@ -150,15 +126,16 @@ int main(){
 	fxp_to_double_array(y, y_fxp, x_size);
 	print_array_elements("y", y, x_size);
 
+	fxp_verify_overflow_array(y_fxp, x_size);	
 
 	double xn=-3.375;
-	fxp32_t xf = fxp_double_to_fxp(xn);
-	fxp32_t yn2 = -23;
-	//fxp32_t yn2 = 276;
-	//fxp32_t yn1 = -260;
-	fxp32_t yn1 = -3;
+	fxp_t xf = fxp_double_to_fxp(xn);
+	fxp_t yn2 = -23;
+	//fxp_t yn2 = 276;
+	//fxp_t yn1 = -260;
+	fxp_t yn1 = -3;
 
-	fxp32_t y_current = fxp_sub(fxp_sub(fxp_add(fxp_add(fxp_mult(b_fxp[0],xf),fxp_mult(b_fxp[1], xf)),fxp_mult(b_fxp[2],xf)),fxp_mult(a_fxp[1],yn1)),fxp_mult(a_fxp[2],yn2));
+	fxp_t y_current = fxp_sub(fxp_sub(fxp_add(fxp_add(fxp_mult(b_fxp[0],xf),fxp_mult(b_fxp[1], xf)),fxp_mult(b_fxp[2],xf)),fxp_mult(a_fxp[1],yn1)),fxp_mult(a_fxp[2],yn2));
 
 	printf("y = %d\n", y_current);
 

@@ -27,7 +27,7 @@
 #endif
 
 /** required parameters */
-#define LIMIT 3
+#define LIMIT 6
 
 /* realizations (use: -DREALIZATION=DIRECTFORMI) */
 #define DIRECTFORMI													1
@@ -136,7 +136,7 @@ typedef struct {
 } digital_system;
 
 /** digital system in space state structure */
-#define LIMIT                               3
+
 typedef struct {
     double A[LIMIT][LIMIT];
     double B[LIMIT][LIMIT];
