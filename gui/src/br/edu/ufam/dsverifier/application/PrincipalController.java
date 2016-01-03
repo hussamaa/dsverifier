@@ -133,6 +133,8 @@ public class PrincipalController implements Initializable{
     
     private TextField tfMax;
     private TextField tfMin;
+    
+    private boolean hasVerificationErrorDialog = false;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -187,6 +189,7 @@ public class PrincipalController implements Initializable{
 		finishedThreads.set(0);
 		totalThreads = verifications.size();
 		btVerify.setDisable(true);
+		hasVerificationErrorDialog = false;
 		for (Verification verification : verifications) {
 			VerificationTask task = new VerificationTask(verification);		 
 			 taskProgressView.getTasks().add(task);		 
@@ -278,10 +281,23 @@ public class PrincipalController implements Initializable{
 	    
 	}
 	
-	public void enableSummary(){
-		
+	public void enableSummary(){		
 		if (totalThreads == finishedThreads.get()){
 			btSummary.setDisable(false);
+			final Task<Void> showSummaryTask = new Task<Void>(){				
+				@Override
+				protected Void call() throws Exception {
+					return null;
+				}				
+				@Override
+				protected void succeeded() {
+					summary();
+					super.succeeded();
+				}				
+			};
+			Thread t = new Thread(showSummaryTask);
+			t.setDaemon(true);
+			t.start();
 		}else{
 			btSummary.setDisable(true);
 		}
@@ -619,6 +635,27 @@ public class PrincipalController implements Initializable{
 		
 		return properties;
 	}
+	
+	public synchronized void showVerificationTaskError(){
+		if (hasVerificationErrorDialog == false){
+			hasVerificationErrorDialog = true;
+	    	final Task<Void> showErrorDialogTask = new Task<Void>(){
+				@Override
+				protected Void call() throws Exception {
+					return null;
+				}
+				protected void succeeded() {
+					Dialogs.create()
+		  		      .lightweight().styleClass(Dialog.STYLE_CLASS_UNDECORATED)
+		  		      .message( "Please, check DSVERIFIER_HOME environment variable and dsverifier executable")
+		  		      .showError();						
+				};        			
+			};
+			Thread t = new Thread(showErrorDialogTask);
+			t.setDaemon(true);
+			t.start();    		
+		}
+    }        
 		
 	class VerificationTask extends Task<Void> {
         
@@ -631,14 +668,17 @@ public class PrincipalController implements Initializable{
  
         @Override
         protected Void call() throws Exception { 
-        	DSVerifierService.getInstance().callDSVerifier(verification);
-        	finishedThreads.set(finishedThreads.get() + 1);   
-        	enableSummary();
-        	updateProgress(0, 0);
-            done();
-            return null;
-        }
-        
-    }
-
+        	try{
+        		DSVerifierService.getInstance().callDSVerifier(verification);
+        		finishedThreads.set(finishedThreads.get() + 1);   
+	        	enableSummary();
+	        	updateProgress(0, 0);
+	            done();
+	            return null;
+        	}catch(Exception e){        		
+        		showVerificationTaskError();
+	            return null;
+        	}
+        }   
+	}    
 }
