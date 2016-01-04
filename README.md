@@ -11,10 +11,16 @@ Property Supported:
 * Stability
 * Minimum Phase
 
-Necessary Library:
+Required Libraries:
 
 For Ubuntu x86-64:
 * apt-get install libc6-dev-i386
+
+Quickly Configuration:
+
+make
+export DSVERIFIER_HOME=$(pwd)
+export PATH=$PATH:$DSVERIFIER_HOME
 
 DSVerifier is developed at the Federal University of Amazonas (UFAM). This project is supported by Samsung, CNPq, and FAPEAM grants.
 

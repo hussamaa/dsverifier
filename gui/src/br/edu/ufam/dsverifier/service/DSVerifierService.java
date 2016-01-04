@@ -12,8 +12,8 @@ import br.edu.ufam.dsverifier.util.DSVerifierUtils;
 
 public class DSVerifierService {
 
-	public static final String DSVERIFIER_EXECUTABLE = "./dsverifier";
-	public static final String DSVERIFIER_PARAMETERS = "-DBMC=ESBMC -DJACKSON_RULE";
+	public static final String DSVERIFIER_EXECUTABLE = "dsverifier";
+	public static final String DSVERIFIER_PARAMETERS = "-DBMC=ESBMC -I $DSVERIFIER_HOME/bmc";
 	
 	private static DSVerifierService instance;
 	
@@ -30,7 +30,6 @@ public class DSVerifierService {
 	public void callDSVerifier(Verification verification) throws Exception {	
 		File verificationFile = verification.getFile();
 		String verificationFilePath = verificationFile.getAbsolutePath();
-//		StringBuilder commandLine = new StringBuilder(ESBMC_EXECUTABLE + " " + verificationFilePath + "  " + ESBMC_PARAMETERS);
 		StringBuilder commandLine = new StringBuilder(DSVERIFIER_EXECUTABLE + " " + verificationFilePath);
 		
 		/* include the property */
@@ -67,7 +66,7 @@ public class DSVerifierService {
 	public void generateVerificationFile(Verification verification) throws IOException{
 		
 		StringBuilder content = new StringBuilder();			
-		content.append("#include \"bmc/dsverifier.h\"\n\n");
+		content.append("#include <dsverifier.h>\n\n");
 		content.append("digital_system ds = {\n");
 		content.append("\t.a = " + verification.getDigitalSystem().getDenominator() + ",\n");
 		content.append("\t.a_size = " + verification.getDigitalSystem().getDenominatorSize() + ",\n");
@@ -105,7 +104,7 @@ public class DSVerifierService {
 	public void generateClosedLoopVerificationFile(Verification verification) throws IOException{
 		
 		StringBuilder content = new StringBuilder();			
-		content.append("#include \"bmc/dsverifier.h\"\n\n");
+		content.append("#include <dsverifier.h>\n\n");
 		content.append("digital_system control = {\n");
 		content.append("\t.a = " + verification.getControl().getDenominator() + ",\n");
 		content.append("\t.a_size = " + verification.getControl().getDenominatorSize() + ",\n");
