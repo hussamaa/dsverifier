@@ -1,5 +1,5 @@
 /**
-# DSVerifier - Digital Systems Verifier (Error)
+# DSVerifier - Digital Systems Verifier (Controllability)
 #
 #                Universidade Federal do Amazonas - UFAM
 #
@@ -14,7 +14,7 @@
 extern digital_system_state_space _controller;
 
 int verify_controllability(void){
-	OVERFLOW_MODE = 0;
+
 	int i;
 	int j;
 
@@ -67,8 +67,6 @@ int verify_controllability(void){
 			}
 		}
 	}
-
-
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<nStates;j++){
