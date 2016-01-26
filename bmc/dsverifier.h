@@ -43,7 +43,7 @@
 extern digital_system ds;
 extern digital_system plant;
 digital_system plant_cbmc;
-extern digital_system control;
+extern digital_system controller;
 extern implementation impl;
 extern hardware hw;
 extern digital_system_state_space _controller;
@@ -89,7 +89,7 @@ int main(){
 		call_verification_task(&verify_minimum_phase);
 	}
 	if (PROPERTY == STABILITY_CLOSED_LOOP){
-		call_closedloop_verification_task(&verify_stability_closedloop_using_dslib);		
+		call_closedloop_verification_task(&verify_stability_closedloop_using_dslib);
 	}
 	if (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP){
 		call_closedloop_verification_task(&verify_limit_cycle_closed_loop);
@@ -149,9 +149,9 @@ void validation(){
 		__DSVERIFIER_assert(0);
 	}
 	if ((PROPERTY == STABILITY_CLOSED_LOOP) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)){
-		if (control.a_size == 0 || plant.b_size == 0 || impl.int_bits == 0 ){
+		if (controller.a_size == 0 || plant.b_size == 0 || impl.int_bits == 0 ){
 			printf("\n\n*****************************************************************************************************\n");
-			printf("* It is necessary to set (control, plant and, impl) parameters to check CLOSED LOOP with DSVerifier *\n");
+			printf("* It is necessary to set (controller, plant and, impl) parameters to check CLOSED LOOP with DSVerifier *\n");
 			printf("*****************************************************************************************************\n");
 			__DSVERIFIER_assert(0);
 		}

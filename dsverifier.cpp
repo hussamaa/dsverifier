@@ -7,6 +7,7 @@
 #
 #  Federal University of Amazonas - UFAM
 #  Author: Hussama Ismail - hussamaismail@gmail.com
+#          <if you help us, put your name here!> :)
 #
 # --------------------------------------------------
 #
@@ -20,7 +21,7 @@
 #  Supported Properties:
 #  for transfer functions:
 #     OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE,
-#     TIMING, ERROR, STABILITY, STABILITY_CLOSED_LOOP MINIMUM_PHASE
+#     TIMING, ERROR, STABILITY, STABILITY_CLOSED_LOOP, and MINIMUM_PHASE
 #
 #  Supported Realizations:
 #     DFI, DFII, TDFII,
@@ -70,15 +71,17 @@ typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 #include <fstream>
 #include <boost/algorithm/string.hpp>
 
-const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY"};
+const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "LIMIT_CYCLE_CLOSED_LOOP", "QUANTIZATION_ERROR_CLOSED_LOOP" "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY"};
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
 const char * bmcs [] = { "ESBMC", "CBMC" };
+const char * connections_mode [] = { "SERIES", "FEEDBACK" };
 
 /* expected parameters */
 unsigned int desired_x_size = 0;
 std::string desired_filename;
 std::string desired_property;
 std::string desired_realization;
+std::string desired_connection_mode;
 std::string desired_timeout;
 std::string desired_bmc;
 std::string desired_solver;
@@ -102,13 +105,16 @@ void help () {
 	std::cout << "" << std::endl;
 	std::cout << "Options:" << std::endl;
 	std::cout << "" << std::endl;
-	std::cout << "--realization <r>            set the realization for the digital system" << std::endl;
-	std::cout << "                             (Available: DFI, DFII, TDFII, DDFI, DDFII, TDDFII, CDFI, CDFII, CTDFII, CDDFI, CDDFII, CTDDFII)" << std::endl;
+	std::cout << "--realization <r>            set the realization for the Digital-System" << std::endl;
+	std::cout << "                             (for Digital-Systems: DFI, DFII, TDFII, DDFI, DDFII, TDDFII, CDFI, CDFII, CTDFII, CDDFI, CDDFII, and CTDDFII)" << std::endl;
+	std::cout << "                             (for Digital-Systems in Closedloop: DFI, DFII, and TDFII)" << std::endl;
 	std::cout << "--property <p>               set the property to check in order to find violations" << std::endl;
-	std::cout << "                             (Available: OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE, TIMING, STABILITY, and MINIMUM_PHASE)" << std::endl;
+	std::cout << "                             (for Digital-Systems: OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE, TIMING, STABILITY, and MINIMUM_PHASE)" << std::endl;
+	std::cout << "                             (for Digital-Systems in Closed-loop: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP, and QUANTIZATION_ERROR_CLOSED_LOOP)" << std::endl;
 	std::cout << "--x-size <k>                 set the bound of verification" << std::endl;
+	std::cout << "--connection-mode <cm>       set the connection mode for the closed-loop system (e.g., SERIES, FEEDBACK)" << std::endl;
 	std::cout << "--bmc <b>                    set the BMC back-end for DSVerifier (ESBMC or CBMC, default is ESBMC)" << std::endl;
-	std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices)" << std::endl;
+	std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices, cvc4, and minisat)" << std::endl;
 	std::cout << "--timeout <t>                configure time limit, integer followed by {s,m,h} (for ESBMC only)" << std::endl;
 	std::cout << "" << std::endl;
 	exit(0);
@@ -124,6 +130,20 @@ void validate_selected_bmc(std::string data){
 	}
 	if (desired_bmc.size() == 0){
 		std::cout << "invalid bmc: " << data << std::endl;
+		exit(1);
+	}
+}
+
+void validate_selected_connection_mode(std::string data){
+	int length = (sizeof(connections_mode)/sizeof(*connections_mode));
+	for(int i=0; i<length; i++){
+		if (connections_mode[i] == data){
+			desired_connection_mode = data;
+			break;
+		}
+	}
+	if (desired_connection_mode.size() == 0){
+		std::cout << "invalid connection-mode: " << data << std::endl;
 		exit(1);
 	}
 }
@@ -157,7 +177,9 @@ void validate_selected_property(std::string data){
 }
 
 void validate_filename(std::string file){
-	if(file.substr(file.size()-3, std::string::npos) != ".ss"){
+	if (file == "--help" || file == "-h") {
+		help();
+	} else if(file.substr(file.size()-3, std::string::npos) != ".ss"){
 		std::string::size_type loc = file.find(".c", 0 );
 		if( loc == std::string::npos ) {
 			std::cout << file << ": failed to figure out type of file" << std::endl;
@@ -204,6 +226,12 @@ void bind_parameters(int argc, char* argv[]){
 		} else if (std::string(argv[i]) == "--x-size") {
 			if (i + 1 < argc) {
 				desired_x_size = std::atoi(argv[++i]);
+			} else {
+				show_required_argument_message(argv[i]);
+			}
+		} else if (std::string(argv[i]) == "--connection-mode") {
+			if (i + 1 < argc) {
+				validate_selected_connection_mode(argv[++i]);
 			} else {
 				show_required_argument_message(argv[i]);
 			}
@@ -296,6 +324,9 @@ std::string prepare_bmc_command_line(){
 	}
 	if (desired_property.size() > 0){
 		command_line += " -DPROPERTY=" + desired_property;
+	}
+	if (desired_connection_mode.size() > 0){
+		command_line += " -DCONNECTION_MODE=" + desired_connection_mode;
 	}
 	if (desired_x_size > 0){
 		command_line += " -DX_SIZE=" + std::to_string(desired_x_size);
