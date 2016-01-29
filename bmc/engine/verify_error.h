@@ -19,7 +19,7 @@ extern implementation impl;
 
 int verify_error(void){
 
-	OVERFLOW_MODE = 3;
+	OVERFLOW_MODE = SATURATE;
 
 	double a_cascade[100];
 	int a_cascade_size;
@@ -66,13 +66,9 @@ int verify_error(void){
 		fxp_double_to_fxp_array(db_cascade, bc_fxp, b_cascade_size);
 	#endif
 
-	fxp_t min_fxp;
-	fxp_t max_fxp;
+	fxp_t min_fxp = fxp_double_to_fxp(impl.min);
+	fxp_t max_fxp = fxp_double_to_fxp(impl.max);
 
-	min_fxp = fxp_double_to_fxp(impl.min);
-	max_fxp = fxp_double_to_fxp(impl.max);
-
-	///////////////////////////// STATES ///////////////////////////////
 	fxp_t y[X_SIZE_VALUE];
 	fxp_t x[X_SIZE_VALUE];
 	double yf[X_SIZE_VALUE];
@@ -81,7 +77,6 @@ int verify_error(void){
 	double snrvalue;
 
 	int Nw = 0;
-
 	#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
 		Nw = a_cascade_size > b_cascade_size ? a_cascade_size : b_cascade_size;
 	#else
@@ -120,7 +115,6 @@ int verify_error(void){
 	}
 
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
-		// Sorting in integer
 		y[i] = 0;
 		x[i] = nondet_int();
 		__DSVERIFIER_assume(x[i] >= min_fxp && x[i] <= max_fxp);
@@ -132,7 +126,7 @@ int verify_error(void){
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
 
 		#if (REALIZATION == DFI)
-			/* fxp */
+			/* fixed point implementation */
 			shiftL(x[i], xaux, ds.b_size);
 			y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
 			shiftL(y[i], yaux, ds.a_size);
@@ -143,11 +137,11 @@ int verify_error(void){
 		#endif
 
 		#if (REALIZATION == DDFI)
-			/* fxp */
+			/* fixed point implementation */
 			shiftL(x[i], xaux, ds.b_size);
 			y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
 			shiftL(y[i], yaux, ds.a_size);
-			/* double precision */
+			/* double precision implementation */
 			shiftLDouble(xf[i], xfaux, ds.b_size);
 			yf[i] = double_direct_form_1(yfaux, xfaux, da, db, ds.a_size, ds.b_size);
 			shiftLDouble(yf[i], yfaux, ds.a_size);
@@ -155,25 +149,38 @@ int verify_error(void){
 
 		#if (REALIZATION == DFII)
 			shiftRboth(0.0f, wfaux, 0, waux, Nw);
-			y[i] = iirIIOutFixed(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
-			yf[i] = iirIIOutDouble(wfaux, xf[i], ds.a, ds.b, ds.a_size, ds.b_size);
+			/* fixed point implementation */
+			y[i] = fxp_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
+			/* double precision implementation */
+			yf[i] = double_direct_form_2(wfaux, xf[i], ds.a, ds.b, ds.a_size, ds.b_size);
 		#endif
 
 		#if (REALIZATION == DDFII)
 			shiftRboth(0.0f, wfaux, 0, waux, Nw);
-			y[i] = iirIIOutFixed(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
-			yf[i] = iirIIOutDouble(wfaux, xf[i], ds.a, ds.b, ds.a_size, ds.b_size);
+			/* fixed point implementation */
+			y[i] = fxp_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
+			/* double precision implementation */
+			yf[i] = double_direct_form_2(wfaux, xf[i], da, db, ds.a_size, ds.b_size);
 		#endif
 
-		#if ((REALIZATION == TDFII) || (REALIZATION == TDDFII))
-			y[i] = iirIItOutFixed(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
-			yf[i] = iirIItOutDouble(wfaux, xf[i], ds.a, ds.b, ds.a_size, ds.b_size);
+		#if (REALIZATION == TDFII)
+		  /* fixed point implementation */
+			y[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
+			/* double precision implementation */
+			yf[i] = double_transposed_direct_form_2(wfaux, xf[i], ds.a, ds.b, ds.a_size, ds.b_size);
+		#endif
+
+		#if (REALIZATION == TDDFII)
+		  /* fixed point implementation */
+			y[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
+			/* double precision implementation */
+			yf[i] = double_transposed_direct_form_2(wfaux, xf[i], da, db, ds.a_size, ds.b_size);
 		#endif
 
 		/* error verification using a % setted by user */
-		double error_rate = 100 - (100 * fxp_to_double(y[i]) / yf[i]);
-		assert(-impl.max_error < error_rate < impl.max_error);
-	}
+		double __quant_error = ((fxp_to_double(yf[i]) - y[i])/y[i]) * 100;
+		__DSVERIFIER_assert(__quant_error < impl.max_error && __quant_error > (-impl.max_error));
 
+	}
 	return 0;
 }
