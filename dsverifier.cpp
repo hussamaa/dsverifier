@@ -7,6 +7,8 @@
 #
 #  Federal University of Amazonas - UFAM
 #  Author: Hussama Ismail - hussamaismail@gmail.com
+#          Iury Bessa - iury.bessa@gmail.com
+#          Lucas Cordeiro - lucasccordeiro@gmail.com
 #          <if you help us, put your name here!> :)
 #
 # --------------------------------------------------
@@ -19,9 +21,14 @@
 #         --timeout 3600
 #
 #  Supported Properties:
-#  for transfer functions:
+
+#  for digital-systems in transfer function:
 #     OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE,
-#     TIMING, ERROR, STABILITY, STABILITY_CLOSED_LOOP, and MINIMUM_PHASE
+#     TIMING, ERROR, STABILITY, and MINIMUM_PHASE
+#
+#  for digital-systems using closed-loop in transfer functions:
+#     STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP,
+#     and QUANTIZATION_ERROR_CLOSED_LOOP
 #
 #  Supported Realizations:
 #     DFI, DFII, TDFII,
@@ -30,7 +37,7 @@
 # --------------------------------------------------
 */
 
-#define DSVERIFIER_VERSION 1.2
+#define DSVERIFIER_VERSION "2.0"
 
 #include <iostream>
 #include <stdlib.h>
@@ -106,13 +113,13 @@ void help () {
 	std::cout << "Options:" << std::endl;
 	std::cout << "" << std::endl;
 	std::cout << "--realization <r>            set the realization for the Digital-System" << std::endl;
-	std::cout << "                             (for Digital-Systems: DFI, DFII, TDFII, DDFI, DDFII, TDDFII, CDFI, CDFII, CTDFII, CDDFI, CDDFII, and CTDDFII)" << std::endl;
-	std::cout << "                             (for Digital-Systems in Closedloop: DFI, DFII, and TDFII)" << std::endl;
+	std::cout << "                             (for Digital-Systems: DFI, DFII, TDFII, DDFI, DDFII, and TDDFII)" << std::endl;
+	std::cout << "                             (for Digital-Systems in Closed-loop: DFI, DFII, and TDFII)" << std::endl;
 	std::cout << "--property <p>               set the property to check in order to find violations" << std::endl;
 	std::cout << "                             (for Digital-Systems: OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE, TIMING, STABILITY, and MINIMUM_PHASE)" << std::endl;
 	std::cout << "                             (for Digital-Systems in Closed-loop: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP, and QUANTIZATION_ERROR_CLOSED_LOOP)" << std::endl;
 	std::cout << "--x-size <k>                 set the bound of verification" << std::endl;
-	std::cout << "--connection-mode <cm>       set the connection mode for the closed-loop system (e.g., SERIES, FEEDBACK)" << std::endl;
+	std::cout << "--connection-mode <cm>       set the connection mode for the closed-loop system (SERIES or FEEDBACK)" << std::endl;
 	std::cout << "--bmc <b>                    set the BMC back-end for DSVerifier (ESBMC or CBMC, default is ESBMC)" << std::endl;
 	std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices, cvc4, and minisat)" << std::endl;
 	std::cout << "--timeout <t>                configure time limit, integer followed by {s,m,h} (for ESBMC only)" << std::endl;
@@ -1110,7 +1117,7 @@ void closed_loop(){
 int main(int argc, char* argv[]){
 
 	/* without overflow */
-	OVERFLOW_MODE = 0;
+	OVERFLOW_MODE = NONE;
 
 	bind_parameters(argc, argv);
 
