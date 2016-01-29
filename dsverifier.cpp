@@ -120,7 +120,7 @@ void help () {
 	std::cout << "                             (for Digital-Systems in Closed-loop: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP, and QUANTIZATION_ERROR_CLOSED_LOOP)" << std::endl;
 	std::cout << "--x-size <k>                 set the bound of verification" << std::endl;
 	std::cout << "--connection-mode <cm>       set the connection mode for the closed-loop system (SERIES or FEEDBACK)" << std::endl;
-	std::cout << "--bmc <b>                    set the BMC back-end for DSVerifier (ESBMC or CBMC, default is ESBMC)" << std::endl;
+	std::cout << "--bmc <b>                    set the BMC back-end for DSVerifier (ESBMC or CBMC, default is CBMC)" << std::endl;
 	std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices, cvc4, and minisat)" << std::endl;
 	std::cout << "--timeout <t>                configure time limit, integer followed by {s,m,h} (for ESBMC only)" << std::endl;
 	std::cout << "" << std::endl;
@@ -205,7 +205,7 @@ void show_required_argument_message(std::string parameter){
 
 void check_required_parameters(){
 	if (desired_bmc.size() == 0){
-		desired_bmc = "ESBMC";
+		desired_bmc = "CBMC";
 	}
 }
 

@@ -123,6 +123,8 @@
                               <Label layoutX="12.0" layoutY="143.0" text="X Size (Bound)" />
                               <CheckBox fx:id="checkStabilityClosedLoop" layoutX="12.0" layoutY="274.0" mnemonicParsing="false" text="Stability (Closed Loop)" />
                               <CheckBox fx:id="checkZeroInputLimitCycle" layoutX="14.0" layoutY="76.0" mnemonicParsing="false" text="Zero Input Limit Cycle" />
+                              <CheckBox fx:id="checkLCOClosedLoop" layoutX="12.0" layoutY="304.0" mnemonicParsing="false" text="Limit Cycle (Closed Loop)" />
+                              <CheckBox fx:id="checkErrorClosedLoop" layoutX="12.0" layoutY="334.0" mnemonicParsing="false" text="Error (Closed Loop)" />
                            </children>
                         </AnchorPane>
                   </content>
