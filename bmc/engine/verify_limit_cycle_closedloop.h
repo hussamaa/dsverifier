@@ -7,6 +7,16 @@
  *
  * ------------------------------------------------------
  *
+ * Verify the limit cycle oscilations for digital systems in closed-loop.
+ *
+ * This property analyse the plant and controller performance
+ * when connected using SERIES or FEEDBACK. The verification
+ * check if the digital controllers' FWL effects causes limit cycle
+ * oscillations in outputs.
+ *
+ * The engine consider nondet inputs and nondet initial states
+ * for the desired realization (DFI, DFII, and TDFII).
+ *
  * ------------------------------------------------------
 */
 
