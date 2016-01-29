@@ -118,7 +118,7 @@ int verify_limit_cycle_closed_loop(void){
 		/* direct form I realization */
 		#if (REALIZATION == DFI)
 			shiftLDouble(x[i], xaux, ans_num_size);
-			y[i] = double_direct_form_1(yaux, xaux, ans_den, ans_num_size, ans_den_size, ans_num_size);
+			y[i] = double_direct_form_1(yaux, xaux, ans_den, ans_num, ans_den_size, ans_num_size);
 			shiftLDouble(y[i], yaux, ans_den_size);
 		#endif
 

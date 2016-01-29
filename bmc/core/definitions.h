@@ -69,9 +69,10 @@
 #define MINIMUM_PHASE 											8
 #define STABILITY_CLOSED_LOOP								9
 #define LIMIT_CYCLE_CLOSED_LOOP							10
-#define QUANTISATION_ERROR									11
-#define CONTROLLABILITY											12
-#define OBSERVABILITY												13
+#define QUANTIZATION_ERROR_CLOSED_LOOP			11
+#define QUANTISATION_ERROR									12
+#define CONTROLLABILITY											13
+#define OBSERVABILITY												14
 
 /** Check Required Parameters */
 #ifndef PROPERTY
