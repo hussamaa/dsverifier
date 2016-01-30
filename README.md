@@ -9,7 +9,7 @@ and controllers.
 
 Supported properties:
 
-@ For Digital-Systems:
+###### For Digital-Systems:
   * Overflow
   * Limit Cycle
   * Timing
@@ -17,7 +17,7 @@ Supported properties:
   * Stability
   * Minimum Phase
 
-@ For Digital-Systems in Closed-loop:
+###### For Digital-Systems in Closed-loop:
   * Stability in Closed-loop
   * Limit Cycle in Closed-loop
   * Quantization Error in Closed-loop
@@ -26,9 +26,7 @@ http://www.dsverifier.org
 
 http://esbmc.org/dsverifier
 
-----------------
-@ Configuration
-----------------
+## Configuration
 
 Firstly, before to use the DSVerifier is necessary to
 configure an environment variable called DSVERIFIER_HOME. So, add to the .bashrc file on your computer the following:
@@ -50,9 +48,7 @@ ESBMC v2.1.0: http://esbmc.org/binaries/esbmc-v2.1.0-linux-static-64.tgz
 
 CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
 
---------------------
 ## Command line mode
---------------------
 
 ###### Verification of Digital-Systems *
 
@@ -88,7 +84,6 @@ CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
               STABILITY, and MINIMUM_PHASE.
 
   Realizations: DFI, DFII, TDFII, DDFI, DDFII, and TDDFII.
-
 
 ###### Verification of Digital-Systems in Closed-loop
 
@@ -136,9 +131,7 @@ CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
 
   Realizations: DFI, DFII, and TDFII.
 
---------------------------
 ## Graphical User Interface
---------------------------
 
 To use DSVerifier GUI, is necessary to have at least Java Runtime Environment
 Version 8.0 Update 40 (jre1.8.0_40)
