@@ -45,9 +45,8 @@ Please, put it into: $DSVERIFIER_HOME/model-checker
 
 The recommended versions for DSVerifier v2.0 are:
 
-ESBMC v2.1.0: http://esbmc.org/binaries/esbmc-v2.1.0-linux-static-64.tgz
-
-CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
+* ESBMC v2.1.0: http://esbmc.org/binaries/esbmc-v2.1.0-linux-static-64.tgz
+* CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
 
 ## Command line mode
 
@@ -81,10 +80,9 @@ CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
   realization, *j* is the property to be verified, and *k* is the verification
   bound.
 
-  Properties: OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE, TIMING, ERROR,
+* Properties: OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE, TIMING, ERROR,
               STABILITY, and MINIMUM_PHASE.
-
-  Realizations: DFI, DFII, TDFII, DDFI, DDFII, and TDDFII.
+* Realizations: DFI, DFII, TDFII, DDFI, DDFII, and TDDFII.
 
 ###### Verification of Digital-Systems in Closed-loop
 
@@ -127,10 +125,10 @@ CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
   connection-mode, *j* is the property to be verified, *r* is the desired
   realization, and *k* is the verification bound.
 
-  Properties: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP,
+* Properties: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP,
               and QUANTIZATION_ERROR_CLOSED_LOOP
 
-  Realizations: DFI, DFII, and TDFII.
+* Realizations: DFI, DFII, and TDFII.
 
 ## Graphical User Interface
 
