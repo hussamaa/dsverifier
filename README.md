@@ -1,4 +1,4 @@
-# DSVerifier (Digital-System Verifier)
+# DSVerifier (Digital-Systems Verifier)
 
 DSVerifier is a verification tool for digital systems.
 In particular, DSVerifier employs the bounded model checking (BMC) technique
@@ -33,11 +33,11 @@ http://esbmc.org/dsverifier
 Firstly, before to use the DSVerifier is necessary to
 configure an environment variable called DSVERIFIER_HOME. So, add to the .bashrc file on your computer the following:
 
-export DSVERIFIER_HOME='path to dsverifier folder'
+./export DSVERIFIER_HOME='path to dsverifier folder'
 
 Save it, and then use the following command:
 
-$ source .bashrc
+./$ source .bashrc
 
 Secondly, you have to download the desired version of CBMC, or ESBMC
 executable for DSVerifier. This package contain the CBMC v5.2 and ESBMC v2.1.0
@@ -58,14 +58,11 @@ CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
 
   It is necessary to generate a verification file using the following format:
 
-  |    #include <dsverifier.h>
-
-  |
-
-  |    digital_system ds = {
-
-  |       .a = { 1.0, 1.068, 0.1239 },
-
+  ```c
+  #include <dsverifier.h>
+  digital_system ds = {
+    .a = { 1.0, 1.068, 0.1239 },
+  ```
   |       .a_size = 3,
 
   |       .b = { 2.813, -0.0163, -1.872 },
