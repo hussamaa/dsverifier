@@ -23,11 +23,8 @@ Supported properties:
   * Quantization Error in Closed-loop
 
 http://www.dsverifier.org
-http://esbmc.org/dsverifier
 
-------------------------------------------------
-################## USAGE #######################
-------------------------------------------------
+http://esbmc.org/dsverifier
 
 ----------------
 @ Configuration
@@ -53,12 +50,10 @@ ESBMC v2.1.0: http://esbmc.org/binaries/esbmc-v2.1.0-linux-static-64.tgz
 CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
 
 --------------------
-@ Command Line Mode
+@ Command line mode
 --------------------
 
-***********************************
 * Verification of Digital-Systems *
-***********************************
 
   It is necessary to generate a verification file using the following format:
 
@@ -90,9 +85,8 @@ CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
               STABILITY, and MINIMUM_PHASE.
   Realizations: DFI, DFII, TDFII, DDFI, DDFII, and TDDFII.
 
-******************************************************
-* For Verification of Digital-Systems in Closed-loop *
-******************************************************
+
+* Verification of Digital-Systems in Closed-loop *
 
   It is necessary to generate a verification file using the following format:
 
