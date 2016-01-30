@@ -22,9 +22,8 @@ Supported properties:
   * Limit Cycle in Closed-loop
   * Quantization Error in Closed-loop
 
-http://www.dsverifier.org
-
-http://esbmc.org/dsverifier
+* http://www.dsverifier.org
+* http://esbmc.org/dsverifier
 
 ## Configuration
 
