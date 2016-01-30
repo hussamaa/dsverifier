@@ -47,6 +47,7 @@ Please, put it into: $DSVERIFIER_HOME/model-checker
 The recommended versions for DSVerifier v2.0 are:
 
 ESBMC v2.1.0: http://esbmc.org/binaries/esbmc-v2.1.0-linux-static-64.tgz
+
 CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
 
 --------------------
@@ -58,19 +59,32 @@ CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
   It is necessary to generate a verification file using the following format:
 
   |    #include <dsverifier.h>
+
   |
+
   |    digital_system ds = {
+
   |       .a = { 1.0, 1.068, 0.1239 },
+
   |       .a_size = 3,
+
   |       .b = { 2.813, -0.0163, -1.872 },
+
   |       .b_size = 3
+
   |    };
   |
+
   |    implementation impl = {
+
   |       .int_bits = 4,
+
   |       .frac_bits = 10,
+
   |       .min = -5.0,
+
   |       .max = 5.0
+
   |    };
 
   Execution:
@@ -83,6 +97,7 @@ CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
 
   Properties: OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE, TIMING, ERROR,
               STABILITY, and MINIMUM_PHASE.
+
   Realizations: DFI, DFII, TDFII, DDFI, DDFII, and TDDFII.
 
 
