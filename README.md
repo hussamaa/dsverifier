@@ -76,8 +76,8 @@ CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
 
       ./dsverifier ds.c --realization <r> --property <j> --x-size <k>
 
-  where <file> is the digital-system specification file, <r> is the chosen
-  realization, <j> is the property to be verified, and <k> is the verification
+  where *ds.c* is the digital-system specification file, *r* is the chosen
+  realization, *j* is the property to be verified, and *k* is the verification
   bound.
 
   Properties: OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE, TIMING, ERROR,
@@ -122,9 +122,9 @@ CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
       ./dsverifier <file> --connection-mode <cm> --property <j>
                           --realization <r> --x-size <k> --bmc CBMC
 
-  where <file> is the digital-system specification file, <cm> is the chosen
-  connection-mode, <j> is the property to be verified, <r> is the desired
-  realization, and <k> is the verification bound.
+  where *file* is the digital-system specification file, *cm* is the chosen
+  connection-mode, *j* is the property to be verified, *r* is the desired
+  realization, and *k* is the verification bound.
 
   Properties: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP,
               and QUANTIZATION_ERROR_CLOSED_LOOP
