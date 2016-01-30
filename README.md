@@ -29,13 +29,14 @@ http://esbmc.org/dsverifier
 ## Configuration
 
 Firstly, before to use the DSVerifier is necessary to
-configure an environment variable called DSVERIFIER_HOME. So, add to the .bashrc file on your computer the following:
+configure an environment variable called DSVERIFIER_HOME.
+So, add to the .bashrc file on your computer the following:
 
-./export DSVERIFIER_HOME='path to dsverifier folder'
+     export DSVERIFIER_HOME='path to dsverifier folder'
 
 Save it, and then use the following command:
 
-./$ source .bashrc
+     $ source .bashrc
 
 Secondly, you have to download the desired version of CBMC, or ESBMC
 executable for DSVerifier. This package contain the CBMC v5.2 and ESBMC v2.1.0
