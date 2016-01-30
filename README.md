@@ -49,7 +49,7 @@ The recommended versions for DSVerifier v2.0 are:
 
 ## Command line mode
 
-###### Verification of Digital-Systems *
+###### Verification of Digital-Systems
 
   It is necessary to generate a verification file using the following format:
 
