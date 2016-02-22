@@ -98,6 +98,7 @@ std::string desired_ds_id;
 /* state space */
 bool stateSpaceVerification = false;
 bool closedloop = false;
+bool translate = false;
 digital_system_state_space _controller;
 double desired_quantisation_limit = 0.0;
 
@@ -123,6 +124,7 @@ void help () {
 	std::cout << "--bmc <b>                    set the BMC back-end for DSVerifier (ESBMC or CBMC, default is CBMC)" << std::endl;
 	std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices, cvc4, and minisat)" << std::endl;
 	std::cout << "--timeout <t>                configure time limit, integer followed by {s,m,h} (for ESBMC only)" << std::endl;
+	std::cout << "--tf2ss                      converts a transfer function representation of a given system to an equivalent state-space representation" << std::endl;
 	std::cout << "" << std::endl;
 	exit(0);
 }
@@ -268,6 +270,8 @@ void bind_parameters(int argc, char* argv[]){
 			}
 		} else if (std::string(argv[i]) == "--closed-loop") {
 			closedloop = true;
+		} else if (std::string(argv[i]) == "--tf2ss") {
+			translate = true;
 		} else {
 			/* get macro parameters */
 			std::string parameter = argv[i];
@@ -1113,6 +1117,51 @@ void closed_loop(){
 			_controller.C);
 }
 
+/*
+ * This function converts a transfer function into a state space
+ * It only works for SISO systems
+ * */
+void tf2ss(){
+	unsigned int i, j;
+
+	_controller.nStates = ds.b_size - 1;
+	_controller.nInputs = 1;
+	_controller.nOutputs = 1;
+
+	for (i=0; i<_controller.nStates - 1; i++) {
+		for (j=0; j<_controller.nStates; j++) {
+			if(j == i + 1){
+				_controller.A[i][j] = 1;
+			}else{
+				_controller.A[i][j] = 0;
+			}
+		}
+	}
+
+	for (j=0; j<_controller.nStates; j++) {
+		_controller.A[_controller.nStates - 1][j] = - ds.b[_controller.nStates - j];
+	}
+
+	for (i=0; i<_controller.nStates - 1; i++) {
+		for (j=0; j<_controller.nInputs; j++) {
+			_controller.B[i][j] = 0;
+		}
+	}
+	_controller.B[_controller.nStates - 1][0] = 1; /* for SISO systems */
+
+	for (i=0; i<_controller.nOutputs; i++) {
+		for (j=0; j<_controller.nStates; j++) {
+			_controller.C[i][j] = ds.a[_controller.nStates - j] - (ds.b[_controller.nStates - j] * ds.a[0]);
+		}
+	}
+
+	for (i=0; i<_controller.nOutputs; i++) {
+		for (j=0; j<_controller.nInputs; j++) {
+			_controller.D[i][j] = ds.a[0];
+		}
+	}
+}
+
 /* main function */
 int main(int argc, char* argv[]){
 
@@ -1127,6 +1176,13 @@ int main(int argc, char* argv[]){
 	check_file_exists();
 
 	std::cout << "Running: Digital Systems Verifier (DSVerifier)" << std::endl;
+
+	if(translate){
+		extract_data_from_file();
+		tf2ss();
+		state_space_parser();
+		exit(0);
+	}
 
 	if (stateSpaceVerification){
 		extract_data_from_ss_file();
