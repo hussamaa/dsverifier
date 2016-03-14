@@ -354,7 +354,7 @@ std::string prepare_bmc_command_line_ss(){
 			command_line += " --timeout " + desired_timeout;
 		}
 	}else if (desired_bmc == "CBMC"){
-		command_line = "cbmc --fixedbv input.c -DBMC=CBMC";
+		command_line = "./model-checker/cbmc --fixedbv input.c -DBMC=CBMC";
 	}
 	if (desired_solver.size() > 0){
 		command_line += " --" + desired_solver;
@@ -798,7 +798,7 @@ void extract_data_from_ss_file(){
 
 	getline( verification_file, current_line ); // states
 
-	for(i = 0; current_line[i] != '=';i++);
+	for(i = 0; current_line[i] != '=';i++){}
 		i++; i++;
 		for(; current_line[i] != ';'; i++)
 			str_bits.push_back(current_line[i]);
@@ -807,7 +807,7 @@ void extract_data_from_ss_file(){
 
 	getline( verification_file, current_line ); // inputs
 
-	for(i = 0; current_line[i] != '=';i++);
+	for(i = 0; current_line[i] != '=';i++){}
 		i++; i++;
 		for(; current_line[i] != ';'; i++)
 			str_bits.push_back(current_line[i]);
@@ -816,7 +816,7 @@ void extract_data_from_ss_file(){
 
 	getline( verification_file, current_line ); // outputs
 
-	for(i = 0; current_line[i] != '=';i++);
+	for(i = 0; current_line[i] != '=';i++){}
 		i++; i++;
 		for(; current_line[i] != ';'; i++)
 			str_bits.push_back(current_line[i]);
