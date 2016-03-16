@@ -73,6 +73,7 @@
 #define QUANTISATION_ERROR									12
 #define CONTROLLABILITY											13
 #define OBSERVABILITY												14
+#define LIMIT_CYCLE_STATE_SPACE										15
 
 /** Check Required Parameters */
 #ifndef PROPERTY

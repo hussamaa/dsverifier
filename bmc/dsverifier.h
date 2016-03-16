@@ -107,6 +107,9 @@ int main(){
 	if (PROPERTY == OBSERVABILITY){
 		verify_observability();
 	}
+	if (PROPERTY == LIMIT_CYCLE_STATE_SPACE){
+		verify_limit_cycle_state_space();
+	}
 
 	return 0;
 }
@@ -114,6 +117,17 @@ int main(){
 /** validate the required parameters to use DSVerifier and your properties verification. */
 void validation(){
 	if (PROPERTY == QUANTISATION_ERROR){
+		if (K_SIZE == 0){
+			printf("\n\n********************************************************************************************\n");
+			printf("* It is necessary to set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");
+			printf("********************************************************************************************\n");
+			__DSVERIFIER_assert(0);
+			exit(1);
+		}
+		initials();
+		return;
+	}
+	if (PROPERTY == LIMIT_CYCLE_STATE_SPACE){
 		if (K_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* It is necessary to set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");

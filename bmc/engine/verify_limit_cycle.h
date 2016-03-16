@@ -12,6 +12,15 @@
 
 extern digital_system ds;
 extern implementation impl;
+extern digital_system_state_space _controller;
+
+extern int nStates;
+extern int nInputs;
+extern int nOutputs;
+
+int verify_limit_cycle_state_space(void){
+	assert(0);
+}
 
 int verify_limit_cycle(void){
 
