@@ -78,7 +78,7 @@ typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 #include <fstream>
 #include <boost/algorithm/string.hpp>
 
-const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "ERROR", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "LIMIT_CYCLE_CLOSED_LOOP", "QUANTIZATION_ERROR_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY"};
+const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "ERROR", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "LIMIT_CYCLE_CLOSED_LOOP", "QUANTIZATION_ERROR_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE"};
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
 const char * bmcs [] = { "ESBMC", "CBMC" };
 const char * connections_mode [] = { "SERIES", "FEEDBACK" };
@@ -1205,6 +1205,12 @@ int main(int argc, char* argv[]){
 			execute_command_line(command_line);
 			exit(0);
 		} else if( desired_property == "OBSERVABILITY" ) {
+			state_space_parser();
+			std::string command_line = prepare_bmc_command_line_ss();
+			std::cout << "Back-end Verification: " << command_line << std::endl;
+			execute_command_line(command_line);
+			exit(0);
+		} else if( desired_property == "LIMIT_CYCLE_STATE_SPACE" ) {
 			state_space_parser();
 			std::string command_line = prepare_bmc_command_line_ss();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
