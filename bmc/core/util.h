@@ -388,7 +388,7 @@ void fxp_matrix_multiplication( unsigned int i1, unsigned int j1, unsigned int i
 }
 
 void fxp_exp_matrix(unsigned int lines,  unsigned int columns, fxp_t m1[LIMIT][LIMIT], unsigned int expNumber, fxp_t result[LIMIT][LIMIT]){
-	unsigned int i, j;
+	unsigned int i, j, l, k;
 	fxp_t m2[LIMIT][LIMIT];
 
 	if(expNumber == 0){
@@ -410,14 +410,14 @@ void fxp_exp_matrix(unsigned int lines,  unsigned int columns, fxp_t m1[LIMIT][L
 	if(expNumber == 1){
 		return;
 	}
-	for(int l = 1; l < expNumber; l++){
+	for(l = 1; l < expNumber; l++){
         for (i = 0; i < lines; i++)
         	for (j = 0; j < columns; j++) m2[i][j] = result[i][j];
         for (i = 0; i < lines; i++)
         	for (j = 0; j < columns; j++) result[i][j] = 0;
         for (i=0;i<lines; i++) {
             for (j=0; j<columns; j++) {
-                for (int k=0; k<columns; k++) {
+                for (k=0; k<columns; k++) {
                 	result[i][j] = fxp_add( result[i][j], fxp_mult(m2[i][k] , m1[k][j]));
                 }
             }
@@ -426,7 +426,7 @@ void fxp_exp_matrix(unsigned int lines,  unsigned int columns, fxp_t m1[LIMIT][L
 }
 
 void double_exp_matrix(unsigned int lines,  unsigned int columns, double m1[LIMIT][LIMIT], unsigned int expNumber, double result[LIMIT][LIMIT]){
-	unsigned int i, j;
+	unsigned int i, j, k, l;
 	double m2[LIMIT][LIMIT];
 
 	if(expNumber == 0){
@@ -448,14 +448,14 @@ void double_exp_matrix(unsigned int lines,  unsigned int columns, double m1[LIMI
 	if(expNumber == 1){
 		return;
 	}
-	for(int l = 1; l < expNumber; l++){
+	for(l = 1; l < expNumber; l++){
         for (i = 0; i < lines; i++)
         	for (j = 0; j < columns; j++) m2[i][j] = result[i][j];
         for (i = 0; i < lines; i++)
         	for (j = 0; j < columns; j++) result[i][j] = 0;
         for (i=0;i<lines; i++) {
             for (j=0; j<columns; j++) {
-                for (int k=0; k<columns; k++) {
+                for (k=0; k<columns; k++) {
                 	result[i][j] = result[i][j] + (m2[i][k] * m1[k][j]);
                 }
             }
