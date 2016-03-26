@@ -344,16 +344,14 @@ fxp_t fxp_mult(fxp_t amult, fxp_t bmult) {
 }
 
 /**
- * Fake Fixed point division out = a / b
+ * Fixed point division out = a / b
+ * Idea extracted from: http://x86asm.net/articles/fixed-point-arithmetic-and-tricks/
  * @param [amult] fixed point input
  * @param [bmult] fixed point input
  * @return div result out
  */
 fxp_t fxp_div(fxp_t a, fxp_t b){
-	double da = fxp_to_double(a);
-	double db = fxp_to_double(b);
-	double div = da/db;
-	fxp_t tmpdiv = fxp_double_to_fxp(div);
+	fxp_t tmpdiv = ((a << impl.frac_bits) / b);
 	return tmpdiv;
 }
 
