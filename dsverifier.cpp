@@ -6,14 +6,16 @@
 # --------------------------------------------------
 #
 #  Federal University of Amazonas - UFAM
-#  Author: Hussama Ismail - hussamaismail@gmail.com
-#          Iury Bessa - iury.bessa@gmail.com
-#          Lucas Cordeiro - lucasccordeiro@gmail.com
-#          <if you help us, put your name here!> :)
+#
+#  Authors: Hussama Ismail - hussamaismail@gmail.com
+#           Iury Bessa - iury.bessa@gmail.com
+#           Lucas Cordeiro - lucasccordeiro@gmail.com
+#           <if you help us, put your name here!> :)
 #
 # --------------------------------------------------
 #
 #  Usage:
+#
 #    ./dsverifier file.c or file.ss
 #         --realization DFI
 #         --property STABILITY
@@ -21,23 +23,23 @@
 #         --timeout 3600
 #
 #  Supported Properties:
-
-#  for digital-systems in transfer function:
-#     OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE,
-#     TIMING, ERROR, STABILITY, and MINIMUM_PHASE
 #
-#  for digital-systems using closed-loop in transfer functions:
-#     STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP,
-#     and QUANTIZATION_ERROR_CLOSED_LOOP
+#     for digital-systems in transfer function:
+#        OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE,
+#        TIMING, ERROR, STABILITY, and MINIMUM_PHASE
+#
+#     for digital-systems using closed-loop in transfer functions:
+#        STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP,
+#        and QUANTIZATION_ERROR_CLOSED_LOOP
 #
 #  Supported Realizations:
 #     DFI, DFII, TDFII,
-#     DDFI, DDFII, TDDFII
+#     DDFI, DDFII, TDDFII.
 #
 # --------------------------------------------------
 */
 
-#define DSVERIFIER_VERSION "2.0"
+#define DSVERIFIER_VERSION "2.0.1"
 
 #include <iostream>
 #include <stdlib.h>
@@ -50,7 +52,11 @@
 #include <exception>
 #include <assert.h>
 #include <iomanip>
-
+#include <regex>
+#include <fstream>
+#include <streambuf>
+#include <math.h>  
+ 
 typedef bool _Bool;
 
 void __DSVERIFIER_assume(_Bool expression){
@@ -75,7 +81,7 @@ void __DSVERIFIER_assert(_Bool expression){
 typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootType RootType;
 typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 
-#include <fstream>
+/* boost dependencies */
 #include <boost/algorithm/string.hpp>
 
 const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "ERROR", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "LIMIT_CYCLE_CLOSED_LOOP", "QUANTIZATION_ERROR_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE"};
@@ -101,6 +107,8 @@ bool closedloop = false;
 bool translate = false;
 digital_system_state_space _controller;
 double desired_quantisation_limit = 0.0;
+int bits = 12; /* TODO - get it dynamically */
+int factor = pow(2, bits);
 
 void help () {
 	std::cout << std::endl;
@@ -125,6 +133,7 @@ void help () {
 	std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices, cvc4, and minisat)" << std::endl;
 	std::cout << "--timeout <t>                configure time limit, integer followed by {s,m,h} (for ESBMC only)" << std::endl;
 	std::cout << "--tf2ss                      converts a transfer function representation of a given system to an equivalent state-space representation" << std::endl;
+	std::cout << "--show-ce-data               shows initial states, inputs, and outputs extracted from counterexample" << std::endl;
 	std::cout << "" << std::endl;
 	exit(0);
 }
@@ -392,6 +401,57 @@ void cplus_print_array_elements(const char * name, double * v, int n){
 		printf(" %.32f ", v[i]);
 	}
 	printf("}\n");
+}
+
+int get_fxp_value(std::string exp){
+	std::vector<std::string> tokens; 
+    boost::split(tokens, exp,boost::is_any_of("=")); 
+    return std::atoi(tokens[1].c_str());
+};
+
+void extract_regexp_data_for_vector(std::string src, std::regex & regexp, std::vector<double> & vector){
+	std::sregex_iterator next(src.begin(), src.end(), regexp);
+	std::sregex_iterator end;
+	while (next != end) {
+		std::smatch match = *next;
+		double value = (double) get_fxp_value(match.str()) / (double) factor;
+		vector.push_back(value);
+		next++;
+	}
+};
+
+void print_counterexample_data(std::string counterexample){
+	std::vector<double> inputs;
+	std::vector<double> outputs;
+	std::vector<double> initial_states;
+
+	try {
+
+		/* process input data */
+		std::regex input_regexp(" x\\[[0-9]\\]=-?[0-9]+");
+		extract_regexp_data_for_vector(counterexample, input_regexp, inputs);
+
+		/* process output data */
+		std::regex output_regexp("y\\[[0-9]\\]=-?[0-9]+");
+		extract_regexp_data_for_vector(counterexample, output_regexp, outputs);
+
+		/* process initial states data */
+		std::regex initial_states_regexp("y0\\[[0-9]\\]=-?[0-9]+");
+		extract_regexp_data_for_vector(counterexample, initial_states_regexp, initial_states);	
+		if (initial_states.size() == 0){
+			std::regex initial_states_regexp_df2("w0\\[[0-9]\\]=-?[0-9]+");
+			extract_regexp_data_for_vector(counterexample, initial_states_regexp_df2, initial_states);
+		}
+
+		std::cout << std::endl << "VERIFICATION DATA" << std::endl << std::endl;
+		cplus_print_array_elements("Initial States", &initial_states[0], initial_states.size());
+		cplus_print_array_elements("Inputs", &inputs[0], inputs.size());
+		cplus_print_array_elements("Outputs", &outputs[inputs.size()], outputs.size() - inputs.size());
+
+	} catch (std::regex_error& e) {
+		std::cout << "[ERROR] It was not able to process the counterexample data :(" << std::endl; 
+		exit(1);
+	}	
 }
 
 int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<RootType> & roots){
@@ -1226,7 +1286,8 @@ int main(int argc, char* argv[]){
 		if (!(is_restricted_property)){
 			std::string command_line = prepare_bmc_command_line();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
-			execute_command_line(command_line);
+			std::string counterexample = execute_command_line(command_line);
+			/* print_counterexample_data(counterexample); */
 			exit(0);
 		}else{
 			try{
