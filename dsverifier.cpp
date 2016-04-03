@@ -404,6 +404,13 @@ void cplus_print_array_elements(const char * name, double * v, int n){
 	printf("}\n");
 }
 
+/* print array elements */
+void cplus_print_array_elements_ignoring_empty(const char * name, double * v, int n){
+	if (n > 0){
+		cplus_print_array_elements(name,v,n);
+	}
+}
+
 int get_fxp_value(std::string exp){
 	std::vector<std::string> tokens; 
     boost::split(tokens, exp,boost::is_any_of("=")); 
@@ -429,10 +436,15 @@ void print_counterexample_data(std::string counterexample){
 	std::vector<double> initial_states;
 	unsigned int factor = pow(2, impl.frac_bits);
 
+	std::size_t verification_failed = counterexample.find("VERIFICATION FAILED");
+	if (verification_failed == std::string::npos){
+		return;
+    }
+
 	if (desired_bmc == "ESBMC") {
 		std::cout << std::endl << "[INFO] Unfortunately, It was not able to extract the counterexample data for this model checker. :(" << std::endl;
 		return;
-        }
+	}
 
 	try {
 
@@ -461,15 +473,15 @@ void print_counterexample_data(std::string counterexample){
 		}
 
 		std::cout << std::endl << "Counterexample Data:" << std::endl;
-		cplus_print_array_elements("  Numerator ", ds.b, ds.b_size);
-		cplus_print_array_elements("  Denominator ", ds.a, ds.a_size);
+		cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
+		cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
 		std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;		
-		cplus_print_array_elements("  Numerator (fixed-point)", &numerator[0], numerator.size());
-		cplus_print_array_elements("  Denominator (fixed-point)", &denominator[0], denominator.size());
+		cplus_print_array_elements_ignoring_empty("  Numerator (fixed-point)", &numerator[0], numerator.size());
+		cplus_print_array_elements_ignoring_empty("  Denominator (fixed-point)", &denominator[0], denominator.size());
 		std::cout << "  Realization = " << desired_realization << std::endl;
-		cplus_print_array_elements("  Initial States", &initial_states[0], initial_states.size());
-		cplus_print_array_elements("  Inputs", &inputs[0], inputs.size());
-		cplus_print_array_elements("  Outputs", &outputs[inputs.size()], outputs.size() - inputs.size());
+		cplus_print_array_elements_ignoring_empty("  Initial States", &initial_states[0], initial_states.size());
+		cplus_print_array_elements_ignoring_empty("  Inputs", &inputs[0], inputs.size());
+		cplus_print_array_elements_ignoring_empty("  Outputs", &outputs[inputs.size()], outputs.size() - inputs.size());
 
 	} catch (std::regex_error& e) {
 		std::cout << "[ERROR] It was not able to process the counterexample data. :(" << std::endl; 
@@ -1303,11 +1315,11 @@ int main(int argc, char* argv[]){
 			std::cout << "Nothing to check!" << std::endl;
 		}
 	} else {
-		bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
 		bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
+		bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
 		extract_data_from_file();
 
-		if (!(is_restricted_property)){
+		if (!is_delta_realization){
 			std::string command_line = prepare_bmc_command_line();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
 			std::string counterexample = execute_command_line(command_line);
@@ -1318,21 +1330,14 @@ int main(int argc, char* argv[]){
 		}else{
 			try{		
 				initialization();
-
-				if ((is_delta_realization == true) && desired_property == "STABILITY"){
+				if (desired_property == "STABILITY"){
 					check_stability_delta_domain();
 					exit(0);
-				} else if ((is_delta_realization == true) && desired_property == "MINIMUM_PHASE"){
+				} else if (desired_property == "MINIMUM_PHASE"){
 					check_minimum_phase_delta_domain();
 					exit(0);
-				} else if ((desired_property == "STABILITY")){
-					check_stability_shift_domain_using_jury();
-					exit(0);
-				} else if ((desired_property == "MINIMUM_PHASE")){
-					check_minimum_phase_shift_domain_using_jury();
-					exit(0);
 				}
-			}catch(std::exception & e){
+			} catch(std::exception & e){
 				std::cout << std::endl << "[INTERNAL ERROR] - An unexpected event occurred " << std::endl;
 			}
 		}
