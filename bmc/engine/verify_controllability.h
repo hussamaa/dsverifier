@@ -88,7 +88,7 @@ int verify_controllability(void){
 
 		//Calculating determinant
 		//assert(fxp_determinant(mimo_controllabilityMatrix_fxp,nStates) != 0);
-		assert(fxp_determinant(controllabilityMatrix_double,nStates) != 0);
+		assert(determinant(controllabilityMatrix_double,nStates) != 0);
 	} else {
 
 		// Checking a SISO system
