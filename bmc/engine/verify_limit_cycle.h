@@ -12,6 +12,100 @@
 
 extern digital_system ds;
 extern implementation impl;
+extern digital_system_state_space _controller;
+
+extern int nStates;
+extern int nInputs;
+extern int nOutputs;
+
+int verify_limit_cycle_state_space(void){
+
+	/* setting up variables */
+	double stateMatrix[LIMIT][LIMIT];
+	double outputMatrix[LIMIT][LIMIT];
+	double arrayLimitCycle[LIMIT];
+
+	double result1[LIMIT][LIMIT];
+	double result2[LIMIT][LIMIT];
+
+	int i, j, k;
+
+	/* initializing variables */
+	for(i=0; i<LIMIT;i++){
+		for(j=0; j<LIMIT;j++){
+			result1[i][j]=0;
+			result2[i][j]=0;
+			stateMatrix[i][j]=0;
+			outputMatrix[i][j]=0;
+		}
+	}
+
+	/* first system iteration */
+	double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller.C,_controller.states,result1);
+	double_matrix_multiplication(nOutputs,nInputs,nInputs,1,_controller.D,_controller.inputs,result2);
+
+	double_add_matrix(nOutputs,
+			1,
+			result1,
+			result2,
+			_controller.outputs);
+
+	k = 0;
+
+	/* remaining system iterations */
+	for (i = 1; i < K_SIZE; i++) {
+		double_matrix_multiplication(nStates,nStates,nStates,1,_controller.A,_controller.states,result1);
+		double_matrix_multiplication(nStates,nInputs,nInputs,1,_controller.B,_controller.inputs,result2);
+
+		double_add_matrix(nStates,
+				1,
+				result1,
+				result2,
+				_controller.states);
+
+		double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller.C,_controller.states,result1);
+		double_matrix_multiplication(nOutputs,nInputs,nInputs,1,_controller.D,_controller.inputs,result2);
+
+		double_add_matrix(nOutputs,
+				1,
+				result1,
+				result2,
+				_controller.outputs);
+
+		/* adding states and outputs in matrices */
+		for(int l = 0; l < nStates; l++){
+			stateMatrix[l][k] = _controller.states[l][0];
+		}
+		for(int l = 0; l < nOutputs; l++){
+			stateMatrix[l][k] = _controller.outputs[l][0];
+		}
+		k++;
+	}
+
+	printf("#matrix STATES -------------------------------");
+	print_matrix(stateMatrix,nStates,K_SIZE); //DEBUG
+
+	printf("#matrix OUTPUTS -------------------------------");
+	print_matrix(outputMatrix,nOutputs,K_SIZE); //DEBUG
+	assert(0);
+	/* checking limit cycle for states */
+	for(i=0; i<nStates;i++){
+		for(j=0; j<K_SIZE;j++){
+			arrayLimitCycle[j] = stateMatrix[i][j];
+		}
+		double_check_persistent_limit_cycle(arrayLimitCycle,K_SIZE);
+	}
+
+	/* checking limit cycle for outputs */
+	for(i=0; i<nOutputs;i++){
+		for(j=0; j<K_SIZE;j++){
+			arrayLimitCycle[j] = outputMatrix[i][j];
+		}
+		double_check_persistent_limit_cycle(arrayLimitCycle,K_SIZE);
+	}
+
+	assert(0);
+}
 
 int verify_limit_cycle(void){
 

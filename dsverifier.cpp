@@ -6,11 +6,16 @@
 # --------------------------------------------------
 #
 #  Federal University of Amazonas - UFAM
-#  Author: Hussama Ismail - hussamaismail@gmail.com
+#
+#  Authors: Hussama Ismail - hussamaismail@gmail.com
+#           Iury Bessa - iury.bessa@gmail.com
+#           Lucas Cordeiro - lucasccordeiro@gmail.com
+#           <if you help us, put your name here!> :)
 #
 # --------------------------------------------------
 #
 #  Usage:
+#
 #    ./dsverifier file.c or file.ss
 #         --realization DFI
 #         --property STABILITY
@@ -18,18 +23,23 @@
 #         --timeout 3600
 #
 #  Supported Properties:
-#  for transfer functions:
-#     OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE,
-#     TIMING, ERROR, STABILITY, STABILITY_CLOSED_LOOP MINIMUM_PHASE
+#
+#     for digital-systems in transfer function:
+#        OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE,
+#        TIMING, ERROR, STABILITY, and MINIMUM_PHASE
+#
+#     for digital-systems using closed-loop in transfer functions:
+#        STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP,
+#        and QUANTIZATION_ERROR_CLOSED_LOOP
 #
 #  Supported Realizations:
 #     DFI, DFII, TDFII,
-#     DDFI, DDFII, TDDFII
+#     DDFI, DDFII, TDDFII.
 #
 # --------------------------------------------------
 */
 
-#define DSVERIFIER_VERSION 1.2
+#define DSVERIFIER_VERSION "2.0.1"
 
 #include <iostream>
 #include <stdlib.h>
@@ -42,7 +52,11 @@
 #include <exception>
 #include <assert.h>
 #include <iomanip>
-
+#include <regex>
+#include <fstream>
+#include <streambuf>
+#include <math.h>  
+ 
 typedef bool _Bool;
 
 void __DSVERIFIER_assume(_Bool expression){
@@ -67,18 +81,20 @@ void __DSVERIFIER_assert(_Bool expression){
 typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootType RootType;
 typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 
-#include <fstream>
+/* boost dependencies */
 #include <boost/algorithm/string.hpp>
 
-const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY"};
+const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "ERROR", "TIMING", "STABILITY", "STABILITY_CLOSED_LOOP", "LIMIT_CYCLE_CLOSED_LOOP", "QUANTIZATION_ERROR_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE"};
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
 const char * bmcs [] = { "ESBMC", "CBMC" };
+const char * connections_mode [] = { "SERIES", "FEEDBACK" };
 
 /* expected parameters */
 unsigned int desired_x_size = 0;
 std::string desired_filename;
 std::string desired_property;
 std::string desired_realization;
+std::string desired_connection_mode;
 std::string desired_timeout;
 std::string desired_bmc;
 std::string desired_solver;
@@ -88,8 +104,10 @@ std::string desired_ds_id;
 /* state space */
 bool stateSpaceVerification = false;
 bool closedloop = false;
+bool translate = false;
 digital_system_state_space _controller;
 double desired_quantisation_limit = 0.0;
+bool show_counterexample_data = false;
 
 void help () {
 	std::cout << std::endl;
@@ -102,14 +120,19 @@ void help () {
 	std::cout << "" << std::endl;
 	std::cout << "Options:" << std::endl;
 	std::cout << "" << std::endl;
-	std::cout << "--realization <r>            set the realization for the digital system" << std::endl;
-	std::cout << "                             (Available: DFI, DFII, TDFII, DDFI, DDFII, TDDFII, CDFI, CDFII, CTDFII, CDDFI, CDDFII, CTDDFII)" << std::endl;
+	std::cout << "--realization <r>            set the realization for the Digital-System" << std::endl;
+	std::cout << "                             (for Digital-Systems: DFI, DFII, TDFII, DDFI, DDFII, and TDDFII)" << std::endl;
+	std::cout << "                             (for Digital-Systems in Closed-loop: DFI, DFII, and TDFII)" << std::endl;
 	std::cout << "--property <p>               set the property to check in order to find violations" << std::endl;
-	std::cout << "                             (Available: OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE, TIMING, STABILITY, and MINIMUM_PHASE)" << std::endl;
+	std::cout << "                             (for Digital-Systems: OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE, ERROR, TIMING, STABILITY, and MINIMUM_PHASE)" << std::endl;
+	std::cout << "                             (for Digital-Systems in Closed-loop: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP, and QUANTIZATION_ERROR_CLOSED_LOOP)" << std::endl;
 	std::cout << "--x-size <k>                 set the bound of verification" << std::endl;
-	std::cout << "--bmc <b>                    set the BMC back-end for DSVerifier (ESBMC or CBMC, default is ESBMC)" << std::endl;
-	std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices)" << std::endl;
+	std::cout << "--connection-mode <cm>       set the connection mode for the closed-loop system (SERIES or FEEDBACK)" << std::endl;
+	std::cout << "--bmc <b>                    set the BMC back-end for DSVerifier (ESBMC or CBMC, default is CBMC)" << std::endl;
+	std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices, cvc4, and minisat)" << std::endl;
 	std::cout << "--timeout <t>                configure time limit, integer followed by {s,m,h} (for ESBMC only)" << std::endl;
+	std::cout << "--tf2ss                      converts a transfer function representation of a given system to an equivalent state-space representation" << std::endl;
+	std::cout << "--show-ce-data               shows initial states, inputs, and outputs extracted from counterexample" << std::endl;
 	std::cout << "" << std::endl;
 	exit(0);
 }
@@ -124,6 +147,20 @@ void validate_selected_bmc(std::string data){
 	}
 	if (desired_bmc.size() == 0){
 		std::cout << "invalid bmc: " << data << std::endl;
+		exit(1);
+	}
+}
+
+void validate_selected_connection_mode(std::string data){
+	int length = (sizeof(connections_mode)/sizeof(*connections_mode));
+	for(int i=0; i<length; i++){
+		if (connections_mode[i] == data){
+			desired_connection_mode = data;
+			break;
+		}
+	}
+	if (desired_connection_mode.size() == 0){
+		std::cout << "invalid connection-mode: " << data << std::endl;
 		exit(1);
 	}
 }
@@ -157,7 +194,9 @@ void validate_selected_property(std::string data){
 }
 
 void validate_filename(std::string file){
-	if(file.substr(file.size()-3, std::string::npos) != ".ss"){
+	if (file == "--help" || file == "-h") {
+		help();
+	} else if(file.substr(file.size()-3, std::string::npos) != ".ss"){
 		std::string::size_type loc = file.find(".c", 0 );
 		if( loc == std::string::npos ) {
 			std::cout << file << ": failed to figure out type of file" << std::endl;
@@ -176,7 +215,7 @@ void show_required_argument_message(std::string parameter){
 
 void check_required_parameters(){
 	if (desired_bmc.size() == 0){
-		desired_bmc = "ESBMC";
+		desired_bmc = "CBMC";
 	}
 }
 
@@ -207,6 +246,12 @@ void bind_parameters(int argc, char* argv[]){
 			} else {
 				show_required_argument_message(argv[i]);
 			}
+		} else if (std::string(argv[i]) == "--connection-mode") {
+			if (i + 1 < argc) {
+				validate_selected_connection_mode(argv[++i]);
+			} else {
+				show_required_argument_message(argv[i]);
+			}
 		} else if (std::string(argv[i]) == "--timeout") {
 			if (i + 1 < argc) {
 				desired_timeout = argv[++i];
@@ -233,6 +278,10 @@ void bind_parameters(int argc, char* argv[]){
 			}
 		} else if (std::string(argv[i]) == "--closed-loop") {
 			closedloop = true;
+		} else if (std::string(argv[i]) == "--tf2ss") {
+			translate = true;
+		} else if (std::string(argv[i]) == "--show-ce-data"){
+			show_counterexample_data = true;
 		} else {
 			/* get macro parameters */
 			std::string parameter = argv[i];
@@ -297,6 +346,9 @@ std::string prepare_bmc_command_line(){
 	if (desired_property.size() > 0){
 		command_line += " -DPROPERTY=" + desired_property;
 	}
+	if (desired_connection_mode.size() > 0){
+		command_line += " -DCONNECTION_MODE=" + desired_connection_mode;
+	}
 	if (desired_x_size > 0){
 		command_line += " -DX_SIZE=" + std::to_string(desired_x_size);
 	}
@@ -312,7 +364,7 @@ std::string prepare_bmc_command_line_ss(){
 			command_line += " --timeout " + desired_timeout;
 		}
 	}else if (desired_bmc == "CBMC"){
-		command_line = "cbmc --fixedbv input.c -DBMC=CBMC";
+		command_line = "./model-checker/cbmc --fixedbv input.c -DBMC=CBMC";
 	}
 	if (desired_solver.size() > 0){
 		command_line += " --" + desired_solver;
@@ -347,9 +399,94 @@ void cplus_print_array_elements(const char * name, double * v, int n){
 	printf("%s = {", name);
 	int i;
 	for(i=0; i < n; i++){
-		printf(" %.32f ", v[i]);
+		printf(" %.16f ", v[i]);
 	}
 	printf("}\n");
+}
+
+/* print array elements */
+void cplus_print_array_elements_ignoring_empty(const char * name, double * v, int n){
+	if (n > 0){
+		cplus_print_array_elements(name,v,n);
+	}
+}
+
+int get_fxp_value(std::string exp){
+	std::vector<std::string> tokens; 
+    boost::split(tokens, exp,boost::is_any_of("=")); 
+    return std::atoi(tokens[1].c_str());
+};
+
+void extract_regexp_data_for_vector(std::string src, std::regex & regexp, std::vector<double> & vector, unsigned int & factor){
+	std::sregex_iterator next(src.begin(), src.end(), regexp);
+	std::sregex_iterator end;
+	while (next != end) {
+		std::smatch match = *next;
+		double value = (double) get_fxp_value(match.str()) / (double) factor;
+		vector.push_back(value);
+		next++;
+	}
+};
+
+void print_counterexample_data(std::string counterexample){
+	std::vector<double> numerator;
+	std::vector<double> denominator;
+	std::vector<double> inputs;
+	std::vector<double> outputs;
+	std::vector<double> initial_states;
+	unsigned int factor = pow(2, impl.frac_bits);
+
+	std::size_t verification_failed = counterexample.find("VERIFICATION FAILED");
+	if (verification_failed == std::string::npos){
+		return;
+    }
+
+	if (desired_bmc == "ESBMC") {
+		std::cout << std::endl << "[INFO] Unfortunately, It was not able to extract the counterexample data for this model checker. :(" << std::endl;
+		return;
+	}
+
+	try {
+
+		/* process quantized numerator data */
+		std::regex num_fxp_regexp("b_fxp\\[[0-9]\\]=-?[0-9]+");
+		extract_regexp_data_for_vector(counterexample, num_fxp_regexp, numerator, factor);
+
+		/* process quantized denominator data */
+		std::regex den_fxp_regexp("a_fxp\\[[0-9]\\]=-?[0-9]+");
+		extract_regexp_data_for_vector(counterexample, den_fxp_regexp, denominator, factor);
+
+		/* process input data */
+		std::regex input_regexp(" x\\[[0-9]\\]=-?[0-9]+");
+		extract_regexp_data_for_vector(counterexample, input_regexp, inputs, factor);
+
+		/* process output data */
+		std::regex output_regexp("y\\[[0-9]\\]=-?[0-9]+");
+		extract_regexp_data_for_vector(counterexample, output_regexp, outputs, factor);
+
+		/* process initial states data */
+		std::regex initial_states_regexp("y0\\[[0-9]\\]=-?[0-9]+");
+		extract_regexp_data_for_vector(counterexample, initial_states_regexp, initial_states, factor);	
+		if (initial_states.size() == 0){
+			std::regex initial_states_regexp_df2("w0\\[[0-9]\\]=-?[0-9]+");
+			extract_regexp_data_for_vector(counterexample, initial_states_regexp_df2, initial_states, factor);
+		}
+
+		std::cout << std::endl << "Counterexample Data:" << std::endl;
+		cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
+		cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
+		std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;		
+		cplus_print_array_elements_ignoring_empty("  Numerator (fixed-point)", &numerator[0], numerator.size());
+		cplus_print_array_elements_ignoring_empty("  Denominator (fixed-point)", &denominator[0], denominator.size());
+		std::cout << "  Realization = " << desired_realization << std::endl;
+		cplus_print_array_elements_ignoring_empty("  Initial States", &initial_states[0], initial_states.size());
+		cplus_print_array_elements_ignoring_empty("  Inputs", &inputs[0], inputs.size());
+		cplus_print_array_elements_ignoring_empty("  Outputs", &outputs[inputs.size()], outputs.size() - inputs.size());
+
+	} catch (std::regex_error& e) {
+		std::cout << "[ERROR] It was not able to process the counterexample data. :(" << std::endl; 
+		exit(1);
+	}	
 }
 
 int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<RootType> & roots){
@@ -756,7 +893,7 @@ void extract_data_from_ss_file(){
 
 	getline( verification_file, current_line ); // states
 
-	for(i = 0; current_line[i] != '=';i++);
+	for(i = 0; current_line[i] != '=';i++){}
 		i++; i++;
 		for(; current_line[i] != ';'; i++)
 			str_bits.push_back(current_line[i]);
@@ -765,7 +902,7 @@ void extract_data_from_ss_file(){
 
 	getline( verification_file, current_line ); // inputs
 
-	for(i = 0; current_line[i] != '=';i++);
+	for(i = 0; current_line[i] != '=';i++){}
 		i++; i++;
 		for(; current_line[i] != ';'; i++)
 			str_bits.push_back(current_line[i]);
@@ -774,7 +911,7 @@ void extract_data_from_ss_file(){
 
 	getline( verification_file, current_line ); // outputs
 
-	for(i = 0; current_line[i] != '=';i++);
+	for(i = 0; current_line[i] != '=';i++){}
 		i++; i++;
 		for(; current_line[i] != ';'; i++)
 			str_bits.push_back(current_line[i]);
@@ -1075,11 +1212,56 @@ void closed_loop(){
 			_controller.C);
 }
 
+/*
+ * This function converts a transfer function into a state space
+ * It only works for SISO systems
+ * */
+void tf2ss(){
+	unsigned int i, j;
+
+	_controller.nStates = ds.b_size - 1;
+	_controller.nInputs = 1;
+	_controller.nOutputs = 1;
+
+	for (i=0; i<_controller.nStates - 1; i++) {
+		for (j=0; j<_controller.nStates; j++) {
+			if(j == i + 1){
+				_controller.A[i][j] = 1;
+			}else{
+				_controller.A[i][j] = 0;
+			}
+		}
+	}
+
+	for (j=0; j<_controller.nStates; j++) {
+		_controller.A[_controller.nStates - 1][j] = - ds.b[_controller.nStates - j];
+	}
+
+	for (i=0; i<_controller.nStates - 1; i++) {
+		for (j=0; j<_controller.nInputs; j++) {
+			_controller.B[i][j] = 0;
+		}
+	}
+	_controller.B[_controller.nStates - 1][0] = 1; /* for SISO systems */
+
+	for (i=0; i<_controller.nOutputs; i++) {
+		for (j=0; j<_controller.nStates; j++) {
+			_controller.C[i][j] = ds.a[_controller.nStates - j] - (ds.b[_controller.nStates - j] * ds.a[0]);
+		}
+	}
+
+	for (i=0; i<_controller.nOutputs; i++) {
+		for (j=0; j<_controller.nInputs; j++) {
+			_controller.D[i][j] = ds.a[0];
+		}
+	}
+}
+
 /* main function */
 int main(int argc, char* argv[]){
 
 	/* without overflow */
-	OVERFLOW_MODE = 0;
+	OVERFLOW_MODE = NONE;
 
 	bind_parameters(argc, argv);
 
@@ -1089,6 +1271,13 @@ int main(int argc, char* argv[]){
 	check_file_exists();
 
 	std::cout << "Running: Digital Systems Verifier (DSVerifier)" << std::endl;
+
+	if(translate){
+		extract_data_from_file();
+		tf2ss();
+		state_space_parser();
+		exit(0);
+	}
 
 	if (stateSpaceVerification){
 		extract_data_from_ss_file();
@@ -1116,37 +1305,39 @@ int main(int argc, char* argv[]){
 			std::cout << "Back-end Verification: " << command_line << std::endl;
 			execute_command_line(command_line);
 			exit(0);
+		} else if( desired_property == "LIMIT_CYCLE_STATE_SPACE" ) {
+			state_space_parser();
+			std::string command_line = prepare_bmc_command_line_ss();
+			std::cout << "Back-end Verification: " << command_line << std::endl;
+			execute_command_line(command_line);
+			exit(0);
 		} else {
 			std::cout << "Nothing to check!" << std::endl;
 		}
 	} else {
-		bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
 		bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
+		bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
+		extract_data_from_file();
 
-		if (!(is_restricted_property)){
+		if (!is_delta_realization){
 			std::string command_line = prepare_bmc_command_line();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
-			execute_command_line(command_line);
+			std::string counterexample = execute_command_line(command_line);
+			if (show_counterexample_data){			
+				print_counterexample_data(counterexample); 
+			}
 			exit(0);
 		}else{
-			try{
-				extract_data_from_file();
+			try{		
 				initialization();
-
-				if ((is_delta_realization == true) && desired_property == "STABILITY"){
+				if (desired_property == "STABILITY"){
 					check_stability_delta_domain();
 					exit(0);
-				} else if ((is_delta_realization == true) && desired_property == "MINIMUM_PHASE"){
+				} else if (desired_property == "MINIMUM_PHASE"){
 					check_minimum_phase_delta_domain();
 					exit(0);
-				} else if ((desired_property == "STABILITY")){
-					check_stability_shift_domain_using_jury();
-					exit(0);
-				} else if ((desired_property == "MINIMUM_PHASE")){
-					check_minimum_phase_shift_domain_using_jury();
-					exit(0);
 				}
-			}catch(std::exception & e){
+			} catch(std::exception & e){
 				std::cout << std::endl << "[INTERNAL ERROR] - An unexpected event occurred " << std::endl;
 			}
 		}

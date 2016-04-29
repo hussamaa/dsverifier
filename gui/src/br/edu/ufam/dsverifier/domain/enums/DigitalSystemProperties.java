@@ -9,7 +9,9 @@ public enum DigitalSystemProperties {
 	STABILITY("Stability"), 
 	MINIMUM_PHASE("Minimum Phase"), 
 	STABILITY_CLOSED_LOOP("Stability in Closed Loop"),
-	QUANTISATION_ERROR("Quantisation Error");;
+	QUANTISATION_ERROR("Quantisation Error"),
+	LIMIT_CYCLE_CLOSED_LOOP("Limit Cycle in Closed Loop"),
+	QUANTIZATION_ERROR_CLOSED_LOOP("Quantization in Closed Loop");
 
 	private String name;
 

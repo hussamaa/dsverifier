@@ -36,6 +36,7 @@
 #include "engine/verify_minimum_phase.h"
 #include "engine/verify_stability_closedloop.h"
 #include "engine/verify_limit_cycle_closedloop.h"
+#include "engine/verify_error_closedloop.h"
 #include "engine/verify_error_state_space.h"
 #include "engine/verify_controllability.h"
 #include "engine/verify_observability.h"
@@ -43,7 +44,7 @@
 extern digital_system ds;
 extern digital_system plant;
 digital_system plant_cbmc;
-extern digital_system control;
+extern digital_system controller;
 extern implementation impl;
 extern hardware hw;
 extern digital_system_state_space _controller;
@@ -89,10 +90,13 @@ int main(){
 		call_verification_task(&verify_minimum_phase);
 	}
 	if (PROPERTY == STABILITY_CLOSED_LOOP){
-		call_closedloop_verification_task(&verify_stability_closedloop_using_dslib);		
+		call_closedloop_verification_task(&verify_stability_closedloop_using_dslib);
 	}
 	if (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP){
 		call_closedloop_verification_task(&verify_limit_cycle_closed_loop);
+	}
+	if (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP){
+		call_closedloop_verification_task(&verify_error_closedloop);
 	}
 	if (PROPERTY == QUANTISATION_ERROR){
 		verify_error_state_space();
@@ -102,6 +106,9 @@ int main(){
 	}
 	if (PROPERTY == OBSERVABILITY){
 		verify_observability();
+	}
+	if (PROPERTY == LIMIT_CYCLE_STATE_SPACE){
+		verify_limit_cycle_state_space();
 	}
 
 	return 0;
@@ -120,6 +127,17 @@ void validation(){
 		initials();
 		return;
 	}
+	if (PROPERTY == LIMIT_CYCLE_STATE_SPACE){
+		if (K_SIZE == 0){
+			printf("\n\n********************************************************************************************\n");
+			printf("* It is necessary to set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");
+			printf("********************************************************************************************\n");
+			__DSVERIFIER_assert(0);
+			exit(1);
+		}
+		initials();
+		return;
+	}
 	if (PROPERTY == CONTROLLABILITY){
 		if (K_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
@@ -142,36 +160,36 @@ void validation(){
 		initials();
 		return;
 	}
-	if (((PROPERTY != STABILITY_CLOSED_LOOP) && (PROPERTY != LIMIT_CYCLE_CLOSED_LOOP)) && (ds.a_size == 0 || ds.b_size == 0)){
+	if (((PROPERTY != STABILITY_CLOSED_LOOP) && (PROPERTY != LIMIT_CYCLE_CLOSED_LOOP) && (PROPERTY != QUANTIZATION_ERROR_CLOSED_LOOP)) && (ds.a_size == 0 || ds.b_size == 0)){
 		printf("\n\n****************************************************************************\n");
 		printf("* It is necessary to set (ds and impl) parameters to check with DSVerifier *\n");
 		printf("****************************************************************************\n");
 		__DSVERIFIER_assert(0);
 	}
-	if ((PROPERTY == STABILITY_CLOSED_LOOP) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)){
-		if (control.a_size == 0 || plant.b_size == 0 || impl.int_bits == 0 ){
+	if ((PROPERTY == STABILITY_CLOSED_LOOP) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) || (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP)){
+		if (controller.a_size == 0 || plant.b_size == 0 || impl.int_bits == 0 ){
 			printf("\n\n*****************************************************************************************************\n");
-			printf("* It is necessary to set (control, plant and, impl) parameters to check CLOSED LOOP with DSVerifier *\n");
+			printf("* It is necessary to set (controller, plant and, impl) parameters to check CLOSED LOOP with DSVerifier *\n");
 			printf("*****************************************************************************************************\n");
 			__DSVERIFIER_assert(0);
 		}
 		if (CONNECTION_MODE == 0){
-			printf("\n\n*****************************************************************************************************************\n");
-			printf("* It is necessary to set a connection mode to check CLOSED LOOP with DSVerifier (use: -DCONNECTION_MODE=SERIES) *\n");
-			printf("*****************************************************************************************************************\n");
+			printf("\n\n***************************************************************************************************************\n");
+			printf("* It is necessary to set a connection mode to check CLOSED LOOP with DSVerifier (use: --connection-mode TYPE) *\n");
+			printf("***************************************************************************************************************\n");
 			__DSVERIFIER_assert(0);
 		}
 	}
 	if (PROPERTY == 0){
 		printf("\n\n***************************************************************************************\n");
-		printf("* It is necessary to set the property to check with DSVerifier (use: -DPROPERTY=NAME) *\n");
+		printf("* It is necessary to set the property to check with DSVerifier (use: --property NAME) *\n");
 		printf("***************************************************************************************\n");
 		__DSVERIFIER_assert(0);
 	}
-	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) || (PROPERTY == TIMING_MSP430 || PROPERTY == TIMING) || PROPERTY == ERROR){
+	if ((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE) || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) || (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP) || (PROPERTY == TIMING_MSP430 || PROPERTY == TIMING) || PROPERTY == ERROR){
 		if (X_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
-			printf("* It is necessary to set a X_SIZE to use this property in DSVerifier (use: -DX_SIZE=VALUE) *\n");
+			printf("* It is necessary to set a X_SIZE to use this property in DSVerifier (use: --x-size VALUE) *\n");
 			printf("********************************************************************************************\n");
 			__DSVERIFIER_assert(0);
 		}else{
@@ -180,11 +198,11 @@ void validation(){
 	}
 	if ((REALIZATION == 0) && (PROPERTY != STABILITY_CLOSED_LOOP)){
 		printf("\n\n*********************************************************************************************\n");
-		printf("* It is necessary to set the realization to check with DSVerifier (use: -DREALIZATION=NAME) *\n");
+		printf("* It is necessary to set the realization to check with DSVerifier (use: --realization NAME) *\n");
 		printf("*********************************************************************************************\n");
 		__DSVERIFIER_assert(0);
 	}
-	if (PROPERTY == ERROR){
+	if (PROPERTY == ERROR || PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP){
 		if (impl.max_error == 0){
 			printf("\n\n***********************************************************************\n");
 			printf("* You need to inform the maximum expected error (use: impl.max_error) *\n");

@@ -1,5 +1,5 @@
 /**
- * DSVerifier - Digital Systems Verifier (Limit Cycle)
+ * DSVerifier - Digital Systems Verifier (Limit Cycle in Closed-loop)
  *
  * Federal University of Amazonas - UFAM
  *
@@ -7,41 +7,46 @@
  *
  * ------------------------------------------------------
  *
+ * Verify the limit cycle oscilations for digital systems in closed-loop.
+ *
+ * This property analyse the plant and controller performance
+ * when connected using SERIES or FEEDBACK. The verification
+ * check if the digital controllers' FWL effects causes limit cycle
+ * oscillations in outputs.
+ *
+ * The engine consider nondet inputs and nondet initial states
+ * for the desired realization (DFI, DFII, and TDFII).
+ *
  * ------------------------------------------------------
 */
 
 extern digital_system plant;
 extern digital_system plant_cbmc;
-extern digital_system control;
+extern digital_system controller;
 
 double nondet_double();
 
 int verify_limit_cycle_closed_loop(void){
 
-	OVERFLOW_MODE = 3; /* WRAPAROUND */
-
-	int i;
-	int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;
-	printf("X_SIZE must be at least 2 * ds.a_size");
-	__DSVERIFIER_assert(X_SIZE_VALUE >= Set_xsize_at_least_two_times_Na);
+	OVERFLOW_MODE = WRAPAROUND;
 
 	/* generating closed loop for series or feedback */
-	double * c_num = control.b;
-	int c_num_size = control.b_size;
-	double * c_den = control.a;
-	int c_den_size = control.a_size;
+	double * c_num = controller.b;
+	int c_num_size = controller.b_size;
+	double * c_den = controller.a;
+	int c_den_size = controller.a_size;
 
 	/* quantizing controller coefficients */
-	fxp_t c_num_fxp[control.b_size];
-	fxp_double_to_fxp_array(c_num, c_num_fxp, control.b_size);
-	fxp_t c_den_fxp[control.a_size];
-	fxp_double_to_fxp_array(c_den, c_den_fxp, control.a_size);
+	fxp_t c_num_fxp[controller.b_size];
+	fxp_double_to_fxp_array(c_num, c_num_fxp, controller.b_size);
+	fxp_t c_den_fxp[controller.a_size];
+	fxp_double_to_fxp_array(c_den, c_den_fxp, controller.a_size);
 
 	/* getting quantized controller coefficients  */
-	double c_num_qtz[control.b_size];
-	fxp_to_double_array(c_num_qtz, c_num_fxp, control.b_size);
-	double c_den_qtz[control.a_size];
-	fxp_to_double_array(c_den_qtz, c_den_fxp, control.a_size);
+	double c_num_qtz[controller.b_size];
+	fxp_to_double_array(c_num_qtz, c_num_fxp, controller.b_size);
+	double c_den_qtz[controller.a_size];
+	fxp_to_double_array(c_den_qtz, c_den_fxp, controller.a_size);
 
 	/* getting plant coefficients */
 	#if (BMC == ESBMC)
@@ -57,12 +62,17 @@ int verify_limit_cycle_closed_loop(void){
 	#endif
 
 	double ans_num[100];
-	int ans_num_size = control.b_size + plant.b_size - 1;
+	int ans_num_size = controller.b_size + plant.b_size - 1;
 	double ans_den[100];
-	int ans_den_size = control.a_size + plant.a_size - 1;
+	int ans_den_size = controller.a_size + plant.a_size - 1;
 
-	ft_closedloop_series(c_num_qtz, c_num_size, c_den_qtz, c_den_size, p_num, p_num_size, p_den, p_den_size, ans_num, ans_num_size, ans_den, ans_den_size);
+	#if (CONNECTION_MODE == SERIES)
+		ft_closedloop_series(c_num_qtz, c_num_size, c_den_qtz, c_den_size, p_num, p_num_size, p_den, p_den_size, ans_num, ans_num_size, ans_den, ans_den_size);
+	#elif (CONNECTION_MODE == FEEDBACK)
+		ft_closedloop_feedback(c_num_qtz, c_num_size, c_den_qtz, c_den_size, p_num, p_num_size, p_den, p_den_size, ans_num, ans_num_size, ans_den, ans_den_size);
+	#endif
 
+  int i;
 	double y[X_SIZE_VALUE];
 	double x[X_SIZE_VALUE];
 
@@ -78,20 +88,14 @@ int verify_limit_cycle_closed_loop(void){
 		xaux[i] = nondet_constant_input;
 	}
 
-	int Nw = 0;
-	#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
-		Nw = a_cascade_size > b_cascade_size ? a_cascade_size : b_cascade_size;
-	#else
-		Nw = ans_den_size > ans_num_size ? ans_den_size : ans_num_size;
-	#endif
-
 	double yaux[ans_den_size];
 	double y0[ans_den_size];
 
+	int Nw = ans_den_size > ans_num_size ? ans_den_size : ans_num_size;
 	double waux[Nw];
 	double w0[Nw];
 
-	#if (REALIZATION == DFI || REALIZATION == CDFI || REALIZATION == DDFI || REALIZATION == CDDFI)
+	#if (REALIZATION == DFI)
 		for (i = 0; i < ans_den_size; ++i) {
 			yaux[i] = nondet_int();
 			__DSVERIFIER_assume(yaux[i] >= impl.min && yaux[i] <= impl.max);
@@ -112,10 +116,22 @@ int verify_limit_cycle_closed_loop(void){
 	for(i=0; i<X_SIZE_VALUE; ++i){
 
 		/* direct form I realization */
-		#if ((REALIZATION == DFI) || (REALIZATION == DDFI))
+		#if (REALIZATION == DFI)
 			shiftLDouble(x[i], xaux, ans_num_size);
-			y[i] = double_direct_form_1(yaux, xaux, ans_den, ans_num_size, ans_den_size, ans_num_size);
+			y[i] = double_direct_form_1(yaux, xaux, ans_den, ans_num, ans_den_size, ans_num_size);
 			shiftLDouble(y[i], yaux, ans_den_size);
+		#endif
+
+
+		/* direct form II realization */
+		#if (REALIZATION == DFII)
+			shiftRDdouble(0, waux, Nw);
+			y[i] = double_direct_form_2(waux, x[i], ans_den, ans_num, ans_den_size, ans_num_size);
+		#endif
+
+		/* transposed direct form II realization */
+		#if (REALIZATION == TDFII)
+			y[i] = double_transposed_direct_form_2(waux, x[i], ans_den, ans_num, ans_den_size, ans_num_size);
 		#endif
 
 	}

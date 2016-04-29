@@ -9,7 +9,7 @@
 # ------------------------------------------------------
 #
 # Script to run many benchmarks in DSVerifier
-# 
+#
 # Usage Example:
 # $ sh script benchmark_file.c
 #
@@ -20,9 +20,9 @@ if test $# -ne 1; then
    exit 1
 fi
 
-PROPERTIES=( MINIMUM_PHASE )
-REALIZATIONS=( DDFI )
-TIMEOUT="4h"
+PROPERTIES=( LIMIT_CYCLE )
+REALIZATIONS=( DFI DFII TDFII )
+TIMEOUT="7200" # seconds
 X_SIZE=10
 
 ## default parameters
@@ -34,9 +34,9 @@ BENCHMARKS=$(cat $BENCHMARKS_LIBRARY | grep 'DS_ID\|IMPLEMENTATION_COUNT')
 TOTAL_DS=$(echo "$BENCHMARKS" | grep 'DS_ID' | wc -l)
 OUTPUT_LOGS_DIRECTORY="./logs"
 BMC_EXECUTABLE="dsverifier"
-BMC_PARAMETERS=""
+BMC_PARAMETERS="--show-ce-data"
 
-# header 
+# header
 INITIAL_TIMESTAMP=$(date +%s)
 CPU_CORE_NUMBER=$(cat /proc/cpuinfo | grep processor | wc -l)
 CPU_INFO="CPU:$(cat /proc/cpuinfo | grep "model name" | tail -n1 | cut -d ":" -f2)"
@@ -62,10 +62,10 @@ while [ $AUX -le $(($TOTAL_DS * 2)) ]; do
    CURRENT_DS_ID=$(echo "$CURRENT"  | grep 'DS_ID' | sed -e 's/^[ \t]*//g' |  sed -e 's/ //g' | cut -d "=" -f3);
    TOTAL_OF_IMPLEMENTATIONS=$(echo "$CURRENT"  | grep 'IMPLEMENTATION_COUNT' | cut -d " " -f2);
 
-   # get implemenentations 
+   # get implemenentations
    for CURRENT_IMPLEMENTATION in $(seq 1 $TOTAL_OF_IMPLEMENTATIONS); do
 
-       # get realizations	
+       # get realizations
        for CURRENT_REALIZATION in ${REALIZATIONS[@]}; do
 
            # get properties
@@ -74,39 +74,51 @@ while [ $AUX -le $(($TOTAL_DS * 2)) ]; do
               echo "RUNNING: digital system $CURRENT_DS_ID using implementation $CURRENT_IMPLEMENTATION in $CURRENT_REALIZATION realization checking $CURRENT_PROPERTY property";
 
               mkdir -p $OUTPUT_LOGS_DIRECTORY/$CURRENT_PROPERTY;
-              OUT_FILE="$OUTPUT_LOGS_DIRECTORY/$CURRENT_PROPERTY/result-ds$CURRENT_DS_ID-impl$CURRENT_IMPLEMENTATION-$CURRENT_REALIZATION.out";   
+              OUT_FILE="$OUTPUT_LOGS_DIRECTORY/$CURRENT_PROPERTY/result-ds$CURRENT_DS_ID-impl$CURRENT_IMPLEMENTATION-$CURRENT_REALIZATION.out";
 
               # do the verification
               INITIAL_EXECUTION_TIMESTAMP=$(date +%s)
-              { time $BMC_EXECUTABLE $BMC_PARAMETERS $BENCHMARKS_LIBRARY --realization $CURRENT_REALIZATION --property $CURRENT_PROPERTY --x-size $X_SIZE -DDS_ID=$CURRENT_DS_ID -DIMPLEMENTATION_ID=$CURRENT_IMPLEMENTATION > $OUT_FILE; } 2>> $OUT_FILE ;
+              timeout $TIMEOUT bash -c "{ time $BMC_EXECUTABLE $BENCHMARKS_LIBRARY --realization $CURRENT_REALIZATION --property $CURRENT_PROPERTY --x-size $X_SIZE -DDS_ID=$CURRENT_DS_ID -DIMPLEMENTATION_ID=$CURRENT_IMPLEMENTATION $BMC_PARAMETERS > $OUT_FILE; } 2>> $OUT_FILE";
               FINAL_EXECUTION_TIMESTAMP=$(date +%s)
 
-              # analyse the result 
-              OUT=$(cat $OUT_FILE);		
+              # analyse the result
+              OUT=$(cat $OUT_FILE);
               TIME=$((FINAL_EXECUTION_TIMESTAMP - INITIAL_EXECUTION_TIMESTAMP));
-              VERIFICATION_SUCCESSFUL=$(echo "$OUT" | grep "SUCCESSFUL" | wc -l); 
+              VERIFICATION_SUCCESSFUL=$(echo "$OUT" | grep "SUCCESSFUL" | wc -l);
               VERIFICATION_FAILED=$(echo "$OUT" | grep "FAILED" | wc -l);
               VERIFICATION_TIMEOUT=$(echo "$OUT" | grep "Timed out" | wc -l);
+
+              # check if manual timeout
+              if [ $VERIFICATION_SUCCESSFUL -eq 0 ] && [ $VERIFICATION_FAILED -eq 0 ] && [ $VERIFICATION_TIMEOUT -eq 0 ]; then
+                  TIME_PARAMETERS=$(cat $OUT_FILE | grep -w "real\|user\|sys" | wc -l)
+                  if [ $TIME_PARAMETERS -lt 3 ]; then
+                     VERIFICATION_TIMEOUT=1;
+                  fi
+              fi
+
               TOTAL_EXECUTIONS=$((TOTAL_EXECUTIONS + 1));
               if [ $VERIFICATION_SUCCESSFUL -eq 1 ]; then
-            	   TOTAL_SUCCESS=$((TOTAL_SUCCESS + 1));
-                 echo "$(echo -e "\033[0;32msuccess\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";       
+                TOTAL_SUCCESS=$((TOTAL_SUCCESS + 1));
+                  echo "$(echo -e "\033[0;32msuccess\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
               elif [ $VERIFICATION_FAILED -eq 1 ]; then
-            	   TOTAL_FAILS=$((TOTAL_FAILS + 1));
-                 echo "$(echo -e "\033[0;31mfail\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
+                TOTAL_FAILS=$((TOTAL_FAILS + 1));
+                  echo "$(echo -e "\033[0;31mfail\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
               elif [ $VERIFICATION_TIMEOUT -eq 1 ]; then
-            	   TOTAL_TIMEOUTS=$((TOTAL_TIMEOUTS + 1));
-                 echo "$(echo -e "\033[1;35mtimeout\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
+                TOTAL_TIMEOUTS=$((TOTAL_TIMEOUTS + 1));
+                  echo "$(echo -e "\033[1;35mtimeout\033[0m" | cut -d " " -f2) in "$TIME"s ($OUT_FILE)";
               else
-                 echo "$(echo -e "\033[0;33munknown\033[0m" | cut -d " " -f2) ($OUT_FILE)"; 
+                  echo "$(echo -e "\033[0;33munknown\033[0m" | cut -d " " -f2) ($OUT_FILE)";
               fi
 
            done
+
        done;
+
    done;
-   
+
    AUX=$((AUX+2));
-done 
+
+done
 
 # show report
 echo "";
