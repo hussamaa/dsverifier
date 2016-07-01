@@ -39,10 +39,13 @@ for file_desired in $RESULT; do
 
 OUTPUT_FILE=$file_desired;
 
+REALIZATION=$(cat $OUTPUT_FILE | grep " Realization \=" | cut -d "=" -f2 );
+IMPLEMENTATION=$(cat $OUTPUT_FILE | grep " Implementation \=" | cut -d "=" -f2 | sed 's/<//' | sed 's/>//' | tr ',' ' ');
 OUTPUTS=$(cat $OUTPUT_FILE | grep " Outputs =" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
 
+SPACE=" ";
 ENTER="\n";
-ITEM=$OUTPUTS$ENTER;
+ITEM=$REALIZATION$SPACE$IMPLEMENTATION$SPACE$OUTPUTS$ENTER;
 
 EXTRACTION="$EXTRACTION $ITEM";
 
