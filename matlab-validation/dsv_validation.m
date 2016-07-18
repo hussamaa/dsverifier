@@ -1,4 +1,4 @@
-%% Script execute the validation automatically for all counterexamples
+%% Script to execute the validation automatically for all counterexamples
 function dsv_validation(directory)
 
 sh = 'sh';
@@ -29,5 +29,8 @@ dsv_parser();
 script3 = 'shell-scripts/dsverifier-matlab-comparison-script.sh';
 command = [sh ' ' script3 ' ' 'dsv_matlab_filter_outputs.txt' ' ' 'dsv_counterexamples_outputs.txt'];
 system(command);
+
+%saving all variables created in a file .MAT in order to be used later.
+save dsv_variables;
 
 end
