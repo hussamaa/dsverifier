@@ -55,8 +55,8 @@
 #include <regex>
 #include <fstream>
 #include <streambuf>
-#include <math.h>  
- 
+#include <math.h>
+
 typedef bool _Bool;
 
 void __DSVERIFIER_assume(_Bool expression){
@@ -412,8 +412,8 @@ void cplus_print_array_elements_ignoring_empty(const char * name, double * v, in
 }
 
 int get_fxp_value(std::string exp){
-	std::vector<std::string> tokens; 
-    boost::split(tokens, exp,boost::is_any_of("=")); 
+	std::vector<std::string> tokens;
+    boost::split(tokens, exp,boost::is_any_of("="));
     return std::atoi(tokens[1].c_str());
 };
 
@@ -466,7 +466,7 @@ void print_counterexample_data(std::string counterexample){
 
 		/* process initial states data */
 		std::regex initial_states_regexp("y0\\[[0-9]\\]=-?[0-9]+");
-		extract_regexp_data_for_vector(counterexample, initial_states_regexp, initial_states, factor);	
+		extract_regexp_data_for_vector(counterexample, initial_states_regexp, initial_states, factor);
 		if (initial_states.size() == 0){
 			std::regex initial_states_regexp_df2("w0\\[[0-9]\\]=-?[0-9]+");
 			extract_regexp_data_for_vector(counterexample, initial_states_regexp_df2, initial_states, factor);
@@ -475,18 +475,20 @@ void print_counterexample_data(std::string counterexample){
 		std::cout << std::endl << "Counterexample Data:" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
 		cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
-		std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;		
+    std::cout << "  Sample Time = " << ds.sample_time << std::endl;
+		std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Numerator (fixed-point)", &numerator[0], numerator.size());
 		cplus_print_array_elements_ignoring_empty("  Denominator (fixed-point)", &denominator[0], denominator.size());
 		std::cout << "  Realization = " << desired_realization << std::endl;
+    std::cout << "  Dynamic Range = " << "[ " << impl.min << ", " << impl.max << " ]" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Initial States", &initial_states[0], initial_states.size());
 		cplus_print_array_elements_ignoring_empty("  Inputs", &inputs[0], inputs.size());
 		cplus_print_array_elements_ignoring_empty("  Outputs", &outputs[inputs.size()], outputs.size() - inputs.size());
 
 	} catch (std::regex_error& e) {
-		std::cout << "[ERROR] It was not able to process the counterexample data. :(" << std::endl; 
+		std::cout << "[ERROR] It was not able to process the counterexample data. :(" << std::endl;
 		exit(1);
-	}	
+	}
 }
 
 int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<RootType> & roots){
@@ -787,8 +789,6 @@ std::string replace_all_string(std::string str, const std::string& from, const s
 void extract_data_from_file(){
 
 	std::ifstream verification_file(desired_filename);
-	int readed_attributes = 0;
-	int expected_attributes = 5;
 	bool ds_id_found = false;
 
 	for(std::string current_line; getline( verification_file, current_line );){
@@ -813,11 +813,6 @@ void extract_data_from_file(){
 			}
 		}
 
-		/* check if all expected attributes were found */
-		if (readed_attributes == expected_attributes){
-			break;
-		}
-
 		std::string::size_type ds_a = current_line.find(".a=", 0);
 		if (ds_a != std::string::npos){
 			std::vector<std::string> coefficients;
@@ -829,7 +824,6 @@ void extract_data_from_file(){
 				ds.a[i] = std::atof(coefficient.c_str());
 				ds.a_size = coefficients.size();
 			}
-			readed_attributes++;
 			continue;
 		}
 		std::string::size_type ds_b = current_line.find(".b=", 0);
@@ -843,32 +837,45 @@ void extract_data_from_file(){
 				ds.b[i] = std::atof(coefficient.c_str());
 				ds.b_size = coefficients.size();
 			}
-			readed_attributes++;
 			continue;
 		}
-		std::string::size_type impl_int_bits = current_line.find(".int_bits", 0);
+    std::string::size_type ds_sample_time = current_line.find(".sample_time", 0);
+		if (ds_sample_time != std::string::npos){
+			current_line = replace_all_string(current_line, ".sample_time=", "");
+			ds.sample_time = std::atof(current_line.c_str());
+			continue;
+		}
+    std::string::size_type impl_int_bits = current_line.find(".int_bits", 0);
 		if (impl_int_bits != std::string::npos){
 			current_line = replace_all_string(current_line, ".int_bits=", "");
 			impl.int_bits = std::atoi(current_line.c_str());
-			readed_attributes++;
 			continue;
 		}
 		std::string::size_type impl_frac_bits = current_line.find(".frac_bits", 0);
 		if (impl_frac_bits != std::string::npos){
 			current_line = replace_all_string(current_line, ".frac_bits=", "");
 			impl.frac_bits = std::atoi(current_line.c_str());
-			readed_attributes++;
+			continue;
+		}
+    std::string::size_type impl_min = current_line.find(".min", 0);
+		if (impl_min != std::string::npos){
+			current_line = replace_all_string(current_line, ".min=", "");
+			impl.min = std::atof(current_line.c_str());
+			continue;
+		}
+    std::string::size_type impl_max = current_line.find(".max", 0);
+    if (impl_max != std::string::npos){
+			current_line = replace_all_string(current_line, ".max=", "");
+			impl.max = std::atof(current_line.c_str());
 			continue;
 		}
 		std::string::size_type impl_delta = current_line.find(".delta", 0);
 		if (impl_delta != std::string::npos){
 			current_line = replace_all_string(current_line, ".delta=", "");
 			impl.delta = std::atof(current_line.c_str());
-			readed_attributes++;
 			continue;
 		}
 	}
-
 }
 
 void extract_data_from_ss_file(){
@@ -1323,12 +1330,12 @@ int main(int argc, char* argv[]){
 			std::string command_line = prepare_bmc_command_line();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
 			std::string counterexample = execute_command_line(command_line);
-			if (show_counterexample_data){			
-				print_counterexample_data(counterexample); 
+			if (show_counterexample_data){
+				print_counterexample_data(counterexample);
 			}
 			exit(0);
 		}else{
-			try{		
+			try{
 				initialization();
 				if (desired_property == "STABILITY"){
 					check_stability_delta_domain();
