@@ -1,29 +1,15 @@
-%% Script to execute the validation automatically for all counterexamples
-function dsv_validation(directory)
-
+%path = '/home/lennon/Development/matlab/VANT-Limit-Cycle/CT-Results-Completed';
 sh = 'sh';
 cp = 'cp';
-%extraction of parameters
 
-script1 = 'shell-scripts/dsverifier-directory-data-extractor-script.sh';
-command = [sh ' ' script1 ' ' directory];
-system(command);
-
-%extraction of outputs
-script2 = 'shell-scripts/dsverifier-directory-outputs-extractor-script.sh';
-command = [sh ' ' script2 ' ' directory];
-system(command);
-
-%copying files to matlab directory
-command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' dsv_counterexample_parameters.txt'];
-system(command);
-command = [cp ' ' directory '/dsv_counterexamples_outputs.txt' ' dsv_counterexamples_outputs.txt'];
-system(command);
+%function to extract the parameters from counterexamples output
+dsv_extraction(path);
 
 %parsing the paramaters to variables workspace
 dsv_parser();
+
 %simulation automatically of all counterexamples
-%dsv_simulation();
+dsv_simulation();
 
 %comparation between matlab and dsverifier outputs
 script3 = 'shell-scripts/dsverifier-matlab-comparison-script.sh';
@@ -32,5 +18,3 @@ system(command);
 
 %saving all variables created in a file .MAT in order to be used later.
 save dsv_variables;
-
-end

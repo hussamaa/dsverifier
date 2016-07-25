@@ -54,6 +54,7 @@ for i=1:n
     initial1=initial_states.b(i:i);
     Out = filter([num0 num1 num2],[den0 den1 den2],[inputs inputs inputs inputs inputs inputs inputs inputs inputs inputs],[initial0 initial1]);
     fprintf(fileOutputID,'%f %f %f %f %f %f %f %f %f %f\n',Out);
+
 end 
 
 %printing the outputs in a file
