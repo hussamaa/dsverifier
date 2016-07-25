@@ -2,7 +2,7 @@
 sh = 'sh';
 cp = 'cp';
 
-%function to extract the parameters from counterexamples output
+%function to extract the parameters from counterexamples output. You need inform the path, e.g. 'home/user/dsv/counterexamples'
 dsv_extraction(path);
 
 %parsing the paramaters to variables workspace
