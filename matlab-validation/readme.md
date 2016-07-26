@@ -53,7 +53,7 @@ There are 4 scripts developed to run the validation step by step:
 3. **dsv_simulation**: call simulink and run all counterexamples;
 4. **dsv_comparison**: comparison between MATLAB and DSVerifier outputs.
 
-All this scripts are called in **dsv_validation** and run all this steps automatically.
+All these scripts are called in **dsv_validation** and run all this steps automatically.
 
 In dsv_extraction, some shell scripts are called in order to manipulate strings and get the parameters required to validation. The scripts are organized in **shell-scripts** directory.
 
