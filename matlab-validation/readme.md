@@ -33,7 +33,7 @@ path = '/home/user/dsverifier/couterexamples'
 You can use this files to check and verify the outputs validation if you want.
 
 4) Validation Results:
-* after run **dsv_validation** command on MATLAB workspace, you can see a feedback provided by MATLAB like:
+* after run **dsv_validation** command on MATLAB workspace, you'll can see a feedback provided by MATLAB like:
 
 ###### Teste-1 Status: Wrong
 ###### Teste-2 Status: Correct
@@ -57,4 +57,4 @@ All these scripts are called in **dsv_validation** and run all this steps automa
 
 In dsv_extraction, some shell scripts are called in order to manipulate strings and get the parameters required to validation. The scripts are organized in **shell-scripts** directory.
 
-The MATLAB models are implemented in **DFI, DFII and TDII** realization. All models are organized in **model-simulink** folder.
+The MATLAB models are implemented in **DFI, DFII and TDFII** realization. All models are organized in **model-simulink** folder.
