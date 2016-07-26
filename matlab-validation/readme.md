@@ -8,7 +8,7 @@ In order to reproduce all counterexamples in MATLAB, some scripts were developed
 
 ##Steps to run the validation:
 
-1) Define a variable called 'path' in MATLAB workspace with the directory path of all counterexamples (e.g. .out files generated) returned by DSVerifier.
+1) Define a variable called 'path' in MATLAB workspace with the directory path of all counterexamples (i.e. .out files generated) returned by DSVerifier.
 
 examples: 
 path = '/home/user/dsverifier/couterexamples'
