@@ -34,6 +34,7 @@ FILES=$(ls -tr $(pwd) | grep out);
 FOLDER=${PWD##*/}
 RESULT="*.out";
 EXTRACTION="\n";
+N_CE=0;
 
 for file_desired in $RESULT; do
 	
@@ -74,6 +75,7 @@ ITEM=$REALIZATION$SPACE$OUTPUT_FILE$SPACE$IMPLEMENTATION$SPACE$COUNT$SPACE$ORDER
 fi
 
 EXTRACTION="$EXTRACTION $ITEM";
+N_CE=$((N_CE + 1));
 
 fi
 
@@ -81,3 +83,4 @@ done
 
 
 echo $EXTRACTION > dsv_counterexample_parameters.txt;
+echo $N_CE > dsv_n_size.txt;

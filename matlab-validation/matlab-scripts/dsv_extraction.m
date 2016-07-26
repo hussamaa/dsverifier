@@ -25,5 +25,7 @@ command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' ../outputs/ds
 system(command);
 command = [cp ' ' directory '/dsv_counterexamples_outputs.txt' ' ../outputs/dsv_counterexamples_outputs.txt'];
 system(command);
+command = [cp ' ' directory '/dsv_n_size.txt' ' ../outputs/dsv_n_size.txt'];
+system(command);
 
 end

@@ -2,6 +2,7 @@
 
 % Open the file with counter examples
 fileID = fopen('../outputs/dsv_counterexample_parameters.txt','r');
+fileIDS = fopen('../outputs/dsv_n_size.txt','r');
 %% Format Specification: 
 % b0 b1 b2 a0 a1 a2 
 % initial_states chama inputs_const integer_bits fraction_bits input_times
@@ -13,7 +14,11 @@ CE = textscan(fileID,formatSpec);
 fclose(fileID);
 % Number of counter examples. It must be changed because depends the number
 % of counter examples.
-n = 27;
+n_size = textscan(fileIDS,'%d');
+n = n_size{1};
+fclose(fileIDS);
+delete '../outputs/dsv_n_size.txt','r';
+% Number of outputs/inputs used in Limit Cycle.
 size_out = 10;
 % Matrix transposed of counter examples
 CE = CE';
