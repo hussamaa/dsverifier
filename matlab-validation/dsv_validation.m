@@ -1,20 +1,20 @@
-%path = '/home/lennon/Development/matlab/VANT-Limit-Cycle/CT-Results-Completed';
-sh = 'sh';
-cp = 'cp';
+%% Script to run all steps to validate counterexamples
 
-%function to extract the parameters from counterexamples output. You need inform the path, e.g. 'home/user/dsv/counterexamples'
-dsv_extraction(path);
+% * All the output files are generated at 'outputs' folder.
+%path = '/home/lennon/Development/matlab/VANT-Limit-Cycle/CT-Results-Completed';
+
+%function to extract the parameters from counterexamples output. 
+%You need inform the path, e.g. 'home/user/dsv/counterexamples'
+run matlab-scripts/dsv_extraction(path);
 
 %parsing the paramaters to variables workspace
-dsv_parser();
+run matlab-scripts/dsv_parser();
 
 %simulation automatically of all counterexamples
-dsv_simulation();
+run matlab-scripts/dsv_simulation();
 
-%comparation between matlab and dsverifier outputs
-script3 = 'shell-scripts/dsverifier-matlab-comparison-script.sh';
-command = [sh ' ' script3 ' ' 'dsv_matlab_filter_outputs.txt' ' ' 'dsv_counterexamples_outputs.txt'];
-system(command);
+%comparison between matlab and dsverifier outputs
+run matlab-scripts/dsv_comparison();
 
 %saving all variables created in a file .MAT in order to be used later.
 save dsv_variables;

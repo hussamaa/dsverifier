@@ -1,5 +1,7 @@
-%% Script developed to simulate automatically all counterexamples by realization
-fileOutputID = fopen('dsv_matlab_model_outputs.txt','w');
+%% Script developed to simulate automatically all counterexamples 
+%% by realization form (DFI, DFII and TDFII)
+
+fileOutputID = fopen('../outputs/dsv_matlab_model_outputs.txt','w');
 for i=1:n
     realization_form = realization(i:i);
 
@@ -19,15 +21,15 @@ for i=1:n
     sml_b2 = b2(i:i);
 
     if strcmp(realization_form,'DFI')
-        model = 'model-simulink/direct_form_I';
+        model = '../model-simulink/direct_form_I';
         sim(model);
         output = output_DFI.signals.values';
     elseif strcmp(realization_form,'DFII')
-        model = 'model-simulink/direct_form_II';
+        model = '../model-simulink/direct_form_II';
         sim(model);
         output =  output_DFII.signals.values';
     elseif strcmp(realization_form,'TDFII')
-        model = 'model-simulink/transposed_direct_form_II';
+        model = '../model-simulink/transposed_direct_form_II';
         sim(model);
         output =  output_TDFII.signals.values';
     end

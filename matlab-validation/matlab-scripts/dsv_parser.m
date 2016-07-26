@@ -1,6 +1,7 @@
-%% Script developed to extract counter examples and put the values on workspace
+%% Script to put counterexamples parameters in variables on workspace
+
 % Open the file with counter examples
-fileID = fopen('dsv_counterexample_parameters.txt','r');
+fileID = fopen('../outputs/dsv_counterexample_parameters.txt','r');
 %% Format Specification: 
 % b0 b1 b2 a0 a1 a2 
 % initial_states chama inputs_const integer_bits fraction_bits input_times
@@ -13,6 +14,7 @@ fclose(fileID);
 % Number of counter examples. It must be changed because depends the number
 % of counter examples.
 n = 27;
+size_out = 10;
 % Matrix transposed of counter examples
 CE = CE';
 % Realization, counterexample file name
@@ -41,7 +43,7 @@ initial_states.c = CE{15}';
 % constants inputs
 inputs_consts = CE{16}';
 %Filter Function
-fileOutputID = fopen('dsv_matlab_filter_outputs.txt','w');
+fileOutputID = fopen('../outputs/dsv_matlab_filter_outputs.txt','w');
 for i=1:n
     num0=b0(i:i);
     num1=b1(i:i);
