@@ -1,9 +1,9 @@
 %% Script to verify and compare the results between MATLAB and DSVerifier
 
 % Open the file with validation of counterexamples by MATLAB
-fileID = fopen('../outputs/dsv_matlab_model_outputs.txt','r');
+fileID = fopen('../outputs/dsv_matlab_filter_outputs.txt','r');
 
-formatSpec = '%f %f %f %f %f %f %f %f %f %f %f';
+formatSpec = '%f %f %f %f %f %f %f %f %f %f';
 
 % Matrix of Counteexamples validation by MATLAB
 DSV_MATLAB = textscan(fileID,formatSpec);
@@ -24,19 +24,19 @@ for i=1:n
         
         vec_matlab = DSV_MATLAB{1,j};
         vec_counter = DSV_COUNTEREXAMPLES{1,j};
-        item_matlab = vec_matlab(n);
-        item_counter = vec_counter(n);
+        item_matlab = vec_matlab(i);
+        item_counter = vec_counter(i);
         
-        if(item_matlab == item_counter)
-            count = count + 1;
+        if item_matlab == item_counter
+            count = j;
         end
         
     end
     
-    if (count == size_out)
-        feedback = ['echo ' 'Teste-' num2str(i) 'Status: Correct'];
+    if count == size_out
+        feedback = ['echo ' 'Teste-' num2str(i) 'Status: Successfull'];
     else
-        feedback = ['echo ' 'Teste-' num2str(i) ' Status: Wrong'];
+        feedback = ['echo ' 'Teste-' num2str(i) ' Status: Failed'];
     end
     system(feedback);
 end
