@@ -34,7 +34,7 @@ for i=1:n
     end
     
     if count == size_out
-        feedback = ['echo ' 'Teste-' num2str(i) 'Status: Successfull'];
+        feedback = ['echo ' 'Teste-' num2str(i) 'Status: Successful'];
     else
         feedback = ['echo ' 'Teste-' num2str(i) ' Status: Failed'];
     end
