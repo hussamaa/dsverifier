@@ -27,7 +27,7 @@ Supported properties:
 
 ## Configuration
 
-Firstly, before to use the DSVerifier is necessary to
+First, before using DSVerifier, it is necessary to
 configure an environment variable called DSVERIFIER_HOME.
 So, add to the .bashrc file on your computer the following:
 
@@ -37,10 +37,10 @@ Save it, and then use the following command:
 
      $ source .bashrc
 
-Secondly, you have to download the desired version of CBMC, or ESBMC
-executable for DSVerifier. This package contain the CBMC v5.2 and ESBMC v2.1.0
+Second, you have to download the desired version of CBMC, or ESBMC
+executable for DSVerifier. This package contain CBMC v5.2 and ESBMC v2.1.0
 
-Please, put it into: $DSVERIFIER_HOME/model-checker
+Please, copy it to: $DSVERIFIER_HOME/model-checker
 
 The recommended versions for DSVerifier v2.0 are:
 
@@ -131,7 +131,7 @@ The recommended versions for DSVerifier v2.0 are:
 
 ## Graphical User Interface
 
-To use DSVerifier GUI, is necessary to have at least Java Runtime Environment
+To use DSVerifier GUI, it is necessary to have at least Java Runtime Environment
 Version 8.0 Update 40 (jre1.8.0_40)
 
 Execution:
