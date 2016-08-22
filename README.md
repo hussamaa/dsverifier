@@ -38,9 +38,8 @@ After that, you should save it and use the following command:
 
 (2) You should download the (desired) version of CBMC or ESBMC
 executables for DSVerifier. This package contains CBMC v5.2 and 
-ESBMC v2.1.0. Please, add them to your .bashrc file as follows: 
-
-    export DSVERIFIER_HOME=$DSVERIFIER_HOME/model-checker
+ESBMC v2.1.0. Please, add them to the 'model-checker' folder of
+DSVerifier
 
 CBMC and ESBMC recommended versions for DSVerifier v2.0 are:
 
