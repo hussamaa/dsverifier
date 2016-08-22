@@ -1,6 +1,6 @@
 #include <dsverifier.h>
 
-digital_system control = {
+digital_system controller = {
         .a = { 1.0, 1.3, 0.17, -0.157, 0.0126},
         .a_size = 5,
         .b = {0.15, -0.075, -0.051, 0.012},
