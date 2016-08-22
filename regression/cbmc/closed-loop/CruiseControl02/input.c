@@ -20,7 +20,7 @@ implementation impl = {
 digital_system plant = {
         .b = { 0.0264f },
         .b_size = 1,
-        .a = { 1.0f, 0.9998f },
+        .a = { 1.0f, -0.9998f },
         .a_size = 2
 };
 
