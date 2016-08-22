@@ -27,25 +27,30 @@ Supported properties:
 
 ## Configuration
 
-First, before using DSVerifier, it is necessary to
-configure an environment variable called DSVERIFIER_HOME.
-So, add to the .bashrc file on your computer the following:
+(1) Before using DSVerifier, we need to configure an environment variable 
+called DSVERIFIER_HOME. You should add it to your .bashrc file as follows:
 
      export DSVERIFIER_HOME='path to dsverifier folder'
 
-Save it, and then use the following command:
+After that, you should save it and use the following command:
 
      $ source .bashrc
 
-Second, you have to download the desired version of CBMC, or ESBMC
-executable for DSVerifier. This package contain CBMC v5.2 and ESBMC v2.1.0
+(2) You should download the (desired) version of CBMC or ESBMC
+executables for DSVerifier. This package contains CBMC v5.2 and 
+ESBMC v2.1.0. Please, add them to your .bashrc file as follows: 
 
-Please, copy it to: $DSVERIFIER_HOME/model-checker
+    export DSVERIFIER_HOME=$DSVERIFIER_HOME/model-checker
 
-The recommended versions for DSVerifier v2.0 are:
+CBMC and ESBMC recommended versions for DSVerifier v2.0 are:
 
 * ESBMC v2.1.0: http://esbmc.org/binaries/esbmc-v2.1.0-linux-static-64.tgz
 * CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
+
+(3) You need to install the Eigen library (e.g., eigen3, eigen3-static, 
+and eigen3-devel depending on your distribution).
+
+(4) Make sure that you have installed GCC version 4.9 (or higher).
 
 ## Command line mode
 
