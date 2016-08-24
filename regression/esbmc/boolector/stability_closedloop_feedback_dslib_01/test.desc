@@ -1,3 +1,3 @@
 input.c
--DPROPERTY=STABILITY_CLOSED_LOOP -DCONNECTION_MODE=FEEDBACK --boolector
+--property STABILITY_CLOSED_LOOP --connection-mode FEEDBACK --bmc ESBMC --solver boolector
 ^VERIFICATION FAILED$

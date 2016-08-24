@@ -1,6 +1,6 @@
-#include "../../../../bmc/dsverifier.h"
+#include <dsverifier.h>
 
-digital_system control = {
+digital_system controller = {
         .a = { 1.0f, 0.4f, -0.19f, 0.014f, 0.0f},
         .a_size = 5,
         .b = { 0.01f, -0.005f, -0.0034f, 0.0008f },
