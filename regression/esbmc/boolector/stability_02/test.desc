@@ -1,3 +1,3 @@
 input.c
--DPROPERTY=STABILITY -DREALIZATION=DFI --boolector
+--bmc ESBMC --solver boolector --property STABILITY --realization DFI 
 ^VERIFICATION FAILED$
