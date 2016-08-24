@@ -1,4 +1,4 @@
-#include "../../../bmc/dsverifier.h"
+#include <dsverifier.h>
 
 digital_system ds = {
         .a = { 1.0, 1.0, 0.31, 0.03 },       
