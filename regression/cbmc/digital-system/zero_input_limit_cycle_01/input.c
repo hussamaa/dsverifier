@@ -1,4 +1,4 @@
-#include "../../../../dsverifier.h"
+#include <dsverifier.h>
 
 digital_system ds = {
    .a = { 1.0, 0.0, -0.25 },
