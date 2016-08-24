@@ -73,10 +73,11 @@ int verify_limit_cycle_state_space(void){
 				_controller.outputs);
 
 		/* adding states and outputs in matrices */
-		for(int l = 0; l < nStates; l++){
+		int l;
+		for(l = 0; l < nStates; l++){
 			stateMatrix[l][k] = _controller.states[l][0];
 		}
-		for(int l = 0; l < nOutputs; l++){
+		for(l = 0; l < nOutputs; l++){
 			stateMatrix[l][k] = _controller.outputs[l][0];
 		}
 		k++;
