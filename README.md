@@ -38,11 +38,11 @@ After that, you should save it and use the following command:
 
 (2) You should download the (desired) version of CBMC or ESBMC
 executables for DSVerifier. This package contains CBMC v5.2 and 
-ESBMC v2.1.0. Please, add them to $DSVERIFIER_HOME/model-checker
+ESBMC v3.0.0. Please, add them to $DSVERIFIER_HOME/model-checker
 
 CBMC and ESBMC recommended versions for DSVerifier v2.0 are:
 
-* ESBMC v2.1.0: http://esbmc.org/binaries/esbmc-v2.1.0-linux-static-64.tgz
+* ESBMC v3.0.0: http://esbmc.org/binaries/esbmc-v3.0.0-linux-static-64.tgz
 * CBMC v5.2: http://www.cprover.org/cbmc/download/cbmc-5-2-linux-64.tgz
 
 (3) You need to install the Eigen library (e.g., eigen3, eigen3-static, 
