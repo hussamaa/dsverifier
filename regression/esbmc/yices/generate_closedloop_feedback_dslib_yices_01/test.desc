@@ -1,3 +1,0 @@
-input.c
---bmc ESBMC --solver yices --property STABILITY_CLOSED_LOOP --connection-mode FEEDBACK
-^VERIFICATION SUCCESSFUL$
