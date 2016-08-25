@@ -1,3 +1,0 @@
-input.c
---bmc ESBMC --solver boolector --property STABILITY --realization DFI
-^VERIFICATION FAILED$
