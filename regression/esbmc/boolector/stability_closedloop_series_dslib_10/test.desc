@@ -1,3 +1,0 @@
-input.c
---bmc ESBMC --solver boolector --property STABILITY_CLOSED_LOOP --connection-mode SERIES
-^VERIFICATION SUCCESSFUL$
