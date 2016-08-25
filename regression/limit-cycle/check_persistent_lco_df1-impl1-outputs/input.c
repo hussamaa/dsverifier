@@ -1,12 +1,4 @@
-#include "../../../bmc/core/definitions.h"
-#include "../../../bmc/core/compatibility.h"
-#include "../../../bmc/core/fixed-point.h"
-#include "../../../bmc/core/util.h"
-#include "../../../bmc/core/functions.h"
-#include "../../../bmc/core/realizations.h"
-#include "../../../bmc/core/delta-operator.h"
-#include "../../../bmc/core/closed-loop.h"
-#include "../../../bmc/core/initialization.h"
+#include <dsverifier.h>
 
 digital_system ds = {
 	.b = { -1.553, 3.119, -1.566 },
@@ -25,7 +17,7 @@ implementation impl = {
 
 int x_size = 10;
 
-int main(){
+int unit_test(){
 
 	initialization();
 	OVERFLOW_MODE = WRAPAROUND;
