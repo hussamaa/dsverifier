@@ -1,7 +1,6 @@
-#include "../../../../bmc/core/compatibility.h"
-#include "../../../../bmc/core/util.h"
+#include <dsverifier.h>
 
-int main(){
+int unit_test(){
 	double y[6] = { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 }; 
 	int y_size = 6;
 	double_check_oscillations(y,y_size);

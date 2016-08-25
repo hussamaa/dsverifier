@@ -1,6 +1,4 @@
-#include <stdlib.h>
-#include <funcsfxp.h>
-#include <dslib.h>
+#include <dsverifier.h>
 
 digital_system control = {
         .a = { 1.0, 0.4, -0.19, 0.014, 0.0},
@@ -51,7 +49,7 @@ void init(){
 	_fxp_imask = ((0x80000000) >> (FXP_WIDTH - impl.frac_bits - 1));
 }
 
-int main(){
+int unit_test(){
 
    init();
 
