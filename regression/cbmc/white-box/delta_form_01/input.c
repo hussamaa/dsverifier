@@ -1,10 +1,6 @@
-#include <stdlib.h>
-#include "../../../bmc/core/definitions.h"
-#include "../../../bmc/core/compatibility.h"
-#include "../../../bmc/core/util.h"
-#include "../../../bmc/core/delta-operator.h"
+#include <dsverifier.h>
 
-int main(){
+int unit_test(){
    double a[3] = { 1.0, -1.9, 0.9025 };
    double out[3];
    generate_delta_coefficients(a, out, 3, 0.1);

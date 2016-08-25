@@ -9,8 +9,9 @@ echo ""
 for module in $MODULES; do
   echo "============================== "
   echo -n "Running" $module...
-  START=$(date +"%s")
   cd $module
+  make clean > /dev/null 
+  START=$(date +"%s")
   make 
   END=$(date +"%s")
   echo "Done!"
