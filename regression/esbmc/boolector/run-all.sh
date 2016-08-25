@@ -1,9 +1,11 @@
 #!/bin/bash
 
-MODULES="closed-loop digital-system white-box"
+total_time=0
+
+MODULES="white-box digital-system closed-loop"
 
 echo ""
-echo "Script DSVerifier Started:" $(date +"%T")
+echo "Script for DSVerifier started at:" $(date +"%T")
 echo ""
 
 for module in $MODULES; do
@@ -17,13 +19,15 @@ for module in $MODULES; do
   echo "Done!"
   make clean > /dev/null 
   cd ..
-  echo "Time elapsed: " $(( $END - $START )) "s"
-  echo "Time elapsed: " $(( $END - $START )) "s"
+  echo "Time elapsed for" $module ":" $(( $END - $START )) "s"
+  time=$(( $END - $START ))
+  total_time=`echo $total_time + $time | bc -l`
+  echo "Total time elapsed: " $total_time "s"
 done
 echo "============================== "
 
 echo ""
-echo "Script DSVerifier Ended:" $(date +"%T")
+echo "Script DSVerifier ended at:" $(date +"%T")
 echo ""
 
 
