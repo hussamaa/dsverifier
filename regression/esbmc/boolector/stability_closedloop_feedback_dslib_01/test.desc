@@ -1,3 +1,0 @@
-input.c
---property STABILITY_CLOSED_LOOP --connection-mode FEEDBACK --bmc ESBMC --solver boolector
-^VERIFICATION FAILED$
