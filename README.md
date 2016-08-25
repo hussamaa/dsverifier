@@ -19,8 +19,8 @@ Supported properties:
 
 ###### For Digital-Systems in Closed-loop:
   * Stability in Closed-loop
-  * Limit Cycle in Closed-loop
-  * Quantization Error in Closed-loop
+  * Limit Cycle in Closed-loop (Experimental)
+  * Quantization Error in Closed-loop (Experimental)
 
 * http://www.dsverifier.org
 * http://esbmc.org/dsverifier
@@ -126,6 +126,8 @@ and eigen3-devel depending on your distribution).
   where *file* is the digital-system specification file, *cm* is the chosen
   connection-mode, *j* is the property to be verified, *r* is the desired
   realization, and *k* is the verification bound.
+
+* Connection mode: SERIES and FEEDBACK
 
 * Properties: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP,
               and QUANTIZATION_ERROR_CLOSED_LOOP
