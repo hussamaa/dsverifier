@@ -1,0 +1,3 @@
+input.c
+--bmc ESBMC --solver boolector --property ZERO_INPUT_LIMIT_CYCLE --x-size 10 --realization DFI
+^VERIFICATION SUCCESSFUL$

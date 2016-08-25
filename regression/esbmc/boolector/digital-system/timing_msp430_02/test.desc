@@ -1,0 +1,3 @@
+input.c
+--bmc ESBMC --solver boolector --property TIMING_MSP430 --x-size 10 --realization DFI
+^VERIFICATION FAILED$
