@@ -97,6 +97,7 @@ std::string desired_realization;
 std::string desired_connection_mode;
 std::string desired_timeout;
 std::string desired_bmc;
+std::string desired_function;
 std::string desired_solver;
 std::string desired_macro_parameters;
 std::string desired_ds_id;
@@ -135,6 +136,13 @@ void help () {
 	std::cout << "--show-ce-data               shows initial states, inputs, and outputs extracted from counterexample" << std::endl;
 	std::cout << "" << std::endl;
 	exit(0);
+}
+
+void validate_function(std::string data){
+	if (data.empty())
+	  std::cout << "specify a function name" << std::endl;
+	else
+	  desired_function = data;
 }
 
 void validate_selected_bmc(std::string data){
@@ -264,6 +272,12 @@ void bind_parameters(int argc, char* argv[]){
 			} else {
 				show_required_argument_message(argv[i]);
 			}
+		}else if (std::string(argv[i]) == "--function") {
+			if (i + 1 < argc) {
+				validate_function(argv[++i]);
+			} else {
+				show_required_argument_message(argv[i]);
+			}
 		}else if (std::string(argv[i]) == "--solver") {
 			if (i + 1 < argc) {
 				desired_solver = argv[++i];
@@ -337,6 +351,9 @@ std::string prepare_bmc_command_line(){
 	}else if (desired_bmc == "CBMC"){
 		command_line =  model_checker_path + "/cbmc " + desired_filename + " --fixedbv -DBMC=CBMC -I " + bmc_path;
 	}
+	if (desired_function.size() > 0){
+		command_line += " --function " + desired_function;
+	}
 	if (desired_solver.size() > 0){
 		command_line += " --" + desired_solver;
 	}
@@ -359,12 +376,12 @@ std::string prepare_bmc_command_line(){
 std::string prepare_bmc_command_line_ss(){
 	std::string command_line;
 	if (desired_bmc == "ESBMC"){
-		command_line = "./model-checker/esbmc input.c --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC";
+		command_line = "esbmc input.c --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC";
 		if (desired_timeout.size() > 0){
 			command_line += " --timeout " + desired_timeout;
 		}
 	}else if (desired_bmc == "CBMC"){
-		command_line = "./model-checker/cbmc --fixedbv input.c -DBMC=CBMC";
+		command_line = "cbmc --fixedbv input.c -DBMC=CBMC";
 	}
 	if (desired_solver.size() > 0){
 		command_line += " --" + desired_solver;
