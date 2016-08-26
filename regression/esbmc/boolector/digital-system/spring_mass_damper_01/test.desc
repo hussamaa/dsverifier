@@ -1,0 +1,3 @@
+input.c
+--property STABILITY --bmc ESBMC --solver boolector --realization DFI
+^VERIFICATION SUCCESSFUL$
