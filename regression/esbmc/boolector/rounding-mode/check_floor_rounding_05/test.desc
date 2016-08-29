@@ -1,3 +1,0 @@
-input.c
---bmc ESBMC --solver boolector --function unit_test
-^VERIFICATION SUCCESSFUL$
