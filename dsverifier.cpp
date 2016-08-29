@@ -1343,7 +1343,7 @@ int main(int argc, char* argv[]){
 		bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
 		extract_data_from_file();
 
-		if (!is_delta_realization){
+		if (!(is_delta_realization && is_restricted_property)){
 			std::string command_line = prepare_bmc_command_line();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
 			std::string counterexample = execute_command_line(command_line);
