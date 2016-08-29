@@ -2,7 +2,7 @@
 
 total_time=0
 
-MODULES="rounding-mode limit-cycle white-box digital-system closed-loop"
+MODULES="white-box digital-system closed-loop"
 
 echo ""
 echo "Script for DSVerifier started at:" $(date +"%T")
