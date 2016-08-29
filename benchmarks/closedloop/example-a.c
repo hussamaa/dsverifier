@@ -24,7 +24,7 @@
 
 	#if CONTROL_ID == 1
 
-		digital_system control = {
+		digital_system controller = {
 			.b = { -18.7913011069951, 11.3839445828215 },
 			.b_size = 2,
 			.a = { 1.0, 3.63545078000333 },
@@ -81,7 +81,7 @@
 
 	#if CONTROL_ID == 1
 
-		digital_system control = {
+		digital_system controller = {
 			.b = { 18.5304651429392, -16.7960874196180 },
 			.b_size = 2,
 			.a = { 1.0, -2.08535650257322 },
@@ -138,7 +138,7 @@
 
 	#if CONTROL_ID == 1
 
-		digital_system control = {
+		digital_system controller = {
 			.b = { 14.2344952240432, -13.5523885821810 },
 			.b_size = 2,
 			.a = { 1.0, -1.42685562045612 },
@@ -195,7 +195,7 @@
 
 	#if CONTROL_ID == 1
 
-		digital_system control = {
+		digital_system controller = {
 			.b = { 12.9891735487942, -12.6121006969068 },
 			.b_size = 2,
 			.a = { 1.0, -1.23596847805225},
@@ -252,7 +252,7 @@
 
 	#if CONTROL_ID == 1
 
-		digital_system control = {
+		digital_system controller = {
 			.b = { 11.9254708617320, -11.8089453595694 },
 			.b_size = 2,
 			.a = { 1.0, -1.07292051194339 },
@@ -309,7 +309,7 @@
 
 	#if CONTROL_ID == 1
 
-		digital_system control = {
+		digital_system controller = {
 			.b = { 11.6833505110710, -11.6261308811661 },
 			.b_size = 2,
 			.a = { 1.0, -1.03580748101003 },
@@ -366,7 +366,7 @@
 
 	#if CONTROL_ID == 1
 
-		digital_system control = {
+		digital_system controller = {
 			.b = { 11.4958082843740, -11.4845259551093 },
 			.b_size = 2,
 			.a = { 1.0, -1.00706037056799 },
@@ -423,7 +423,7 @@
 
 	#if CONTROL_ID == 1
 
-		digital_system control = {
+		digital_system controller = {
 			.b = { 11.4502063947756, -11.4500939644139 },
 			.b_size = 2,
 			.a = { 1.0, -1.00007035781332 },
@@ -480,7 +480,7 @@
 
 	#if CONTROL_ID == 1
 
-		digital_system control = {
+		digital_system controller = {
 			.b = { 11.4502063947756, -11.4500939644139 },
 			.b_size = 2,
 			.a = { 1.0, -1.00007035781332 },
