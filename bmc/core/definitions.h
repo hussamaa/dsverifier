@@ -19,61 +19,61 @@
 */
 
 /** model checkers */
-#define NONE                                0
-#define ESBMC                               1
-#define CBMC                                2
+#define NONE	0
+#define ESBMC	1
+#define CBMC	2
 #ifndef BMC
-	#define BMC	                            	1
+	#define BMC	1
 #endif
 
 /** required parameters */
 #define LIMIT 20
 
 /* realizations (use: -DREALIZATION=DIRECTFORMI) */
-#define DIRECTFORMI													1
-#define DIRECTFORMII												2
-#define TRANSPOSEDDIRECTFORMII							3
-#define DELTADIRECTFORMI										4
-#define DELTADIRECTFORMII										5
-#define DELTATRANSPOSEDDIRECTFORMII					6
-#define DIRECTFORMICASCADE   								7
-#define DIRECTFORMIICASCADE   							8
-#define TRANSPOSEDDIRECTFORMIICASCADE   		9
-#define DELTADIRECTFORMICASCADE   					10
-#define DELTADIRECTFORMIICASCADE   					11
-#define DELTATRANSPOSEDDIRECTFORMIICASCADE 	12
+#define DIRECTFORMI	1
+#define DIRECTFORMII	2
+#define TRANSPOSEDDIRECTFORMII	3
+#define DELTADIRECTFORMI	4
+#define DELTADIRECTFORMII	5
+#define DELTATRANSPOSEDDIRECTFORMII	6
+#define DIRECTFORMICASCADE	7
+#define DIRECTFORMIICASCADE	8
+#define TRANSPOSEDDIRECTFORMIICASCADE	9
+#define DELTADIRECTFORMICASCADE	10
+#define DELTADIRECTFORMIICASCADE	11
+#define DELTATRANSPOSEDDIRECTFORMIICASCADE	12
 
 /* nickname for realizations (use: -DREALIZATION=DFI) */
-#define DFI																	1
-#define DFII																2
-#define TDFII																3
-#define DDFI            										4
-#define DDFII																5
-#define TDDFII															6
-#define CDFI            										7
-#define CDFII																8
-#define CTDFII															9
-#define CDDFI            										10
-#define CDDFII															11
-#define CTDDFII															12
+#define DFI	1
+#define DFII	2
+#define TDFII	3
+#define DDFI	4
+#define DDFII	5
+#define TDDFII	6
+#define CDFI	7
+#define CDFII	8
+#define CTDFII	9
+#define CDDFI	10
+#define CDDFII	11
+#define CTDDFII	12
 
 /* property verification (use: -DPROPERTY=OVERFLOW) */
-#define NOTHING 														0
-#define OVERFLOW 														1
-#define ZERO_INPUT_LIMIT_CYCLE							2
-#define LIMIT_CYCLE 												3
-#define TIMING_MSP430												4
-#define TIMING      												5
-#define ERROR																6
-#define STABILITY 													7
-#define MINIMUM_PHASE 											8
-#define STABILITY_CLOSED_LOOP								9
-#define LIMIT_CYCLE_CLOSED_LOOP							10
-#define QUANTIZATION_ERROR_CLOSED_LOOP			11
-#define QUANTISATION_ERROR									12
-#define CONTROLLABILITY											13
-#define OBSERVABILITY												14
-#define LIMIT_CYCLE_STATE_SPACE										15
+#define NOTHING	0
+#define ZERO_INPUT_LIMIT_CYCLE	1
+#define LIMIT_CYCLE	2
+#define OVERFLOW	3
+#define TIMING_MSP430	4
+#define TIMING	5
+#define ERROR	6
+#define STABILITY	7
+#define MINIMUM_PHASE	8
+#define STABILITY_CLOSED_LOOP	9
+#define LIMIT_CYCLE_CLOSED_LOOP	10
+#define QUANTIZATION_ERROR_CLOSED_LOOP	11
+#define QUANTISATION_ERROR	12
+#define CONTROLLABILITY	13
+#define OBSERVABILITY	14
+#define LIMIT_CYCLE_STATE_SPACE	15
 
 /** Check Required Parameters */
 #ifndef PROPERTY
