@@ -1,3 +1,0 @@
-input.c
---bmc CBMC --function unit_test
-^VERIFICATION FAILED$
