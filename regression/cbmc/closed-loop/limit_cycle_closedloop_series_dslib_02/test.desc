@@ -1,0 +1,3 @@
+input.c
+--bmc CBMC --property LIMIT_CYCLE_CLOSED_LOOP --connection-mode SERIES --x-size 4 --realization DFI
+^VERIFICATION FAILED$
