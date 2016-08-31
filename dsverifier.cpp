@@ -10,7 +10,6 @@
 #  Authors: Hussama Ismail - hussamaismail@gmail.com
 #           Iury Bessa - iury.bessa@gmail.com
 #           Lucas Cordeiro - lucasccordeiro@gmail.com
-#           <if you help us, put your name here!> :)
 #
 # --------------------------------------------------
 #
@@ -59,12 +58,15 @@
 
 typedef bool _Bool;
 
-void __DSVERIFIER_assume(_Bool expression){
+void __DSVERIFIER_assume(_Bool expression)
+{
 	/* nothing to do */
 }
 
-void __DSVERIFIER_assert(_Bool expression){
-	if (expression == 0){
+void __DSVERIFIER_assert(_Bool expression)
+{
+	if (expression == 0)
+	{
 		throw 0;
 	}
 }
@@ -110,7 +112,8 @@ digital_system_state_space _controller;
 double desired_quantisation_limit = 0.0;
 bool show_counterexample_data = false;
 
-void help () {
+void help ()
+{
 	std::cout << std::endl;
 	std::cout << "* * *           DSVerifier " << DSVERIFIER_VERSION << "          * * *" << std::endl;
 	std::cout << "" << std::endl;
@@ -138,50 +141,63 @@ void help () {
 	exit(0);
 }
 
-void validate_function(std::string data){
+void validate_function(std::string data)
+{
 	if (data.empty())
 	  std::cout << "specify a function name" << std::endl;
 	else
 	  desired_function = data;
 }
 
-void validate_selected_bmc(std::string data){
+void validate_selected_bmc(std::string data)
+{
 	int length = (sizeof(bmcs)/sizeof(*bmcs));
-	for(int i=0; i<length; i++){
-		if (bmcs[i] == data){
+	for(int i=0; i<length; i++)
+	{
+		if (bmcs[i] == data)
+		{
 			desired_bmc = data;
 			break;
 		}
 	}
-	if (desired_bmc.size() == 0){
+	if (desired_bmc.size() == 0)
+	{
 		std::cout << "invalid bmc: " << data << std::endl;
 		exit(1);
 	}
 }
 
-void validate_selected_connection_mode(std::string data){
+void validate_selected_connection_mode(std::string data)
+{
 	int length = (sizeof(connections_mode)/sizeof(*connections_mode));
-	for(int i=0; i<length; i++){
-		if (connections_mode[i] == data){
+	for(int i=0; i<length; i++)
+	{
+		if (connections_mode[i] == data)
+		{
 			desired_connection_mode = data;
 			break;
 		}
 	}
-	if (desired_connection_mode.size() == 0){
+	if (desired_connection_mode.size() == 0)
+	{
 		std::cout << "invalid connection-mode: " << data << std::endl;
 		exit(1);
 	}
 }
 
-void validate_selected_realization(std::string data){
+void validate_selected_realization(std::string data)
+{
 	int length = (sizeof(realizations)/sizeof(*realizations));
-	for(int i=0; i<length; i++){
-		if (realizations[i] == data){
+	for(int i=0; i<length; i++)
+	{
+		if (realizations[i] == data)
+		{
 			desired_realization = data;
 			break;
 		}
 	}
-	if (desired_realization.size() == 0){
+	if (desired_realization.size() == 0)
+	{
 		std::cout << "invalid realization: " << data << std::endl;
 		exit(1);
 	}
@@ -189,127 +205,202 @@ void validate_selected_realization(std::string data){
 
 void validate_selected_property(std::string data){
 	int length = (sizeof(properties)/sizeof(*properties));
-	for(int i=0; i<length; i++){
-		if (properties[i] == data){
+	for(int i=0; i<length; i++)
+	{
+		if (properties[i] == data)
+		{
 			desired_property = data;
 			break;
 		}
 	}
-	if (desired_property.size() == 0){
+	if (desired_property.size() == 0)
+	{
 		std::cout << "invalid property: " << data << std::endl;
 		exit(1);
 	}
 }
 
-void validate_filename(std::string file){
-	if (file == "--help" || file == "-h") {
+void validate_filename(std::string file)
+{
+	if (file == "--help" || file == "-h")
+	{
 		help();
-	} else if(file.substr(file.size()-3, std::string::npos) != ".ss"){
+	}
+	else if(file.substr(file.size()-3, std::string::npos) != ".ss")
+	{
 		std::string::size_type loc = file.find(".c", 0 );
-		if( loc == std::string::npos ) {
+		if( loc == std::string::npos )
+		{
 			std::cout << file << ": failed to figure out type of file" << std::endl;
 			exit(1);
 		}
-	} else {
+	}
+	else
+	{
 		stateSpaceVerification = true;
 	}
 	desired_filename = file;
 }
 
-void show_required_argument_message(std::string parameter){
+void show_required_argument_message(std::string parameter)
+{
 	std::cerr << parameter << " option requires one argument." << std::endl;
 	exit(1);
 }
 
-void check_required_parameters(){
-	if (desired_bmc.size() == 0){
+void check_required_parameters()
+{
+	if (desired_bmc.size() == 0)
+	{
+		//we use CBMC as our default back-end model-checker
 		desired_bmc = "CBMC";
 	}
 }
 
-void bind_parameters(int argc, char* argv[]){
-	if (argc == 1) {
+void bind_parameters(int argc, char* argv[])
+{
+	if (argc == 1)
+	{
 		help();
 		exit(1);
 	}
 	validate_filename(argv[1]);
-	for (int i = 2; i < argc; ++i) {
-		if (std::string(argv[i]) == "--help" || std::string(argv[i]) == "-h") {
+	for (int i = 2; i < argc; ++i)
+	{
+		if (std::string(argv[i]) == "--help" || std::string(argv[i]) == "-h")
+		{
 			help();
-		} else if (std::string(argv[i]) == "--realization") {
-			if (i + 1 < argc) {
+		}
+		else if (std::string(argv[i]) == "--realization")
+		{
+			if (i + 1 < argc)
+			{
 				validate_selected_realization(argv[++i]);
-			} else {
+			}
+			else
+			{
 				show_required_argument_message(argv[i]);
 			}
-		} else if (std::string(argv[i]) == "--property") {
-			if (i + 1 < argc) {
+		}
+		else if (std::string(argv[i]) == "--property")
+		{
+			if (i + 1 < argc)
+			{
 				validate_selected_property(argv[++i]);
-			} else {
+			}
+			else
+			{
 				show_required_argument_message(argv[i]);
 			}
-		} else if (std::string(argv[i]) == "--x-size") {
-			if (i + 1 < argc) {
+		}
+		else if (std::string(argv[i]) == "--x-size")
+		{
+			if (i + 1 < argc)
+			{
 				desired_x_size = std::atoi(argv[++i]);
-			} else {
+			}
+			else
+			{
 				show_required_argument_message(argv[i]);
 			}
-		} else if (std::string(argv[i]) == "--connection-mode") {
-			if (i + 1 < argc) {
+		}
+		else if (std::string(argv[i]) == "--connection-mode")
+		{
+			if (i + 1 < argc)
+			{
 				validate_selected_connection_mode(argv[++i]);
-			} else {
+			}
+			else
+			{
 				show_required_argument_message(argv[i]);
 			}
-		} else if (std::string(argv[i]) == "--timeout") {
-			if (i + 1 < argc) {
+		}
+		else if (std::string(argv[i]) == "--timeout")
+		{
+			if (i + 1 < argc)
+			{
 				desired_timeout = argv[++i];
-			} else {
+			}
+			else
+			{
 				show_required_argument_message(argv[i]);
 			}
-		}else if (std::string(argv[i]) == "--bmc") {
-			if (i + 1 < argc) {
+		}
+		else if (std::string(argv[i]) == "--bmc")
+		{
+			if (i + 1 < argc)
+			{
 				validate_selected_bmc(argv[++i]);
-			} else {
+			}
+			else
+			{
 				show_required_argument_message(argv[i]);
 			}
-		}else if (std::string(argv[i]) == "--function") {
-			if (i + 1 < argc) {
+		}
+		else if (std::string(argv[i]) == "--function")
+		{
+			if (i + 1 < argc)
+			{
 				validate_function(argv[++i]);
-			} else {
+			}
+			else
+			{
 				show_required_argument_message(argv[i]);
 			}
-		}else if (std::string(argv[i]) == "--solver") {
-			if (i + 1 < argc) {
+		}
+		else if (std::string(argv[i]) == "--solver")
+		{
+			if (i + 1 < argc)
+			{
 				desired_solver = argv[++i];
-			} else {
+			}
+			else
+			{
 				show_required_argument_message(argv[i]);
 			}
-		} else if (std::string(argv[i]) == "--limit") {
-			if (i + 1 < argc) {
+		}
+		else if (std::string(argv[i]) == "--limit")
+		{
+			if (i + 1 < argc)
+			{
 				desired_quantisation_limit = std::stod(argv[++i]);
-			} else {
+			}
+			else
+			{
 				show_required_argument_message(argv[i]);
 			}
-		} else if (std::string(argv[i]) == "--closed-loop") {
+		}
+		else if (std::string(argv[i]) == "--closed-loop")
+		{
 			closedloop = true;
-		} else if (std::string(argv[i]) == "--tf2ss") {
+		}
+		else if (std::string(argv[i]) == "--tf2ss")
+		{
 			translate = true;
-		} else if (std::string(argv[i]) == "--show-ce-data"){
+		}
+		else if (std::string(argv[i]) == "--show-ce-data")
+		{
 			show_counterexample_data = true;
-		} else {
+		}
+		else
+		{
 			/* get macro parameters */
 			std::string parameter = argv[i];
 			std::string::size_type loc = parameter.find("-D", 0 );
-			if( loc != std::string::npos ) {
+			if( loc != std::string::npos )
+			{
 				desired_macro_parameters += " " + parameter;
 				/* check if there is an desired benchmark */
 				std::string::size_type find_desired_ds_id = parameter.find("-DDS_ID=", 0 );
-				if( find_desired_ds_id != std::string::npos ) {
+				if( find_desired_ds_id != std::string::npos )
+				{
 					std::vector<std::string> parts;
 					boost::split(parts, parameter, boost::is_any_of("="));
 					desired_ds_id = "DS_ID==" + parts.at(1);
 				}
-			}else{
+			}
+			else
+			{
 				std::cout << "invalid parameter: " << argv[i] << std::endl;
 				exit(1);
 			}
@@ -318,13 +409,16 @@ void bind_parameters(int argc, char* argv[]){
 	check_required_parameters();
 }
 
-std::string execute_command_line(std::string command){
+std::string execute_command_line(std::string command)
+{
 	FILE* pipe = popen(command.c_str(), "r");
 	if (!pipe) return "ERROR";
 	char buffer[128];
 	std::string result = "";
-	while(!feof(pipe)) {
-		if(fgets(buffer, 128, pipe) != NULL){
+	while(!feof(pipe))
+	{
+		if(fgets(buffer, 128, pipe) != NULL)
+		{
 			std::cout << buffer;
 			result += buffer;
 		}
@@ -333,66 +427,87 @@ std::string execute_command_line(std::string command){
 	return result;
 }
 
-std::string prepare_bmc_command_line(){
+std::string prepare_bmc_command_line()
+{
 	char * dsverifier_home;
-  dsverifier_home = getenv("DSVERIFIER_HOME");
-  if (dsverifier_home == NULL){
+	dsverifier_home = getenv("DSVERIFIER_HOME");
+	if (dsverifier_home == NULL)
+	{
 		std::cout << std::endl << "[ERROR] - You must set DSVERIFIER_HOME environment variable." << std::endl;
 		exit(1);
 	}
 	std::string bmc_path = std::string(dsverifier_home) + "/bmc";
 	std::string model_checker_path = std::string(dsverifier_home) + "/model-checker";
 	std::string command_line;
-	if (desired_bmc == "ESBMC"){
+	if (desired_bmc == "ESBMC")
+	{
 		command_line = model_checker_path + "/esbmc " + desired_filename + " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " + bmc_path;
-		if (desired_timeout.size() > 0){
+		if (desired_timeout.size() > 0)
+		{
 			command_line += " --timeout " + desired_timeout;
 		}
-	}else if (desired_bmc == "CBMC"){
+	}
+	else if (desired_bmc == "CBMC")
+	{
 		command_line =  model_checker_path + "/cbmc " + desired_filename + " --fixedbv -DBMC=CBMC -I " + bmc_path;
 	}
-	if (desired_function.size() > 0){
+	if (desired_function.size() > 0)
+	{
 		command_line += " --function " + desired_function;
 	}
-	if (desired_solver.size() > 0){
+	if (desired_solver.size() > 0)
+	{
 		command_line += " --" + desired_solver;
 	}
-	if (desired_realization.size() > 0){
+	if (desired_realization.size() > 0)
+	{
 		command_line += " -DREALIZATION=" + desired_realization;
 	}
-	if (desired_property.size() > 0){
+	if (desired_property.size() > 0)
+	{
 		command_line += " -DPROPERTY=" + desired_property;
 	}
-	if (desired_connection_mode.size() > 0){
+	if (desired_connection_mode.size() > 0)
+	{
 		command_line += " -DCONNECTION_MODE=" + desired_connection_mode;
 	}
-	if (desired_x_size > 0){
+	if (desired_x_size > 0)
+	{
 		command_line += " -DX_SIZE=" + std::to_string(desired_x_size);
 	}
 	command_line += desired_macro_parameters;
 	return command_line;
 }
 
-std::string prepare_bmc_command_line_ss(){
+std::string prepare_bmc_command_line_ss()
+{
 	std::string command_line;
-	if (desired_bmc == "ESBMC"){
+	if (desired_bmc == "ESBMC")
+	{
 		command_line = "esbmc input.c --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC";
-		if (desired_timeout.size() > 0){
+		if (desired_timeout.size() > 0)
+		{
 			command_line += " --timeout " + desired_timeout;
 		}
-	}else if (desired_bmc == "CBMC"){
+	}
+	else if (desired_bmc == "CBMC")
+	{
 		command_line = "cbmc --fixedbv input.c -DBMC=CBMC";
 	}
-	if (desired_solver.size() > 0){
+	if (desired_solver.size() > 0)
+	{
 		command_line += " --" + desired_solver;
 	}
-	if (desired_realization.size() > 0){
+	if (desired_realization.size() > 0)
+	{
 		command_line += " -DREALIZATION=" + desired_realization;
 	}
-	if (desired_property.size() > 0){
+	if (desired_property.size() > 0)
+	{
 		command_line += " -DPROPERTY=" + desired_property;
 	}
-	if (desired_x_size > 0){
+	if (desired_x_size > 0)
+	{
 		command_line += " -DK_SIZE=" + std::to_string(desired_x_size);
 	}
 	command_line += desired_macro_parameters;
@@ -402,7 +517,8 @@ digital_system ds;
 implementation impl;
 
 /* print array elements */
-void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n){
+void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n)
+{
 	printf("%s = {", name);
 	int i;
 	for(i=0; i < n; i++){
@@ -412,7 +528,8 @@ void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n){
 }
 
 /* print array elements */
-void cplus_print_array_elements(const char * name, double * v, int n){
+void cplus_print_array_elements(const char * name, double * v, int n)
+{
 	printf("%s = {", name);
 	int i;
 	for(i=0; i < n; i++){
@@ -422,22 +539,27 @@ void cplus_print_array_elements(const char * name, double * v, int n){
 }
 
 /* print array elements */
-void cplus_print_array_elements_ignoring_empty(const char * name, double * v, int n){
-	if (n > 0){
+void cplus_print_array_elements_ignoring_empty(const char * name, double * v, int n)
+{
+	if (n > 0)
+	{
 		cplus_print_array_elements(name,v,n);
 	}
 }
 
-int get_fxp_value(std::string exp){
+int get_fxp_value(std::string exp)
+{
 	std::vector<std::string> tokens;
     boost::split(tokens, exp,boost::is_any_of("="));
     return std::atoi(tokens[1].c_str());
 };
 
-void extract_regexp_data_for_vector(std::string src, std::regex & regexp, std::vector<double> & vector, unsigned int & factor){
+void extract_regexp_data_for_vector(std::string src, std::regex & regexp, std::vector<double> & vector, unsigned int & factor)
+{
 	std::sregex_iterator next(src.begin(), src.end(), regexp);
 	std::sregex_iterator end;
-	while (next != end) {
+	while (next != end)
+	{
 		std::smatch match = *next;
 		double value = (double) get_fxp_value(match.str()) / (double) factor;
 		vector.push_back(value);
@@ -445,7 +567,8 @@ void extract_regexp_data_for_vector(std::string src, std::regex & regexp, std::v
 	}
 };
 
-void print_counterexample_data(std::string counterexample){
+void print_counterexample_data(std::string counterexample)
+{
 	std::vector<double> numerator;
 	std::vector<double> denominator;
 	std::vector<double> inputs;
@@ -454,12 +577,14 @@ void print_counterexample_data(std::string counterexample){
 	unsigned int factor = pow(2, impl.frac_bits);
 
 	std::size_t verification_failed = counterexample.find("VERIFICATION FAILED");
-	if (verification_failed == std::string::npos){
+	if (verification_failed == std::string::npos)
+	{
 		return;
     }
 
-	if (desired_bmc == "ESBMC") {
-		std::cout << std::endl << "[INFO] Unfortunately, It was not able to extract the counterexample data for this model checker. :(" << std::endl;
+	if (desired_bmc == "ESBMC")
+	{
+		std::cout << std::endl << "[INFO] Unfortunately, DSVerifier was unable to extract the counterexample data for this model checker." << std::endl;
 		return;
 	}
 
@@ -484,7 +609,8 @@ void print_counterexample_data(std::string counterexample){
 		/* process initial states data */
 		std::regex initial_states_regexp("y0\\[[0-9]\\]=-?[0-9]+");
 		extract_regexp_data_for_vector(counterexample, initial_states_regexp, initial_states, factor);
-		if (initial_states.size() == 0){
+		if (initial_states.size() == 0)
+		{
 			std::regex initial_states_regexp_df2("w0\\[[0-9]\\]=-?[0-9]+");
 			extract_regexp_data_for_vector(counterexample, initial_states_regexp_df2, initial_states, factor);
 		}
@@ -492,12 +618,12 @@ void print_counterexample_data(std::string counterexample){
 		std::cout << std::endl << "Counterexample Data:" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
 		cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
-    std::cout << "  Sample Time = " << ds.sample_time << std::endl;
+		std::cout << "  Sample Time = " << ds.sample_time << std::endl;
 		std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Numerator (fixed-point)", &numerator[0], numerator.size());
 		cplus_print_array_elements_ignoring_empty("  Denominator (fixed-point)", &denominator[0], denominator.size());
 		std::cout << "  Realization = " << desired_realization << std::endl;
-    std::cout << "  Dynamic Range = " << "[ " << impl.min << ", " << impl.max << " ]" << std::endl;
+		std::cout << "  Dynamic Range = " << "[ " << impl.min << ", " << impl.max << " ]" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Initial States", &initial_states[0], initial_states.size());
 		cplus_print_array_elements_ignoring_empty("  Inputs", &inputs[0], inputs.size());
 		cplus_print_array_elements_ignoring_empty("  Outputs", &outputs[inputs.size()], outputs.size() - inputs.size());
@@ -508,7 +634,8 @@ void print_counterexample_data(std::string counterexample){
 	}
 }
 
-int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<RootType> & roots){
+int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<RootType> & roots)
+{
 
 	unsigned int size = poly_size;
 
@@ -520,7 +647,8 @@ int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<Ro
 
 	/* remove leading zeros */
 	std::vector<double>::iterator it=coefficients_vector.begin();
-	while(it != coefficients_vector.end()){
+	while(it != coefficients_vector.end())
+	{
 		if(*it != 0.0)
 			break;
 		it=coefficients_vector.erase(it);
@@ -529,13 +657,15 @@ int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<Ro
 	size=coefficients_vector.size();
 
 	/* check if there is any element left on the vector */
-	if(!size){
+	if(!size)
+	{
 		std::cout << std::endl << "No remaining elements in polynomial vector";
 		throw std::runtime_error ("tla");
 	}
 
 	/* check the polynomial order */
-	if (coefficients_vector.size() >= 3){
+	if (coefficients_vector.size() >= 3)
+	{
 
 		Eigen::VectorXd coefficients(coefficients_vector.size());
 
@@ -543,7 +673,8 @@ int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<Ro
 		unsigned int i=0;
 		for(it=coefficients_vector.begin();
 				it!=coefficients_vector.end();
-				++it, ++i){
+				++it, ++i)
+		{
 			coefficients[size-i-1] = *it;
 		}
 
@@ -554,31 +685,38 @@ int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<Ro
 		solver.compute(coefficients);
 
 		RootsType solver_roots = solver.roots();
-		for(unsigned int i=0; i<solver_roots.rows(); ++i){
+		for(unsigned int i=0; i<solver_roots.rows(); ++i)
+		{
 			roots.push_back(solver_roots[i]);
 		}
 
-	} else if (coefficients_vector.size() == 2){
-
+	}
+	else if (coefficients_vector.size() == 2)
+	{
 		double root = - coefficients_vector.at(1) / coefficients_vector.at(0);
 		roots.push_back(root);
 
-	} else {
+	}
+	else
+	{
 		/* nothing to do */
 	}
 
 	return 0;
 }
 
-bool check_delta_stability_margin(std::vector<RootType> roots){
+bool check_delta_stability_margin(std::vector<RootType> roots)
+{
 	std::cout << "checking delta stability margin" << std::endl;
 	bool stable = true;
-	for(unsigned int i=0; i<roots.size(); i++){
+	for(unsigned int i=0; i<roots.size(); i++)
+	{
 		std::complex<double> eig = roots.at(i);
 		eig.real(eig.real() * impl.delta);
 		eig.imag(eig.imag() * impl.delta);
 		eig.real(eig.real() + 1);
-		if ((std::abs(eig) < 1) == false){
+		if ((std::abs(eig) < 1) == false)
+		{
 			stable = false;
 			break;
 		}
@@ -586,12 +724,15 @@ bool check_delta_stability_margin(std::vector<RootType> roots){
 	return stable;
 }
 
-bool check_shift_stability_margin(std::vector<RootType> roots){
+bool check_shift_stability_margin(std::vector<RootType> roots)
+{
 	std::cout << "checking shift stability margin" << std::endl;
 	bool stable = true;
-	for(unsigned int i=0; i<roots.size(); i++){
+	for(unsigned int i=0; i<roots.size(); i++)
+	{
 		std::complex<double> eig = roots.at(i);
-		if ((std::abs(eig) < 1) == false){
+		if ((std::abs(eig) < 1) == false)
+		{
 			stable = false;
 			break;
 		}
@@ -599,25 +740,30 @@ bool check_shift_stability_margin(std::vector<RootType> roots){
 	return stable;
 }
 
-void show_delta_not_representable(){
+void show_delta_not_representable()
+{
 	std::cout << "[EXCEPTION] Does not possible to represent this value in delta using this precision" << std::endl;
 }
 
-void show_verification_successful(){
+void show_verification_successful()
+{
 	std::cout << std::endl << "VERIFICATION SUCCESSFUL" << std::endl;
 }
 
-void show_verification_failed(){
+void show_verification_failed()
+{
 	std::cout << std::endl << "VERIFICATION FAILED" << std::endl;
 }
 
-void show_implementation_parameters(){
+void show_implementation_parameters()
+{
 	std::cout << std::endl << "implementation int_bits: " << impl.int_bits << std::endl;
 	std::cout << "implementation frac_bits: " << impl.frac_bits << std::endl;
 	std::cout << "implementation delta: " << impl.delta << std::endl;
 }
 
-void check_stability_shift_domain_using_jury(){
+void check_stability_shift_domain_using_jury()
+{
 	show_implementation_parameters();
 	std::cout << std::endl;
 	double sa_fxp[ds.a_size];
@@ -627,14 +773,18 @@ void check_stability_shift_domain_using_jury(){
 	fxp_to_double_array(sa_fxp, a_fxp, ds.a_size);
 	cplus_print_array_elements("quantized denominator", sa_fxp, ds.a_size);
 	bool is_stable = check_stability(sa_fxp, ds.a_size);
-	if (is_stable){
+	if (is_stable)
+	{
 		show_verification_successful();
-	}else{
+	}
+	else
+	{
 		show_verification_failed();
 	}
 }
 
-void check_minimum_phase_shift_domain_using_jury(){
+void check_minimum_phase_shift_domain_using_jury()
+{
 	show_implementation_parameters();
 	std::cout << std::endl;
 	double sb_fxp[ds.b_size];
@@ -644,14 +794,18 @@ void check_minimum_phase_shift_domain_using_jury(){
 	fxp_to_double_array(sb_fxp, b_fxp, ds.b_size);
 	cplus_print_array_elements("quantized denominator", sb_fxp, ds.b_size);
 	bool is_stable = check_stability(sb_fxp, ds.b_size);
-	if (is_stable){
+	if (is_stable)
+	{
 		show_verification_successful();
-	}else{
+	}
+	else
+	{
 		show_verification_failed();
 	}
 }
 
-void check_stability_shift_domain_using_eigen(){
+void check_stability_shift_domain_using_eigen()
+{
 	show_implementation_parameters();
 	std::cout << std::endl;
 	double sa_fxp[ds.a_size];
@@ -663,14 +817,18 @@ void check_stability_shift_domain_using_eigen(){
 	std::vector<RootType> poly_roots;
 	get_roots_from_polynomial(sa_fxp, ds.a_size, poly_roots);
 	bool is_stable = check_shift_stability_margin(poly_roots);
-	if (is_stable){
+	if (is_stable)
+	{
 		show_verification_successful();
-	}else{
+	}
+	else
+	{
 		show_verification_failed();
 	}
 }
 
-void check_minimum_phase_shift_domain(){
+void check_minimum_phase_shift_domain()
+{
 	show_implementation_parameters();
 	std::cout << std::endl;
 	double sb_fxp[ds.b_size];
@@ -680,14 +838,18 @@ void check_minimum_phase_shift_domain(){
 	fxp_to_double_array(sb_fxp, b_fxp, ds.b_size);
 	cplus_print_array_elements("quantized numerator", sb_fxp, ds.b_size);
 	bool is_stable = check_stability(sb_fxp, ds.b_size);
-	if (is_stable){
+	if (is_stable)
+	{
 		show_verification_successful();
-	}else{
+	}
+	else
+	{
 		show_verification_failed();
 	}
 }
 
-void check_stability_delta_domain(){
+void check_stability_delta_domain()
+{
 	show_implementation_parameters();
 	std::cout << std::endl;
 	double db[ds.b_size];
@@ -705,7 +867,8 @@ void check_stability_delta_domain(){
 		show_verification_failed();
 		exit(1);
 	}
-	if ((da[0] != 0) && (da_fxp[0] == 0)){
+	if ((da[0] != 0) && (da_fxp[0] == 0))
+	{
 		std::cout << std::endl;
 		std::cout << "ds.a[0] = "<< std::to_string(da[0]) << " ----> " << std::to_string(da_fxp[0]) << std::endl;
 		show_delta_not_representable();
@@ -717,23 +880,31 @@ void check_stability_delta_domain(){
 	std::vector<RootType> poly_roots;
 	get_roots_from_polynomial(da_qtz, ds.a_size, poly_roots);
 	bool is_stable = check_delta_stability_margin(poly_roots);
-	if (is_stable){
+	if (is_stable)
+	{
 		show_verification_successful();
-	}else{
+	}
+	else
+	{
 		show_verification_failed();
 	}
 }
 
-bool check_if_file_exists (const std::string & name) {
-	if (FILE *file = fopen(name.c_str(), "r")) {
+bool check_if_file_exists (const std::string & name)
+{
+	if (FILE *file = fopen(name.c_str(), "r"))
+	{
 		fclose(file);
 		return true;
-	} else {
+	}
+	else
+	{
 		return false;
 	}
 }
 
-void check_minimum_phase_delta_domain(){
+void check_minimum_phase_delta_domain()
+{
 	show_implementation_parameters();
 	std::cout << std::endl;
 	double db[ds.b_size];
@@ -743,7 +914,8 @@ void check_minimum_phase_delta_domain(){
 	cplus_print_array_elements("delta numerator", db, ds.b_size);
 	fxp_t db_fxp[ds.b_size];
 	fxp_double_to_fxp_array(db, db_fxp, ds.b_size);
-	if ((db[0] != 0) && (db_fxp[0] == 0)){
+	if ((db[0] != 0) && (db_fxp[0] == 0))
+	{
 		std::cout << std::endl;
 		std::cout << "ds.b[0] = "<< std::to_string(db[0]) << " ----> " << std::to_string(db_fxp[0]) << std::endl;
 		show_delta_not_representable();
@@ -755,30 +927,38 @@ void check_minimum_phase_delta_domain(){
 	std::vector<RootType> poly_roots;
 	get_roots_from_polynomial(db_qtz, ds.b_size, poly_roots);
 	bool is_stable = check_delta_stability_margin(poly_roots);
-	if (is_stable){
+	if (is_stable)
+	{
 		show_verification_successful();
-	}else{
+	}
+	else
+	{
 		show_verification_failed();
 	}
 }
 
-void check_state_space_stability(){
+void check_state_space_stability()
+{
 
 	Eigen::MatrixXd matrixA = Eigen::MatrixXd::Ones(_controller.nStates,_controller.nStates);
 	int i, j;
-	for(i=0; i<_controller.nStates;i++){
-		for(j=0; j<_controller.nStates;j++){
+	for(i=0; i<_controller.nStates;i++)
+	{
+		for(j=0; j<_controller.nStates;j++)
+		{
 			matrixA(i,j) = _controller.A[i][j]; //fxp_double_to_fxp(A[i][j]);
 		}
 	}
 
 	std::complex< double > lambda;
 	std::complex< double > margem(1,0);
-	for(i = 0; i < (matrixA.count() / 2); i++ ){
+	for(i = 0; i < (matrixA.count() / 2); i++ )
+	{
 		lambda = matrixA.eigenvalues()[i];
 		//std::cout << "abs(lambda): " << std::abs(lambda) << std::endl;
 		double v = std::abs(lambda);
-		if( v >= 1 ){
+		if( v >= 1 )
+		{
 			std::cout << "unstable" << std::endl;
 			exit(0);
 		}
@@ -786,55 +966,69 @@ void check_state_space_stability(){
 	std::cout << "stable" << std::endl;
 }
 
-void check_file_exists(){
+void check_file_exists()
+{
 	/* check if the specified file exists */
-	if (check_if_file_exists(desired_filename) == false){
+	if (check_if_file_exists(desired_filename) == false)
+	{
 		std::cout << "file " << desired_filename << ": failed to open input file" << std::endl;
 		exit(1);
 	}
 }
 
-std::string replace_all_string(std::string str, const std::string& from, const std::string& to) {
+std::string replace_all_string(std::string str, const std::string& from, const std::string& to)
+{
 	size_t start_pos = 0;
-	while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+	while((start_pos = str.find(from, start_pos)) != std::string::npos)
+	{
 		str.replace(start_pos, from.length(), to);
 		start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
 	}
 	return str;
 }
 
-void extract_data_from_file(){
+void extract_data_from_file()
+{
 
 	std::ifstream verification_file(desired_filename);
 	bool ds_id_found = false;
 
-	for(std::string current_line; getline( verification_file, current_line );){
+	for(std::string current_line; getline( verification_file, current_line );)
+	{
 
 		/* removing whitespaces */
 		current_line = replace_all_string(current_line, " ", "");
 		current_line = replace_all_string(current_line, "\t", "");
 		/* check the last comma, and remove it */
-		if (current_line.back() == ','){
+		if (current_line.back() == ',')
+		{
 			current_line.pop_back();
 		}
 
 		/* check if there is an desired ds_id and find the region*/
-		if (desired_ds_id.size() != 0){
+		if (desired_ds_id.size() != 0)
+		{
 			std::string::size_type find_desired_ds_id = current_line.find(desired_ds_id, 0);
-			if (ds_id_found == false){
-				if (find_desired_ds_id != std::string::npos){
+			if (ds_id_found == false)
+			{
+				if (find_desired_ds_id != std::string::npos)
+				{
 					ds_id_found = true;
-				} else {
+				}
+				else
+				{
 					continue; /* go to next line */
 				}
 			}
 		}
 
 		std::string::size_type ds_a = current_line.find(".a=", 0);
-		if (ds_a != std::string::npos){
+		if (ds_a != std::string::npos)
+		{
 			std::vector<std::string> coefficients;
 			boost::split(coefficients, current_line, boost::is_any_of(","));
-			for(int i=0; i< coefficients.size(); i++){
+			for(int i=0; i< coefficients.size(); i++)
+			{
 				std::string coefficient = coefficients.at(i);
 				coefficient = replace_all_string(coefficient, ".a={", "");
 				coefficient = replace_all_string(coefficient, "}", "");
@@ -844,10 +1038,12 @@ void extract_data_from_file(){
 			continue;
 		}
 		std::string::size_type ds_b = current_line.find(".b=", 0);
-		if (ds_b != std::string::npos){
+		if (ds_b != std::string::npos)
+		{
 			std::vector<std::string> coefficients;
 			boost::split(coefficients, current_line, boost::is_any_of(","));
-			for(int i=0; i< coefficients.size(); i++){
+			for(int i=0; i< coefficients.size(); i++)
+			{
 				std::string coefficient = coefficients.at(i);
 				coefficient = replace_all_string(coefficient, ".b={", "");
 				coefficient = replace_all_string(coefficient, "}", "");
@@ -856,38 +1052,44 @@ void extract_data_from_file(){
 			}
 			continue;
 		}
-    std::string::size_type ds_sample_time = current_line.find(".sample_time", 0);
-		if (ds_sample_time != std::string::npos){
+		std::string::size_type ds_sample_time = current_line.find(".sample_time", 0);
+		if (ds_sample_time != std::string::npos)
+		{
 			current_line = replace_all_string(current_line, ".sample_time=", "");
 			ds.sample_time = std::atof(current_line.c_str());
 			continue;
 		}
-    std::string::size_type impl_int_bits = current_line.find(".int_bits", 0);
-		if (impl_int_bits != std::string::npos){
+		std::string::size_type impl_int_bits = current_line.find(".int_bits", 0);
+		if (impl_int_bits != std::string::npos)
+		{
 			current_line = replace_all_string(current_line, ".int_bits=", "");
 			impl.int_bits = std::atoi(current_line.c_str());
 			continue;
 		}
 		std::string::size_type impl_frac_bits = current_line.find(".frac_bits", 0);
-		if (impl_frac_bits != std::string::npos){
+		if (impl_frac_bits != std::string::npos)
+		{
 			current_line = replace_all_string(current_line, ".frac_bits=", "");
 			impl.frac_bits = std::atoi(current_line.c_str());
 			continue;
 		}
-    std::string::size_type impl_min = current_line.find(".min", 0);
-		if (impl_min != std::string::npos){
+		std::string::size_type impl_min = current_line.find(".min", 0);
+		if (impl_min != std::string::npos)
+		{
 			current_line = replace_all_string(current_line, ".min=", "");
 			impl.min = std::atof(current_line.c_str());
 			continue;
 		}
-    std::string::size_type impl_max = current_line.find(".max", 0);
-    if (impl_max != std::string::npos){
+		std::string::size_type impl_max = current_line.find(".max", 0);
+		if (impl_max != std::string::npos)
+		{
 			current_line = replace_all_string(current_line, ".max=", "");
 			impl.max = std::atof(current_line.c_str());
 			continue;
 		}
 		std::string::size_type impl_delta = current_line.find(".delta", 0);
-		if (impl_delta != std::string::npos){
+		if (impl_delta != std::string::npos)
+		{
 			current_line = replace_all_string(current_line, ".delta=", "");
 			impl.delta = std::atof(current_line.c_str());
 			continue;
@@ -895,7 +1097,8 @@ void extract_data_from_file(){
 	}
 }
 
-void extract_data_from_ss_file(){
+void extract_data_from_ss_file()
+{
 	std::ifstream verification_file(desired_filename);
 	std::string current_line;
 	getline( verification_file, current_line );
@@ -955,15 +1158,21 @@ void extract_data_from_ss_file(){
 	i++;
 	int lines = 0;
 	int columns = 0;
-	for(; current_line[i] != ']'; i++){
-		if(current_line[i] != ',' && current_line[i] != ';'){
+	for(; current_line[i] != ']'; i++)
+	{
+		if(current_line[i] != ',' && current_line[i] != ';')
+		{
 			str_bits.push_back(current_line[i]);
-		} else if(current_line[i] == ';'){
+		}
+		else if(current_line[i] == ';')
+		{
 			_controller.A[lines][columns] = std::stod(str_bits);
 			lines++;
 			columns = 0;
 			str_bits.clear();
-		} else {
+		}
+		else
+		{
 			_controller.A[lines][columns] = std::stod(str_bits);
 			columns++;
 			str_bits.clear();
@@ -981,14 +1190,19 @@ void extract_data_from_ss_file(){
 	lines = 0;
 	columns = 0;
 	for(; current_line[i] != ']'; i++){
-		if(current_line[i] != ',' && current_line[i] != ';'){
+		if(current_line[i] != ',' && current_line[i] != ';')
+		{
 			str_bits.push_back(current_line[i]);
-		} else if(current_line[i] == ';'){
+		}
+		else if(current_line[i] == ';')
+		{
 			_controller.B[lines][columns] = std::stod(str_bits);
 			lines++;
 			columns = 0;
 			str_bits.clear();
-		} else {
+		}
+		else
+		{
 			_controller.B[lines][columns] = std::stod(str_bits);
 			columns++;
 			str_bits.clear();
@@ -1006,14 +1220,19 @@ void extract_data_from_ss_file(){
 	lines = 0;
 	columns = 0;
 	for(; current_line[i] != ']'; i++){
-		if(current_line[i] != ',' && current_line[i] != ';'){
+		if(current_line[i] != ',' && current_line[i] != ';')
+		{
 			str_bits.push_back(current_line[i]);
-		} else if(current_line[i] == ';'){
+		}
+		else if(current_line[i] == ';')
+		{
 			_controller.C[lines][columns] = std::stod(str_bits);
 			lines++;
 			columns = 0;
 			str_bits.clear();
-		} else {
+		}
+		else
+		{
 			_controller.C[lines][columns] = std::stod(str_bits);
 			columns++;
 			str_bits.clear();
@@ -1030,15 +1249,21 @@ void extract_data_from_ss_file(){
 	i++;
 	lines = 0;
 	columns = 0;
-	for(; current_line[i] != ']'; i++){
-		if(current_line[i] != ',' && current_line[i] != ';'){
+	for(; current_line[i] != ']'; i++)
+	{
+		if(current_line[i] != ',' && current_line[i] != ';')
+		{
 			str_bits.push_back(current_line[i]);
-		} else if(current_line[i] == ';'){
+		}
+		else if(current_line[i] == ';')
+		{
 			_controller.D[lines][columns] = std::stod(str_bits);
 			lines++;
 			columns = 0;
 			str_bits.clear();
-		} else {
+		}
+		else
+		{
 			_controller.D[lines][columns] = std::stod(str_bits);
 			columns++;
 			str_bits.clear();
@@ -1056,14 +1281,19 @@ void extract_data_from_ss_file(){
 	lines = 0;
 	columns = 0;
 	for(; current_line[i] != ']'; i++){
-		if(current_line[i] != ',' && current_line[i] != ';'){
+		if(current_line[i] != ',' && current_line[i] != ';')
+		{
 			str_bits.push_back(current_line[i]);
-		} else if(current_line[i] == ';'){
+		}
+		else if(current_line[i] == ';')
+		{
 			_controller.inputs[lines][columns] = std::stod(str_bits);
 			lines++;
 			columns = 0;
 			str_bits.clear();
-		} else {
+		}
+		else
+		{
 			_controller.inputs[lines][columns] = std::stod(str_bits);
 			columns++;
 			str_bits.clear();
@@ -1072,7 +1302,8 @@ void extract_data_from_ss_file(){
 	_controller.inputs[lines][columns] = std::stod(str_bits);
 	str_bits.clear();
 
-	if(closedloop){
+	if(closedloop)
+	{
 		getline( verification_file, current_line ); // matrix controller
 		str_bits.clear();
 		for(i = 0; current_line[i] != '[';i++);
@@ -1080,14 +1311,19 @@ void extract_data_from_ss_file(){
 		lines = 0;
 		columns = 0;
 		for(; current_line[i] != ']'; i++){
-			if(current_line[i] != ',' && current_line[i] != ';'){
+			if(current_line[i] != ',' && current_line[i] != ';')
+			{
 				str_bits.push_back(current_line[i]);
-			} else if(current_line[i] == ';'){
+			}
+			else if(current_line[i] == ';')
+			{
 				_controller.K[lines][columns] = std::stod(str_bits);
 				lines++;
 				columns = 0;
 				str_bits.clear();
-			} else {
+			}
+			else
+			{
 				_controller.K[lines][columns] = std::stod(str_bits);
 				columns++;
 				str_bits.clear();
@@ -1102,7 +1338,8 @@ void extract_data_from_ss_file(){
 	//print_matrix(_controller.D,outputs,inputs);
 }
 
-void state_space_parser(){
+void state_space_parser()
+{
 	std::string verification_file;
 
 	std::string tmp;
@@ -1125,8 +1362,10 @@ void state_space_parser(){
 	verification_file.append(cf_value_precision.str());
 	verification_file.append(";\n void initials(){\n");
 
-	for (i=0; i<_controller.nStates; i++) {
-		for (j=0; j<_controller.nStates; j++) {
+	for (i=0; i<_controller.nStates; i++)
+	{
+		for (j=0; j<_controller.nStates; j++)
+		{
 			verification_file.append("\t_controller.A[");
 			verification_file.append(std::to_string(i));
 			verification_file.append("][");
@@ -1139,8 +1378,10 @@ void state_space_parser(){
 		}
 	}
 
-	for (i=0; i<_controller.nStates; i++) {
-		for (j=0; j<_controller.nInputs; j++) {
+	for (i=0; i<_controller.nStates; i++)
+	{
+		for (j=0; j<_controller.nInputs; j++)
+		{
 			verification_file.append("\t_controller.B[");
 			verification_file.append(std::to_string(i));
 			verification_file.append("][");
@@ -1153,8 +1394,10 @@ void state_space_parser(){
 		}
 	}
 
-	for (i=0; i<_controller.nOutputs; i++) {
-		for (j=0; j<_controller.nStates; j++) {
+	for (i=0; i<_controller.nOutputs; i++)
+	{
+		for (j=0; j<_controller.nStates; j++)
+		{
 			verification_file.append("\t_controller.C[");
 			verification_file.append(std::to_string(i));
 			verification_file.append("][");
@@ -1167,8 +1410,10 @@ void state_space_parser(){
 		}
 	}
 
-	for (i=0; i<_controller.nOutputs; i++) {
-		for (j=0; j<_controller.nInputs; j++) {
+	for (i=0; i<_controller.nOutputs; i++)
+	{
+		for (j=0; j<_controller.nInputs; j++)
+		{
 			verification_file.append("\t_controller.D[");
 			verification_file.append(std::to_string(i));
 			verification_file.append("][");
@@ -1181,8 +1426,10 @@ void state_space_parser(){
 		}
 	}
 
-	for (i=0; i<_controller.nInputs; i++) {
-		for (j=0; j < 1; j++) {
+	for (i=0; i<_controller.nInputs; i++)
+	{
+		for (j=0; j < 1; j++)
+		{
 			verification_file.append("\t_controller.inputs[");
 			verification_file.append(std::to_string(i));
 			verification_file.append("][");
@@ -1247,35 +1494,47 @@ void tf2ss(){
 	_controller.nInputs = 1;
 	_controller.nOutputs = 1;
 
-	for (i=0; i<_controller.nStates - 1; i++) {
-		for (j=0; j<_controller.nStates; j++) {
-			if(j == i + 1){
+	for (i=0; i<_controller.nStates - 1; i++)
+	{
+		for (j=0; j<_controller.nStates; j++)
+		{
+			if(j == i + 1)
+			{
 				_controller.A[i][j] = 1;
-			}else{
+			}
+			else
+			{
 				_controller.A[i][j] = 0;
 			}
 		}
 	}
 
-	for (j=0; j<_controller.nStates; j++) {
+	for (j=0; j<_controller.nStates; j++)
+	{
 		_controller.A[_controller.nStates - 1][j] = - ds.b[_controller.nStates - j];
 	}
 
-	for (i=0; i<_controller.nStates - 1; i++) {
-		for (j=0; j<_controller.nInputs; j++) {
+	for (i=0; i<_controller.nStates - 1; i++)
+	{
+		for (j=0; j<_controller.nInputs; j++)
+		{
 			_controller.B[i][j] = 0;
 		}
 	}
 	_controller.B[_controller.nStates - 1][0] = 1; /* for SISO systems */
 
-	for (i=0; i<_controller.nOutputs; i++) {
-		for (j=0; j<_controller.nStates; j++) {
+	for (i=0; i<_controller.nOutputs; i++)
+	{
+		for (j=0; j<_controller.nStates; j++)
+		{
 			_controller.C[i][j] = ds.a[_controller.nStates - j] - (ds.b[_controller.nStates - j] * ds.a[0]);
 		}
 	}
 
-	for (i=0; i<_controller.nOutputs; i++) {
-		for (j=0; j<_controller.nInputs; j++) {
+	for (i=0; i<_controller.nOutputs; i++)
+	{
+		for (j=0; j<_controller.nInputs; j++)
+		{
 			_controller.D[i][j] = ds.a[0];
 		}
 	}
@@ -1296,68 +1555,90 @@ int main(int argc, char* argv[]){
 
 	std::cout << "Running: Digital Systems Verifier (DSVerifier)" << std::endl;
 
-	if(translate){
+	if(translate)
+	{
 		extract_data_from_file();
 		tf2ss();
 		state_space_parser();
 		exit(0);
 	}
 
-	if (stateSpaceVerification){
+	if (stateSpaceVerification)
+	{
 		extract_data_from_ss_file();
 		if(closedloop)
 			closed_loop();
-		if( desired_property == "STABILITY" ){
+		if( desired_property == "STABILITY" )
+		{
 			std::cout << "Checking stability..." << std::endl;
 			check_state_space_stability();
 			exit(0);
-		} else if( desired_property == "QUANTISATION_ERROR" ) {
+		}
+		else if( desired_property == "QUANTISATION_ERROR" )
+		{
 			state_space_parser();
 			std::string command_line = prepare_bmc_command_line_ss();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
 			execute_command_line(command_line);
 			exit(0);
-		} else if( desired_property == "CONTROLLABILITY" ) {
+		}
+		else if( desired_property == "CONTROLLABILITY" )
+		{
 			state_space_parser();
 			std::string command_line = prepare_bmc_command_line_ss();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
 			execute_command_line(command_line);
 			exit(0);
-		} else if( desired_property == "OBSERVABILITY" ) {
+		}
+		else if( desired_property == "OBSERVABILITY" )
+		{
 			state_space_parser();
 			std::string command_line = prepare_bmc_command_line_ss();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
 			execute_command_line(command_line);
 			exit(0);
-		} else if( desired_property == "LIMIT_CYCLE_STATE_SPACE" ) {
+		}
+		else if( desired_property == "LIMIT_CYCLE_STATE_SPACE" )
+		{
 			state_space_parser();
 			std::string command_line = prepare_bmc_command_line_ss();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
 			execute_command_line(command_line);
 			exit(0);
-		} else {
+		}
+		else
+		{
 			std::cout << "Nothing to check!" << std::endl;
 		}
-	} else {
+	}
+	else
+	{
 		bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
 		bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
 		extract_data_from_file();
 
-		if (!(is_delta_realization && is_restricted_property)){
+		if (!(is_delta_realization && is_restricted_property))
+		{
 			std::string command_line = prepare_bmc_command_line();
 			std::cout << "Back-end Verification: " << command_line << std::endl;
 			std::string counterexample = execute_command_line(command_line);
-			if (show_counterexample_data){
+			if (show_counterexample_data)
+			{
 				print_counterexample_data(counterexample);
 			}
 			exit(0);
-		}else{
+		}
+		else
+		{
 			try{
 				initialization();
-				if (desired_property == "STABILITY"){
+				if (desired_property == "STABILITY")
+				{
 					check_stability_delta_domain();
 					exit(0);
-				} else if (desired_property == "MINIMUM_PHASE"){
+				}
+				else if (desired_property == "MINIMUM_PHASE")
+				{
 					check_minimum_phase_delta_domain();
 					exit(0);
 				}
