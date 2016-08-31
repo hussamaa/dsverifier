@@ -449,7 +449,7 @@ std::string prepare_bmc_command_line()
 	}
 	else if (desired_bmc == "CBMC")
 	{
-		command_line =  model_checker_path + "/cbmc " + desired_filename + " --fixedbv -DBMC=CBMC -I " + bmc_path;
+		command_line =  model_checker_path + "/cbmc " + desired_filename + " --fixedbv --stop-on-fail -DBMC=CBMC -I " + bmc_path;
 	}
 	if (desired_function.size() > 0)
 	{
@@ -492,7 +492,7 @@ std::string prepare_bmc_command_line_ss()
 	}
 	else if (desired_bmc == "CBMC")
 	{
-		command_line = "cbmc --fixedbv input.c -DBMC=CBMC";
+		command_line = "cbmc --fixedbv --stop-on-fail input.c -DBMC=CBMC";
 	}
 	if (desired_solver.size() > 0)
 	{
@@ -615,6 +615,7 @@ void print_counterexample_data(std::string counterexample)
 			extract_regexp_data_for_vector(counterexample, initial_states_regexp_df2, initial_states, factor);
 		}
 
+		//TODO: extend this counterexample data to closed-loop systems
 		std::cout << std::endl << "Counterexample Data:" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
 		cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
