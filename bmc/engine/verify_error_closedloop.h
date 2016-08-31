@@ -9,9 +9,9 @@
  *
  * Verify the quantization error for digital systems in closed-loop.
  *
- * This property analyse the plant and controller performance
- * when connected using SERIES or FEEDBACK. The verification
- * check if the digital controllers' FWL effects causes an unexpected
+ * This property analyses the plant and the controller performance
+ * when connected using SERIES or FEEDBACK. The verification engine
+ * checks whether the digital controllers' FWL effects causes an unexpected
  * error percentual
  *
  * The engine consider nondet inputs and nondet zeroes states
