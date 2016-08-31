@@ -1,10 +1,10 @@
 #include <dsverifier.h>
 
 digital_system controller = {
-        .b = { 2.72, -4.153, 1.896 },
-        .b_size = 3,
-        .a = { 1.0, -1.844, 0.8496},
-        .a_size = 3,
+        .b = { 1.51, -1.3586 },
+        .b_size = 2,
+        .a = { 1.0, -1.0},
+        .a_size = 2,
         .sample_time = 0.2
 };
 

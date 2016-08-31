@@ -1,0 +1,1950 @@
+Running: Digital Systems Verifier (DSVerifier)
+Back-end Verification: /home/lucascordeiro/dsverifier/model-checker/cbmc input.c --fixedbv --stop-on-fail -DBMC=CBMC -I /home/lucascordeiro/dsverifier/bmc -DPROPERTY=STABILITY_CLOSED_LOOP -DCONNECTION_MODE=SERIES
+CBMC version 5.5 64-bit x86_64 linux
+Parsing input.c
+Converting
+Type-checking input
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+Unwinding loop call_closedloop_verification_task.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 303 function call_closedloop_verification_task thread 0
+Unwinding loop call_closedloop_verification_task.1 iteration 1 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 332 function call_closedloop_verification_task thread 0
+Unwinding loop call_closedloop_verification_task.1 iteration 2 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 332 function call_closedloop_verification_task thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_to_double_array.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+Unwinding loop fxp_to_double_array.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+Unwinding loop fxp_to_double_array.0 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+Unwinding loop fxp_to_double_array.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+Unwinding loop fxp_to_double_array.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+Unwinding loop fxp_to_double_array.0 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+Unwinding loop poly_mult.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+Unwinding loop poly_mult.1 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+Unwinding loop poly_mult.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+Unwinding loop poly_mult.1 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+Unwinding loop poly_mult.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+Unwinding loop poly_mult.1 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+Unwinding loop poly_mult.2 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+Unwinding loop poly_mult.3 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+Unwinding loop poly_mult.2 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+Unwinding loop poly_mult.3 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+Unwinding loop poly_mult.2 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+Unwinding loop poly_mult.3 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+Unwinding loop poly_mult.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+Unwinding loop poly_mult.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+Unwinding loop poly_mult.1 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+Unwinding loop poly_mult.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+Unwinding loop poly_mult.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+Unwinding loop poly_mult.1 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+Unwinding loop poly_mult.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+Unwinding loop poly_mult.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+Unwinding loop poly_mult.1 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+Unwinding loop poly_mult.2 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+Unwinding loop poly_mult.2 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+Unwinding loop poly_mult.3 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+Unwinding loop poly_mult.2 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+Unwinding loop poly_mult.2 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+Unwinding loop poly_mult.3 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+Unwinding loop poly_mult.2 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+Unwinding loop poly_mult.2 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+Unwinding loop poly_mult.3 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+Unwinding loop poly_sum.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 145 function poly_sum thread 0
+Unwinding loop poly_sum.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 145 function poly_sum thread 0
+Unwinding loop poly_sum.0 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 145 function poly_sum thread 0
+Unwinding loop poly_sum.0 iteration 4 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 145 function poly_sum thread 0
+Unwinding loop check_stability_closedloop.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 79 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 79 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.0 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 79 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.0 iteration 4 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 79 function check_stability_closedloop thread 0
+Unwinding loop internal_pow.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+Unwinding loop internal_pow.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+Unwinding loop internal_pow.0 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+Unwinding loop check_stability_closedloop.1 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 85 function check_stability_closedloop thread 0
+Unwinding loop internal_pow.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+Unwinding loop internal_pow.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+Unwinding loop check_stability_closedloop.1 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 85 function check_stability_closedloop thread 0
+Unwinding loop internal_pow.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+Unwinding loop check_stability_closedloop.1 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 85 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.1 iteration 4 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 85 function check_stability_closedloop thread 0
+Unwinding loop internal_pow.0 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+Unwinding loop internal_pow.0 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+Unwinding loop internal_pow.0 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+Unwinding loop check_stability_closedloop.3 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 4 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.4 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.2 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.2 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.2 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.2 iteration 4 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.4 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.4 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.2 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.2 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.2 iteration 3 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.4 iteration 4 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.4 iteration 5 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.2 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.2 iteration 2 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.4 iteration 6 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.3 iteration 1 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+Unwinding loop check_stability_closedloop.4 iteration 7 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+size of program expression: 1201 steps
+simple slicing removed 34 assignments
+Generated 10 VCC(s), 9 remaining after simplification
+Passing problem to propositional reduction
+converting SSA
+Running propositional reduction
+Post-processing
+Solving with MiniSAT 2.2.1 with simplifier
+174497 variables, 301930 clauses
+SAT checker: instance is SATISFIABLE
+Runtime decision procedure: 1.026s
+Building error trace
+
+Counterexample:
+
+State 41 file /home/lucascordeiro/dsverifier/bmc/core/initialization.h line 35 function initialization thread 0
+----------------------------------------------------
+  _fxp_one=65536l (0000000000000000000000000000000000000000000000010000000000000000)
+
+State 42 file /home/lucascordeiro/dsverifier/bmc/core/initialization.h line 38 function initialization thread 0
+----------------------------------------------------
+  _fxp_half=32768l (0000000000000000000000000000000000000000000000001000000000000000)
+
+State 43 file /home/lucascordeiro/dsverifier/bmc/core/initialization.h line 39 function initialization thread 0
+----------------------------------------------------
+  _fxp_minus_one=-65536l (1111111111111111111111111111111111111111111111110000000000000000)
+
+State 44 file /home/lucascordeiro/dsverifier/bmc/core/initialization.h line 40 function initialization thread 0
+----------------------------------------------------
+  _fxp_min=-262144l (1111111111111111111111111111111111111111111111000000000000000000)
+
+State 45 file /home/lucascordeiro/dsverifier/bmc/core/initialization.h line 41 function initialization thread 0
+----------------------------------------------------
+  _fxp_max=262143l (0000000000000000000000000000000000000000000000111111111111111111)
+
+State 46 file /home/lucascordeiro/dsverifier/bmc/core/initialization.h line 42 function initialization thread 0
+----------------------------------------------------
+  _fxp_fmask=65535l (0000000000000000000000000000000000000000000000001111111111111111)
+
+State 47 file /home/lucascordeiro/dsverifier/bmc/core/initialization.h line 43 function initialization thread 0
+----------------------------------------------------
+  _fxp_imask=65536l (0000000000000000000000000000000000000000000000010000000000000000)
+
+State 49 file /home/lucascordeiro/dsverifier/bmc/core/initialization.h line 47 function initialization thread 0
+----------------------------------------------------
+  impl.scale=1 (00000000000000000000000000000001)
+
+State 69 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 64 function main thread 0
+----------------------------------------------------
+  ROUNDING_MODE=1 (00000000000000000000000000000001)
+
+State 81 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 93 function main thread 0
+----------------------------------------------------
+  closedloop_verification_task=&verify_stability_closedloop_using_dslib (0000001000000000000000000000000000000000000000000000000000000000)
+
+State 82 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 299 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  base_case_executed=FALSE (00000000)
+
+State 83 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 299 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  base_case_executed=FALSE (00000000)
+
+State 84 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 302 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 85 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 302 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 86 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 303 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 89 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 326 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  plant_cbmc.b[0l]=0.026397705078125 (0000000000000000000000000000000000000110110000100000000000000000)
+
+State 90 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 303 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 93 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 332 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 96 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 356 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  plant_cbmc.a[0l]=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 97 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 332 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 101 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 356 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  plant_cbmc.a[1l]=-0.999786376953125 (1111111111111111111111111111111100000000000011100000000000000000)
+
+State 102 file /home/lucascordeiro/dsverifier/bmc/dsverifier.h line 332 function call_closedloop_verification_task thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 116 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 24 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_num=((double *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 117 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 24 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_num=controller.b (0000001100000000000000000000000000000000000000000000001100101000)
+
+State 118 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 25 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_num_size=0 (00000000000000000000000000000000)
+
+State 119 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 25 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_num_size=3 (00000000000000000000000000000011)
+
+State 120 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 26 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_den=((double *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 121 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 26 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_den=controller.a (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 122 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 27 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_den_size=0 (00000000000000000000000000000000)
+
+State 123 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 27 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_den_size=3 (00000000000000000000000000000011)
+
+State 126 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 30 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_num_fxp={ 0l, 0l, 0l } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 129 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 31 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  f=controller.b (0000001100000000000000000000000000000000000000000000001100101000)
+
+State 130 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 31 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  r=c_num_fxp!0@1 (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 131 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 31 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  N=3 (00000000000000000000000000000011)
+
+State 132 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 244 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 133 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 137 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=2.7199859619140625 (0000000000000000000000000000001010111000010100010000000000000000)
+
+State 138 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 208 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 139 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 140 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=178257 (0000000000000010101110000101000100000000000000000000000000000000)
+
+State 143 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 218 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=178257l (0000000000000000000000000000000000000000000000101011100001010001)
+
+State 144 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 145 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 150 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  c_num_fxp[0l]=178257l (0000000000000000000000000000000000000000000000101011100001010001)
+
+State 151 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 156 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=-4.1529998779296875 (1111111111111111111111111111101111011000110101010000000000000000)
+
+State 157 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 208 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 158 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 159 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=-272171 (1111111111111011110110001101010100000000000000000000000000000000)
+
+State 162 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 218 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=-272171l (1111111111111111111111111111111111111111111110111101100011010101)
+
+State 163 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 164 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 169 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  c_num_fxp[1l]=-272171l (1111111111111111111111111111111111111111111110111101100011010101)
+
+State 170 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 175 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=1.89599609375 (0000000000000000000000000000000111100101011000000000000000000000)
+
+State 176 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 208 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 177 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 178 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=124256 (0000000000000001111001010110000000000000000000000000000000000000)
+
+State 181 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 218 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=124256l (0000000000000000000000000000000000000000000000011110010101100000)
+
+State 182 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 183 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 188 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  c_num_fxp[2l]=124256l (0000000000000000000000000000000000000000000000011110010101100000)
+
+State 189 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 195 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 32 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_den_fxp={ 0l, 0l, 0l } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 198 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 33 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  f=controller.a (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 199 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 33 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  r=c_den_fxp!0@1 (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 200 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 33 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  N=3 (00000000000000000000000000000011)
+
+State 201 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 244 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 202 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 206 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 207 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 208 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 208 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 209 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=65536 (0000000000000001000000000000000000000000000000000000000000000000)
+
+State 212 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 218 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=65536l (0000000000000000000000000000000000000000000000010000000000000000)
+
+State 213 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 214 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 219 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  c_den_fxp[0l]=65536l (0000000000000000000000000000000000000000000000010000000000000000)
+
+State 220 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 225 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=-1.843994140625 (1111111111111111111111111111111000100111111100000000000000000000)
+
+State 226 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 208 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 227 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 228 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=-120848 (1111111111111110001001111111000000000000000000000000000000000000)
+
+State 231 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 218 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=-120848l (1111111111111111111111111111111111111111111111100010011111110000)
+
+State 232 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 233 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 238 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  c_den_fxp[1l]=-120848l (1111111111111111111111111111111111111111111111100010011111110000)
+
+State 239 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 244 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=0.8495941162109375 (0000000000000000000000000000000011011001011111110000000000000000)
+
+State 245 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 208 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 246 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 247 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 209 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=55679 (0000000000000000110110010111111100000000000000000000000000000000)
+
+State 250 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 218 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=55679l (0000000000000000000000000000000000000000000000001101100101111111)
+
+State 251 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 252 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 219 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 257 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 246 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  c_den_fxp[2l]=55679l (0000000000000000000000000000000000000000000000001101100101111111)
+
+State 258 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 245 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 264 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 36 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_num_qtz={ 0, 0, 0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 267 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 37 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  f=c_num_qtz!0@1 (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 268 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 37 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  r=c_num_fxp!0@1 (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 269 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 37 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  N=3 (00000000000000000000000000000011)
+
+State 270 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 288 function fxp_to_double_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 271 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 275 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  fxp=178257l (0000000000000000000000000000000000000000000000101011100001010001)
+
+State 276 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 268 function fxp_to_double thread 0
+----------------------------------------------------
+  f=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 277 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=0 (00000000000000000000000000000000)
+
+State 278 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=178257 (00000000000000101011100001010001)
+
+State 279 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 270 function fxp_to_double thread 0
+----------------------------------------------------
+  f=2.7199859619140625 (0000000000000000000000000000001010111000010100010000000000000000)
+
+State 282 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  c_num_qtz[0l]=2.7199859619140625 (0000000000000000000000000000001010111000010100010000000000000000)
+
+State 283 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 288 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  fxp=-272171l (1111111111111111111111111111111111111111111110111101100011010101)
+
+State 289 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 268 function fxp_to_double thread 0
+----------------------------------------------------
+  f=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 290 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=0 (00000000000000000000000000000000)
+
+State 291 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=-272171 (11111111111110111101100011010101)
+
+State 292 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 270 function fxp_to_double thread 0
+----------------------------------------------------
+  f=-4.1529998779296875 (1111111111111111111111111111101111011000110101010000000000000000)
+
+State 295 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  c_num_qtz[1l]=-4.1529998779296875 (1111111111111111111111111111101111011000110101010000000000000000)
+
+State 296 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 301 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  fxp=124256l (0000000000000000000000000000000000000000000000011110010101100000)
+
+State 302 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 268 function fxp_to_double thread 0
+----------------------------------------------------
+  f=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 303 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=0 (00000000000000000000000000000000)
+
+State 304 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=124256 (00000000000000011110010101100000)
+
+State 305 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 270 function fxp_to_double thread 0
+----------------------------------------------------
+  f=1.89599609375 (0000000000000000000000000000000111100101011000000000000000000000)
+
+State 308 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  c_num_qtz[2l]=1.89599609375 (0000000000000000000000000000000111100101011000000000000000000000)
+
+State 309 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 315 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 38 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_den_qtz={ 0, 0, 0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 318 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 39 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  f=c_den_qtz!0@1 (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 319 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 39 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  r=c_den_fxp!0@1 (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 320 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 39 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  N=3 (00000000000000000000000000000011)
+
+State 321 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 288 function fxp_to_double_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 322 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 326 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  fxp=65536l (0000000000000000000000000000000000000000000000010000000000000000)
+
+State 327 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 268 function fxp_to_double thread 0
+----------------------------------------------------
+  f=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 328 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=0 (00000000000000000000000000000000)
+
+State 329 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=65536 (00000000000000010000000000000000)
+
+State 330 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 270 function fxp_to_double thread 0
+----------------------------------------------------
+  f=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 333 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  c_den_qtz[0l]=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 334 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 339 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  fxp=-120848l (1111111111111111111111111111111111111111111111100010011111110000)
+
+State 340 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 268 function fxp_to_double thread 0
+----------------------------------------------------
+  f=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 341 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=0 (00000000000000000000000000000000)
+
+State 342 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=-120848 (11111111111111100010011111110000)
+
+State 343 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 270 function fxp_to_double thread 0
+----------------------------------------------------
+  f=-1.843994140625 (1111111111111111111111111111111000100111111100000000000000000000)
+
+State 346 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  c_den_qtz[1l]=-1.843994140625 (1111111111111111111111111111111000100111111100000000000000000000)
+
+State 347 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 352 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  fxp=55679l (0000000000000000000000000000000000000000000000001101100101111111)
+
+State 353 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 268 function fxp_to_double thread 0
+----------------------------------------------------
+  f=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 354 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=0 (00000000000000000000000000000000)
+
+State 355 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 269 function fxp_to_double thread 0
+----------------------------------------------------
+  f_int=55679 (00000000000000001101100101111111)
+
+State 356 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 270 function fxp_to_double thread 0
+----------------------------------------------------
+  f=0.8495941162109375 (0000000000000000000000000000000011011001011111110000000000000000)
+
+State 359 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 290 function fxp_to_double_array thread 0
+----------------------------------------------------
+  c_den_qtz[2l]=0.8495941162109375 (0000000000000000000000000000000011011001011111110000000000000000)
+
+State 360 file /home/lucascordeiro/dsverifier/bmc/core/fixed-point.h line 289 function fxp_to_double_array thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 364 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 48 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  p_num=((double *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 365 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 48 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  p_num=plant_cbmc.b (0000100000000000000000000000000000000000000000000000001100101000)
+
+State 366 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 49 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  p_num_size=0 (00000000000000000000000000000000)
+
+State 367 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 49 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  p_num_size=1 (00000000000000000000000000000001)
+
+State 368 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 50 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  p_den=((double *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 369 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 50 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  p_den=plant_cbmc.a (0000100000000000000000000000000000000000000000000000000000000000)
+
+State 370 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 51 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  p_den_size=0 (00000000000000000000000000000000)
+
+State 371 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 51 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  p_den_size=2 (00000000000000000000000000000010)
+
+State 372 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 54 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  ans_num={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 373 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 55 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  ans_num_size=0 (00000000000000000000000000000000)
+
+State 374 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 55 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  ans_num_size=3 (00000000000000000000000000000011)
+
+State 375 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 56 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  ans_den={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 376 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 57 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  ans_den_size=0 (00000000000000000000000000000000)
+
+State 377 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 57 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  ans_den_size=4 (00000000000000000000000000000100)
+
+State 380 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_num=c_num_qtz!0@1 (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 381 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  Nc_num=3 (00000000000000000000000000000011)
+
+State 382 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  c_den=c_den_qtz!0@1 (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 383 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  Nc_den=3 (00000000000000000000000000000011)
+
+State 384 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  model_num=plant_cbmc.b (0000100000000000000000000000000000000000000000000000001100101000)
+
+State 385 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  Nmodel_num=1 (00000000000000000000000000000001)
+
+State 386 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  model_den=plant_cbmc.a (0000100000000000000000000000000000000000000000000000000000000000)
+
+State 387 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  Nmodel_den=2 (00000000000000000000000000000010)
+
+State 388 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  ans_num=ans_num!0@1 (0000100100000000000000000000000000000000000000000000000000000000)
+
+State 389 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  Nans_num=3 (00000000000000000000000000000011)
+
+State 390 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  ans_den=ans_den!0@1 (0000101000000000000000000000000000000000000000000000000000000000)
+
+State 391 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 60 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  Nans_den=4 (00000000000000000000000000000100)
+
+State 392 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 29 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Nans_num=3 (00000000000000000000000000000011)
+
+State 393 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 30 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Nans_den=4 (00000000000000000000000000000100)
+
+State 396 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 31 function ft_closedloop_series thread 0
+----------------------------------------------------
+  den_mult={ 0, 0, 0, 0 } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 399 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 32 function ft_closedloop_series thread 0
+----------------------------------------------------
+  a=c_num_qtz!0@1 (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 400 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 32 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Na=3 (00000000000000000000000000000011)
+
+State 401 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 32 function ft_closedloop_series thread 0
+----------------------------------------------------
+  b=plant_cbmc.b (0000100000000000000000000000000000000000000000000000001100101000)
+
+State 402 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 32 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Nb=1 (00000000000000000000000000000001)
+
+State 403 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 32 function ft_closedloop_series thread 0
+----------------------------------------------------
+  ans=ans_num!0@1 (0000100100000000000000000000000000000000000000000000000000000000)
+
+State 404 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 32 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Nans=3 (00000000000000000000000000000011)
+
+State 405 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 166 function poly_mult thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 406 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 167 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 407 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 168 function poly_mult thread 0
+----------------------------------------------------
+  k=0 (00000000000000000000000000000000)
+
+State 408 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 169 function poly_mult thread 0
+----------------------------------------------------
+  Nans=3 (00000000000000000000000000000011)
+
+State 409 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 411 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 413 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 173 function poly_mult thread 0
+----------------------------------------------------
+  k=2 (00000000000000000000000000000010)
+
+State 414 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 174 function poly_mult thread 0
+----------------------------------------------------
+  ans_num[2l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 415 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 418 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 421 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 423 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 173 function poly_mult thread 0
+----------------------------------------------------
+  k=1 (00000000000000000000000000000001)
+
+State 424 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 174 function poly_mult thread 0
+----------------------------------------------------
+  ans_num[1l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 425 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 428 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 431 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 433 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 173 function poly_mult thread 0
+----------------------------------------------------
+  k=0 (00000000000000000000000000000000)
+
+State 434 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 174 function poly_mult thread 0
+----------------------------------------------------
+  ans_num[0l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 435 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 438 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 441 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 443 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 445 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 180 function poly_mult thread 0
+----------------------------------------------------
+  k=2 (00000000000000000000000000000010)
+
+State 446 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 181 function poly_mult thread 0
+----------------------------------------------------
+  ans_num[2l]=0.05004994571208953857421875 (0000000000000000000000000000000000001100110100000001001011000000)
+
+State 447 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 450 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 453 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 455 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 180 function poly_mult thread 0
+----------------------------------------------------
+  k=1 (00000000000000000000000000000001)
+
+State 456 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 181 function poly_mult thread 0
+----------------------------------------------------
+  ans_num[1l]=-0.1096296659670770168304443359375 (1111111111111111111111111111111111100011111011110100111101101010)
+
+State 457 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 460 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 463 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 465 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 180 function poly_mult thread 0
+----------------------------------------------------
+  k=0 (00000000000000000000000000000000)
+
+State 466 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 181 function poly_mult thread 0
+----------------------------------------------------
+  ans_num[0l]=0.0718013872392475605010986328125 (0000000000000000000000000000000000010010011000011001001101100010)
+
+State 467 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 470 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 476 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 33 function ft_closedloop_series thread 0
+----------------------------------------------------
+  a=c_den_qtz!0@1 (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 477 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 33 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Na=3 (00000000000000000000000000000011)
+
+State 478 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 33 function ft_closedloop_series thread 0
+----------------------------------------------------
+  b=plant_cbmc.a (0000100000000000000000000000000000000000000000000000000000000000)
+
+State 479 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 33 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Nb=2 (00000000000000000000000000000010)
+
+State 480 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 33 function ft_closedloop_series thread 0
+----------------------------------------------------
+  ans=den_mult!0@1 (0000101100000000000000000000000000000000000000000000000000000000)
+
+State 481 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 33 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Nans=4 (00000000000000000000000000000100)
+
+State 482 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 166 function poly_mult thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 483 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 167 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 484 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 168 function poly_mult thread 0
+----------------------------------------------------
+  k=0 (00000000000000000000000000000000)
+
+State 485 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 169 function poly_mult thread 0
+----------------------------------------------------
+  Nans=4 (00000000000000000000000000000100)
+
+State 486 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 488 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 490 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 173 function poly_mult thread 0
+----------------------------------------------------
+  k=3 (00000000000000000000000000000011)
+
+State 491 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 174 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[3l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 492 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 495 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 173 function poly_mult thread 0
+----------------------------------------------------
+  k=2 (00000000000000000000000000000010)
+
+State 496 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 174 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[2l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 497 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 500 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 503 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 505 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 173 function poly_mult thread 0
+----------------------------------------------------
+  k=2 (00000000000000000000000000000010)
+
+State 506 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 174 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[2l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 507 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 510 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 173 function poly_mult thread 0
+----------------------------------------------------
+  k=1 (00000000000000000000000000000001)
+
+State 511 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 174 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[1l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 512 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 515 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 518 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 520 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 173 function poly_mult thread 0
+----------------------------------------------------
+  k=1 (00000000000000000000000000000001)
+
+State 521 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 174 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[1l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 522 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 525 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 173 function poly_mult thread 0
+----------------------------------------------------
+  k=0 (00000000000000000000000000000000)
+
+State 526 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 174 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[0l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 527 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 172 function poly_mult thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 530 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 171 function poly_mult thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 533 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 535 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 537 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 180 function poly_mult thread 0
+----------------------------------------------------
+  k=3 (00000000000000000000000000000011)
+
+State 538 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 181 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[3l]=-0.8494126233272254467010498046875 (1111111111111111111111111111111100100110100011001110010011110010)
+
+State 539 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 542 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 180 function poly_mult thread 0
+----------------------------------------------------
+  k=2 (00000000000000000000000000000010)
+
+State 543 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 181 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[2l]=0.8495941162109375 (0000000000000000000000000000000011011001011111110000000000000000)
+
+State 544 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 547 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 550 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 552 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 180 function poly_mult thread 0
+----------------------------------------------------
+  k=2 (00000000000000000000000000000010)
+
+State 553 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 181 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[2l]=2.693194337189197540283203125 (0000000000000000000000000000001010110001011101010010111100100000)
+
+State 554 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 557 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 180 function poly_mult thread 0
+----------------------------------------------------
+  k=1 (00000000000000000000000000000001)
+
+State 558 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 181 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[1l]=-1.843994140625 (1111111111111111111111111111111000100111111100000000000000000000)
+
+State 559 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 562 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 565 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 567 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 180 function poly_mult thread 0
+----------------------------------------------------
+  k=1 (00000000000000000000000000000001)
+
+State 568 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 181 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[1l]=-2.843780517578125 (1111111111111111111111111111110100100111111111100000000000000000)
+
+State 569 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 572 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 180 function poly_mult thread 0
+----------------------------------------------------
+  k=0 (00000000000000000000000000000000)
+
+State 573 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 181 function poly_mult thread 0
+----------------------------------------------------
+  den_mult[0l]=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 574 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 179 function poly_mult thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 577 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 178 function poly_mult thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 583 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 34 function ft_closedloop_series thread 0
+----------------------------------------------------
+  a=ans_num!0@1 (0000100100000000000000000000000000000000000000000000000000000000)
+
+State 584 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 34 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Na=3 (00000000000000000000000000000011)
+
+State 585 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 34 function ft_closedloop_series thread 0
+----------------------------------------------------
+  b=den_mult!0@1 (0000101100000000000000000000000000000000000000000000000000000000)
+
+State 586 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 34 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Nb=4 (00000000000000000000000000000100)
+
+State 587 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 34 function ft_closedloop_series thread 0
+----------------------------------------------------
+  ans=ans_den!0@1 (0000101000000000000000000000000000000000000000000000000000000000)
+
+State 588 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 34 function ft_closedloop_series thread 0
+----------------------------------------------------
+  Nans=4 (00000000000000000000000000000100)
+
+State 589 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 142 function poly_sum thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 590 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 143 function poly_sum thread 0
+----------------------------------------------------
+  Nans=4 (00000000000000000000000000000100)
+
+State 591 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 145 function poly_sum thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 594 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 152 function poly_sum thread 0
+----------------------------------------------------
+  ans_den[0l]=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 596 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 145 function poly_sum thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 600 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 152 function poly_sum thread 0
+----------------------------------------------------
+  ans_den[1l]=-2.843780517578125 (1111111111111111111111111111110100100111111111100000000000000000)
+
+State 602 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 154 function poly_sum thread 0
+----------------------------------------------------
+  ans_den[1l]=-2.7719791303388774394989013671875 (1111111111111111111111111111110100111010010111111001001101100010)
+
+State 603 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 145 function poly_sum thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 607 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 152 function poly_sum thread 0
+----------------------------------------------------
+  ans_den[2l]=2.693194337189197540283203125 (0000000000000000000000000000001010110001011101010010111100100000)
+
+State 609 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 154 function poly_sum thread 0
+----------------------------------------------------
+  ans_den[2l]=2.5835646712221205234527587890625 (0000000000000000000000000000001010010101011001000111111010001010)
+
+State 610 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 145 function poly_sum thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 614 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 152 function poly_sum thread 0
+----------------------------------------------------
+  ans_den[3l]=-0.8494126233272254467010498046875 (1111111111111111111111111111111100100110100011001110010011110010)
+
+State 616 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 154 function poly_sum thread 0
+----------------------------------------------------
+  ans_den[3l]=-0.7993626776151359081268310546875 (1111111111111111111111111111111100110011010111001111011110110010)
+
+State 617 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 145 function poly_sum thread 0
+----------------------------------------------------
+  i=4 (00000000000000000000000000000100)
+Verifying stability for closedloop function
+
+
+State 626 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 69 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  a=ans_den!0@1 (0000101000000000000000000000000000000000000000000000000000000000)
+
+State 627 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 69 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  n=4 (00000000000000000000000000000100)
+
+State 628 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 69 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  plant_num=plant_cbmc.b (0000100000000000000000000000000000000000000000000000001100101000)
+
+State 629 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 69 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  p_num_size=1 (00000000000000000000000000000001)
+
+State 630 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 69 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  plant_den=plant_cbmc.a (0000100000000000000000000000000000000000000000000000000000000000)
+
+State 631 file /home/lucascordeiro/dsverifier/bmc/engine/verify_stability_closedloop.h line 69 function verify_stability_closedloop_using_dslib thread 0
+----------------------------------------------------
+  p_den_size=2 (00000000000000000000000000000010)
+
+State 632 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 71 function check_stability_closedloop thread 0
+----------------------------------------------------
+  columns=0 (00000000000000000000000000000000)
+
+State 633 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 71 function check_stability_closedloop thread 0
+----------------------------------------------------
+  columns=4 (00000000000000000000000000000100)
+
+State 638 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 72 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m={ { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } } ({ { 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 }, { 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 }, { 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 }, { 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 }, { 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 }, { 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 }, { 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 } })
+
+State 639 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 73 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 640 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 73 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 641 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 74 function check_stability_closedloop thread 0
+----------------------------------------------------
+  first_is_positive=0 (00000000000000000000000000000000)
+
+State 642 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 74 function check_stability_closedloop thread 0
+----------------------------------------------------
+  first_is_positive=0 (00000000000000000000000000000000)
+
+State 643 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 75 function check_stability_closedloop thread 0
+----------------------------------------------------
+  p_num=((double *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 644 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 75 function check_stability_closedloop thread 0
+----------------------------------------------------
+  p_num=plant_cbmc.b (0000100000000000000000000000000000000000000000000000001100101000)
+
+State 645 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 76 function check_stability_closedloop thread 0
+----------------------------------------------------
+  p_den=((double *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 646 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 76 function check_stability_closedloop thread 0
+----------------------------------------------------
+  p_den=plant_cbmc.a (0000100000000000000000000000000000000000000000000000000000000000)
+
+State 647 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 78 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 648 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 78 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 649 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 79 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 651 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 80 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 652 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 79 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 655 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 80 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=-1.7719791303388774394989013671875 (1111111111111111111111111111111000111010010111111001001101100010)
+
+State 656 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 79 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 659 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 80 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=0.811585540883243083953857421875 (0000000000000000000000000000000011001111110001000001000111101100)
+
+State 660 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 79 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 663 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 80 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=0.0122228632681071758270263671875 (0000000000000000000000000000000000000011001000010000100110011110)
+
+State 664 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 79 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=4 (00000000000000000000000000000100)
+
+State 669 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 82 function check_stability_closedloop thread 0
+----------------------------------------------------
+  expression=TRUE (00000001)
+
+State 673 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 84 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 674 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 85 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 679 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  a=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 680 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  b=3 (0000000000000000000000000000001100000000000000000000000000000000)
+
+State 681 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 40 function internal_pow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 682 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 41 function internal_pow thread 0
+----------------------------------------------------
+  acc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 683 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 41 function internal_pow thread 0
+----------------------------------------------------
+  acc=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 684 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 686 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 43 function internal_pow thread 0
+----------------------------------------------------
+  acc=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 687 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 690 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 43 function internal_pow thread 0
+----------------------------------------------------
+  acc=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 691 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 694 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 43 function internal_pow thread 0
+----------------------------------------------------
+  acc=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 695 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 701 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 702 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 85 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 708 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  a=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 709 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  b=2 (0000000000000000000000000000001000000000000000000000000000000000)
+
+State 710 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 40 function internal_pow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 711 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 41 function internal_pow thread 0
+----------------------------------------------------
+  acc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 712 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 41 function internal_pow thread 0
+----------------------------------------------------
+  acc=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 713 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 715 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 43 function internal_pow thread 0
+----------------------------------------------------
+  acc=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 716 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 719 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 43 function internal_pow thread 0
+----------------------------------------------------
+  acc=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 720 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 726 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=-3.7719791303388774394989013671875 (1111111111111111111111111111110000111010010111111001001101100010)
+
+State 727 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 85 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 733 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  a=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 734 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  b=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 735 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 40 function internal_pow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 736 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 41 function internal_pow thread 0
+----------------------------------------------------
+  acc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 737 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 41 function internal_pow thread 0
+----------------------------------------------------
+  acc=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 738 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 740 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 43 function internal_pow thread 0
+----------------------------------------------------
+  acc=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 741 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 747 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=-6.35554380156099796295166015625 (1111111111111111111111111111100110100100111110110001010011011000)
+
+State 748 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 85 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 754 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  a=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 755 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  b=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 756 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 40 function internal_pow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 757 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 41 function internal_pow thread 0
+----------------------------------------------------
+  acc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 758 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 41 function internal_pow thread 0
+----------------------------------------------------
+  acc=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 759 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 764 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 86 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=-7.1549064791761338710784912109375 (1111111111111111111111111111100011011000010110000000110010001010)
+
+State 765 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 85 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=4 (00000000000000000000000000000100)
+
+State 771 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 88 function check_stability_closedloop thread 0
+----------------------------------------------------
+  a=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 772 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 88 function check_stability_closedloop thread 0
+----------------------------------------------------
+  b=3 (0000000000000000000000000000001100000000000000000000000000000000)
+
+State 773 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 40 function internal_pow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 774 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 41 function internal_pow thread 0
+----------------------------------------------------
+  acc=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 775 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 41 function internal_pow thread 0
+----------------------------------------------------
+  acc=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 776 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 778 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 43 function internal_pow thread 0
+----------------------------------------------------
+  acc=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 779 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 782 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 43 function internal_pow thread 0
+----------------------------------------------------
+  acc=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 783 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 786 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 43 function internal_pow thread 0
+----------------------------------------------------
+  acc=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 787 file /home/lucascordeiro/dsverifier/bmc/core/util.h line 42 function internal_pow thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 793 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 88 function check_stability_closedloop thread 0
+----------------------------------------------------
+  sum=7.1549064791761338710784912109375 (0000000000000000000000000000011100100111101001111111001101110110)
+
+State 796 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 89 function check_stability_closedloop thread 0
+----------------------------------------------------
+  expression=TRUE (00000001)
+
+State 803 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 91 function check_stability_closedloop thread 0
+----------------------------------------------------
+  a=-0.7993626776151359081268310546875 (1111111111111111111111111111111100110011010111001111011110110010)
+
+State 809 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 91 function check_stability_closedloop thread 0
+----------------------------------------------------
+  expression=TRUE (00000001)
+
+State 813 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 815 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 817 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 95 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[0l][0l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 819 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 97 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[0l][0l]=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 821 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 824 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 95 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[0l][1l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 826 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 97 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[0l][1l]=-2.7719791303388774394989013671875 (1111111111111111111111111111110100111010010111111001001101100010)
+
+State 828 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 831 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 95 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[0l][2l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 833 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 97 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[0l][2l]=2.5835646712221205234527587890625 (0000000000000000000000000000001010010101011001000111111010001010)
+
+State 835 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=3 (00000000000000000000000000000011)
+
+State 838 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 95 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[0l][3l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 840 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 97 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[0l][3l]=-0.7993626776151359081268310546875 (1111111111111111111111111111111100110011010111001111011110110010)
+
+State 842 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=4 (00000000000000000000000000000100)
+
+State 845 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 848 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 850 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 95 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[1l][0l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 853 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 101 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=0 (00000000000000000000000000000000)
+
+State 854 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=0 (00000000000000000000000000000000)
+
+State 856 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 103 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[1l][0l]=-0.7993626776151359081268310546875 (1111111111111111111111111111111100110011010111001111011110110010)
+
+State 857 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=1 (00000000000000000000000000000001)
+
+State 860 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 103 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[1l][1l]=2.5835646712221205234527587890625 (0000000000000000000000000000001010010101011001000111111010001010)
+
+State 861 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=2 (00000000000000000000000000000010)
+
+State 864 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 103 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[1l][2l]=-2.7719791303388774394989013671875 (1111111111111111111111111111110100111010010111111001001101100010)
+
+State 865 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=3 (00000000000000000000000000000011)
+
+State 868 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 103 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[1l][3l]=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 869 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=4 (00000000000000000000000000000100)
+
+State 872 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 105 function check_stability_closedloop thread 0
+----------------------------------------------------
+  columns=3 (00000000000000000000000000000011)
+
+State 873 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 106 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=3 (00000000000000000000000000000011)
+
+State 875 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=4 (00000000000000000000000000000100)
+
+State 878 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 881 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 883 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 95 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[2l][0l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 886 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 108 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[2l][0l]=0.36101930984295904636383056640625 (0000000000000000000000000000000001011100011010111100001011110001)
+
+State 893 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 109 function check_stability_closedloop thread 0
+----------------------------------------------------
+  expression=TRUE (00000001)
+
+State 897 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 900 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 95 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[2l][1l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 903 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 108 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[2l][1l]=-0.7067739567719399929046630859375 (1111111111111111111111111111111101001011000100001101110010101010)
+
+State 910 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 109 function check_stability_closedloop thread 0
+----------------------------------------------------
+  expression=TRUE (00000001)
+
+State 914 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 917 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 95 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[2l][2l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 920 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 108 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[2l][2l]=0.3677480113692581653594970703125 (0000000000000000000000000000000001011110001001001011101111010010)
+
+State 927 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 109 function check_stability_closedloop thread 0
+----------------------------------------------------
+  expression=TRUE (00000001)
+
+State 931 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=3 (00000000000000000000000000000011)
+
+State 934 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 937 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 939 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 95 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[3l][0l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 942 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 101 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=0 (00000000000000000000000000000000)
+
+State 943 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=0 (00000000000000000000000000000000)
+
+State 945 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 103 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[3l][0l]=0.3677480113692581653594970703125 (0000000000000000000000000000000001011110001001001011101111010010)
+
+State 946 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=1 (00000000000000000000000000000001)
+
+State 949 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 103 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[3l][1l]=-0.7067739567719399929046630859375 (1111111111111111111111111111111101001011000100001101110010101010)
+
+State 950 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=2 (00000000000000000000000000000010)
+
+State 953 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 103 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[3l][2l]=0.36101930984295904636383056640625 (0000000000000000000000000000000001011100011010111100001011110001)
+
+State 954 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 102 function check_stability_closedloop thread 0
+----------------------------------------------------
+  x=3 (00000000000000000000000000000011)
+
+State 957 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 105 function check_stability_closedloop thread 0
+----------------------------------------------------
+  columns=2 (00000000000000000000000000000010)
+
+State 958 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 106 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 960 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=3 (00000000000000000000000000000011)
+
+State 963 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 93 function check_stability_closedloop thread 0
+----------------------------------------------------
+  i=4 (00000000000000000000000000000100)
+
+State 966 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 94 function check_stability_closedloop thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 968 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 95 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[4l][0l]=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 971 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 108 function check_stability_closedloop thread 0
+----------------------------------------------------
+  m[4l][0l]=-0.01358281285502016544342041015625 (1111111111111111111111111111111111111100100001011101011000110111)
+
+State 978 file /home/lucascordeiro/dsverifier/bmc/core/closed-loop.h line 109 function check_stability_closedloop thread 0
+----------------------------------------------------
+  expression=FALSE (00000000)
+
+Violated property:
+  file /home/lucascordeiro/dsverifier/bmc/core/compatibility.h line 36 function __DSVERIFIER_assert
+  assertion expression
+  expression != FALSE
+
+VERIFICATION FAILED
