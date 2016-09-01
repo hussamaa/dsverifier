@@ -960,11 +960,11 @@ void check_state_space_stability()
 		double v = std::abs(lambda);
 		if( v >= 1 )
 		{
-			std::cout << "unstable" << std::endl;
+			std::cout << "VERIFICATION FAILED" << std::endl; //unstable
 			exit(0);
 		}
 	}
-	std::cout << "stable" << std::endl;
+	std::cout << "VERIFICATION SUCCESSFUL" << std::endl; //stable
 }
 
 void check_file_exists()
@@ -1348,7 +1348,7 @@ void state_space_parser()
 	unsigned int i, j;
 	cf_value_precision.precision(64);
 
-	verification_file = "#include \"bmc/dsverifier.h\"\n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
+	verification_file = "#include \"../../../../../bmc/dsverifier.h\"\n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
 	verification_file.append(std::to_string(impl.int_bits));
 	verification_file.append(",\n .frac_bits = ");
 	verification_file.append(std::to_string(impl.frac_bits));
