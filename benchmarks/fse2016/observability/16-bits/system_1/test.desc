@@ -1,0 +1,3 @@
+file.ss
+--property OBSERVABILITY --x-size 2 --bmc CBMC
+^VERIFICATION SUCCESSFUL$
