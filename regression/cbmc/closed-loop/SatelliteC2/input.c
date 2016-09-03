@@ -10,7 +10,7 @@ digital_system controller = {
 
 implementation impl = {
         .int_bits = 3,
-        .frac_bits = 16,
+        .frac_bits = 6,
         .max = 1.0,
         .min = -1.0,
         .scale = 1
