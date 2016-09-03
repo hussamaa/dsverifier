@@ -2,7 +2,7 @@
 
 digital_system controller = {
         .b = { 0.2f, -0.18f },
-	.b_uncertainty = { 5, 5},
+	.b_uncertainty = { 5, 5 },
         .b_size = 2,
         .a = { 1.0f, 0.3f },
 	.a_uncertainty = { 5, 5 },
