@@ -20,7 +20,7 @@ int unit_test(){
 	initialization();
 
 	OVERFLOW_MODE = WRAPAROUND;
-	ROUNDING_MODE = FLOOR;
+	rounding_mode = FLOOR;
 
 	fxp_t a_fxp[ds.a_size];
 	fxp_t b_fxp[ds.b_size];

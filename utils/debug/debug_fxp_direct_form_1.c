@@ -53,7 +53,7 @@ int main(){
 	initialization();
 
 	OVERFLOW_MODE = DETECT_OVERFLOW;
-	ROUNDING_MODE = FLOOR;
+	rounding_mode = FLOOR;
 
 	double x[6] = { 0.625, -0.0625, -4.0, -4.0, -2.4375, 4.0 };
 	printf("inputs: \n");

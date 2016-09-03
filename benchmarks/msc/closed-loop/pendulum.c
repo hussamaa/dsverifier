@@ -39,7 +39,7 @@ void call_closedloop_verification_task();
 
 int main(){
 
-	ROUNDING_MODE = FLOOR;
+	rounding_mode = FLOOR;
 
 	initialization();
 	call_closedloop_verification_task();

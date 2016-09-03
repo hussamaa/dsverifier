@@ -207,21 +207,21 @@ fxp_t fxp_float_to_fxp(float f) {
 fxp_t fxp_double_to_fxp(double value) {
 	fxp_t tmp;
 	double ftemp = value * scale_factor[impl.frac_bits];
-	if (ROUNDING_MODE == ROUNDING){
+	if (rounding_mode == ROUNDING){
 		if(value >= 0) {
 			tmp = (fxp_t)(ftemp + 0.5);
 		}
 		else {
 			tmp = (fxp_t)(ftemp - 0.5);
 		}
-	} else if(ROUNDING_MODE == FLOOR){
+	} else if(rounding_mode == FLOOR){
 		tmp = (fxp_t) ftemp;
 		double residue = ftemp - tmp;
 		if ((value < 0) && (residue != 0)){
 			ftemp = ftemp - 1;
 			tmp = (fxp_t) ftemp;
 		}
-	} else if (ROUNDING_MODE == NONE){
+	} else if (rounding_mode == NONE){
 		tmp = (fxp_t) ftemp;
 	}
 	return tmp;

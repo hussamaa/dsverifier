@@ -110,11 +110,14 @@
 #define ROUNDING                            0
 #define FLOOR                               1
 #define CEIL                                2
+#ifndef ROUNDING_MODE
+	#define ROUNDING_MODE               	  1
+#endif
 
 /** overflow, x_size, and round parameters */
 int X_SIZE_VALUE = 0;
 int OVERFLOW_MODE = DETECT_OVERFLOW;
-int ROUNDING_MODE = ROUNDING;
+int rounding_mode = ROUNDING;
 
 /** connection mode for closed-loop verification */
 #define SERIES                              1
