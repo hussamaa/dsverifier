@@ -9,7 +9,7 @@
  *
  * ------------------------------------------------------
  *
- * For UNCERTAINTY: Not supportable yet
+ * For UNCERTAINTY: Not supported yet
  *
  * ------------------------------------------------------
 */
