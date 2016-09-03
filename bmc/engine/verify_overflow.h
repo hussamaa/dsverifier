@@ -77,7 +77,7 @@ int verify_overflow(void) {
 	fxp_t y[X_SIZE_VALUE];
 	fxp_t x[X_SIZE_VALUE];
 
-	/* prepare de inputs with the possibles values (min ~ max) */
+	/* prepare inputs with the possibles values (min ~ max) */
 	int i;
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
 		y[i] = 0;
