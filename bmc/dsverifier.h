@@ -56,7 +56,6 @@ void call_verification_task(void * verification_task);
 void call_closedloop_verification_task(void * closedloop_verification_task);
 float nondet_float();
 double nondet_double();
-void extract_data_from_file();
 
 int main(){
 
