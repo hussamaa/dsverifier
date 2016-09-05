@@ -63,13 +63,12 @@ int main(){
 	validation();
 
 	/* define rounding mode*/
-	#if (ROUNDING_MODE == ROUNDING)
+	if (ROUNDING_MODE == ROUNDING)
 		rounding_mode = ROUNDING;
-	#elif (ROUNDING_MODE == FLOOR)
+	else if (ROUNDING_MODE == FLOOR)
 		rounding_mode = FLOOR;
-	#elif (ROUNDING_MODE == CEIL)
+	else if (ROUNDING_MODE == CEIL)
 		rounding_mode = CEIL;
-	#endif
 
 	/* instrumentation step */
 
