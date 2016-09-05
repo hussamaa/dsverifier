@@ -150,6 +150,128 @@ void help ()
 	exit(0);
 }
 
+std::string replace_all_string(std::string str, const std::string& from, const std::string& to)
+{
+	size_t start_pos = 0;
+	while((start_pos = str.find(from, start_pos)) != std::string::npos)
+	{
+		str.replace(start_pos, from.length(), to);
+		start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
+	}
+	return str;
+}
+
+void extract_data_from_file()
+{
+
+	std::ifstream verification_file(desired_filename);
+	bool ds_id_found = false;
+
+	for(std::string current_line; getline( verification_file, current_line );)
+	{
+
+		/* removing whitespaces */
+		current_line = replace_all_string(current_line, " ", "");
+		current_line = replace_all_string(current_line, "\t", "");
+		/* check the last comma, and remove it */
+		if (current_line.back() == ',')
+		{
+			current_line.pop_back();
+		}
+
+		/* check if there is an desired ds_id and find the region*/
+		if (desired_ds_id.size() != 0)
+		{
+			std::string::size_type find_desired_ds_id = current_line.find(desired_ds_id, 0);
+			if (ds_id_found == false)
+			{
+				if (find_desired_ds_id != std::string::npos)
+				{
+					ds_id_found = true;
+				}
+				else
+				{
+					continue; /* go to next line */
+				}
+			}
+		}
+
+		std::string::size_type ds_a = current_line.find(".a=", 0);
+		if (ds_a != std::string::npos)
+		{
+			std::vector<std::string> coefficients;
+			boost::split(coefficients, current_line, boost::is_any_of(","));
+			for(int i=0; i< coefficients.size(); i++)
+			{
+				std::string coefficient = coefficients.at(i);
+				coefficient = replace_all_string(coefficient, ".a={", "");
+				coefficient = replace_all_string(coefficient, "}", "");
+				ds.a[i] = std::atof(coefficient.c_str());
+				ds.a_size = coefficients.size();
+			}
+			continue;
+		}
+		std::string::size_type ds_b = current_line.find(".b=", 0);
+		if (ds_b != std::string::npos)
+		{
+			std::vector<std::string> coefficients;
+			boost::split(coefficients, current_line, boost::is_any_of(","));
+			for(int i=0; i< coefficients.size(); i++)
+			{
+				std::string coefficient = coefficients.at(i);
+				coefficient = replace_all_string(coefficient, ".b={", "");
+				coefficient = replace_all_string(coefficient, "}", "");
+				ds.b[i] = std::atof(coefficient.c_str());
+				ds.b_size = coefficients.size();
+			}
+			continue;
+		}
+		std::string::size_type ds_sample_time = current_line.find(".sample_time", 0);
+		if (ds_sample_time != std::string::npos)
+		{
+			current_line = replace_all_string(current_line, ".sample_time=", "");
+			ds.sample_time = std::atof(current_line.c_str());
+			continue;
+		}
+		std::string::size_type impl_int_bits = current_line.find(".int_bits", 0);
+		if (impl_int_bits != std::string::npos)
+		{
+			current_line = replace_all_string(current_line, ".int_bits=", "");
+			impl.int_bits = std::atoi(current_line.c_str());
+			continue;
+		}
+		std::string::size_type impl_frac_bits = current_line.find(".frac_bits", 0);
+		if (impl_frac_bits != std::string::npos)
+		{
+			current_line = replace_all_string(current_line, ".frac_bits=", "");
+			impl.frac_bits = std::atoi(current_line.c_str());
+			continue;
+		}
+		std::string::size_type impl_min = current_line.find(".min", 0);
+		if (impl_min != std::string::npos)
+		{
+			current_line = replace_all_string(current_line, ".min=", "");
+			impl.min = std::atof(current_line.c_str());
+			continue;
+		}
+		std::string::size_type impl_max = current_line.find(".max", 0);
+		if (impl_max != std::string::npos)
+		{
+			current_line = replace_all_string(current_line, ".max=", "");
+			impl.max = std::atof(current_line.c_str());
+			continue;
+		}
+		std::string::size_type impl_delta = current_line.find(".delta", 0);
+		if (impl_delta != std::string::npos)
+		{
+			current_line = replace_all_string(current_line, ".delta=", "");
+			impl.delta = std::atof(current_line.c_str());
+			continue;
+		}
+	}
+}
+
+
 void validate_function(std::string data)
 {
 	if (data.empty())
@@ -241,10 +363,23 @@ void validate_selected_realization(std::string data)
 			break;
 		}
 	}
+
 	if (desired_realization.size() == 0)
 	{
 		std::cout << "invalid realization: " << data << std::endl;
 		exit(1);
+	}
+
+	bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
+
+	if (is_delta_realization)
+	{
+		extract_data_from_file();
+		if (impl.delta == 0)
+		{
+			std::cout << "invalid delta realization: " << impl.delta << std::endl;
+			exit(1);
+		}
 	}
 }
 
@@ -1054,127 +1189,6 @@ void check_file_exists()
 	{
 		std::cout << "file " << desired_filename << ": failed to open input file" << std::endl;
 		exit(1);
-	}
-}
-
-std::string replace_all_string(std::string str, const std::string& from, const std::string& to)
-{
-	size_t start_pos = 0;
-	while((start_pos = str.find(from, start_pos)) != std::string::npos)
-	{
-		str.replace(start_pos, from.length(), to);
-		start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
-	}
-	return str;
-}
-
-void extract_data_from_file()
-{
-
-	std::ifstream verification_file(desired_filename);
-	bool ds_id_found = false;
-
-	for(std::string current_line; getline( verification_file, current_line );)
-	{
-
-		/* removing whitespaces */
-		current_line = replace_all_string(current_line, " ", "");
-		current_line = replace_all_string(current_line, "\t", "");
-		/* check the last comma, and remove it */
-		if (current_line.back() == ',')
-		{
-			current_line.pop_back();
-		}
-
-		/* check if there is an desired ds_id and find the region*/
-		if (desired_ds_id.size() != 0)
-		{
-			std::string::size_type find_desired_ds_id = current_line.find(desired_ds_id, 0);
-			if (ds_id_found == false)
-			{
-				if (find_desired_ds_id != std::string::npos)
-				{
-					ds_id_found = true;
-				}
-				else
-				{
-					continue; /* go to next line */
-				}
-			}
-		}
-
-		std::string::size_type ds_a = current_line.find(".a=", 0);
-		if (ds_a != std::string::npos)
-		{
-			std::vector<std::string> coefficients;
-			boost::split(coefficients, current_line, boost::is_any_of(","));
-			for(int i=0; i< coefficients.size(); i++)
-			{
-				std::string coefficient = coefficients.at(i);
-				coefficient = replace_all_string(coefficient, ".a={", "");
-				coefficient = replace_all_string(coefficient, "}", "");
-				ds.a[i] = std::atof(coefficient.c_str());
-				ds.a_size = coefficients.size();
-			}
-			continue;
-		}
-		std::string::size_type ds_b = current_line.find(".b=", 0);
-		if (ds_b != std::string::npos)
-		{
-			std::vector<std::string> coefficients;
-			boost::split(coefficients, current_line, boost::is_any_of(","));
-			for(int i=0; i< coefficients.size(); i++)
-			{
-				std::string coefficient = coefficients.at(i);
-				coefficient = replace_all_string(coefficient, ".b={", "");
-				coefficient = replace_all_string(coefficient, "}", "");
-				ds.b[i] = std::atof(coefficient.c_str());
-				ds.b_size = coefficients.size();
-			}
-			continue;
-		}
-		std::string::size_type ds_sample_time = current_line.find(".sample_time", 0);
-		if (ds_sample_time != std::string::npos)
-		{
-			current_line = replace_all_string(current_line, ".sample_time=", "");
-			ds.sample_time = std::atof(current_line.c_str());
-			continue;
-		}
-		std::string::size_type impl_int_bits = current_line.find(".int_bits", 0);
-		if (impl_int_bits != std::string::npos)
-		{
-			current_line = replace_all_string(current_line, ".int_bits=", "");
-			impl.int_bits = std::atoi(current_line.c_str());
-			continue;
-		}
-		std::string::size_type impl_frac_bits = current_line.find(".frac_bits", 0);
-		if (impl_frac_bits != std::string::npos)
-		{
-			current_line = replace_all_string(current_line, ".frac_bits=", "");
-			impl.frac_bits = std::atoi(current_line.c_str());
-			continue;
-		}
-		std::string::size_type impl_min = current_line.find(".min", 0);
-		if (impl_min != std::string::npos)
-		{
-			current_line = replace_all_string(current_line, ".min=", "");
-			impl.min = std::atof(current_line.c_str());
-			continue;
-		}
-		std::string::size_type impl_max = current_line.find(".max", 0);
-		if (impl_max != std::string::npos)
-		{
-			current_line = replace_all_string(current_line, ".max=", "");
-			impl.max = std::atof(current_line.c_str());
-			continue;
-		}
-		std::string::size_type impl_delta = current_line.find(".delta", 0);
-		if (impl_delta != std::string::npos)
-		{
-			current_line = replace_all_string(current_line, ".delta=", "");
-			impl.delta = std::atof(current_line.c_str());
-			continue;
-		}
 	}
 }
 
