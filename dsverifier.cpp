@@ -271,7 +271,6 @@ void extract_data_from_file()
 	}
 }
 
-
 void validate_function(std::string data)
 {
 	if (data.empty())
