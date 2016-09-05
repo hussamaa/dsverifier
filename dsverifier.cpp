@@ -119,6 +119,18 @@ digital_system_state_space _controller;
 double desired_quantisation_limit = 0.0;
 bool show_counterexample_data = false;
 
+/*******************************************************************\
+
+Function: help
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void help ()
 {
 	std::cout << std::endl;
@@ -150,6 +162,18 @@ void help ()
 	exit(0);
 }
 
+/*******************************************************************\
+
+Function: replace_all_string
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 std::string replace_all_string(std::string str, const std::string& from, const std::string& to)
 {
 	size_t start_pos = 0;
@@ -160,6 +184,18 @@ std::string replace_all_string(std::string str, const std::string& from, const s
 	}
 	return str;
 }
+
+/*******************************************************************\
+
+Function: extract_data_from_file
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void extract_data_from_file()
 {
@@ -271,6 +307,18 @@ void extract_data_from_file()
 	}
 }
 
+/*******************************************************************\
+
+Function: validate_function
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void validate_function(std::string data)
 {
 	if (data.empty())
@@ -278,6 +326,18 @@ void validate_function(std::string data)
 	else
 	  desired_function = data;
 }
+
+/*******************************************************************\
+
+Function: validate_selected_bmc
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void validate_selected_bmc(std::string data)
 {
@@ -297,6 +357,18 @@ void validate_selected_bmc(std::string data)
 	}
 }
 
+/*******************************************************************\
+
+Function: validate_selected_connection_mode
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void validate_selected_connection_mode(std::string data)
 {
 	int length = (sizeof(connections_mode)/sizeof(*connections_mode));
@@ -314,6 +386,18 @@ void validate_selected_connection_mode(std::string data)
 		exit(1);
 	}
 }
+
+/*******************************************************************\
+
+Function: validate_selected_rounding_mode
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void validate_selected_rounding_mode(std::string data)
 {
@@ -333,6 +417,18 @@ void validate_selected_rounding_mode(std::string data)
 	}
 }
 
+/*******************************************************************\
+
+Function: validate_selected_overflow_mode
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void validate_selected_overflow_mode(std::string data)
 {
 	int length = (sizeof(overflow)/sizeof(*overflow));
@@ -350,6 +446,18 @@ void validate_selected_overflow_mode(std::string data)
 		exit(1);
 	}
 }
+
+/*******************************************************************\
+
+Function: validate_selected_realization
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void validate_selected_realization(std::string data)
 {
@@ -382,6 +490,18 @@ void validate_selected_realization(std::string data)
 	}
 }
 
+/*******************************************************************\
+
+Function: validate_selected_property
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void validate_selected_property(std::string data){
 	int length = (sizeof(properties)/sizeof(*properties));
 	for(int i=0; i<length; i++)
@@ -398,6 +518,18 @@ void validate_selected_property(std::string data){
 		exit(1);
 	}
 }
+
+/*******************************************************************\
+
+Function: validate_filename
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void validate_filename(std::string file)
 {
@@ -421,11 +553,35 @@ void validate_filename(std::string file)
 	desired_filename = file;
 }
 
+/*******************************************************************\
+
+Function: show_required_argument_message
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void show_required_argument_message(std::string parameter)
 {
 	std::cerr << parameter << " option requires one argument." << std::endl;
 	exit(1);
 }
+
+/*******************************************************************\
+
+Function: check_required_parameters
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void check_required_parameters()
 {
@@ -435,6 +591,18 @@ void check_required_parameters()
 		desired_bmc = "CBMC";
 	}
 }
+
+/*******************************************************************\
+
+Function: bind_parameters
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void bind_parameters(int argc, char* argv[])
 {
@@ -610,6 +778,18 @@ void bind_parameters(int argc, char* argv[])
 	check_required_parameters();
 }
 
+/*******************************************************************\
+
+Function: execute_command_line
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 std::string execute_command_line(std::string command)
 {
 	FILE* pipe = popen(command.c_str(), "r");
@@ -627,6 +807,18 @@ std::string execute_command_line(std::string command)
 	pclose(pipe);
 	return result;
 }
+
+/*******************************************************************\
+
+Function: prepare_bmc_command_line
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 std::string prepare_bmc_command_line()
 {
@@ -688,6 +880,18 @@ std::string prepare_bmc_command_line()
 	return command_line;
 }
 
+/*******************************************************************\
+
+Function: prepare_bmc_command_line_ss
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 std::string prepare_bmc_command_line_ss()
 {
 	std::string command_line;
@@ -722,10 +926,22 @@ std::string prepare_bmc_command_line_ss()
 	command_line += desired_macro_parameters;
 	return command_line;
 }
+
 digital_system ds;
 implementation impl;
 
-/* print array elements */
+/*******************************************************************\
+
+Function: cplus_print_fxp_array_elements
+
+  Inputs:
+
+ Outputs:
+
+ Purpose: print array elements
+
+\*******************************************************************/
+
 void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n)
 {
 	printf("%s = {", name);
@@ -736,7 +952,18 @@ void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n)
 	printf("}\n");
 }
 
-/* print array elements */
+/*******************************************************************\
+
+Function: cplus_print_array_elements
+
+  Inputs:
+
+ Outputs:
+
+ Purpose: print array elements
+
+\*******************************************************************/
+
 void cplus_print_array_elements(const char * name, double * v, int n)
 {
 	printf("%s = {", name);
@@ -747,7 +974,18 @@ void cplus_print_array_elements(const char * name, double * v, int n)
 	printf("}\n");
 }
 
-/* print array elements */
+/*******************************************************************\
+
+Function: cplus_print_array_elements_ignoring_empty
+
+  Inputs:
+
+ Outputs:
+
+ Purpose: print array elements
+
+\*******************************************************************/
+
 void cplus_print_array_elements_ignoring_empty(const char * name, double * v, int n)
 {
 	if (n > 0)
@@ -756,12 +994,36 @@ void cplus_print_array_elements_ignoring_empty(const char * name, double * v, in
 	}
 }
 
+/*******************************************************************\
+
+Function: get_fxp_value
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 int get_fxp_value(std::string exp)
 {
 	std::vector<std::string> tokens;
     boost::split(tokens, exp,boost::is_any_of("="));
     return std::atoi(tokens[1].c_str());
 };
+
+/*******************************************************************\
+
+Function: extract_regexp_data_for_vector
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void extract_regexp_data_for_vector(std::string src, std::regex & regexp, std::vector<double> & vector, unsigned int & factor)
 {
@@ -775,6 +1037,18 @@ void extract_regexp_data_for_vector(std::string src, std::regex & regexp, std::v
 		next++;
 	}
 };
+
+/*******************************************************************\
+
+Function: print_counterexample_data
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void print_counterexample_data(std::string counterexample)
 {
@@ -849,6 +1123,18 @@ void print_counterexample_data(std::string counterexample)
 	}
 }
 
+/*******************************************************************\
+
+Function: get_roots_from_polynomial
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<RootType> & roots)
 {
 
@@ -920,6 +1206,18 @@ int get_roots_from_polynomial(double polynomial[], int poly_size, std::vector<Ro
 	return 0;
 }
 
+/*******************************************************************\
+
+Function: check_delta_stability_margin
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 bool check_delta_stability_margin(std::vector<RootType> roots)
 {
 	std::cout << "checking delta stability margin" << std::endl;
@@ -939,6 +1237,18 @@ bool check_delta_stability_margin(std::vector<RootType> roots)
 	return stable;
 }
 
+/*******************************************************************\
+
+Function: check_shift_stability_margin
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 bool check_shift_stability_margin(std::vector<RootType> roots)
 {
 	std::cout << "checking shift stability margin" << std::endl;
@@ -955,20 +1265,68 @@ bool check_shift_stability_margin(std::vector<RootType> roots)
 	return stable;
 }
 
+/*******************************************************************\
+
+Function: show_delta_not_representable
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void show_delta_not_representable()
 {
-	std::cout << "[EXCEPTION] Does not possible to represent this value in delta using this precision" << std::endl;
+	std::cout << "[EXCEPTION] It not possible to represent this value in delta using this precision" << std::endl;
 }
+
+/*******************************************************************\
+
+Function: show_verification_successful
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void show_verification_successful()
 {
 	std::cout << std::endl << "VERIFICATION SUCCESSFUL" << std::endl;
 }
 
+/*******************************************************************\
+
+Function: show_verification_failed
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void show_verification_failed()
 {
 	std::cout << std::endl << "VERIFICATION FAILED" << std::endl;
 }
+
+/*******************************************************************\
+
+Function: show_implementation_parameters
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void show_implementation_parameters()
 {
@@ -976,6 +1334,18 @@ void show_implementation_parameters()
 	std::cout << "implementation frac_bits: " << impl.frac_bits << std::endl;
 	std::cout << "implementation delta: " << impl.delta << std::endl;
 }
+
+/*******************************************************************\
+
+Function: check_stability_shift_domain_using_jury
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void check_stability_shift_domain_using_jury()
 {
@@ -998,6 +1368,18 @@ void check_stability_shift_domain_using_jury()
 	}
 }
 
+/*******************************************************************\
+
+Function: check_minimum_phase_shift_domain_using_jury
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void check_minimum_phase_shift_domain_using_jury()
 {
 	show_implementation_parameters();
@@ -1018,6 +1400,18 @@ void check_minimum_phase_shift_domain_using_jury()
 		show_verification_failed();
 	}
 }
+
+/*******************************************************************\
+
+Function: check_stability_shift_domain_using_eigen
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void check_stability_shift_domain_using_eigen()
 {
@@ -1042,6 +1436,18 @@ void check_stability_shift_domain_using_eigen()
 	}
 }
 
+/*******************************************************************\
+
+Function: check_minimum_phase_shift_domain
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void check_minimum_phase_shift_domain()
 {
 	show_implementation_parameters();
@@ -1062,6 +1468,18 @@ void check_minimum_phase_shift_domain()
 		show_verification_failed();
 	}
 }
+
+/*******************************************************************\
+
+Function: check_stability_delta_domain
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void check_stability_delta_domain()
 {
@@ -1105,6 +1523,18 @@ void check_stability_delta_domain()
 	}
 }
 
+/*******************************************************************\
+
+Function: check_if_file_exists
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 bool check_if_file_exists (const std::string & name)
 {
 	if (FILE *file = fopen(name.c_str(), "r"))
@@ -1117,6 +1547,18 @@ bool check_if_file_exists (const std::string & name)
 		return false;
 	}
 }
+
+/*******************************************************************\
+
+Function: check_minimum_phase_delta_domain
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void check_minimum_phase_delta_domain()
 {
@@ -1152,6 +1594,18 @@ void check_minimum_phase_delta_domain()
 	}
 }
 
+/*******************************************************************\
+
+Function: check_state_space_stability
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void check_state_space_stability()
 {
 
@@ -1181,6 +1635,18 @@ void check_state_space_stability()
 	std::cout << "VERIFICATION SUCCESSFUL" << std::endl; //stable
 }
 
+/*******************************************************************\
+
+Function: check_file_exists
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void check_file_exists()
 {
 	/* check if the specified file exists */
@@ -1190,6 +1656,18 @@ void check_file_exists()
 		exit(1);
 	}
 }
+
+/*******************************************************************\
+
+Function: extract_data_from_ss_file
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
 
 void extract_data_from_ss_file()
 {
@@ -1432,6 +1910,18 @@ void extract_data_from_ss_file()
 	//print_matrix(_controller.D,outputs,inputs);
 }
 
+/*******************************************************************\
+
+Function: state_space_parser
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void state_space_parser()
 {
 	std::string verification_file;
@@ -1547,6 +2037,18 @@ void state_space_parser()
 	else std::cout << "Unable to open file";
 }
 
+/*******************************************************************\
+
+Function: closed_loop
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
 void closed_loop(){
 
 	double result1[LIMIT][LIMIT];
@@ -1577,10 +2079,19 @@ void closed_loop(){
 			_controller.C);
 }
 
-/*
- * This function converts a transfer function into a state space
- * It only works for SISO systems
- * */
+/*******************************************************************\
+
+Function: tf2ss
+
+  Inputs:
+
+ Outputs:
+
+ Purpose: This function converts a transfer function into a state space
+ 	 	  It only works for SISO systems
+
+\*******************************************************************/
+
 void tf2ss(){
 	unsigned int i, j;
 
@@ -1634,9 +2145,21 @@ void tf2ss(){
 	}
 }
 
-/* main function */
-int main(int argc, char* argv[]){
+/*******************************************************************\
 
+Function: main
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
+/* main function */
+int main(int argc, char* argv[])
+{
 	/* without overflow */
 	overflow_mode = NONE;
 
