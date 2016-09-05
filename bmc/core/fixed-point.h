@@ -130,7 +130,7 @@ fxp_t fxp_get_frac_part(fxp_t in) {
 float fxp_to_float(fxp_t fxp);
 
 fxp_t fxp_quantize(fxp_t aquant) {
-	if (OVERFLOW_MODE == SATURATE) {
+	if (overflow_mode == SATURATE) {
 		if(aquant < _fxp_min) {
 			return _fxp_min;
 		}
@@ -138,7 +138,7 @@ fxp_t fxp_quantize(fxp_t aquant) {
 			return _fxp_max;
 		}
 	}
-	else if (OVERFLOW_MODE == WRAPAROUND) {
+	else if (overflow_mode == WRAPAROUND) {
 		if(aquant < _fxp_min || aquant > _fxp_max) {
 			return wrap(aquant, _fxp_min, _fxp_max);
 		}

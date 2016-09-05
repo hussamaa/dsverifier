@@ -19,7 +19,7 @@ int unit_test(){
 
 	initialization();
 
-	OVERFLOW_MODE = WRAPAROUND;
+	overflow_mode = WRAPAROUND;
 	rounding_mode = FLOOR;
 
 	fxp_t a_fxp[ds.a_size];

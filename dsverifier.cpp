@@ -91,6 +91,7 @@ const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCL
 		"QUANTIZATION_ERROR_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY",
 		"OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE"};
 const char * rounding [] = { "ROUNDING", "FLOOR", "CEIL" };
+const char * overflow [] = { "DETECT_OVERFLOW", "SATURATE", "WRAPAROUND" };
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
 const char * bmcs [] = { "ESBMC", "CBMC" };
 const char * connections_mode [] = { "SERIES", "FEEDBACK" };
@@ -102,6 +103,7 @@ std::string desired_property;
 std::string desired_realization;
 std::string desired_connection_mode;
 std::string desired_rounding_mode;
+std::string desired_overflow_mode;
 std::string desired_timeout;
 std::string desired_bmc;
 std::string desired_function;
@@ -137,6 +139,7 @@ void help ()
 	std::cout << "                             (for Digital-Systems in Closed-loop: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP, and QUANTIZATION_ERROR_CLOSED_LOOP)" << std::endl;
 	std::cout << "--x-size <k>                 set the bound of verification" << std::endl;
 	std::cout << "--rounding-mode <rm>         set the rounding mode (ROUNDING, FLOOR, or CEIL)" << std::endl;
+	std::cout << "--overflow-mode <rm>         set the overflow mode (DETECT_OVERFLOW, SATURATE, or WRAPAROUND)" << std::endl;
 	std::cout << "--connection-mode <cm>       set the connection mode for the closed-loop system (SERIES or FEEDBACK)" << std::endl;
 	std::cout << "--bmc <b>                    set the BMC back-end for DSVerifier (ESBMC or CBMC, default is CBMC)" << std::endl;
 	std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices, cvc4, and minisat)" << std::endl;
@@ -205,6 +208,24 @@ void validate_selected_rounding_mode(std::string data)
 	if (desired_rounding_mode.size() == 0)
 	{
 		std::cout << "invalid rounding-mode: " << data << std::endl;
+		exit(1);
+	}
+}
+
+void validate_selected_overflow_mode(std::string data)
+{
+	int length = (sizeof(overflow)/sizeof(*overflow));
+	for(int i=0; i<length; i++)
+	{
+		if (overflow[i] == data)
+		{
+			desired_overflow_mode = data;
+			break;
+		}
+	}
+	if (desired_overflow_mode.size() == 0)
+	{
+		std::cout << "invalid overflow-mode: " << data << std::endl;
 		exit(1);
 	}
 }
@@ -344,6 +365,17 @@ void bind_parameters(int argc, char* argv[])
 			if (i + 1 < argc)
 			{
 				validate_selected_rounding_mode(argv[++i]);
+			}
+			else
+			{
+				show_required_argument_message(argv[i]);
+			}
+		}
+		else if (std::string(argv[i]) == "--overflow-mode")
+		{
+			if (i + 1 < argc)
+			{
+				validate_selected_overflow_mode(argv[++i]);
 			}
 			else
 			{
@@ -509,6 +541,10 @@ std::string prepare_bmc_command_line()
 	if (desired_rounding_mode.size() > 0)
 	{
 		command_line += " -DROUNDING_MODE=" + desired_rounding_mode;
+	}
+	if (desired_overflow_mode.size() > 0)
+	{
+		command_line += " -DOVERFLOW_MODE=" + desired_overflow_mode;
 	}
 	if (desired_x_size > 0)
 	{
@@ -1584,7 +1620,7 @@ void tf2ss(){
 int main(int argc, char* argv[]){
 
 	/* without overflow */
-	OVERFLOW_MODE = NONE;
+	overflow_mode = NONE;
 
 	bind_parameters(argc, argv);
 

@@ -28,7 +28,7 @@ double nondet_double();
 
 int verify_limit_cycle_closed_loop(void){
 
-	OVERFLOW_MODE = WRAPAROUND;
+	overflow_mode = WRAPAROUND;
 
 	/* generating closed loop for series or feedback */
 	double * c_num = controller.b;

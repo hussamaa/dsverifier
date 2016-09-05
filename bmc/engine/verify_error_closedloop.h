@@ -26,7 +26,7 @@ extern digital_system controller;
 
 int verify_error_closedloop(void){
 
-	OVERFLOW_MODE = WRAPAROUND;
+	overflow_mode = WRAPAROUND;
 
 	/* generating closed loop for series or feedback */
 	double * c_num = controller.b;

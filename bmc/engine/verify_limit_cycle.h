@@ -110,7 +110,7 @@ int verify_limit_cycle_state_space(void){
 
 int verify_limit_cycle(void){
 
-	OVERFLOW_MODE = WRAPAROUND;
+	overflow_mode = WRAPAROUND;
 
 	int i;
 	int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;

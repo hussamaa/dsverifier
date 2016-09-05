@@ -52,7 +52,7 @@ int main(){
 
 	initialization();
 
-	OVERFLOW_MODE = DETECT_OVERFLOW;
+	overflow_mode = DETECT_OVERFLOW;
 	rounding_mode = FLOOR;
 
 	double x[6] = { 0.625, -0.0625, -4.0, -4.0, -2.4375, 4.0 };

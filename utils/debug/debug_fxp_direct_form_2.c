@@ -41,7 +41,7 @@ int main(){
 	
 	initialization();
 
-	OVERFLOW_MODE = 3;
+	overflow_mode = 3;
 
 	double x[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } ;
 	printf("inputs: \n");

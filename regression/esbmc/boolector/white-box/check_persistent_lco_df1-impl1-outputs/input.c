@@ -20,7 +20,7 @@ int x_size = 10;
 int unit_test(){
 
 	initialization();
-	OVERFLOW_MODE = WRAPAROUND;
+	overflow_mode = WRAPAROUND;
 
 	fxp_t a_fxp[ds.a_size];
 	fxp_t b_fxp[ds.b_size];

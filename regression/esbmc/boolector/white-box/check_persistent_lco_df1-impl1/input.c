@@ -21,7 +21,7 @@ int nondet_int();
 int unit_test(){
 
 	initialization();
-	OVERFLOW_MODE = 3;
+	overflow_mode = 3;
 
 	fxp_t a_fxp[ds.a_size];
 	fxp_t b_fxp[ds.b_size];

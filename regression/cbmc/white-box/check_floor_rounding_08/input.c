@@ -9,7 +9,7 @@ int unit_test(){
 
 	initialization();
 
-	OVERFLOW_MODE = WRAPAROUND;
+	overflow_mode = WRAPAROUND;
 	rounding_mode = FLOOR;
 
 	double value[4] = {1.000000000000000, -2.625000000000000, 2.125000000000000, -0.625000000000000};

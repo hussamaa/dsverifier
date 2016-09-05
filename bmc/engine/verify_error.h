@@ -19,7 +19,7 @@ extern implementation impl;
 
 int verify_error(void){
 
-	OVERFLOW_MODE = SATURATE;
+	overflow_mode = SATURATE;
 
 	double a_cascade[100];
 	int a_cascade_size;

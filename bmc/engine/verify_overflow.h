@@ -23,7 +23,7 @@ extern implementation impl;
 int verify_overflow(void) {
 
 	/* enable overflow detection */
-	OVERFLOW_MODE = DETECT_OVERFLOW;
+	overflow_mode = DETECT_OVERFLOW;
 
 	/* check the realization */
 	#if	((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))

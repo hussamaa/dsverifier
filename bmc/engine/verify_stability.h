@@ -23,7 +23,7 @@ extern implementation impl;
 
 int verify_stability(void){
 
-	OVERFLOW_MODE = 0;
+	overflow_mode = 0;
 
 	/* check the realization */
 	#if ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))

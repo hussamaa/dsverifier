@@ -62,7 +62,7 @@ int main(){
 	
 	initialization();
 
-	OVERFLOW_MODE = 0;
+	overflow_mode = 0;
 
 	double da[ds.a_size];
 	double db[ds.b_size];
