@@ -1,0 +1,3 @@
+input.c
+--property OVERFLOW --x-size 5 --realization TDFII --bmc CBMC --rounding-mode ROUNDING
+^VERIFICATION SUCCESSFUL$
