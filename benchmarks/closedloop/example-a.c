@@ -20,6 +20,20 @@
 
 	#endif
 
+	#if PLANT_ID == 2
+
+		digital_system plant = {
+			.b = { 0.548693198268086, -0.886738807003861 },
+			.b_uncertainty = { 0.25, 0.25 },
+			.b_size = 2,
+			.a = { 1.0, -3.32481248817168, 1.64872127070013 },
+			.a_uncertainty = { 0.25, 0.25, 0.25 },
+			.a_size = 3,
+			.sample_time = 0.5
+		};
+
+	#endif
+
 	#define CONTROL_COUNT 1
 
 	#if CONTROL_ID == 1
@@ -71,6 +85,20 @@
 			.b_size = 2,
 			.a = { 1.0, -2.12624017619613, 1.10517091807565 },
 			.a_uncertainty = { 0, 0, 0 },
+			.a_size = 3,
+			.sample_time = 0.1
+		};
+
+	#endif
+
+	#if PLANT_ID == 2
+
+		digital_system plant = {
+			.b = { 0.100342181002722, -0.110876810062963 },
+			.b_uncertainty = { 0.25, 0.25 },
+			.b_size = 2,
+			.a = { 1.0, -2.12624017619613, 1.10517091807565 },
+			.a_uncertainty = { 0.25, 0.25, 0.25 },
 			.a_size = 3,
 			.sample_time = 0.1
 		};
@@ -134,6 +162,20 @@
 
 	#endif
 
+	#if PLANT_ID == 2
+
+		digital_system plant = {
+			.b = { 0.0500422033454653, -0.0526068264456340 },
+			.b_uncertainty = { 0.25, 0.25 },
+			.b_size = 2,
+			.a = { 1.0, -2.05640034257636, 1.05127109637602 },
+			.a_uncertainty = { 0.25, 0.25, 0.25 },
+			.a_size = 3,
+			.sample_time = 0.05
+		};
+
+	#endif
+
 	#define CONTROL_COUNT 1
 
 	#if CONTROL_ID == 1
@@ -185,6 +227,21 @@
 			.b_size = 2,
 			.a = { 1.0, -2.03228208009387, 1.03045453395352 },
 			.a_uncertainty = { 0, 0, 0 },
+			.a_size = 3,
+			.sample_time = 0.03
+		};
+
+	#endif
+
+
+	#if PLANT_ID == 2
+
+		digital_system plant = {
+			.b = { 0.0300090687252212, -0.0309228417953966 },
+			.b_uncertainty = { 0.25, 0.25 },
+			.b_size = 2,
+			.a = { 1.0, -2.03228208009387, 1.03045453395352 },
+			.a_uncertainty = { 0.25, 0.25, 0.25 },
 			.a_size = 3,
 			.sample_time = 0.03
 		};
@@ -248,6 +305,20 @@
 
 	#endif
 
+	#if PLANT_ID == 2
+
+		digital_system plant = {
+			.b = { 0.0100003341716806, -0.0101008375175585 },
+			.b_uncertainty = { 0.25, 0.25 },
+			.b_size = 2,
+			.a = { 1.0, -2.01025117377592, 1.01005016708417 },
+			.a_uncertainty = { 0.25, 0.25, 0.25 },
+			.a_size = 3,
+			.sample_time = 0.01
+		};
+
+	#endif
+
 	#define CONTROL_COUNT 1
 
 	#if CONTROL_ID == 1
@@ -299,6 +370,20 @@
 			.b_size = 2,
 			.a = { 1.0, -2.00506264627685, 1.00501252085940 },
 			.a_uncertainty = { 0, 0, 0 },
+			.a_size = 3,
+			.sample_time = 0.005
+		};
+
+	#endif
+
+	#if PLANT_ID == 2
+
+		digital_system plant = {
+			.b = { 0.00500004171890647, -0.00502510442763112 },
+			.b_uncertainty = { 0.25, 0.25 },
+			.b_size = 2,
+			.a = { 1.0, -2.00506264627685, 1.00501252085940 },
+			.a_uncertainty = { 0.25, 0.25, 0.25 },
 			.a_size = 3,
 			.sample_time = 0.005
 		};
@@ -362,6 +447,20 @@
 
 	#endif
 
+	#if PLANT_ID == 2
+
+		digital_system plant = {
+			.b = { 0.00100000033341672, -0.00100100083375018 },
+			.b_uncertainty = { 0.25, 0.25 },
+			.b_size = 2,
+			.a = { 1.0, -2.00100250116738, 1.00100050016671 },
+			.a_uncertainty = { 0.25, 0.25, 0.25 },
+			.a_size = 3,
+			.sample_time = 0.001
+		};
+
+	#endif
+
 	#define CONTROL_COUNT 1
 
 	#if CONTROL_ID == 1
@@ -419,6 +518,20 @@
 
 	#endif
 
+	#if PLANT_ID == 1
+
+		digital_system plant = {
+			.b = { 1.00000000003333e-05, -1.00001000008333e-05 },
+			.b_uncertainty = { 0.25, 0.25 },
+			.b_size = 2,
+			.a = { 1.0, -2.00001000025000, 1.00001000005000 },
+			.a_uncertainty = { 0.25, 0.25, 0.25 },
+			.a_size = 3,
+			.sample_time = 0.00001
+		};
+
+	#endif
+
 	#define CONTROL_COUNT 1
 
 	#if CONTROL_ID == 1
@@ -470,6 +583,20 @@
 			.b_size = 2,
 			.a = { 1.0, -2.00000100000250, 1.00000100000050 },
 			.a_uncertainty = { 0, 0, 0 },
+			.a_size = 3,
+			.sample_time = 0.000001
+		};
+
+	#endif
+
+	#if PLANT_ID == 2
+
+		digital_system plant = {
+			.b = { 1.00000000000033e-06, -1.00000100000083e-06 },
+			.b_uncertainty = { 0.25, 0.25 },
+			.b_size = 2,
+			.a = { 1.0, -2.00000100000250, 1.00000100000050 },
+			.a_uncertainty = { 0.25, 0.25, 0.25 },
 			.a_size = 3,
 			.sample_time = 0.000001
 		};
