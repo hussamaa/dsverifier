@@ -148,13 +148,7 @@ fxp_t fxp_quantize(fxp_t aquant) {
 
 void fxp_verify_overflow(fxp_t value){
 	fxp_quantize(value);
-	#if(BMC == ESBMC)
-		__ESBMC_assert(value <= _fxp_max && value >= _fxp_min, "overflow");
-	#elif(BMC == CBMC)
-		__CPROVER_assert(value <= _fxp_max && value >= _fxp_min, "overflow");
-	#else
-		__DSVERIFIER_assert(value <= _fxp_max && value >= _fxp_min);
-	#endif
+	__DSVERIFIER_assert(value <= _fxp_max && value >= _fxp_min);
 }
 
 void fxp_verify_overflow_array(fxp_t array[], int n){
