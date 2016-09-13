@@ -1489,9 +1489,11 @@ void check_stability_delta_domain()
 	double da[ds.a_size];
 	fxp_t a_fxp[ds.a_size];
 	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
+	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
 	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
 	get_delta_transfer_function_with_base(ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta denominator", da, ds.a_size);
+	cplus_print_array_elements("delta numerator", db, ds.b_size);
 	fxp_t da_fxp[ds.a_size];
 	try{
 		fxp_double_to_fxp_array(da, da_fxp, ds.a_size);
@@ -1567,8 +1569,10 @@ void check_minimum_phase_delta_domain()
 	double db[ds.b_size];
 	double da[ds.a_size];
 	cplus_print_array_elements("original numerator", ds.b, ds.b_size);
+	cplus_print_array_elements("original denominator", ds.a, ds.a_size);
 	get_delta_transfer_function_with_base(ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 	cplus_print_array_elements("delta numerator", db, ds.b_size);
+	cplus_print_array_elements("delta denominator", da, ds.a_size);
 	fxp_t db_fxp[ds.b_size];
 	fxp_double_to_fxp_array(db, db_fxp, ds.b_size);
 	if ((db[0] != 0) && (db_fxp[0] == 0))
