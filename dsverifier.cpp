@@ -1267,6 +1267,23 @@ bool check_shift_stability_margin(std::vector<RootType> roots)
 
 /*******************************************************************\
 
+Function: show_underflow_message
+
+ Inputs: 
+
+ Outputs:
+
+ Purpose: show a message about exception
+
+\*******************************************************************/
+
+void show_underflow_message()
+{
+	std::cout << "UNDERFLOW detected: an fixed-point arithmetic underflow occurs after delta transformation" << std::endl;
+}
+
+/*******************************************************************\
+
 Function: show_delta_not_representable
 
   Inputs:
@@ -1281,6 +1298,23 @@ void show_delta_not_representable()
 {
 	std::cout << "[EXCEPTION] It not possible to represent this value in delta using this precision" << std::endl;
 }
+/*******************************************************************\
+
+Function: show_verification_error
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
+void show_verification_error()
+{
+	std::cout << std::endl << "VERIFICATION ERROR" << std::endl;
+}
+
 
 /*******************************************************************\
 
@@ -1507,6 +1541,8 @@ void check_stability_delta_domain()
 		std::cout << std::endl;
 		std::cout << "ds.a[0] = "<< std::to_string(da[0]) << " ----> " << std::to_string(da_fxp[0]) << std::endl;
 		show_delta_not_representable();
+		show_underflow_message();
+		show_verification_error();
 		exit(1);
 	}
 	double da_qtz[ds.a_size];
@@ -1580,6 +1616,8 @@ void check_minimum_phase_delta_domain()
 		std::cout << std::endl;
 		std::cout << "ds.b[0] = "<< std::to_string(db[0]) << " ----> " << std::to_string(db_fxp[0]) << std::endl;
 		show_delta_not_representable();
+		show_underflow_message();
+		show_verification_error();
 		exit(1);
 	}
 	double db_qtz[ds.b_size];
