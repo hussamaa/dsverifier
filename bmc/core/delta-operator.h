@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <math.h>
 
 int binomial_coefficient(int n, int p){
    return fatorial(n) / (fatorial(p) * fatorial(n-p));
