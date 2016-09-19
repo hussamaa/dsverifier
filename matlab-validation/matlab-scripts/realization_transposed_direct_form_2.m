@@ -50,21 +50,21 @@ for i=1:x_size
     w = w_aux;
   
 	yout = fxp_add(fxp_mult(b_ptr(1), x(i),impl_int, impl_frac), w(1),impl_int, impl_frac);
-	yout = fxp_div(yout, a_fxp(1),impl_int, impl_frac);
+	yout = fxp_div(yout, a_fxp(1), impl_int, impl_frac);
     
     for j=1:(Nw-1)
-		w(j) = w(j + 1);
-        if (j < Na-1)
+		w(j) = w(j+1);
+        if (j < Na)
 			w(j) = fxp_sub(w(j), fxp_mult(a_ptr(j+1), yout, impl_int, impl_frac), impl_int, impl_frac);
         end
         
-        if (j < Nb-1)
+        if (j < Nb)
 			w(j) = fxp_add(w(j), fxp_mult(b_ptr(j+1), x(i), impl_int, impl_frac), impl_int, impl_frac);
         end
     end
-
-    w_aux = w;
+    
     y(i) = fxp_quantize(yout, impl_int, impl_frac);
+    w_aux = w;
     
 end
 
