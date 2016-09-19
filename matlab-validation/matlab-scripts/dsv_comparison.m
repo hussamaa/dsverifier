@@ -1,3 +1,4 @@
+%
 %% Script to verify and compare the results between MATLAB and DSVerifier
 
 % Open the file with validation of counterexamples by MATLAB

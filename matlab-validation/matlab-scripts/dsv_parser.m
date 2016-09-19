@@ -1,3 +1,4 @@
+%
 %% Script to put counterexamples parameters in variables on workspace
 
 % Open the file with counter examples

@@ -1,3 +1,4 @@
+%
 %% Script developed to simulate automatically all counterexamples 
 %% by realization form (DFI, DFII and TDFII)
 
