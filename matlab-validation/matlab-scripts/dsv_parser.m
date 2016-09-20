@@ -1,9 +1,18 @@
+function [system] = dsv_parser()
 %
-%% Script to put counterexamples parameters in variables on workspace
+% Script to keep counterexamples parameters in variables on workspace
+% [system] = dsv_parser()
+% The output of this function is the counterexamples extracted in variables
+% on MATLAB workspace.
+%
+% Lennon Chaves
+% September 20, 2016
+% Manaus
 
-% Open the file with counter examples
-fileID = fopen('../outputs/dsv_counterexample_parameters.txt','r');
-fileIDS = fopen('../outputs/dsv_n_size.txt','r');
+
+fileID = fopen('outputs/dsv_counterexample_parameters.txt','r');
+fileIDS = fopen('outputs/dsv_n_size.txt','r');
+
 %% Format Specification: 
 % b0 b1 b2 a0 a1 a2 
 % initial_states chama inputs_const integer_bits fraction_bits input_times
@@ -18,7 +27,7 @@ fclose(fileID);
 n_size = textscan(fileIDS,'%d');
 n = n_size{1};
 fclose(fileIDS);
-delete '../outputs/dsv_n_size.txt','r';
+delete 'outputs/dsv_n_size.txt','r';
 % Number of outputs/inputs used in Limit Cycle.
 size_out = 10;
 % Matrix transposed of counter examples
@@ -48,22 +57,39 @@ initial_states.b = CE{14}';
 initial_states.c = CE{15}';
 % constants inputs
 inputs_consts = CE{16}';
-%Filter Function
-fileOutputID = fopen('../outputs/dsv_matlab_filter_outputs.txt','w');
+
+% Open the file with validation of counterexamples by MATLAB
+fileID = fopen('outputs/dsv_counterexamples_outputs.txt','r');
+
+% Matrix of Counteexamples validation by MATLAB
+output_counterexamples = textscan(fileID,'%f %f %f %f %f %f %f %f %f %f');
+fclose(fileID);
+
+out1 = output_counterexamples{1,1};
+out2 = output_counterexamples{1,2};
+out3 = output_counterexamples{1,3};
+out4 = output_counterexamples{1,4};
+out5 = output_counterexamples{1,5};
+out6 = output_counterexamples{1,6};
+out7 = output_counterexamples{1,7};
+out8 = output_counterexamples{1,8};
+out9 = output_counterexamples{1,9};
+out10 = output_counterexamples{1,10};
+
+
+%% Organizing variables as system struct
+
 for i=1:n
-    num0=b0(i:i);
-    num1=b1(i:i);
-    num2=b2(i:i);
-    den0=a0(i:i);
-    den1=a1(i:i);
-    den2=a2(i:i);
-    inputs=inputs_consts(i:i);
-    initial0=initial_states.a(i:i);
-    initial1=initial_states.b(i:i);
-    Out = filter([num0 num1 num2],[den0 den1 den2],[inputs inputs inputs inputs inputs inputs inputs inputs inputs inputs],[initial0 initial1]);
-    fprintf(fileOutputID,'%f %f %f %f %f %f %f %f %f %f\n',Out);
+    system(i).test_case = name(i);
+    system(i).a = [a0(i) a1(i) a2(i)];
+    system(i).b = [b0(i) b1(i) b1(i)];
+    system(i).initial_states = [initial_states.a(i) initial_states.b(i) initial_states.c(i)];
+    system(i).inputs = repmat(inputs_consts(i),1,input_times(i));
+    system(i).impl.int_bits = prec_bit(i);
+    system(i).impl.frac_bits = prec_frac(i);
+    system(i).x_size = input_times(i);
+    system(i).realization_form = realization(i);
+    system(i).output_verification = [out1(i) out2(i) out3(i) out4(i) out5(i) out6(i) out7(i) out8(i) out9(i) out10(i)];
+end
 
-end 
-
-%printing the outputs in a file
-fclose(fileOutputID);
+end
