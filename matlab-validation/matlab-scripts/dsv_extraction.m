@@ -1,32 +1,39 @@
-%
-%% Script to extraction from counterexamples folder all parameters necessaries
-%% for validation and reproduction in MATLAB
-
 function dsv_extraction(directory)
+
+%
+% function dsv_extraction(directory)
+% directory should be the path with all counterexamples in .out files.
+%
+% Script to extraction from counterexamples folder all parameters necessaries
+% for validation and reproduction in MATLAB
+%     
+% Lennon Chaves
+% September 20, 2016
+% Manaus
 
 sh = 'sh';
 cp = 'cp';
 %extraction of parameters
 
-script1 = '../shell-scripts/dsverifier-directory-data-extractor-script.sh';
+script1 = 'shell-scripts/dsverifier-directory-data-extractor-script.sh';
 command = [sh ' ' script1 ' ' directory];
 system(command);
 
 %extraction of outputs
-script2 = '../shell-scripts/dsverifier-directory-outputs-extractor-script.sh';
+script2 = 'shell-scripts/dsverifier-directory-outputs-extractor-script.sh';
 command = [sh ' ' script2 ' ' directory];
 system(command);
 
 %output directory
-command = ['mkdir' ' ../outputs'];
+command = ['mkdir' ' outputs'];
 system(command);
 
 %copying files to matlab directory
-command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' ../outputs/dsv_counterexample_parameters.txt'];
+command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' outputs/dsv_counterexample_parameters.txt'];
 system(command);
-command = [cp ' ' directory '/dsv_counterexamples_outputs.txt' ' ../outputs/dsv_counterexamples_outputs.txt'];
+command = [cp ' ' directory '/dsv_counterexamples_outputs.txt' ' outputs/dsv_counterexamples_outputs.txt'];
 system(command);
-command = [cp ' ' directory '/dsv_n_size.txt' ' ../outputs/dsv_n_size.txt'];
+command = [cp ' ' directory '/dsv_n_size.txt' ' outputs/dsv_n_size.txt'];
 system(command);
 
 end
