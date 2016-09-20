@@ -1,43 +1,29 @@
+function [output] = dsv_comparison(system)
 %
-%% Script to verify and compare the results between MATLAB and DSVerifier
+% Function [output] = dsv_comparison(system)
+% Script to verify and compare the results between MATLAB and DSVerifier
+% Give the system as input on this function and check if the outputs of
+% MATLAB and DSVerifier are the same
+%
+%     
+% Lennon Chaves
+% September 20, 2016
+% Manaus
 
-% Open the file with validation of counterexamples by MATLAB
-fileID = fopen('../outputs/dsv_matlab_filter_outputs.txt','r');
+count = 0;
 
-formatSpec = '%f %f %f %f %f %f %f %f %f %f';
+for i=1:system.x_size
 
-% Matrix of Counteexamples validation by MATLAB
-DSV_MATLAB = textscan(fileID,formatSpec);
-
-fclose(fileID);
-
-% Open the file with validation of counterexamples by MATLAB
-fileID = fopen('../outputs/dsv_counterexamples_outputs.txt','r');
-
-% Matrix of Counteexamples validation by MATLAB
-DSV_COUNTEREXAMPLES = textscan(fileID,formatSpec);
-
-fclose(fileID);
-
-for i=1:n
-    count = 0;
-    for j=1:size_out
-        
-        vec_matlab = DSV_MATLAB{1,j};
-        vec_counter = DSV_COUNTEREXAMPLES{1,j};
-        item_matlab = vec_matlab(i);
-        item_counter = vec_counter(i);
-        
-        if item_matlab == item_counter
-            count = j;
-        end
-        
+    if system.output_verification(i) == system.output_simulation(i)
+       count = count + 1;
     end
     
-    if count == size_out
-        feedback = ['echo ' 'Teste-' num2str(i) 'Status: Successful'];
+end
+
+    if count == system.x_size
+        output = 'Successful';
     else
-        feedback = ['echo ' 'Teste-' num2str(i) ' Status: Failed'];
+        output = 'Failed';
     end
-    system(feedback);
+
 end
