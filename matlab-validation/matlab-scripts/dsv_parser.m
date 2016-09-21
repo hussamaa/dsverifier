@@ -81,15 +81,16 @@ out10 = output_counterexamples{1,10};
 
 for i=1:n
     system(i).test_case = name(i);
-    system(i).a = [a0(i) a1(i) a2(i)];
-    system(i).b = [b0(i) b1(i) b1(i)];
-    system(i).initial_states = [initial_states.a(i) initial_states.b(i) initial_states.c(i)];
-    system(i).inputs = repmat(inputs_consts(i),1,input_times(i));
+    system(i).sys.a = [a0(i) a1(i) a2(i)];
+    system(i).sys.b = [b0(i) b1(i) b1(i)];
+    system(i).sys.tf = tf(system(i).b,system(i).a,1);
+    system(i).inputs.initial_states = [initial_states.a(i) initial_states.b(i) initial_states.c(i)];
+    system(i).inputs.const_inputs = repmat(inputs_consts(i),1,input_times(i));
     system(i).impl.int_bits = prec_bit(i);
     system(i).impl.frac_bits = prec_frac(i);
-    system(i).x_size = input_times(i);
-    system(i).realization_form = realization(i);
-    system(i).output_verification = [out1(i) out2(i) out3(i) out4(i) out5(i) out6(i) out7(i) out8(i) out9(i) out10(i)];
+    system(i).impl.x_size = input_times(i);
+    system(i).impl.realization_form = realization(i);
+    system(i).output.output_verification = [out1(i) out2(i) out3(i) out4(i) out5(i) out6(i) out7(i) out8(i) out9(i) out10(i)];
 end
 
 end

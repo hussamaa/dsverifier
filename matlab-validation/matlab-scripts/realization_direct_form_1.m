@@ -6,34 +6,35 @@ function [y] = realization_direct_form_1(system)
 % denominator, but implementation about the system.
 % system is the input of DFI realization and should be implemented as a
 % struct in MATLAB Worksapace as:
-% system.a = denominator of transfer function
-% system.b = numerator of transfer function
+% system.sys.a = denominator of transfer function
+% system.sys.b = numerator of transfer function
 % system.impl.int_bits = integer bits
 % system.impl.frac_bits = fractionary bits
-% system.inputs with the inputs to realization
-% system.initial_states with the initial states
-% system.x_size with the bound of the realization
+% system.inputs.const_inputs with the inputs to realization
+% system.inputs.initial_states with the initial states
+% system.impl.x_size with the bound of the realization
 %
 % Lennon Chaves
 % September 18, 2016
 % Manaus
 
 %% Definitions
-a_fxp = system.a;
-b_fxp = system.b;
+
+a_fxp = system.sys.a;
+b_fxp = system.sys.b;
 
 impl_int = system.impl.int_bits;
 impl_frac = system.impl.frac_bits;
 
-x_size = system.x_size;
+x_size = system.impl.x_size;
 
 Na = length(a_fxp);
 Nb = length(b_fxp);
 
-x_aux = system.inputs(1:Nb);
-y_aux = system.initial_states;
+x_aux = system.inputs.const_inputs(1:Nb);
+y_aux = system.inputs.initial_states;
 
-x =  system.inputs;
+x =  system.inputs.const_inputs;
 y =  zeros(1,x_size);
 
 %% DFI Realization

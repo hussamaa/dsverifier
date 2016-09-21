@@ -12,15 +12,15 @@ function [output] = dsv_comparison(system)
 
 count = 0;
 
-for i=1:system.x_size
+for i=1:system.impl.x_size
 
-    if system.output_verification(i) == system.output_simulation(i)
+    if system.output.output_verification(i) == system.output.output_simulation(i)
        count = count + 1;
     end
     
 end
 
-    if count == system.x_size
+    if count == system.impl.x_size
         output = 'Successful';
     else
         output = 'Failed';

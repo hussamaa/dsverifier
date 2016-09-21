@@ -19,13 +19,13 @@ function [y] = realization_direct_form_2(system)
 % Manaus
 
 %% Definitions
-a_fxp = system.a;
-b_fxp = system.b;
+a_fxp = system.sys.a;
+b_fxp = system.sys.b;
 
 impl_int = system.impl.int_bits;
 impl_frac = system.impl.frac_bits;
 
-x_size = system.x_size;
+x_size = system.impl.x_size;
 
 Na = length(a_fxp);
 Nb = length(b_fxp);
@@ -36,9 +36,9 @@ else
     Nw = Nb;
 end
 
-w_aux = system.initial_states;
+w_aux = system.inputs.initial_states;
 
-x =  system.inputs;
+x =  system.inputs.const_inputs;
 y =  zeros(1,x_size);
 
 %% DFII Realization
