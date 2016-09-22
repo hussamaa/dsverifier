@@ -41,6 +41,10 @@ fxp_t _fxp_minus_one;
 fxp_t _fxp_min;
 fxp_t _fxp_max;
 
+/** some useful double constants definitions */
+double _dbl_max;
+double _dbl_min;
+
 /** fractional part bit mask */
 fxp_t _fxp_fmask;
 

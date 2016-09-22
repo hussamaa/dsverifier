@@ -42,6 +42,11 @@ void initialization(){
 	_fxp_fmask     = ((((int32_t) 1) << impl.frac_bits) - 1);
 	_fxp_imask     = ((0x80000000) >> (FXP_WIDTH - impl.frac_bits - 1));
 
+    _dbl_min = _fxp_min;
+    _dbl_min /= (1 << impl.frac_bits);
+    _dbl_max = _fxp_max;
+    _dbl_max /= (1 << impl.frac_bits);
+
 	/* check if the scale exists */
 	if ((impl.scale == 0) || (impl.scale == 1)){
 		impl.scale = 1;
