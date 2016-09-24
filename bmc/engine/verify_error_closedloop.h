@@ -12,7 +12,7 @@
  * This property analyses the plant and the controller performance
  * when connected using SERIES or FEEDBACK. The verification engine
  * checks whether the digital controllers' FWL effects causes an unexpected
- * error percentual
+ * error bound
  *
  * The engine consider nondet inputs and nondet zeroes states
  * for the desired realization (DFI, DFII, and TDFII).
@@ -120,10 +120,6 @@ int verify_error_closedloop(void){
 		}
 	#endif
 
-	double xk, temp;
-	double *aptr, *bptr, *xptr, *yptr, *wptr;
-
-	int j;
 	for(i=0; i<X_SIZE_VALUE; ++i){
 
 		/* direct form I realization */
@@ -156,10 +152,10 @@ int verify_error_closedloop(void){
 			y_double[i] = double_transposed_direct_form_2(waux_double, x_double[i], ans_den_double, ans_num_double, ans_den_size, ans_num_size);
 		#endif
 
-		/* error verification using a % setted by user */
-		double __quant_error = ((fxp_to_double(y_qtz[i]) - y_double[i])/y_double[i]) * 100;
-		__DSVERIFIER_assert(__quant_error < impl.max_error && __quant_error > (-impl.max_error));
-
+		/* absolute error = actual value (double) - measured value (fxp) */
+		double absolute_error = y_double[i] - fxp_to_double(y_qtz[i]);
+		/* error verification defined by the user */
+		__DSVERIFIER_assert(absolute_error < (impl.max_error) && absolute_error > (-impl.max_error));
 	}
 
 	return 0;

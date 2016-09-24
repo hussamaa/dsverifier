@@ -73,8 +73,6 @@ int verify_error(void){
 	fxp_t x[X_SIZE_VALUE];
 	double yf[X_SIZE_VALUE];
 	double xf[X_SIZE_VALUE];
-	double error[X_SIZE_VALUE];
-	double snrvalue;
 
 	int Nw = 0;
 	#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
