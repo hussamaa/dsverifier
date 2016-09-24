@@ -1,0 +1,3 @@
+input.c
+--property ERROR --realization DFI --x-size 6 --bmc CBMC
+^VERIFICATION FAILED$
