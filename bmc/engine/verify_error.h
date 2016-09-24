@@ -1,14 +1,14 @@
 /**
 # DSVerifier - Digital Systems Verifier (Error)
 #
-#                Universidade Federal do Amazonas - UFAM
+#                Federal University of Amazonas - UFAM
 #
 # Authors:       Renato Abreu   <renatobabreu@yahoo.com.br>
 #				 Iury Bessa     <iury.bessa@gmail.com>
 #                Hussama Ismail <hussamaismail@gmail.com>
 # ------------------------------------------------------
 #
-# For UNCERTAINTY: For use uncertainty, It's only permited
+# For UNCERTAINTY: For uncertainty use, it is only allowed
 # to use DFI, DFII and TDFII forms.
 #
 # ------------------------------------------------------
@@ -91,15 +91,6 @@ int verify_error(void){
 	double xfaux[ds.b_size];
 	double wfaux[Nw];
 
-	fxp_t xk, temp;
-	fxp_t *aptr, *bptr, *xptr, *yptr, *wptr;
-
-	double xkf, tempf;
-	double *afptr, *bfptr, *xfptr, *yfptr, *wfptr;
-
-	fxp_t sum;
-	double sumf;
-
 	int i;
 	for (i = 0; i < ds.a_size; ++i) {
 		yaux[i] = 0;
@@ -122,7 +113,6 @@ int verify_error(void){
 		xf[i] = fxp_to_double(x[i]);
 	}
 
-	int j;
 	for (i = 0; i < X_SIZE_VALUE; ++i) {
 
 		#if (REALIZATION == DFI)
@@ -177,10 +167,9 @@ int verify_error(void){
 			yf[i] = double_transposed_direct_form_2(wfaux, xf[i], da, db, ds.a_size, ds.b_size);
 		#endif
 
-		/* error verification using a % setted by user */
-		double __quant_error = ((fxp_to_double(yf[i]) - y[i])/y[i]) * 100;
-		__DSVERIFIER_assert(__quant_error < impl.max_error && __quant_error > (-impl.max_error));
-
+		/* error verification defined in % by the user */
+		double __quant_error = yf[i] - fxp_to_double(y[i]);
+		__DSVERIFIER_assert(__quant_error < (impl.max_error/100) && __quant_error > (-impl.max_error/100));
 	}
 	return 0;
 }
