@@ -11,7 +11,7 @@ digital_system ds = {
 implementation impl = {
 	.int_bits = 3,
 	.frac_bits = 4,
-	.max_error = 10,
+	.max_error = 0.1,
 	.min = -1.0,
 	.max = 1.0
 };

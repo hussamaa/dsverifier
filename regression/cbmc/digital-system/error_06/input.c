@@ -1,17 +1,17 @@
 #include <dsverifier.h>
 
 digital_system ds = {
-	.b = { 0.15, 0.05, 0.4 },
+	.b = { 2.000000, -4.000000, 2.000000 },
 	.b_size = 3,
-	.a = { 1.0, 0.0, 0.3 },
+	.a = { 1.000000, 0.000000, -0.250000 },
 	.a_size = 3,
 	.sample_time = 0.01
 };
 
 implementation impl = {
-	.int_bits = 3,
-	.frac_bits = 4,
-	.max_error = 0.18,
+	.int_bits = 2,
+	.frac_bits = 6,
+	.max_error = 9,
 	.min = -1.0,
 	.max = 1.0
 };

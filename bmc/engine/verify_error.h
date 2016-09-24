@@ -169,7 +169,7 @@ int verify_error(void){
 
 		/* error verification defined in % by the user */
 		double __quant_error = yf[i] - fxp_to_double(y[i]);
-		__DSVERIFIER_assert(__quant_error < (impl.max_error/100) && __quant_error > (-impl.max_error/100));
+		__DSVERIFIER_assert(__quant_error < (impl.max_error) && __quant_error > (-impl.max_error));
 	}
 	return 0;
 }
