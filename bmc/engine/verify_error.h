@@ -167,9 +167,10 @@ int verify_error(void){
 			yf[i] = double_transposed_direct_form_2(wfaux, xf[i], da, db, ds.a_size, ds.b_size);
 		#endif
 
-		/* error verification defined in % by the user */
-		double __quant_error = yf[i] - fxp_to_double(y[i]);
-		__DSVERIFIER_assert(__quant_error < (impl.max_error) && __quant_error > (-impl.max_error));
+		/* absolute error = actual value (double) - measured value (fxp) */
+		double absolute_error = yf[i] - fxp_to_double(y[i]);
+		/* error verification defined by the user */
+		__DSVERIFIER_assert(absolute_error < (impl.max_error) && absolute_error > (-impl.max_error));
 	}
 	return 0;
 }
