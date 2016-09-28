@@ -18,7 +18,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include <math.h>
 
 int binomial_coefficient(int n, int p){
    return fatorial(n) / (fatorial(p) * fatorial(n-p));
@@ -95,7 +94,7 @@ void get_delta_transfer_function_with_base(double b[], double b_out[], int b_siz
  	  {
 		sum_delta_operator = sum_delta_operator + a[j]*nchoosek(N-j,i-j);
 	  }
-	a_out[i] = pow(delta,N-i)*sum_delta_operator;
+	a_out[i] = internal_pow(delta,N-i)*sum_delta_operator;
 	}
 
 	/*delta form for numerator*/
@@ -106,6 +105,6 @@ void get_delta_transfer_function_with_base(double b[], double b_out[], int b_siz
  	  {
 		sum_delta_operator = sum_delta_operator + b[j]*nchoosek(M-j,i-j);
 	  }
-	b_out[i] = pow(delta,M-i)*sum_delta_operator;
+	b_out[i] = internal_pow(delta,M-i)*sum_delta_operator;
 	}
 }
