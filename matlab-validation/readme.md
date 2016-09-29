@@ -42,7 +42,7 @@ After you run the automatic validation, a .MAT file is generated with all counte
 * Successful: this means that the validation is OK;
 * Failed: the validation done by MATLAB has a different result of DSVerifier.
 
-You can check the counterexamples saved in .MAT file too, implemented and organized as a group of structs with informations about the digital system, implementation, inputs, outputs, realization, word length, dynamical range and sample time.
+You can check the counterexamples saved in .MAT file either, it's implemented and organized as a group of structs with informations about the digital system, implementation, inputs, outputs, realization, word length, dynamical range and sample time.
 
 ##MATLAB Scripts:
 
