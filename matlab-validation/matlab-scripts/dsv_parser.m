@@ -12,90 +12,76 @@ function [system] = dsv_parser(p)
 
 if (p == 'lc')
 
-fileID = fopen('outputs/dsv_counterexample_parameters.txt','r');
-fileIDS = fopen('outputs/dsv_n_size.txt','r');
+fid = fopen('outputs/dsv_counterexample_parameters.txt');
+tline = fgetl(fid);
+tline = fgetl(fid);
+count = 0;
+i = 1;
+while ischar(tline)
 
-%% Format Specification: 
-% b0 b1 b2 a0 a1 a2 
-% initial_states chama inputs_const integer_bits fraction_bits input_times
-% initial_states is generally equals the number of elements of numerator/denominator
-formatSpec = '%s %s %d %d %d %d %f %f %f %f %f %f %f %f %f %f';
+    switch count
+	case 0
+	name = tline;
+        case 1
+	realization = tline;
+        case 2
+	implementation = str2num(tline);
+	case 3
+	numerator = str2num(tline);
+	case 4
+	denominator = str2num(tline);
+	case 5
+	delta = str2num(tline);
+	case 6
+	sample_time = str2num(tline);
+	case 7
+	drange = str2num(tline);
+	case 8
+	inputs = str2num(tline);
+	case 9
+	initial_states = str2num(tline);
+	case 10
+	outputs = str2num(tline);
 
-% Matrix of Counter Examples extracted
-CE = textscan(fileID,formatSpec);
-fclose(fileID);
-% Number of counter examples. It must be changed because depends the number
-% of counter examples.
-n_size = textscan(fileIDS,'%d');
-n = n_size{1};
-fclose(fileIDS);
-delete 'outputs/dsv_n_size.txt','r';
-% Number of outputs/inputs used in Limit Cycle.
-size_out = 10;
-% Matrix transposed of counter examples
-CE = CE';
-% Realization, counterexample file name
-realization = CE{1}';
-name = CE{2}';
-% Parameters about integer and fraction bits
-prec_bit = CE{3}';
-prec_frac = CE{4}';
-% Parameters about Inputs. It have to be used with repmat function,
-% according to the number of repetions about inputs.
-input_times = CE{5}';
-% The systems order
-order = CE{6}';
-% Extract values from Matrix of Counter Examples to vectorizing the
-% parameters to be used on Simulink
-b0 = CE{7}';
-b1 = CE{8}';
-b2 = CE{9}';
-a0 = CE{10}';
-a1 = CE{11}';
-a2 = CE{12}';
-% Vectors about initial states and constant inputs (to be used on delays)
-initial_states.a = CE{13}';
-initial_states.b = CE{14}';
-initial_states.c = CE{15}';
-% constants inputs
-inputs_consts = CE{16}';
+        otherwise
+       	   warning('Unexpected error while reading file.')
+    end
 
-% Open the file with validation of counterexamples by MATLAB
-fileID = fopen('outputs/dsv_counterexamples_outputs.txt','r');
+    count = count + 1;
+    tline = fgetl(fid);
+    if count == 11
 
-% Matrix of Counteexamples validation by MATLAB
-output_counterexamples = textscan(fileID,'%f %f %f %f %f %f %f %f %f %f');
-fclose(fileID);
+      count = 0;
+      system(i).test_case = name;
+      system(i).sys.a = denominator;
+      system(i).sys.b = numerator;
+      system(i).sys.tf = tf(numerator,denominator,1);
+      system(i).impl.int_bits = implementation(1);
+      system(i).impl.frac_bits = implementation(2);
+      if length(sample_time) > 0
+      system(i).impl.sample_time = sample_time;
+      end
+      if length(drange) > 0
+      system(i).impl.range.max = drange(2);
+      system(i).impl.range.min = drange(1);
+      end
+      if length(delta) > 0
+      system(i).impl.delta = delta;
+      else 
+      system(i).impl.delta = 0;
+      end
+      system(i).impl.realization_form = strtrim(realization);
+      system(i).output.output_verification = outputs;
+      system(i).inputs.initial_states = initial_states;
+      system(i).inputs.const_inputs = inputs;
+      system(i).impl.x_size = length(inputs);
+      
+      i = i + 1;
 
-out1 = output_counterexamples{1,1};
-out2 = output_counterexamples{1,2};
-out3 = output_counterexamples{1,3};
-out4 = output_counterexamples{1,4};
-out5 = output_counterexamples{1,5};
-out6 = output_counterexamples{1,6};
-out7 = output_counterexamples{1,7};
-out8 = output_counterexamples{1,8};
-out9 = output_counterexamples{1,9};
-out10 = output_counterexamples{1,10};
-
-
-%% Organizing variables as system struct
-
-for i=1:n
-    system(i).test_case = name(i);
-    denominator = [a0(i) a1(i) a2(i)];
-    system(i).sys.a = denominator;
-    numerator = [b0(i) b1(i) b2(i)];
-    system(i).sys.b = numerator;
-    system(i).sys.tf = tf(numerator,denominator,1);
-    system(i).inputs.initial_states = [initial_states.a(i) initial_states.b(i) initial_states.c(i)];
-    system(i).inputs.const_inputs = repmat(inputs_consts(i),1,input_times(i));
-    system(i).impl.int_bits = prec_bit(i);
-    system(i).impl.frac_bits = prec_frac(i);
-    system(i).impl.x_size = input_times(i);
-    system(i).impl.realization_form = realization(i);
-    system(i).output.output_verification = [out1(i) out2(i) out3(i) out4(i) out5(i) out6(i) out7(i) out8(i) out9(i) out10(i)];
+    end
 end
+
+fclose(fid);
 
 else
 
@@ -126,7 +112,7 @@ while ischar(tline)
 	case 8
 	sample_time = str2num(tline);
 	case 9
-	range = str2num(tline);
+	drange = str2num(tline);
 	case 10
 	verification = tline;
 
@@ -145,10 +131,18 @@ while ischar(tline)
       system(i).sys.tf = tf(numerator,denominator,1);
       system(i).impl.int_bits = implementation(1);
       system(i).impl.frac_bits = implementation(2);
+      if length(sample_time) > 0
       system(i).impl.sample_time = sample_time;
-      system(i).impl.range.max = range(2);
-      system(i).impl.range.min = range(1);
+      end
+      if length(drange) > 0
+      system(i).impl.range.max = drange(2);
+      system(i).impl.range.min = drange(1);
+      end
+      if length(delta) > 0
       system(i).impl.delta = delta;
+      else 
+      system(i).impl.delta = 0;
+      end
       system(i).impl.realization_form = realization;
       system(i).output.output_verification = verification;
       i = i + 1;
