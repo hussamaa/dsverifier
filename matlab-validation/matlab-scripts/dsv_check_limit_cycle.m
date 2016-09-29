@@ -10,11 +10,11 @@ function [output] = dsv_check_limit_cycle(system)
 % September 20, 2016
 % Manaus
 
-    if strcmp(system.impl.realization_form,'DFI')
+    if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
         output = realization_direct_form_1(system);
-    elseif strcmp(system.impl.realization_form,'DFII')
+    elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realization_form,'DDFII')
         output = realization_direct_form_2(system);
-    elseif strcmp(system.impl.realization_form,'TDFII')
+    elseif strcmp(system.impl.realization_form,'TDFII') || strcmp(system.impl.realization_form,'TDDFII')
         output = realization_transposed_direct_form_2(system);
     end
 end

@@ -76,8 +76,12 @@ while ischar(tline)
       system(i).output.output_verification = outputs;
       system(i).inputs.initial_states = initial_states;
       system(i).inputs.const_inputs = inputs;
+      if length(xsize) > 0
       system(i).impl.x_size = xsize;
-      
+      else
+      system(i).impl.x_size = length(inputs);
+      end
+
       i = i + 1;
 
     end
