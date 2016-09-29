@@ -34,7 +34,6 @@ FILES=$(ls -tr $(pwd) | grep out);
 FOLDER=${PWD##*/}
 RESULT="*.out";
 EXTRACTION="\n";
-N_CE=0;
 
 for file_desired in $RESULT; do
 	
@@ -51,31 +50,18 @@ NUMERATOR=$(cat $OUTPUT_FILE | grep " Numerator  \=" | cut -d "=" -f2 | sed 's/}
 DENOMINATOR=$(cat $OUTPUT_FILE | grep " Denominator  \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
 INPUTS=$(cat $OUTPUT_FILE | grep " Inputs =" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
 INITIAL_STATES=$(cat $OUTPUT_FILE | grep " Initial States =" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
-COUNT=0;
-ORDER=0;
-INPUT_ITEM=0;
-
-for inputs_item in $INPUTS; do
-   INPUT_ITEM=$inputs_item;
-   COUNT=$((COUNT + 1));
-done
-
-for parameter_item in $NUMERATOR; do
-   ORDER=$((ORDER + 1));
-done
+DELTA=$(cat $OUTPUT_FILE | grep " Delta: " | cut -d ":" -f2 );
+SAMPLE_TIME=$(cat $OUTPUT_FILE | grep " Sample Time \=" | cut -d "=" -f2 );
+RANGE=$(cat $OUTPUT_FILE | grep " Dynamic Range \=" | cut -d "=" -f2 | sed 's/{//' | sed 's/}//' | tr ',' ' ');
+OUTPUTS=$(cat $OUTPUT_FILE | grep " Outputs =" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
 
 SPACE=" ";
 ENTER="\n";
 ZERO="0";
 
-if [ $ORDER = 2 ]; then
-ITEM=$REALIZATION$SPACE$OUTPUT_FILE$SPACE$IMPLEMENTATION$SPACE$COUNT$SPACE$ORDER$NUMERATOR$ZERO$SPACE$DENOMINATOR$ZERO$SPACE$INITIAL_STATES$ZERO$SPACE$INPUT_ITEM$SPACE$ENTER;
-else
-ITEM=$REALIZATION$SPACE$OUTPUT_FILE$SPACE$IMPLEMENTATION$SPACE$COUNT$SPACE$ORDER$NUMERATOR$SPACE$DENOMINATOR$SPACE$INITIAL_STATES$SPACE$INPUT_ITEM$SPACE$ENTER;
-fi
+ITEM=$OUTPUT_FILE$ENTER$REALIZATION$ENTER$IMPLEMENTATION$ENTER$NUMERATOR$ENTER$DENOMINATOR$ENTER$DELTA$ENTER$SAMPLE_TIME$ENTER$RANGE$ENTER$INPUTS$ENTER$INITIAL_STATES$ENTER$OUTPUTS$ENTER;
 
 EXTRACTION="$EXTRACTION $ITEM";
-N_CE=$((N_CE + 1));
 
 fi
 
@@ -83,4 +69,3 @@ done
 
 
 echo $EXTRACTION > dsv_counterexample_parameters.txt;
-echo $N_CE > dsv_n_size.txt;

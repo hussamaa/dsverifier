@@ -50,7 +50,6 @@ DSIZE=$(cat $OUTPUT_FILE | grep " Denominator Size \=" | cut -d "=" -f2 );
 DELTA=$(cat $OUTPUT_FILE | grep " Delta: " | cut -d ":" -f2 );
 SAMPLE_TIME=$(cat $OUTPUT_FILE | grep " Sample Time \=" | cut -d "=" -f2 );
 RANGE=$(cat $OUTPUT_FILE | grep " Dynamic Range \=" | cut -d "=" -f2 | sed 's/{//' | sed 's/}//' | tr ',' ' ');
-STATUS=$(cat $OUTPUT_FILE | grep " Dynamic Range \=" | cut -d "=" -f2 | sed 's/{//' | sed 's/}//' | tr ',' ' ');
 VERIFICATION=$(cat $OUTPUT_FILE | grep "VERIFICATION " | cut -d " " -f2 );
 
 SPACE=" ";
@@ -60,10 +59,8 @@ ZERO="0";
 ITEM=$OUTPUT_FILE$ENTER$REALIZATION$ENTER$IMPLEMENTATION$ENTER$NSIZE$ENTER$DSIZE$ENTER$NUMERATOR$ENTER$DENOMINATOR$ENTER$DELTA$ENTER$SAMPLE_TIME$ENTER$RANGE$ENTER$SPACE$VERIFICATION$ENTER;
 
 EXTRACTION="$EXTRACTION $ITEM";
-N_CE=$((N_CE + 1));
 
 done
 
 
 echo $EXTRACTION > dsv_counterexample_parameters.txt;
-echo $N_CE > dsv_n_size.txt;
