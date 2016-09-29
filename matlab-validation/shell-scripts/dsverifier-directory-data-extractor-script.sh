@@ -47,8 +47,8 @@ if [ $VERIFICATION_FAILED -eq 1 ]; then
 
 REALIZATION=$(cat $OUTPUT_FILE | grep " Realization \=" | cut -d "=" -f2 );
 IMPLEMENTATION=$(cat $OUTPUT_FILE | grep " Implementation \=" | cut -d "=" -f2 | sed 's/<//' | sed 's/>//' | tr ',' ' ');
-NUMERATOR=$(cat $OUTPUT_FILE | grep "Numerator (fixed-point) \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
-DENOMINATOR=$(cat $OUTPUT_FILE | grep "Denominator (fixed-point) \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
+NUMERATOR=$(cat $OUTPUT_FILE | grep " Numerator  \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
+DENOMINATOR=$(cat $OUTPUT_FILE | grep " Denominator  \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
 INPUTS=$(cat $OUTPUT_FILE | grep " Inputs =" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
 INITIAL_STATES=$(cat $OUTPUT_FILE | grep " Initial States =" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
 COUNT=0;
