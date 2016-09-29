@@ -11,8 +11,14 @@ function [output] = dsv_check_minimum_phase(system)
 % September 29, 2016
 % Manaus
 
+if (system.impl.delta ~= 0)
+[Da, Db] = deltapoly(system.sys.b, system.sys.b, system.impl.delta);
+rootsb = roots(Db);
+rootsa = roots(Da);
+else 
 rootsb=roots(system.sys.b);
 rootsa=roots(system.sys.a);
+end
 
 decision = 0;
 
