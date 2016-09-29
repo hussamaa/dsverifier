@@ -105,7 +105,7 @@ tline = fgetl(fid);
 count = 0;
 i = 1;
 while ischar(tline)
-    disp(tline)
+
     switch count
 	case 0
 	name = tline;

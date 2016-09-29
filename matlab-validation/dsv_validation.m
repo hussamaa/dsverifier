@@ -19,6 +19,8 @@ function digital_system = dsv_validation(path, p)
 addpath('matlab-scripts');
 addpath('shell-scripts');
 
+if ((p == 'm') | (p == 'o') | (p == 'lc') | (p == 's'))
+
 %function to extract the parameters from counterexamples output. 
 dsv_extraction(path, p);
 
@@ -41,4 +43,8 @@ end
 
 %saving all variables created in a file .MAT in order to be used later.
 save ('dsv_variables.mat','digital_system');
+else
+   error('Error. The parameter "p" should be "m","lc","o" or "s"!')
+end
+
 end
