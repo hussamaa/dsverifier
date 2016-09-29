@@ -12,7 +12,7 @@ function [output] = dsv_check_minimum_phase(system)
 % Manaus
 
 if (system.impl.delta ~= 0)
-[Da, Db] = deltapoly(system.sys.b, system.sys.b, system.impl.delta);
+[Da, Db] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
 rootsb = roots(Db);
 rootsa = roots(Da);
 else 

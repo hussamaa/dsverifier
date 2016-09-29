@@ -19,7 +19,7 @@ l = system.impl.frac_bits;
 n = l + system.impl.int_bits;
 
 if delta > 0
-    [at,bt]=deltapoly(a,b,delta);
+    [at,bt]=deltapoly(b,a,delta);
 else
     at=a;
     bt=b;

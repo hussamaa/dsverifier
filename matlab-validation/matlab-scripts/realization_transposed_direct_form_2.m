@@ -21,8 +21,15 @@ function [y] = realization_transposed_direct_form_2(system)
 %% Definitions
 wl = system.impl.frac_bits;
 
-a_fxp = fxp_quantize(system.sys.a,wl);
-b_fxp = fxp_quantize(system.sys.b,wl);
+if (system.impl.delta > 0)
+[a_num, b_den] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
+else
+a_num = system.sys.a;
+b_num = system.sys.b;
+end
+
+a_fxp = fxp_quantize(a_num,wl);
+b_fxp = fxp_quantize(b_num,wl);
 
 x_size = system.impl.x_size;
 
