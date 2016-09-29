@@ -30,7 +30,7 @@ end
 
 else
 
- if (strcmp(system.output.output_verification,system.output.output_simulation))
+ if (strcmp(lower(strtrim(system.output.output_verification)),lower(strtrim(system.output.output_simulation))))
 	output = 'Successful';
     else
         output = 'Failed';

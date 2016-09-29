@@ -27,7 +27,7 @@ decision = 0;
     end
 
  if decision == 1
-       output = 'Successfull';
+       output = 'Successful';
  else
        output = 'Failed';
  end
