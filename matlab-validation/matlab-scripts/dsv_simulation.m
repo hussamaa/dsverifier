@@ -1,4 +1,4 @@
-function [output] = dsv_simulation(system)
+function [output] = dsv_simulation(system,p)
 %
 % Script developed to simulate automatically all counterexamples 
 % by realization form (DFI, DFII and TDFII)
@@ -10,11 +10,17 @@ function [output] = dsv_simulation(system)
 % September 20, 2016
 % Manaus
 
-    if strcmp(system.impl.realization_form,'DFI')
-        output = realization_direct_form_1(system);
-    elseif strcmp(system.impl.realization_form,'DFII')
-        output = realization_direct_form_2(system);
-    elseif strcmp(system.impl.realization_form,'TDFII')
-        output = realization_transposed_direct_form_2(system);
-    end
+  switch p
+	case 'lc' 
+    	   output = dsv_check_limit_cycle(system);
+	case 's' 
+    	   output = dsv_check_stability(system);
+	case 'm' 
+    	   output = dsv_check_minimum_phase(system);
+	case 'o' 
+    	   output = dsv_check_overflow(system);
+	otherwise
+           warning('Unexpected property or error during the automatic validation.')
+  end
+
 end

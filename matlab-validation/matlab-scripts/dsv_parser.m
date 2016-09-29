@@ -1,14 +1,16 @@
-function [system] = dsv_parser()
+function [system] = dsv_parser(p)
 %
 % Script to keep counterexamples parameters in variables on workspace
-% [system] = dsv_parser()
+% [system] = dsv_parser(p)
 % The output of this function is the counterexamples extracted in variables
 % on MATLAB workspace.
+% Where p is the property to be analysed by MATLAB
 %
 % Lennon Chaves
 % September 20, 2016
 % Manaus
 
+if (p == 'lc')
 
 fileID = fopen('outputs/dsv_counterexample_parameters.txt','r');
 fileIDS = fopen('outputs/dsv_n_size.txt','r');
@@ -93,6 +95,32 @@ for i=1:n
     system(i).impl.x_size = input_times(i);
     system(i).impl.realization_form = realization(i);
     system(i).output.output_verification = [out1(i) out2(i) out3(i) out4(i) out5(i) out6(i) out7(i) out8(i) out9(i) out10(i)];
+end
+
+else
+
+%todo
+
+
+
+%% Organizing variables as system struct
+n = 2;
+
+for i=1:n
+    system(i).test_case = 'teste1';
+    system(i).sys.a = [0 0 0];
+    system(i).sys.b = [0 0 0];
+    system(i).sys.tf = tf([0 1 0],[1 0 0],1);
+    system(i).impl.int_bits = 1;
+    system(i).impl.frac_bits = 1;
+    system(i).impl.sample_time = 1;
+    system(i).impl.range.max = 1;
+    system(i).impl.range.min = 1;
+    system(i).impl.delta = 0.23;
+    system(i).impl.realization_form = 'DFI';
+    system(i).output.output_verification = 'Sucessfull';
+end
+
 end
 
 end

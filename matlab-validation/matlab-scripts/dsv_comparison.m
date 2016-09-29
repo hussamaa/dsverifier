@@ -1,4 +1,4 @@
-function [output] = dsv_comparison(system)
+function [output] = dsv_comparison(system, p)
 %
 % Function [output] = dsv_comparison(system)
 % Script to verify and compare the results between MATLAB and DSVerifier
@@ -9,6 +9,8 @@ function [output] = dsv_comparison(system)
 % Lennon Chaves
 % September 20, 2016
 % Manaus
+
+if (p == 'lc')
 
 count = 0;
 
@@ -25,5 +27,15 @@ end
     else
         output = 'Failed';
     end
+
+else
+
+ if (strcmp(system.output.output_verification,system.output.output_simulation))
+	output = 'Successful';
+    else
+        output = 'Failed';
+ end
+
+end
 
 end
