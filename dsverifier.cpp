@@ -1059,8 +1059,8 @@ try {
 
 	cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
 	cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
-	std::cout << "  Numerator Size = " << ds.b << std::endl;
-	std::cout << "  Denominator Size = " << ds.a << std::endl;
+	std::cout << "  Numerator Size = " << ds.b_size << std::endl;
+	std::cout << "  Denominator Size = " << ds.a_size << std::endl;
 
 	if (is_delta_realization)
 		std::cout << "  Delta: " << impl.delta << std::endl;
@@ -2314,7 +2314,7 @@ int main(int argc, char* argv[])
 		bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
 		bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
 
-		bool is_counterexample_property = (desired_property == "OVERFLOW" || desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
+		bool is_counterexample_property = ((desired_property == "OVERFLOW" && desired_bmc == "ESBMC") || desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
 
 		extract_data_from_file();
 
