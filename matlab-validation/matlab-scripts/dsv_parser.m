@@ -99,27 +99,64 @@ end
 
 else
 
-%todo
+fid = fopen('outputs/dsv_counterexample_parameters.txt');
+tline = fgetl(fid);
+tline = fgetl(fid);
+count = 0;
+i = 1;
+while ischar(tline)
+    disp(tline)
+    switch count
+	case 0
+	name = tline;
+        case 1
+	realization = tline;
+        case 2
+	implementation = str2num(tline);
+	case 3
+	size_numerator = str2num(tline);
+	case 4
+	size_denominator = str2num(tline);
+	case 5
+	numerator = str2num(tline);
+	case 6
+	denominator = str2num(tline);
+	case 7
+	delta = str2num(tline);
+	case 8
+	sample_time = str2num(tline);
+	case 9
+	range = str2num(tline);
+	case 10
+	verification = tline;
 
+        otherwise
+       	   warning('Unexpected error while reading file.')
+    end
 
+    count = count + 1;
+    tline = fgetl(fid);
+    if count == 11
 
-%% Organizing variables as system struct
-n = 2;
+      count = 0;
+      system(i).test_case = name;
+      system(i).sys.a = denominator;
+      system(i).sys.b = numerator;
+      system(i).sys.tf = tf(numerator,denominator,1);
+      system(i).impl.int_bits = implementation(1);
+      system(i).impl.frac_bits = implementation(2);
+      system(i).impl.sample_time = sample_time;
+      system(i).impl.range.max = range(2);
+      system(i).impl.range.min = range(1);
+      system(i).impl.delta = delta;
+      system(i).impl.realization_form = realization;
+      system(i).output.output_verification = verification;
+      i = i + 1;
 
-for i=1:n
-    system(i).test_case = 'teste1';
-    system(i).sys.a = [0 0 0];
-    system(i).sys.b = [0 0 0];
-    system(i).sys.tf = tf([0 1 0],[1 0 0],1);
-    system(i).impl.int_bits = 1;
-    system(i).impl.frac_bits = 1;
-    system(i).impl.sample_time = 1;
-    system(i).impl.range.max = 1;
-    system(i).impl.range.min = 1;
-    system(i).impl.delta = 0.23;
-    system(i).impl.realization_form = 'DFI';
-    system(i).output.output_verification = 'Sucessfull';
+    end
 end
+
+fclose(fid);
 
 end
 
