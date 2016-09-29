@@ -42,6 +42,8 @@ while ischar(tline)
 	initial_states = str2num(tline);
 	case 10
 	outputs = str2num(tline);
+	case 11
+	xsize = str2num(tline);
 
         otherwise
        	   warning('Unexpected error while reading file.')
@@ -49,7 +51,7 @@ while ischar(tline)
 
     count = count + 1;
     tline = fgetl(fid);
-    if count == 11
+    if count == 12
 
       count = 0;
       system(i).test_case = name;
@@ -74,7 +76,7 @@ while ischar(tline)
       system(i).output.output_verification = outputs;
       system(i).inputs.initial_states = initial_states;
       system(i).inputs.const_inputs = inputs;
-      system(i).impl.x_size = length(inputs);
+      system(i).impl.x_size = xsize;
       
       i = i + 1;
 
@@ -115,14 +117,15 @@ while ischar(tline)
 	drange = str2num(tline);
 	case 10
 	verification = tline;
-
+	case 11
+	xsize = str2num(tline);
         otherwise
        	   warning('Unexpected error while reading file.')
     end
 
     count = count + 1;
     tline = fgetl(fid);
-    if count == 11
+    if count == 12
 
       count = 0;
       system(i).test_case = name;
@@ -145,6 +148,8 @@ while ischar(tline)
       end
       system(i).impl.realization_form = realization;
       system(i).output.output_verification = verification;
+      system(i).impl.x_size = xsize;
+
       i = i + 1;
 
     end

@@ -1065,6 +1065,7 @@ try {
 	if (is_delta_realization)
 		std::cout << "  Delta: " << impl.delta << std::endl;
 	
+	std::cout << "  X Size = " << desired_x_size << std::endl;
 	std::cout << "  Sample Time = " << ds.sample_time << std::endl;
 	std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;
 	std::cout << "  Realization = " << desired_realization << std::endl;
@@ -1146,6 +1147,7 @@ void print_counterexample_data(std::string counterexample)
 		cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
 		if (is_delta_realization)
 		  std::cout << "  Delta: " << impl.delta << std::endl;
+		std::cout << "  X Size = " << desired_x_size << std::endl;
 		std::cout << "  Sample Time = " << ds.sample_time << std::endl;
 		std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Numerator (fixed-point)", &numerator[0], numerator.size());
