@@ -1059,6 +1059,8 @@ try {
 
 	cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
 	cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
+	std::cout << "  Numerator Size = " << ds.b << std::endl;
+	std::cout << "  Denominator Size = " << ds.a << std::endl;
 
 	if (is_delta_realization)
 		std::cout << "  Delta: " << impl.delta << std::endl;
@@ -1066,7 +1068,7 @@ try {
 	std::cout << "  Sample Time = " << ds.sample_time << std::endl;
 	std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;
 	std::cout << "  Realization = " << desired_realization << std::endl;
-	std::cout << "  Dynamic Range = " << "[ " << impl.min << ", " << impl.max << " ]" << std::endl;
+	std::cout << "  Dynamic Range = " << "{" << impl.min << "," << impl.max << "}" << std::endl;
 
 } catch (std::regex_error& e) {
 		std::cout << "[ERROR] It was not able to process the counterexample data. :(" << std::endl;
@@ -1149,7 +1151,7 @@ void print_counterexample_data(std::string counterexample)
 		cplus_print_array_elements_ignoring_empty("  Numerator (fixed-point)", &numerator[0], numerator.size());
 		cplus_print_array_elements_ignoring_empty("  Denominator (fixed-point)", &denominator[0], denominator.size());
 		std::cout << "  Realization = " << desired_realization << std::endl;
-		std::cout << "  Dynamic Range = " << "[ " << impl.min << ", " << impl.max << " ]" << std::endl;
+		std::cout << "  Dynamic Range = " << "{" << impl.min << "," << impl.max << "}" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Initial States", &initial_states[0], initial_states.size());
 		cplus_print_array_elements_ignoring_empty("  Inputs", &inputs[0], inputs.size());
 		cplus_print_array_elements_ignoring_empty("  Outputs", &outputs[inputs.size()], outputs.size() - inputs.size());
