@@ -20,11 +20,11 @@ function [y] = realization_direct_form_1(system)
 
 %% Definitions
 
-a_fxp = system.sys.a;
-b_fxp = system.sys.b;
+wl = system.impl.frac_bits;
 
-impl_int = system.impl.int_bits;
-impl_frac = system.impl.frac_bits;
+a_fxp = fxp_quantize(system.sys.a,wl);
+b_fxp = fxp_quantize(system.sys.b,wl);
+
 
 x_size = system.impl.x_size;
 
@@ -48,16 +48,16 @@ for i=1:x_size
 	x_ptr = fliplr(x_aux);
     
     for j=1:Nb
-		sum = fxp_add(sum, fxp_mult(b_ptr(j), x_ptr(j), impl_int, impl_frac),impl_int, impl_frac);
+		sum = fxp_add(sum, fxp_mult(b_ptr(j), x_ptr(j), wl), wl);
     end
     
     for k=2:Na;
-		sum = fxp_sub(sum, fxp_mult(a_ptr(k), y_ptr(k-1),impl_int, impl_frac),impl_int, impl_frac);
+		sum = fxp_sub(sum, fxp_mult(a_ptr(k), y_ptr(k-1),wl),wl);
     end
     
-    sum = fxp_div(sum,a_fxp(1),impl_int, impl_frac);
+    sum = fxp_div(sum,a_fxp(1),wl);
     
-    y(i) = fxp_quantize(sum, impl_int, impl_frac);
+    y(i) = fxp_quantize(sum, wl);
     
     y_aux = shiftL(y(i), y_aux, Na);
 end

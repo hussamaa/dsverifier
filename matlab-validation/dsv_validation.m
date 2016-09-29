@@ -30,6 +30,7 @@ end
 for i=1:length(digital_system)
     status = dsv_comparison(digital_system(i));
     digital_system(i).output.status = status;
+    digital_system(i).status = status;
 end
 
 %saving all variables created in a file .MAT in order to be used later.

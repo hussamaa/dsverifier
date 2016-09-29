@@ -19,11 +19,10 @@ function [y] = realization_transposed_direct_form_2(system)
 % Manaus
 
 %% Definitions
-a_fxp = system.sys.a;
-b_fxp = system.sys.b;
+wl = system.impl.frac_bits;
 
-impl_int = system.impl.int_bits;
-impl_frac = system.impl.frac_bits;
+a_fxp = fxp_quantize(system.sys.a,wl);
+b_fxp = fxp_quantize(system.sys.b,wl);
 
 x_size = system.impl.x_size;
 
@@ -49,21 +48,21 @@ for i=1:x_size
 	b_ptr = b_fxp;
     w = w_aux;
   
-	yout = fxp_add(fxp_mult(b_ptr(1), x(i),impl_int, impl_frac), w(1),impl_int, impl_frac);
-	yout = fxp_div(yout, a_fxp(1), impl_int, impl_frac);
+	yout = fxp_add(fxp_mult(b_ptr(1), x(i), wl), w(1), wl);
+	yout = fxp_div(yout, a_fxp(1), wl);
     
     for j=1:(Nw-1)
 		w(j) = w(j+1);
         if (j < Na)
-			w(j) = fxp_sub(w(j), fxp_mult(a_ptr(j+1), yout, impl_int, impl_frac), impl_int, impl_frac);
+			w(j) = fxp_sub(w(j), fxp_mult(a_ptr(j+1), yout, wl), wl);
         end
         
         if (j < Nb)
-			w(j) = fxp_add(w(j), fxp_mult(b_ptr(j+1), x(i), impl_int, impl_frac), impl_int, impl_frac);
+			w(j) = fxp_add(w(j), fxp_mult(b_ptr(j+1), x(i), wl), wl);
         end
     end
     
-    y(i) = fxp_quantize(yout, impl_int, impl_frac);
+    y(i) = fxp_quantize(yout, wl);
     w_aux = w;
     
 end

@@ -1,28 +1,19 @@
-function [fxp_num] = fxp_div(adiv,bdiv, impl_int, impl_frac)
+function fxp_num = fxp_div(adiv,bdiv, wl)
 % 
-% [fxp_num]=fxp_div(adiv,bdiv,impl_frac)
+% [fxp_num]=fxp_div(adiv,bdiv,wl)
 % Fixed point division out = a / b
 % adiv is fixed point input
 % bdiv is fixed point input
-% impl_frac is fractionary implementation
+% wl is fractional word lenght
 % return div result out
 %
 % Lennon Chaves
-% September 18, 2016
+% September 29, 2016
 % Manaus
 
-word_lenght = impl_int + impl_frac;
+fxp_adiv= fxp_quantize(adiv,wl);
+fxp_bdiv= fxp_quantize(bdiv,wl);
 
-fxp = fimath(...
-  'RoundingMethod','Floor', ...
-  'OverflowAction','Wrap');
-
-T = numerictype('Signed',true,'WordLength',word_lenght,...
-					      'FractionLength',impl_frac);
-
-fxp_adiv = fi(adiv,1,word_lenght,impl_frac, fxp);
-fxp_bdiv = fi(bdiv,1,word_lenght,impl_frac, fxp);
-
-fxp_num = double(divide(T,fxp_adiv,fxp_bdiv));
+fxp_num = fxp_quantize(fxp_adiv/fxp_bdiv, wl);
 
 end

@@ -1,25 +1,20 @@
-function [fxp_num] = fxp_sub(asub, bsub,impl_int, impl_frac)
+function fxp_num = fxp_sub(asub, bsub, wl)
 % 
-% [fxp_num]=fxp_add(aadd,badd)
+% [fxp_num]=fxp_add(aadd,badd,wl)
 % 
 % Fixed point subtraction out = a - b
 % asub is fixed point input
 % bsub is fixed point input
+% wl is fractional word lenght
 % return result of subtracting the inputs
 %     
 % Lennon Chaves
-% September 18, 2016
+% September 29, 2016
 % Manaus
 
-fxp = fimath(...
-  'RoundingMethod','Floor', ...
-  'OverflowAction','Wrap');
+fxp_asub= fxp_quantize(asub,wl);
+fxp_bsub= fxp_quantize(bsub,wl);
 
-word_lenght = impl_int + impl_frac;
-
-fxp_asub = fi(asub,1,word_lenght,impl_frac, fxp);
-fxp_bsub = fi(bsub,1,word_lenght,impl_frac, fxp);
-
-fxp_num = double(fxp_asub - fxp_bsub);
+fxp_num = fxp_quantize(fxp_asub - fxp_bsub, wl);
 
 end
