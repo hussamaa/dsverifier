@@ -52,8 +52,9 @@ digital_system = dsv_parser(p);
 %simulation automatically of all counterexamples
 
 for i=1:length(digital_system)
-  output = dsv_simulation(digital_system(i), p);
+  [output, time_execution] = dsv_simulation(digital_system(i), p);
   digital_system(i).output.output_simulation = output;
+  digital_system(i).output.time_execution = time_execution;
 end
 	
 %comparison between matlab and dsverifier outputs

@@ -1,4 +1,4 @@
-function [output] = dsv_check_limit_cycle(system)
+function [output, time_execution] = dsv_check_limit_cycle(system)
 %
 % Script developed to simulate automatically all counterexamples 
 % by realization form (DFI, DFII and TDFII)
@@ -11,10 +11,10 @@ function [output] = dsv_check_limit_cycle(system)
 % Manaus
 
     if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
-        output = realization_direct_form_1(system);
+        [output, time_execution] = realization_direct_form_1(system);
     elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realization_form,'DDFII')
-        output = realization_direct_form_2(system);
+        [output, time_execution]  = realization_direct_form_2(system);
     elseif strcmp(system.impl.realization_form,'TDFII') || strcmp(system.impl.realization_form,'TDDFII')
-        output = realization_transposed_direct_form_2(system);
+        [output, time_execution]  = realization_transposed_direct_form_2(system);
     end
 end

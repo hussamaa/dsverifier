@@ -1,4 +1,4 @@
-function [output] = dsv_check_overflow(system)
+function [output, time_execution] = dsv_check_overflow(system)
 %
 % Script developed to check overflow automatically all counterexamples 
 % by realization form (DFI, DFII and TDFII)
@@ -10,6 +10,8 @@ function [output] = dsv_check_overflow(system)
 % Lennon Chaves
 % September 29, 2016
 % Manaus
+
+tic
 
 a = system.sys.a;
 b = system.sys.b;
@@ -43,5 +45,6 @@ end
  else
        output = 'Failed';
  end
-
+ 
+time_execution = toc;
 end

@@ -1,4 +1,4 @@
-function [y] = realization_direct_form_2(system)
+function [y, time_execution] = realization_direct_form_2(system)
 % 
 % [y]= realization_direct_form_2(system)
 % 
@@ -19,10 +19,12 @@ function [y] = realization_direct_form_2(system)
 % Manaus
 
 %% Definitions
+
+tic
 wl = system.impl.frac_bits;
 
 if (system.impl.delta > 0)
-[a_num, b_den] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
+[a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
 else
 a_num = system.sys.a;
 b_num = system.sys.b;
@@ -72,4 +74,5 @@ for i=1:x_size
     y(i) = fxp_quantize(sum, wl);
 end
 
+time_execution = toc;
 end

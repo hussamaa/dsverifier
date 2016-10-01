@@ -1,4 +1,4 @@
-function [output] = dsv_check_stability(system)
+function [output, time_execution] = dsv_check_stability(system)
 %
 % Script developed to check stability automatically all counterexamples 
 % by realization form (DFI, DFII and TDFII)
@@ -10,6 +10,8 @@ function [output] = dsv_check_stability(system)
 % Lennon Chaves
 % September 29, 2016
 % Manaus
+
+tic
 
 if (system.impl.delta ~= 0)
 [Da, Db] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
@@ -37,5 +39,7 @@ decision = 0;
  else
        output = 'Failed';
  end
+ 
+time_execution = toc;
 
 end
