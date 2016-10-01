@@ -64,6 +64,9 @@ for i=1:length(digital_system)
     digital_system(i).status = status;
 end
 
+%report for user
+dsv_report(digital_system);
+
 %saving all variables created in a file .MAT in order to be used later.
 save ('dsv_variables.mat','digital_system');
 
