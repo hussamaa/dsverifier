@@ -21,6 +21,14 @@ addpath('shell-scripts');
 
 digital_system = [];
 
+if isunix
+display('Running Automatic Validation...');
+else
+display('Operating System not Supported for Automatic Validation Scripts!');
+return
+end
+
+
 if (isempty(p))
     display('Error. The parameter "p" should be "m","lc","o" or "s"!');
     return
