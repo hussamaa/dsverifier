@@ -1,0 +1,101 @@
+<deployment-project plugin="plugin.toolbox" plugin-version="1.0">
+  <configuration build-checksum="1189071759" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/toolbox/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/toolbox" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
+    <param.appname>DSVerifier Counterexamples Validation</param.appname>
+    <param.authnamewatermark>Lennon C. Chaves</param.authnamewatermark>
+    <param.email>lennon.correach@gmail.com</param.email>
+    <param.company>Federal University of Amazonas</param.company>
+    <param.summary>Automatic Validation of Counterexamples via MATLAB</param.summary>
+    <param.description>In order to reproduce all counterexamples in MATLAB, some scripts were developed to run and check automatically the reproduction of dsverifier counterexamples.
+Check validation for Minimum Phase, Stability, Limit Cycle and Overflow in Digital Systems.
+A very useful tool to be integrated after verification using DSVerifier.</param.description>
+    <param.screenshot>${PROJECT_ROOT}/logo.png</param.screenshot>
+    <param.version>1.0</param.version>
+    <param.output>${PROJECT_ROOT}/DSVerifier Counterexamples Validation.mltbx</param.output>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.guid>11933775-6b16-4be1-a51e-fd280e89b7d3</param.guid>
+    <param.exclude.filters />
+    <param.examples />
+    <param.demosxml />
+    <param.apps />
+    <param.docs />
+    <param.matlabpath.excludes />
+    <param.javaclasspath.excludes />
+    <unset>
+      <param.version />
+      <param.output />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+      <param.exclude.filters />
+      <param.examples />
+      <param.demosxml />
+      <param.apps />
+      <param.docs />
+      <param.matlabpath.excludes />
+      <param.javaclasspath.excludes />
+    </unset>
+    <fileset.rootdir>
+      <file>/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/toolbox</file>
+    </fileset.rootdir>
+    <fileset.rootfiles>
+      <file>${PROJECT_ROOT}/deltapoly.m</file>
+      <file>${PROJECT_ROOT}/dsv_check_limit_cycle.m</file>
+      <file>${PROJECT_ROOT}/dsv_check_minimum_phase.m</file>
+      <file>${PROJECT_ROOT}/dsv_check_overflow.m</file>
+      <file>${PROJECT_ROOT}/dsv_check_stability.m</file>
+      <file>${PROJECT_ROOT}/dsv_comparison.m</file>
+      <file>${PROJECT_ROOT}/dsv_extraction.m</file>
+      <file>${PROJECT_ROOT}/dsv_parser.m</file>
+      <file>${PROJECT_ROOT}/dsv_report.m</file>
+      <file>${PROJECT_ROOT}/dsv_simulation.m</file>
+      <file>${PROJECT_ROOT}/dsv_validation.m</file>
+      <file>${PROJECT_ROOT}/dsverifier-directory-data-extractor-script.sh</file>
+      <file>${PROJECT_ROOT}/dsverifier-restricted-counterexample-extractor-script.sh</file>
+      <file>${PROJECT_ROOT}/eiginside.m</file>
+      <file>${PROJECT_ROOT}/fwl.m</file>
+      <file>${PROJECT_ROOT}/fxp_add.m</file>
+      <file>${PROJECT_ROOT}/fxp_div.m</file>
+      <file>${PROJECT_ROOT}/fxp_mult.m</file>
+      <file>${PROJECT_ROOT}/fxp_quantize.m</file>
+      <file>${PROJECT_ROOT}/fxp_sub.m</file>
+      <file>${PROJECT_ROOT}/logo.png</file>
+      <file>${PROJECT_ROOT}/overflowtest.m</file>
+      <file>${PROJECT_ROOT}/plot_limit_cycle.m</file>
+      <file>${PROJECT_ROOT}/realization_direct_form_1.m</file>
+      <file>${PROJECT_ROOT}/realization_direct_form_2.m</file>
+      <file>${PROJECT_ROOT}/realization_transposed_direct_form_2.m</file>
+      <file>${PROJECT_ROOT}/shiftL.m</file>
+      <file>${PROJECT_ROOT}/shiftR.m</file>
+    </fileset.rootfiles>
+    <fileset.depfun.included />
+    <fileset.depfun.excluded />
+    <fileset.package />
+    <build-deliverables>
+      <file location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/toolbox" name="DSVerifier Counterexamples Validation.mltbx" optional="false">/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/toolbox/DSVerifier Counterexamples Validation.mltbx</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/usr/local/MATLAB/R2016b</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>false</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>true</linux>
+      <solaris>false</solaris>
+      <osver>4.4.0-38-generic</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>glnxa64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
