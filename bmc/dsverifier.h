@@ -266,52 +266,102 @@ void validation(){
 
 /** method to call the verification task considering or not the uncertainty for digital system (ds struct) */
 void call_verification_task(void * verification_task){
+	
 
+	int i = 0;
 	/* Base case is the execution using all parameters without uncertainty */
 	_Bool base_case_executed = 0;
 
-	/* Considering uncertainty for numerator coefficients */
-	int i=0;
-	for(i=0; i<ds.b_size; i++){
-		if (ds.b_uncertainty[i] > 0){
-			double factor = ((ds.b[i] * ds.b_uncertainty[i]) / 100);
-			factor = factor < 0 ? factor * (-1) : factor;
 
-			double min = ds.b[i] - factor;
-			double max = ds.b[i] + factor;
+	if (ERROR_MODE == ABSOLUTE){
 
-			/* Eliminate redundant executions  */
-			if ((factor == 0) && (base_case_executed == 1)){
-				continue;
-			}else if ((factor == 0) && (base_case_executed == 0)){
-				base_case_executed = 1;
+		/* Considering uncertainty for numerator coefficients */
+		for(i=0; i<ds.b_size; i++){
+			if (ds.b_uncertainty[i] > 0){
+				double factor = ds.b_uncertainty[i];
+				factor = factor < 0 ? factor * (-1) : factor;
+
+				double min = ds.b[i] - factor;
+				double max = ds.b[i] + factor;
+
+				/* Eliminate redundant executions  */
+				if ((factor == 0) && (base_case_executed == 1)){
+					continue;
+				}else if ((factor == 0) && (base_case_executed == 0)){
+					base_case_executed = 1;
+				}
+
+				ds.b[i] = nondet_double();
+				__DSVERIFIER_assume((ds.b[i] >= min) && (ds.b[i] <= max));
 			}
+		}
 
-			ds.b[i] = nondet_double();
-			__DSVERIFIER_assume((ds.b[i] >= min) && (ds.b[i] <= max));
+
+		/* considering uncertainty for denominator coefficients */
+		for(i=0; i<ds.a_size; i++){
+			if (ds.a_uncertainty[i] > 0){
+				double factor = ds.a_uncertainty[i];
+				factor = factor < 0 ? factor * (-1) : factor;
+
+				double min = ds.a[i] - factor;
+				double max = ds.a[i] + factor;
+
+				/* Eliminate redundant executions  */
+				if ((factor == 0) && (base_case_executed == 1)){
+					continue;
+				}else if ((factor == 0) && (base_case_executed == 0)){
+					base_case_executed = 1;
+				}
+
+				ds.a[i] = nondet_double();
+				__DSVERIFIER_assume((ds.a[i] >= min) && (ds.a[i] <= max));
+			}
+		}
+	} else {
+		/* Considering uncertainty for numerator coefficients */
+		int i=0;
+		for(i=0; i<ds.b_size; i++){
+			if (ds.b_uncertainty[i] > 0){
+				double factor = ((ds.b[i] * ds.b_uncertainty[i]) / 100);
+				factor = factor < 0 ? factor * (-1) : factor;
+
+				double min = ds.b[i] - factor;
+				double max = ds.b[i] + factor;
+
+				/* Eliminate redundant executions  */
+				if ((factor == 0) && (base_case_executed == 1)){
+					continue;
+				}else if ((factor == 0) && (base_case_executed == 0)){
+					base_case_executed = 1;
+				}
+
+				ds.b[i] = nondet_double();
+				__DSVERIFIER_assume((ds.b[i] >= min) && (ds.b[i] <= max));
+			}
+		}
+
+		/* considering uncertainty for denominator coefficients */
+		for(i=0; i<ds.a_size; i++){
+			if (ds.a_uncertainty[i] > 0){
+				double factor = ((ds.a[i] * ds.a_uncertainty[i]) / 100);
+				factor = factor < 0 ? factor * (-1) : factor;
+
+				double min = ds.a[i] - factor;
+				double max = ds.a[i] + factor;
+
+				/* Eliminate redundant executions  */
+				if ((factor == 0) && (base_case_executed == 1)){
+					continue;
+				}else if ((factor == 0) && (base_case_executed == 0)){
+					base_case_executed = 1;
+				}
+
+				ds.a[i] = nondet_double();
+				__DSVERIFIER_assume((ds.a[i] >= min) && (ds.a[i] <= max));
+			}
 		}
 	}
 
-	 /* considering uncertainty for denominator coefficients */
-	for(i=0; i<ds.a_size; i++){
-		if (ds.a_uncertainty[i] > 0){
-			double factor = ((ds.a[i] * ds.a_uncertainty[i]) / 100);
-			factor = factor < 0 ? factor * (-1) : factor;
-
-			double min = ds.a[i] - factor;
-			double max = ds.a[i] + factor;
-
-			/* Eliminate redundant executions  */
-			if ((factor == 0) && (base_case_executed == 1)){
-				continue;
-			}else if ((factor == 0) && (base_case_executed == 0)){
-				base_case_executed = 1;
-			}
-
-			ds.a[i] = nondet_double();
-			__DSVERIFIER_assume((ds.a[i] >= min) && (ds.a[i] <= max));
-		}
-	}
 	((void(*)())verification_task)(); /* call the verification task */
 }
 

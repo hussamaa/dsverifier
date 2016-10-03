@@ -95,6 +95,7 @@ const char * overflow [] = { "DETECT_OVERFLOW", "SATURATE", "WRAPAROUND" };
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
 const char * bmcs [] = { "ESBMC", "CBMC" };
 const char * connections_mode [] = { "SERIES", "FEEDBACK" };
+const char * error_mode [] = { "ABSOLUTE", "RELATIVE" };
 
 /* expected parameters */
 unsigned int desired_x_size = 0;
@@ -102,6 +103,7 @@ std::string desired_filename;
 std::string desired_property;
 std::string desired_realization;
 std::string desired_connection_mode;
+std::string desired_error_mode;
 std::string desired_rounding_mode;
 std::string desired_overflow_mode;
 std::string desired_timeout;
@@ -151,7 +153,8 @@ void help ()
 	std::cout << "                             (for Digital-Systems in Closed-loop: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP, and QUANTIZATION_ERROR_CLOSED_LOOP)" << std::endl;
 	std::cout << "--x-size <k>                 set the bound of verification" << std::endl;
 	std::cout << "--rounding-mode <rm>         set the rounding mode (ROUNDING, FLOOR, or CEIL)" << std::endl;
-	std::cout << "--overflow-mode <rm>         set the overflow mode (DETECT_OVERFLOW, SATURATE, or WRAPAROUND)" << std::endl;
+	std::cout << "--error-mode <em>            set the error mode (ABSOLUTE or RELATIVE), default is RELATIVE" << std::endl;
+	std::cout << "--overflow-mode <om>         set the overflow mode (DETECT_OVERFLOW, SATURATE, or WRAPAROUND)" << std::endl;
 	std::cout << "--connection-mode <cm>       set the connection mode for the closed-loop system (SERIES or FEEDBACK)" << std::endl;
 	std::cout << "--bmc <b>                    set the BMC back-end for DSVerifier (ESBMC or CBMC, default is CBMC)" << std::endl;
 	std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices, cvc4, and minisat)" << std::endl;
@@ -386,6 +389,37 @@ void validate_selected_connection_mode(std::string data)
 		exit(1);
 	}
 }
+
+/*******************************************************************\
+
+Function: validate_selected_error
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
+void validate_selected_error_mode(std::string data)
+{
+	int length = (sizeof(error_mode)/sizeof(*error_mode));
+	for(int i=0; i<length; i++)
+	{
+		if (error_mode[i] == data)
+		{
+			desired_error_mode = data;
+			break;
+		}
+	}
+	if (desired_error_mode.size() == 0)
+	{
+		std::cout << "invalid error mode: " << data << std::endl;
+		exit(1);
+	}
+}
+
 
 /*******************************************************************\
 
@@ -662,6 +696,17 @@ void bind_parameters(int argc, char* argv[])
 				show_required_argument_message(argv[i]);
 			}
 		}
+		else if (std::string(argv[i]) == "--error-mode")
+		{
+			if (i + 1 < argc)
+			{
+				validate_selected_error_mode(argv[++i]);
+			}
+			else
+			{
+				show_required_argument_message(argv[i]);
+			}
+		}
 		else if (std::string(argv[i]) == "--rounding-mode")
 		{
 			if (i + 1 < argc)
@@ -863,6 +908,10 @@ std::string prepare_bmc_command_line()
 	if (desired_connection_mode.size() > 0)
 	{
 		command_line += " -DCONNECTION_MODE=" + desired_connection_mode;
+	}
+	if (desired_error_mode.size() > 0)
+	{
+		command_line += " -DERROR_MODE=" + desired_error_mode;
 	}
 	if (desired_rounding_mode.size() > 0)
 	{

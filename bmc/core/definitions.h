@@ -129,6 +129,14 @@ int rounding_mode = ROUNDING;
 	#define CONNECTION_MODE               	  0
 #endif
 
+/** error mode for digital and closed-loop verification */
+#define RELATIVE							1
+#define ABSOLUTE							2
+#ifndef ERROR_MODE
+	#define ERROR_MODE                     	0
+#endif
+
+
 /** device model */
 #define MSP430                              1
 
