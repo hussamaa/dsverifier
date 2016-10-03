@@ -44,7 +44,7 @@ disp(show_total_test);
 disp(show_total_execution);
 
 if total_successful > total_failed
-    max_disp = total_sucessful + 2;
+    max_disp = total_successful + 2;
 else
     max_disp = total_failed + 2;
 end 

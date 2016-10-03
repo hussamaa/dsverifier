@@ -16,8 +16,6 @@ function digital_system = dsv_validation(path, p)
 % September 20, 2016
 % Manaus
 
-addpath('toolbox');
-
 digital_system = [];
 
 if isunix
