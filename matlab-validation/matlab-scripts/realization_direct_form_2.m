@@ -1,4 +1,4 @@
-function [y] = realization_direct_form_2(system)
+function [y, time_execution] = realization_direct_form_2(system)
 % 
 % [y]= realization_direct_form_2(system)
 % 
@@ -19,11 +19,19 @@ function [y] = realization_direct_form_2(system)
 % Manaus
 
 %% Definitions
-a_fxp = system.sys.a;
-b_fxp = system.sys.b;
 
-impl_int = system.impl.int_bits;
-impl_frac = system.impl.frac_bits;
+tic
+wl = system.impl.frac_bits;
+
+if (system.impl.delta > 0)
+[a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
+else
+a_num = system.sys.a;
+b_num = system.sys.b;
+end
+
+a_fxp = fxp_quantize(a_num,wl);
+b_fxp = fxp_quantize(b_num,wl);
 
 x_size = system.impl.x_size;
 
@@ -51,19 +59,20 @@ for i=1:x_size
 	w_ptr = w_aux;
     
     for k=2:Na
-		w_aux(1) = fxp_sub(w_aux(1), fxp_mult(a_ptr(k), w_ptr(k),impl_int, impl_frac),impl_int, impl_frac);
+		w_aux(1) = fxp_sub(w_aux(1), fxp_mult(a_ptr(k), w_ptr(k), wl),wl);
     end
      
-    w_aux(1) = fxp_add(w_aux(1), x(i),impl_int, impl_frac);
-    w_aux(1) = fxp_div(w_aux(1), a_fxp(1), impl_int, impl_frac);
+    w_aux(1) = fxp_add(w_aux(1), x(i), wl);
+    w_aux(1) = fxp_div(w_aux(1), a_fxp(1), wl);
  
 	w_ptr = w_aux;
    
     for j=1:Nb
-		sum = fxp_add(sum, fxp_mult(b_ptr(j), w_ptr(j), impl_int, impl_frac), impl_int, impl_frac);
+		sum = fxp_add(sum, fxp_mult(b_ptr(j), w_ptr(j), wl), wl);
     end
     
-    y(i) = fxp_quantize(sum, impl_int, impl_frac);
+    y(i) = fxp_quantize(sum, wl);
 end
 
+time_execution = toc;
 end

@@ -1089,6 +1089,46 @@ void extract_regexp_data_for_vector(std::string src, std::regex & regexp, std::v
 
 /*******************************************************************\
 
+Function: print_counterexample_data_for_restricted_properties
+
+  Inputs:
+
+ Outputs:
+
+ Purpose: print counterexample data for overflow/stability/minimum phase properties
+
+\*******************************************************************/
+void print_counterexample_data_for_restricted_properties()
+{
+
+try {
+	std::cout << std::endl << "Counterexample Data:" << std::endl;
+
+	bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
+
+	cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
+	cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
+	std::cout << "  Numerator Size = " << ds.b_size << std::endl;
+	std::cout << "  Denominator Size = " << ds.a_size << std::endl;
+
+	if (is_delta_realization)
+		std::cout << "  Delta: " << impl.delta << std::endl;
+	
+	std::cout << "  X Size = " << desired_x_size << std::endl;
+	std::cout << "  Sample Time = " << ds.sample_time << std::endl;
+	std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;
+	std::cout << "  Realization = " << desired_realization << std::endl;
+	std::cout << "  Dynamic Range = " << "{" << impl.min << "," << impl.max << "}" << std::endl;
+
+} catch (std::regex_error& e) {
+		std::cout << "[ERROR] It was not able to process the counterexample data. :(" << std::endl;
+		exit(1);
+	}
+
+}
+
+/*******************************************************************\
+
 Function: print_counterexample_data
 
   Inputs:
@@ -1156,12 +1196,13 @@ void print_counterexample_data(std::string counterexample)
 		cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
 		if (is_delta_realization)
 		  std::cout << "  Delta: " << impl.delta << std::endl;
+		std::cout << "  X Size = " << desired_x_size << std::endl;
 		std::cout << "  Sample Time = " << ds.sample_time << std::endl;
 		std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Numerator (fixed-point)", &numerator[0], numerator.size());
 		cplus_print_array_elements_ignoring_empty("  Denominator (fixed-point)", &denominator[0], denominator.size());
 		std::cout << "  Realization = " << desired_realization << std::endl;
-		std::cout << "  Dynamic Range = " << "[ " << impl.min << ", " << impl.max << " ]" << std::endl;
+		std::cout << "  Dynamic Range = " << "{" << impl.min << "," << impl.max << "}" << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Initial States", &initial_states[0], initial_states.size());
 		cplus_print_array_elements_ignoring_empty("  Inputs", &inputs[0], inputs.size());
 		cplus_print_array_elements_ignoring_empty("  Outputs", &outputs[inputs.size()], outputs.size() - inputs.size());
@@ -2323,6 +2364,9 @@ int main(int argc, char* argv[])
 	{
 		bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
 		bool is_restricted_property = (desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
+
+		bool is_counterexample_property = ((desired_property == "OVERFLOW" && desired_bmc == "ESBMC") || desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
+
 		extract_data_from_file();
 
 		if (!(is_delta_realization && is_restricted_property))
@@ -2332,7 +2376,13 @@ int main(int argc, char* argv[])
 			std::string counterexample = execute_command_line(command_line);
 			if (show_counterexample_data)
 			{
-				print_counterexample_data(counterexample);
+				if(is_counterexample_property)
+				  {
+        			    print_counterexample_data_for_restricted_properties();
+                                  }
+				  else {
+                                    print_counterexample_data(counterexample);
+                                  }
 			}
 			exit(0);
 		}
@@ -2343,13 +2393,19 @@ int main(int argc, char* argv[])
 				if (desired_property == "STABILITY")
 				{
 					check_stability_delta_domain();
-					exit(0);
 				}
 				else if (desired_property == "MINIMUM_PHASE")
 				{
 					check_minimum_phase_delta_domain();
-					exit(0);
 				}
+
+                                if(show_counterexample_data)
+                                 {
+                                	 print_counterexample_data_for_restricted_properties();
+                                 }
+
+				exit(0);
+
 			} catch(std::exception & e){
 				std::cout << std::endl << "[INTERNAL ERROR] - An unexpected event occurred " << std::endl;
 			}
