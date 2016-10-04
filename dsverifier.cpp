@@ -1163,27 +1163,27 @@ void print_counterexample_data(std::string counterexample)
 	try {
 
 		/* process quantized numerator data */
-		std::regex num_fxp_regexp("b_fxp\\[[0-9]\\]=-?[0-9]+");
+		std::regex num_fxp_regexp("b_fxp\\[[0-9]\\]=-?[0-9]+l?");
 		extract_regexp_data_for_vector(counterexample, num_fxp_regexp, numerator, factor);
 
 		/* process quantized denominator data */
-		std::regex den_fxp_regexp("a_fxp\\[[0-9]\\]=-?[0-9]+");
+		std::regex den_fxp_regexp("a_fxp\\[[0-9]\\]=-?[0-9]+l?");
 		extract_regexp_data_for_vector(counterexample, den_fxp_regexp, denominator, factor);
 
 		/* process input data */
-		std::regex input_regexp(" x\\[[0-9]\\]=-?[0-9]+");
+		std::regex input_regexp(" x\\[[0-9]+l?\\]=-?[0-9]+l?");
 		extract_regexp_data_for_vector(counterexample, input_regexp, inputs, factor);
 
 		/* process output data */
-		std::regex output_regexp("y\\[[0-9]\\]=-?[0-9]+");
+		std::regex output_regexp("y\\[[0-9]+l?\\]=-?[0-9]+l?");
 		extract_regexp_data_for_vector(counterexample, output_regexp, outputs, factor);
 
 		/* process initial states data */
-		std::regex initial_states_regexp("y0\\[[0-9]\\]=-?[0-9]+");
+		std::regex initial_states_regexp("y0\\[[0-9]+l?\\]=-?[0-9]+l?");
 		extract_regexp_data_for_vector(counterexample, initial_states_regexp, initial_states, factor);
 		if (initial_states.size() == 0)
 		{
-			std::regex initial_states_regexp_df2("w0\\[[0-9]\\]=-?[0-9]+");
+			std::regex initial_states_regexp_df2("w0\\[[0-9]+l?\\]=-?[0-9]+l?");
 			extract_regexp_data_for_vector(counterexample, initial_states_regexp_df2, initial_states, factor);
 		}
 
