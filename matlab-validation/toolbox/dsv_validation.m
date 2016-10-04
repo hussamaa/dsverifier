@@ -1,4 +1,4 @@
-function digital_system = dsv_validation(path, p)
+function digital_system = dsv_validation(path, property, filename)
 %
 % Script to run all steps to validate counterexamples
 % digital_system = dsv_validation(path,p)
@@ -26,12 +26,12 @@ return
 end
 
 
-if (isempty(p))
-    display('Error. The parameter "p" should be "m","lc","o" or "s"!');
+if (isempty(property))
+    display('Error. The parameter "property" should be "m","lc","o" or "s"!');
     return
-elseif (strcmp(p,'m') || strcmp(p,'o') || strcmp(p,'lc') || strcmp(p,'s'))
+elseif (strcmp(property,'m') || strcmp(property,'o') || strcmp(property,'lc') || strcmp(property,'s'))
 else
-    display('Error. The parameter "p" should be "m","lc","o" or "s"!');
+    display('Error. The parameter "property" should be "m","lc","o" or "s"!');
     return
 end
 
@@ -41,24 +41,22 @@ if (isempty(path))
 end
 
 %function to extract the parameters from counterexamples output. 
-dsv_extraction(path, p);
-
-addpath('outputs');
+dsv_extraction(path, property);
 
 %parsing the paramaters to variables workspace
-digital_system = dsv_parser(p);
+digital_system = dsv_parser(property);
 
 %simulation automatically of all counterexamples
 
 for i=1:length(digital_system)
-  [output, time_execution] = dsv_simulation(digital_system(i), p);
+  [output, time_execution] = dsv_simulation(digital_system(i), property);
   digital_system(i).output.output_simulation = output;
   digital_system(i).output.time_execution = time_execution;
 end
 	
 %comparison between matlab and dsverifier outputs
 for i=1:length(digital_system)
-    status = dsv_comparison(digital_system(i), p);
+    status = dsv_comparison(digital_system(i), property);
     digital_system(i).output.status = status;
     digital_system(i).status = status;
 end
@@ -67,6 +65,13 @@ end
 dsv_report(digital_system);
 
 %saving all variables created in a file .MAT in order to be used later.
-save ('dsv_variables.mat','digital_system');
+
+fname = 'counterexamples.mat';
+
+if length(filename) > 0
+fname = [filename '.mat'];
+end
+
+save (fname,'digital_system');
 
 end

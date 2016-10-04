@@ -12,7 +12,7 @@ function [system] = dsv_parser(p)
 
 if (p == 'lc')
 
-fid = fopen('outputs/dsv_counterexample_parameters.txt');
+fid = fopen('dsv_counterexample_parameters.txt');
 tline = fgetl(fid);
 tline = fgetl(fid);
 count = 0;
@@ -91,7 +91,7 @@ fclose(fid);
 
 else
 
-fid = fopen('outputs/dsv_counterexample_parameters.txt');
+fid = fopen('dsv_counterexample_parameters.txt');
 tline = fgetl(fid);
 tline = fgetl(fid);
 count = 0;
@@ -163,4 +163,5 @@ fclose(fid);
 
 end
 
+delete('dsv_counterexample_parameters.txt');
 end

@@ -21,26 +21,18 @@ script1 = 'dsverifier-directory-data-extractor-script.sh';
 command = [sh ' ' script1 ' ' directory];
 system(command);
 
-%output directory
-command = ['mkdir' ' outputs'];
-system(command);
-
 %copying files to matlab directory
-command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' outputs/dsv_counterexample_parameters.txt'];
+command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' dsv_counterexample_parameters.txt'];
 system(command);
 
 else
 
-script3 = 'dsverifier-restricted-counterexample-extractor-script.sh';
-command = [sh ' ' script3 ' ' directory];
-system(command);
-
-%output directory
-command = ['mkdir' ' outputs'];
+script2 = 'dsverifier-restricted-counterexample-extractor-script.sh';
+command = [sh ' ' script2 ' ' directory];
 system(command);
 
 %copying files to matlab directory
-command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' outputs/dsv_counterexample_parameters.txt'];
+command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' dsv_counterexample_parameters.txt'];
 system(command);
 
 end
