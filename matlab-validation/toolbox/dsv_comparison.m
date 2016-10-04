@@ -15,9 +15,16 @@ if (p == 'lc')
 count = 0;
 
 for i=1:system.impl.x_size
-
-    if system.output.output_verification(i) == system.output.output_simulation(i)
+    fxp_out_ver = abs(system.output.output_verification(i));
+    fxp_out_sim = abs(system.output.output_simulation(i));
+    erro = abs(fxp_out_ver-fxp_out_sim);
+    if erro == 0
        count = count + 1;
+    elseif fxp_out_ver ~= 0
+        erro = (erro/fxp_out_ver)*100;
+        if floor(abs(erro)) <= 10
+             count = count + 1;
+        end
     end
     
 end
