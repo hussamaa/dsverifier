@@ -41,6 +41,11 @@ for file_desired in $RESULT; do
 OUTPUT_FILE=$file_desired;
 OUT=$(cat $OUTPUT_FILE);
 
+VERIFICATION_FAILED=$(echo "$OUT" | grep "FAILED" | wc -l);
+
+
+if [ $VERIFICATION_FAILED -eq 1 ]; then
+
 REALIZATION=$(cat $OUTPUT_FILE | grep " Realization \=" | cut -d "=" -f2 );
 IMPLEMENTATION=$(cat $OUTPUT_FILE | grep " Implementation \=" | cut -d "=" -f2 | sed 's/<//' | sed 's/>//' | tr ',' ' ');
 NUMERATOR=$(cat $OUTPUT_FILE | grep " Numerator  \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
@@ -60,6 +65,7 @@ ZERO="0";
 ITEM=$OUTPUT_FILE$ENTER$REALIZATION$ENTER$IMPLEMENTATION$ENTER$NSIZE$ENTER$DSIZE$ENTER$NUMERATOR$ENTER$DENOMINATOR$ENTER$DELTA$ENTER$SAMPLE_TIME$ENTER$RANGE$ENTER$SPACE$VERIFICATION$ENTER$XSIZE$ENTER;
 
 EXTRACTION="$EXTRACTION $ITEM";
+fi
 
 done
 
