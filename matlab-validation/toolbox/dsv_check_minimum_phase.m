@@ -34,7 +34,7 @@ decision = 0;
         decision = 1;
     end
 
- if decision == 1
+ if decision == 0
        output = 'Successful';
  else
        output = 'Failed';
