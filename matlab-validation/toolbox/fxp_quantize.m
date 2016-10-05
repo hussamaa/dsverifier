@@ -15,6 +15,6 @@ function num_quantized = fxp_quantize (num, wl)
 a = double(num);
 l = double(wl);
 
-num_quantized =(2^(-1*l))*floor(a*(2^l));
+num_quantized =(2^(-1*l))*round(a*(2^l));
 
 end
