@@ -16,6 +16,10 @@ kX = value;
 kLowerBound = -1*(((2^n)-1));
 kUpperBound = ((2^n));
 
+y = value;
+
+if (value < kLowerBound) || (value > kUpperBound)
+
 range_size = kUpperBound - kLowerBound + 1;
 
 if (kX< kLowerBound)
@@ -23,5 +27,7 @@ if (kX< kLowerBound)
 end
 
 y = kLowerBound + mod((kX - kLowerBound),range_size);
+y = fxp_quantize(y,n);
+end
 
 end
