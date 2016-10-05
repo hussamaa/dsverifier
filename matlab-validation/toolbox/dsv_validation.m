@@ -1,7 +1,7 @@
-function digital_system = dsv_validation(path, property, filename)
+function dsv_validation(path, property, filename)
 %
 % Script to run all steps to validate counterexamples
-% digital_system = dsv_validation(path,p)
+% dsv_validation(path,p)
 % To start the validation, the folder with all counterexamples should be
 % informed.
 % You need inform the path, e.g. 'home/user/dsv/counterexamples'
