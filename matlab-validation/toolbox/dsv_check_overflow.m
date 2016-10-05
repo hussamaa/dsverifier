@@ -40,7 +40,12 @@ for i=1:length(y)
     end
 end
 
-output = y;
+if result == 1
+    output = 'Failed';
+else
+    output = 'Successfull';
+end
+
  
 time_execution = toc;
 end

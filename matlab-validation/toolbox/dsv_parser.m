@@ -73,7 +73,11 @@ while ischar(tline)
       system(i).impl.delta = 0;
       end
       system(i).impl.realization_form = strtrim(realization);
-      system(i).output.output_verification = outputs;
+      if(strcmp(p,'o'))
+          system(i).output.output_verification = 'Failed';
+      else
+          system(i).output.output_verification = outputs;
+      end
       if length(initial_states) > 0
       system(i).inputs.initial_states = initial_states;
       end
@@ -165,5 +169,5 @@ fclose(fid);
 
 end
 
-delete('dsv_counterexample_parameters.txt');
+%delete('dsv_counterexample_parameters.txt');
 end

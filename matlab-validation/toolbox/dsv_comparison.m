@@ -10,7 +10,7 @@ function [output] = dsv_comparison(system, p)
 % September 20, 2016
 % Manaus
 
-if (strcmp(p,'lc') || strcmp(p,'o') )
+if (strcmp(p,'lc'))
 
 count = 0;
 
