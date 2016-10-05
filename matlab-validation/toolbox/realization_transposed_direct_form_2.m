@@ -21,6 +21,8 @@ function [y, time_execution] = realization_transposed_direct_form_2(system)
 %% Definitions
 tic
 
+global overflow_mode;
+
 wl = system.impl.frac_bits;
 
 if (system.impl.delta > 0)
@@ -71,7 +73,11 @@ for i=1:x_size
         end
     end
     
-    y(i) = mode_wrap( yout, wl + system.impl.int_bits - 1);
+    if (strcmp(overflow_mode,'wrap'))
+    y(i) = mode_wrap(yout, wl+ system.impl.int_bits-1);
+    elseif (strcmp(overflow_mode,'saturate'))
+    y(i) = mode_saturate(yout, wl+ system.impl.int_bits-1);
+    end
     w_aux = w;
     
 end

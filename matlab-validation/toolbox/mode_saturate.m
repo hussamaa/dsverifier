@@ -23,4 +23,6 @@ elseif value < min
     y = min;
 end
 
+y = fxp_quantize(y,n);
+
 end

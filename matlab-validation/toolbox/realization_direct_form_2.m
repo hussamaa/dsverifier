@@ -21,6 +21,9 @@ function [y, time_execution] = realization_direct_form_2(system)
 %% Definitions
 
 tic
+
+global overflow_mode;
+
 wl = system.impl.frac_bits;
 
 if (system.impl.delta > 0)
@@ -71,7 +74,11 @@ for i=1:x_size
 		sum = fxp_add(sum, fxp_mult(b_ptr(j), w_ptr(j), wl), wl);
     end
     
-     y(i) = mode_wrap( sum, wl + system.impl.int_bits - 1);
+    if (strcmp(overflow_mode,'wrap'))
+    y(i) = mode_wrap(sum, wl+ system.impl.int_bits-1);
+    elseif (strcmp(overflow_mode,'saturate'))
+    y(i) = mode_saturate(sum, wl+ system.impl.int_bits-1);
+    end
 end
 
 time_execution = toc;

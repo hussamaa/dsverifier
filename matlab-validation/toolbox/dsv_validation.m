@@ -1,43 +1,68 @@
-function dsv_validation(path, property, filename)
+function dsv_validation(path, property, ovmode, rmode, filename)
 %
 % Script to run all steps to validate counterexamples
-% dsv_validation(path,p)
+%
+% Function: dsv_validation(path, property, ovmode, rmode, filename)
 % To start the validation, the folder with all counterexamples should be
 % informed.
 % You need inform the path, e.g. 'home/user/dsv/counterexamples'
 % The output files are generated at 'outputs' folder.
-% p is the property to be validate:
+% property is the property of digital system to be validate:
 %     'lc' is for limit cycle property
 %     's' is for stability property
 %     'm' is for minimum phase property
 %     'o' is for overflow property
+% ovmode is the overflow mode. The values could be:
+%     'saturate' for saturate overflow
+%     'wrap' for wrap around overflow
+%     By default, the value is 'wrap'.
+% rmode is the rounded mode. The values could be:
+%     'round' to use round as rounded mode
+%     'floor' to use floor as rounded mode
+%      By default, the value is 'round'
+% filename: the name of .MAT file generated as result from validation.
+%      By default, the value is 'digital_system'
+% Example of usage:
+%  dsv_validation('/home/user/log/limit_cycle/','lc','wrap','round','ds_limit');
+%
 %
 % Lennon Chaves
-% September 20, 2016
+% October 05, 2016
 % Manaus
 
-digital_system = [];
+global overflow_mode;
+global round_mode;
+
+overflow_mode = ovmode;
+round_mode = rmode;
 
 if isunix
-display('Running Automatic Validation...');
+disp('Running Automatic Validation...');
 else
-display('Operating System not Supported for Automatic Validation Scripts!');
+disp('Operating System not Supported for Automatic Validation Scripts!');
 return
 end
 
 
 if (isempty(property))
-    display('Error. The parameter "property" should be "m","lc","o" or "s"!');
+    disp('Error. The parameter "property" should be "m","lc","o" or "s"!');
     return
 elseif (strcmp(property,'m') || strcmp(property,'o') || strcmp(property,'lc') || strcmp(property,'s'))
 else
-    display('Error. The parameter "property" should be "m","lc","o" or "s"!');
+    disp('Error. The parameter "property" should be "m","lc","o" or "s"!');
     return
 end
 
 if (isempty(path))
-    display('Error. You should inform a path of counterexamples!');
+    disp('Error. You should inform a path of counterexamples!');
     return
+end
+
+if ~(strcmp(overflow_mode,'wrap') || strcmp(overflow_mode,'saturate'))
+    overflow_mode = 'wrap';
+end
+if ~(strcmp(round_mode,'round') || strcmp(round_mode,'floor'))
+    round_mode = 'round';
 end
 
 %function to extract the parameters from counterexamples output. 
