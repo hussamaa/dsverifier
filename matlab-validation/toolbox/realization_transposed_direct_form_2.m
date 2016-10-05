@@ -71,7 +71,7 @@ for i=1:x_size
         end
     end
     
-    y(i) = fxp_quantize(yout, wl);
+    y(i) = mode_wrap( yout, wl + system.impl.int_bits - 1);
     w_aux = w;
     
 end

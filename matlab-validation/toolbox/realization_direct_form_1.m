@@ -58,13 +58,13 @@ for i=1:x_size
 		sum = fxp_add(sum, fxp_mult(b_ptr(j), x_ptr(j), wl), wl);
     end
     
-    for k=2:Na;
+    for k=2:Na
 		sum = fxp_sub(sum, fxp_mult(a_ptr(k), y_ptr(k-1),wl),wl);
     end
     
     sum = fxp_div(sum,a_fxp(1),wl);
     
-    y(i) = fxp_quantize(sum, wl);
+    y(i) = mode_wrap(sum, wl+ system.impl.int_bits-1);
     
     y_aux = shiftL(y(i), y_aux, Na);
 
