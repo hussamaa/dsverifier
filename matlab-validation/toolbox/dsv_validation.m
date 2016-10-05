@@ -67,11 +67,15 @@ dsv_report(digital_system);
 %saving all variables created in a file .MAT in order to be used later.
 
 fname = 'counterexamples.mat';
+varname = 'digital_system';
 
 if length(filename) > 0
 fname = [filename '.mat'];
+rname = [filename,'= digital_system;'];
+eval(rname);
+varname = filename;
 end
 
-save (fname,'digital_system');
+save (fname,varname);
 
 end

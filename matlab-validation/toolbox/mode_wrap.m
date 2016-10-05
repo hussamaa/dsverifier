@@ -12,25 +12,16 @@ function y = mode_wrap(value, n)
 % October 04, 2016
 % Manaus
 
-min = -1*(((2^n)-1));
-max = ((2^n));
+kX = value;
+kLowerBound = -1*(((2^n)-1));
+kUpperBound = ((2^n));
 
-%if value > max
- %   y = max;
-%elseif value < min
- %   y = min;
-%end
+range_size = kUpperBound - kLowerBound + 1;
 
-range = max - min + 1;
-
-kx = mod((value-min),range);
-
-if (kx < 0)
-    value = kx + 1 + max;
-else
-    value = kx + min;
+if (kX< kLowerBound)
+    kX = kX + range_size * ((kLowerBound - kX) / range_size + 1);
 end
 
-y = value;
+y = kLowerBound + mod((kX - kLowerBound),range_size);
 
 end

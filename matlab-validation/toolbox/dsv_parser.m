@@ -152,7 +152,7 @@ while ischar(tline)
       else 
       system(i).impl.delta = 0;
       end
-      system(i).impl.realization_form = realization;
+      system(i).impl.realization_form = strtrim(realization);
       system(i).output.output_verification = verification;
       system(i).impl.x_size = xsize;
 
