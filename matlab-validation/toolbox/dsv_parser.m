@@ -10,7 +10,7 @@ function [system] = dsv_parser(p)
 % September 20, 2016
 % Manaus
 
-if (p == 'lc')
+if (strcmp(p ,'lc') || strcmp(p,'o'))
 
 fid = fopen('dsv_counterexample_parameters.txt');
 tline = fgetl(fid);
@@ -74,7 +74,9 @@ while ischar(tline)
       end
       system(i).impl.realization_form = strtrim(realization);
       system(i).output.output_verification = outputs;
+      if length(initial_states) > 0
       system(i).inputs.initial_states = initial_states;
+      end
       system(i).inputs.const_inputs = inputs;
       if length(xsize) > 0
       system(i).impl.x_size = xsize;

@@ -15,7 +15,7 @@ sh = 'sh';
 cp = 'cp';
 %extraction of parameters
 
-if (p == 'lc')
+if (strcmp(p,'lc') || strcmp(p,'o'))
 
 script1 = 'dsverifier-directory-data-extractor-script.sh';
 command = [sh ' ' script1 ' ' directory];

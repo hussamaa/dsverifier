@@ -15,7 +15,7 @@ tic
 
 a = system.sys.a;
 b = system.sys.b;
-u = zeros(1,system.impl.x_size);
+u = system.inputs.const_inputs;
 delta = system.impl.delta;
 l = system.impl.frac_bits;
 n = l + system.impl.int_bits;
@@ -40,11 +40,7 @@ for i=1:length(y)
     end
 end
 
- if result == 0
-       output = 'Successful';
- else
-       output = 'Failed';
- end
+output = y;
  
 time_execution = toc;
 end
