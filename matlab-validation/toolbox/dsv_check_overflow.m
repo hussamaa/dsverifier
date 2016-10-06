@@ -18,7 +18,7 @@ b = system.sys.b;
 u = system.inputs.const_inputs;
 delta = system.impl.delta;
 l = system.impl.frac_bits;
-n = l + system.impl.int_bits;
+n = l + system.impl.int_bits - 1;
 
 if delta > 0
     [at,bt]=deltapoly(b,a,delta);
@@ -26,11 +26,14 @@ else
     at=a;
     bt=b;
 end
-uf=(2^(-1*l))*u;
-[y,x]=dlsim(bt,at,uf);
+uf=(2^(l))*u;
+
+y=dlsim(bt,at,uf);
+min = -1*((2^n));
+max = ((2^n)-1);
 
 for i=1:length(y)
-    if (y(i)>(((2^n)-1)/(2^l))) || (y(i)<-1*(((2^n)-1)/(2^l)))
+    if (y(i)> max) || (y(i)< min)
         result=1;
         %'An overflow occurred'
         break;
