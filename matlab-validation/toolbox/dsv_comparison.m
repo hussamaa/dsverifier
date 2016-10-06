@@ -13,22 +13,15 @@ function [output] = dsv_comparison(system, p)
 if (strcmp(p,'lc'))
 
 count = 0;
-
+max_error = 0.1;
 for i=1:system.impl.x_size
     fxp_out_ver = abs(system.output.output_verification(i));
     fxp_out_sim = abs(system.output.output_simulation(i));
     erro = abs(fxp_out_ver-fxp_out_sim);
-    if erro == 0
+    if erro < max_error
        count = count + 1;
-    elseif fxp_out_ver ~= 0
-        erro = (erro/fxp_out_ver)*100;
-        if floor(abs(erro)) <= 10
-             count = count + 1;
-        end
     end
-    
 end
-
     if count == system.impl.x_size
         output = 'Successful';
     else
