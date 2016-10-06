@@ -1,3 +1,3 @@
 input.c
 --property OVERFLOW --x-size 5 --realization DDFI --bmc CBMC --rounding-mode ROUNDING
-^VERIFICATION FAILED$
+^VERIFICATION SUCCESSFUL$
