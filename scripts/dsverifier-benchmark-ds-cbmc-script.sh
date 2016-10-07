@@ -20,7 +20,7 @@ if test $# -ne 1; then
    exit 1
 fi
 
-PROPERTIES=(LIMIT_CYCLE)
+PROPERTIES=(MINIMUM_PHASE STABILITY OVERFLOW LIMIT_CYCLE)
 REALIZATIONS=(DFI DFII TDFII)
 TIMEOUT="7200" # seconds
 X_SIZE=10
@@ -42,7 +42,7 @@ INITIAL_TIMESTAMP=$(date +%s)
 CPU_CORE_NUMBER=$(cat /proc/cpuinfo | grep processor | wc -l)
 CPU_INFO="CPU:$(cat /proc/cpuinfo | grep "model name" | tail -n1 | cut -d ":" -f2)"
 MEM_INFO="RAM: $(cat /proc/meminfo | grep "MemTotal" | cut -d ":" -f2 | cut -d " " -f8) kB"
-echo "*** DSVerifier Benchmark Runner v0.1 ***"
+echo "*** DSVerifier Benchmark Runner v2.0 ***"
 echo ""
 echo "Date of run: $(date)"
 echo "System: $CPU_INFO $MEM_INFO"
@@ -79,7 +79,7 @@ while [ $AUX -le $(($TOTAL_DS * 2)) ]; do
 
               # do the verification
               INITIAL_EXECUTION_TIMESTAMP=$(date +%s)
-              timeout $TIMEOUT bash -c "{ time $DSV_EXECUTABLE $BENCHMARKS_LIBRARY $BMC_PARAMETERS -DDS_ID=$CURRENT_DS_ID -DIMPLEMENTATION_ID=$CURRENT_IMPLEMENTATION -DREALIZATION=$CURRENT_REALIZATION -DPROPERTY=$CURRENT_PROPERTY -DX_SIZE=$X_SIZE --show-ce-data> $OUT_FILE; } 2>> $OUT_FILE ";
+              timeout $TIMEOUT bash -c "{ time $DSV_EXECUTABLE $BENCHMARKS_LIBRARY $BMC_PARAMETERS -DDS_ID=$CURRENT_DS_ID -DIMPLEMENTATION_ID=$CURRENT_IMPLEMENTATION --realization $CURRENT_REALIZATION --property $CURRENT_PROPERTY --x-size $X_SIZE --show-ce-data> $OUT_FILE; } 2>> $OUT_FILE ";
               FINAL_EXECUTION_TIMESTAMP=$(date +%s)
 
               # analyse the result 
