@@ -1,4 +1,4 @@
-function [y, time_execution] = realization_direct_form_2(system)
+function [y, time_execution] = dsv_df2(system)
 % 
 % [y]= realization_direct_form_2(system)
 % 

@@ -1,4 +1,4 @@
-function [y, time_execution] = realization_transposed_direct_form_2(system)
+function [y, time_execution] = dsv_tdf2(system)
 % 
 % [y]= realization_transposed_direct_form_2(system)
 % 
