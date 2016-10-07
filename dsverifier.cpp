@@ -1105,7 +1105,8 @@ try {
 	std::cout << std::endl << "Counterexample Data:" << std::endl;
 
 	bool is_delta_realization = (desired_realization == "DDFI" || desired_realization == "DDFII" || desired_realization == "TDDFII");
-
+	
+	std::cout << "  Property = " << desired_property << std::endl;
 	cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
 	cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
 	std::cout << "  Numerator Size = " << ds.b_size << std::endl;
@@ -1163,11 +1164,11 @@ void print_counterexample_data(std::string counterexample)
 	try {
 
 		/* process quantized numerator data */
-		std::regex num_fxp_regexp("b_fxp\\[[0-9]\\]=-?[0-9]+l?");
+		std::regex num_fxp_regexp("b_fxp\\[[0-9]+l?\\]=-?[0-9]+l?");
 		extract_regexp_data_for_vector(counterexample, num_fxp_regexp, numerator, factor);
 
 		/* process quantized denominator data */
-		std::regex den_fxp_regexp("a_fxp\\[[0-9]\\]=-?[0-9]+l?");
+		std::regex den_fxp_regexp("a_fxp\\[[0-9]+l?\\]=-?[0-9]+l?");
 		extract_regexp_data_for_vector(counterexample, den_fxp_regexp, denominator, factor);
 
 		/* process input data */
@@ -1192,6 +1193,7 @@ void print_counterexample_data(std::string counterexample)
 		//TODO: extend this counterexample data to closed-loop systems
 		std::cout << std::endl << "Counterexample Data:" << std::endl;
 
+		std::cout << "  Property = " << desired_property << std::endl;
 		cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
 		cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a, ds.a_size);
 		if (is_delta_realization)
