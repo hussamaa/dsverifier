@@ -15,11 +15,15 @@ tic
 
 if (system.impl.delta ~= 0)
 [Da, Db] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
-rootsb = roots(Db);
-rootsa = roots(Da);
+fxp_a = fxp_quantize(Da, system.impl.frac_bits);
+fxp_b = fxp_quantize(Db, system.impl.frac_bits);
+rootsb = roots(fxp_b);
+rootsa = roots(fxp_a);
 else 
-rootsb=roots(system.sys.b);
-rootsa=roots(system.sys.a);
+fxp_a = fxp_quantize(system.sys.a, system.impl.frac_bits);
+fxp_b = fxp_quantize(system.sys.b, system.impl.frac_bits);
+rootsb = roots(fxp_b);
+rootsa = roots(fxp_a);
 end
 
 decision = 0;
@@ -35,9 +39,9 @@ decision = 0;
     end
 
  if decision == 0
-       output = 'Successful';
- else
        output = 'Failed';
+ else
+       output = 'Successful';
  end
 
  time_execution = toc;
