@@ -1,11 +1,12 @@
-function y = mode_saturate(value, n)
+function y = mode_saturate(value, n, l)
 % 
 % y = mode_saturate(value, n)
 %
 %  Function to saturate mode for arithmetic overflow
 %  where,
 %  'value' is number to be converted in case of arithmetic
-%  'n' is word lenght implementation
+%  'n' is integer bits implementation
+%  'l' is fractionary bits implementation
 %   the return 'y' is the output converted in saturate mode.
 %
 % Lennon Chaves
@@ -14,8 +15,8 @@ function y = mode_saturate(value, n)
 
 y = value;
 
-min = -1*(((2^n)-1));
-max = ((2^n));
+min = -1*(2^(n-1));
+max = (2^(n-1)-2^(-1*l));
 
 if value > max
     y = max;

@@ -1,11 +1,12 @@
-function y = mode_wrap(value, n)
+function y = mode_wrap(value, n, l)
 % 
 % y = mode_wrap(value, n)
 %
 %  Function to wrap around mode for arithmetic overflow
 %  where,
 %  'value' is number to be converted in case of arithmetic
-%  'n' is word lenght implementation
+%  'n' is integer bits implementation
+%  'l' is fractionary bits implementation
 %   the return 'y' is the output converted in wrap around mode.
 %
 % Lennon Chaves
@@ -14,8 +15,8 @@ function y = mode_wrap(value, n)
 
 
 kX = value;
-kLowerBound = -1*(((2^n)-1));
-kUpperBound = ((2^n));
+kLowerBound = -1*(2^(n-1));
+kUpperBound = (2^(n-1)-2^(-1*l));
 
 y = value;
 
@@ -28,7 +29,9 @@ if (kX< kLowerBound)
 end
 
 y = kLowerBound + mod((kX - kLowerBound),range_size);
-y = fxp_quantize(y,n);
+
 end
+
+y = fxp_quantize(y,l);
 
 end
