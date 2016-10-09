@@ -1,14 +1,19 @@
 function [system] = dsv_parser(p)
 %
-% Script to keep counterexamples parameters in variables on workspace
-% [system] = dsv_parser(p)
+% Script to get the counterexamples parameters and transform them in variables on workspace
+% Function>: [system] = dsv_parser(p)
+%
+% Where 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle.
+% 
+% The function dsv_extraction must be done before this function! 
+% dsv_parser only read the extraction file and transform all counterexamples in variables.
+%
 % The output of this function is the counterexamples extracted in variables
 % on MATLAB workspace.
-% Where p is the property to be analysed by MATLAB
 %
 % Lennon Chaves
-% September 20, 2016
-% Manaus
+% October 09, 2016
+% Manaus, Brazil
 
 if (strcmp(p ,'lc') || strcmp(p,'o'))
 

@@ -9,8 +9,9 @@ function y = mode_wrap(value, n)
 %   the return 'y' is the output converted in wrap around mode.
 %
 % Lennon Chaves
-% October 04, 2016
-% Manaus
+% October 09, 2016
+% Manaus, Brazil
+
 
 kX = value;
 kLowerBound = -1*(((2^n)-1));

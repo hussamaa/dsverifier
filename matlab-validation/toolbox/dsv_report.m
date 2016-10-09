@@ -1,12 +1,31 @@
 function dsv_report(digital_system)
 %
 % Script to generate a report about automatic validation
-% dsv_report(digital_system) where digital_system is a .MAT File generated
+%
+% Function: dsv_report(digital_system) 
+%
+% where digital_system is a .MAT File generated
 % by automatic validation of counterexamples.
 %
+% the digital_system could be a vector with a lot of counterexamples and composed by a lot of 'systems'.
+%
+% The struct 'digital_system' should have the following features:
+% system.sys.a = denominator;
+% system.sys.b = numerator;
+% system.sys.tf = transfer function system representation
+% system.impl.frac_bits = fractionary bits
+% system.impl.int_bits = integer bits
+% system.impl.realization_form = realization, and it should be DFI, DFII, TDFII, DDFI, DDFII or TDDFII
+% system.inputs.const_inputs = the inputs from counterexample
+% system.inputs.initial_states = the initial states from counterexample
+% system.outputs.output_verification = the output extracted from counterexample
+% system.impl.delta = in delta form realizations, the delta operator should be informed
+% system.impl.sample_time = sample time of realization
+% system.impl.x_size = the bound size
+%
 % Lennon Chaves
-% October 01, 2016
-% Manaus
+% October 09, 2016
+% Manaus, Brazil
 
 total_successful = 0;
 total_failed = 0;

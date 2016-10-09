@@ -1,24 +1,32 @@
 function [y, time_execution] = dsv_tdf2(system)
 % 
-% [y]= realization_transposed_direct_form_2(system)
-% 
-% System is a transfer function system including not only numerator or
-% denominator, but implementation about the system.
-% system is the input of TDFII realization and should be implemented as a
-% struct in MATLAB Worksapace as:
-% system.a = denominator of transfer function
-% system.b = numerator of transfer function
-% system.impl.int_bits = integer bits
+% Simulate and reproduce a counterexample for limit cycle using DDFII realization.
+% In case of delta form (TDDFI), the delta operator should be represented in system struct.
+%
+% Function: [y, time_execution] = dsv_tdf2(system)
+%
+% The struct 'system' should have the following features:
+% system.sys.a = denominator;
+% system.sys.b = numerator;
+% system.sys.tf = transfer function system representation
 % system.impl.frac_bits = fractionary bits
-% system.inputs with the inputs to realization
-% system.initial_states with the initial states
-% system.x_size with the bound of the realization
+% system.impl.int_bits = integer bits
+% system.impl.realization_form = realization, and it should be DFI, DFII, TDFII, DDFI, DDFII or TDDFII
+% system.inputs.const_inputs = the inputs from counterexample
+% system.inputs.initial_states = the initial states from counterexample
+% system.outputs.output_verification = the output extracted from counterexample
+% system.impl.delta = in delta form realizations, the delta operator should be informed
+% system.impl.sample_time = sample time of realization
+% system.impl.x_size = the bound size
+%
+%
+% The parameter 'y' is the output returned from simulation;
+% The time execution is the time to execute the simulation;
 %
 % Lennon Chaves
-% September 18, 2016
-% Manaus
+% October 09, 2016
+% Manaus, Brazil
 
-%% Definitions
 tic
 
 global overflow_mode;

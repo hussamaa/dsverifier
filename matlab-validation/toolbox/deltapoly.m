@@ -3,7 +3,7 @@ function [Da, Db]=deltapoly(b,a,delta)
 % 
 % [Da, Db]=deltapoly(b,a,delta)
 % 
-% Performs the delta transfor over a transfer function b(z)/a(z)
+% Performs the delta transformation for a transfer function b(z)/a(z)
 % 
 % a is the denominator polynomial
 % b is the numerator polynomial

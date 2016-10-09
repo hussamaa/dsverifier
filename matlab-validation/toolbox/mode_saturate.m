@@ -9,8 +9,8 @@ function y = mode_saturate(value, n)
 %   the return 'y' is the output converted in saturate mode.
 %
 % Lennon Chaves
-% October 04, 2016
-% Manaus
+% October 09, 2016
+% Manaus, Brazil
 
 y = value;
 

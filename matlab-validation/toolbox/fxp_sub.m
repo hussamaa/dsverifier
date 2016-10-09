@@ -1,16 +1,19 @@
 function fxp_num = fxp_sub(asub, bsub, wl)
+%
+% Function to perform a fixed point subtraction out = a - b
 % 
-% [fxp_num]=fxp_add(aadd,badd,wl)
+% Function: [fxp_num]=fxp_add(aadd,badd,wl)
 % 
-% Fixed point subtraction out = a - b
+% where:
 % asub is fixed point input
 % bsub is fixed point input
 % wl is fractional word lenght
+%
 % return result of subtracting the inputs
 %     
 % Lennon Chaves
-% September 29, 2016
-% Manaus
+% October 09, 2016
+% Manaus, Brazil
 
 fxp_asub= fxp_quantize(asub,wl);
 fxp_bsub= fxp_quantize(bsub,wl);

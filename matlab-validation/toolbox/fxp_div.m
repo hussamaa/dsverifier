@@ -1,15 +1,19 @@
 function fxp_num = fxp_div(adiv,bdiv, wl)
 % 
-% [fxp_num]=fxp_div(adiv,bdiv,wl)
-% Fixed point division out = a / b
+% Function to perform a fixed point division out = a / b
+%
+% Function: [fxp_num]=fxp_div(adiv,bdiv,wl)
+% 
+% where:
 % adiv is fixed point input
 % bdiv is fixed point input
 % wl is fractional word lenght
+%
 % return div result out
 %
 % Lennon Chaves
-% September 29, 2016
-% Manaus
+% October 09, 2016
+% Manaus, Brazil
 
 fxp_adiv= fxp_quantize(adiv,wl);
 fxp_bdiv= fxp_quantize(bdiv,wl);

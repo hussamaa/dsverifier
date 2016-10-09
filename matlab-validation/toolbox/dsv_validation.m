@@ -3,32 +3,39 @@ function dsv_validation(path, property, ovmode, rmode, filename)
 % Script to run all steps to validate counterexamples
 %
 % Function: dsv_validation(path, property, ovmode, rmode, filename)
+%
 % To start the validation, the folder with all counterexamples should be
 % informed.
+%
 % You need inform the path, e.g. 'home/user/dsv/counterexamples'
 % The output files are generated at 'outputs' folder.
+%
 % property is the property of digital system to be validate:
 %     'lc' is for limit cycle property
 %     's' is for stability property
 %     'm' is for minimum phase property
 %     'o' is for overflow property
+%
 % ovmode is the overflow mode. The values could be:
 %     'saturate' for saturate overflow
 %     'wrap' for wrap around overflow
 %     By default, the value is 'wrap'.
+%
 % rmode is the rounded mode. The values could be:
 %     'round' to use round as rounded mode
 %     'floor' to use floor as rounded mode
 %      By default, the value is 'round'
+%
 % filename: the name of .MAT file generated as result from validation.
 %      By default, the value is 'digital_system'
+%
 % Example of usage:
 %  dsv_validation('/home/user/log/limit_cycle/','lc','wrap','round','ds_limit');
-%
+%  dsv_validation('/home/user/log/limit_cycle/','lc','saturate','floor','ds_limit');
 %
 % Lennon Chaves
-% October 05, 2016
-% Manaus
+% October 09, 2016
+% Manaus, Brazil
 
 global overflow_mode;
 global round_mode;

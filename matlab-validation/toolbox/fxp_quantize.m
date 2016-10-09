@@ -1,16 +1,19 @@
 function num_quantized = fxp_quantize (num, wl)
 % 
-% [fxp_quantitized]=fxp_quantize(num , wl)
+% Function to perform a fixed point quantization function.
 %
-% Fixed point quantization function.
-% 'num' is a input value to be quantized
+% Function: [fxp_quantitized]=fxp_quantize(num , wl)
+% 
+% where:
+% num is a input value to be quantized
 % wl is fractional word lenght
+%
 % return the parameter 'num' quantized according to word length and
 % implementation values.
 %
 % Lennon Chaves
-% September 29, 2016
-% Manaus
+% October 09, 2016
+% Manaus, Brazil
 
 global round_mode;
 
