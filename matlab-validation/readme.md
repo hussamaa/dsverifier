@@ -10,7 +10,7 @@ In order to reproduce all counterexamples in MATLAB, some scripts were developed
 
 ##Installation:
 
-* Execute the file 'DSVerifier Counterexamples Validation.mltbx' to install automatically the toolbox.
+* Execute the file **DSVerifier Counterexamples Validation.mltbx** to install automatically the toolbox.
 
 ##Steps to run the validation:
 
