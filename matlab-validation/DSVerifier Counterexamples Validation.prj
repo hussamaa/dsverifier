@@ -67,6 +67,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <file>${PROJECT_ROOT}/toolbox/mode_saturate.m</file>
       <file>${PROJECT_ROOT}/toolbox/mode_wrap.m</file>
       <file>${PROJECT_ROOT}/toolbox/plot_limit_cycle.m</file>
+      <file>${PROJECT_ROOT}/toolbox/plot_overflow.m</file>
       <file>${PROJECT_ROOT}/toolbox/shiftL.m</file>
       <file>${PROJECT_ROOT}/toolbox/shiftR.m</file>
     </fileset.rootfiles>
