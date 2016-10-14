@@ -15,9 +15,12 @@ function dsv_extraction(directory, p)
 % October 09, 2016
 % Manaus, Brazil
 
-
 sh = 'sh';
 cp = 'cp';
+
+current =  pwd;
+cd ~/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifierToolbox/code
+
 %extraction of parameters
 
 if (strcmp(p,'lc') || strcmp(p,'o'))
@@ -41,5 +44,7 @@ command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' dsv_counterex
 system(command);
 
 end
+
+cd(current);
 
 end

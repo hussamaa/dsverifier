@@ -1,6 +1,6 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="1189071759" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
-    <param.appname>DSVerifier Counterexamples Validation</param.appname>
+  <configuration build-checksum="2550553445" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
+    <param.appname>DSVerifierToolbox</param.appname>
     <param.authnamewatermark>Lennon C. Chaves</param.authnamewatermark>
     <param.email>lennon.correach@gmail.com</param.email>
     <param.company>Federal University of Amazonas</param.company>
@@ -10,7 +10,7 @@ Check validation for Minimum Phase, Stability, Limit Cycle and Overflow in Digit
 A very useful tool to be integrated after verification using DSVerifier.</param.description>
     <param.screenshot>${PROJECT_ROOT}/toolbox/logo.png</param.screenshot>
     <param.version>1.0</param.version>
-    <param.output>${PROJECT_ROOT}/DSVerifier Counterexamples Validation.mltbx</param.output>
+    <param.output>${PROJECT_ROOT}/DSVerifierToolbox.mltbx</param.output>
     <param.products.name />
     <param.products.id />
     <param.products.version />
@@ -75,7 +75,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
     <fileset.depfun.excluded />
     <fileset.package />
     <build-deliverables>
-      <file location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation.mltbx" optional="false">/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.mltbx</file>
+      <file location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifierToolbox.mltbx" optional="false">/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifierToolbox.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
@@ -91,7 +91,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <vista>false</vista>
       <linux>true</linux>
       <solaris>false</solaris>
-      <osver>4.4.0-38-generic</osver>
+      <osver>4.4.0-42-generic</osver>
       <os32>false</os32>
       <os64>true</os64>
       <arch>glnxa64</arch>

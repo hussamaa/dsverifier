@@ -174,5 +174,4 @@ fclose(fid);
 
 end
 
-delete('dsv_counterexample_parameters.txt');
 end
