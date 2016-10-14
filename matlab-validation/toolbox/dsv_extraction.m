@@ -19,7 +19,7 @@ sh = 'sh';
 cp = 'cp';
 
 current =  pwd;
-cd ~/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifierToolbox/code
+cd ~/Documents/MATLAB/Add-Ons/Toolboxes/DSValidator/code
 
 %extraction of parameters
 
