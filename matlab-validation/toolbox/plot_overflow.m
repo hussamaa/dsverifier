@@ -37,8 +37,8 @@ plot([1:length(y)],(((2^n)-1))*ones(length(y),1),'r')
 hold off
 
 title('Overflow Dectection');
-ylabel ('Amplitude');
-xlabel ('Outputs (y)');
+ylabel ('Outputs (y)');
+xlabel ('Number of Occurencies');
 legend('Signal Y','Limits of Word Length')
 grid on;
 

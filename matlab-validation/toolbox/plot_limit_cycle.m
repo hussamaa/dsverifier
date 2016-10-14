@@ -11,12 +11,16 @@ function plot_limit_cycle(system)
 % October 09, 2016
 % Manaus
 
-y = [system.output.output_verification system.output.output_verification];
+y = system.output.output_verification;
 stairs(y,'r');
 
-title('Limit Cycle');
-ylabel ('Amplitude');
-xlabel ('Outputs (y)');
-grid on;
+min_y = min(y);
+max_y = max(y);
 
+title('Limit Cycle Oscillations');
+ylabel ('Outputs (y)');
+xlabel ('Number of Occurencies');
+legend('Signal Y - outputs')
+grid on;
+axis([0.5 10.5 (min_y-0.5) (max_y+0.5)])
 end
