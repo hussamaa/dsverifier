@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="101484652" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="3240996823" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSValidator</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -57,6 +57,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <file>${PROJECT_ROOT}/toolbox/dsv_validation.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsverifier-directory-data-extractor-script.sh</file>
       <file>${PROJECT_ROOT}/toolbox/dsverifier-restricted-counterexample-extractor-script.sh</file>
+      <file>${PROJECT_ROOT}/toolbox/fwl.m</file>
       <file>${PROJECT_ROOT}/toolbox/fxp_add.m</file>
       <file>${PROJECT_ROOT}/toolbox/fxp_div.m</file>
       <file>${PROJECT_ROOT}/toolbox/fxp_mult.m</file>
@@ -67,6 +68,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <file>${PROJECT_ROOT}/toolbox/mode_wrap.m</file>
       <file>${PROJECT_ROOT}/toolbox/plot_limit_cycle.m</file>
       <file>${PROJECT_ROOT}/toolbox/plot_overflow.m</file>
+      <file>${PROJECT_ROOT}/toolbox/plot_zero_pole.m</file>
       <file>${PROJECT_ROOT}/toolbox/shiftL.m</file>
       <file>${PROJECT_ROOT}/toolbox/shiftR.m</file>
     </fileset.rootfiles>
