@@ -35,7 +35,7 @@ b = system.sys.b;
 u = system.inputs.const_inputs;
 delta = system.impl.delta;
 l = system.impl.frac_bits;
-n = l + system.impl.int_bits - 1;
+n = system.impl.int_bits - 1;
 
 if delta > 0
     [at,bt]=deltapoly(b,a,delta);
@@ -43,11 +43,18 @@ else
     at=a;
     bt=b;
 end
-uf=(2^(l))*u;
+for i=1:length(at)
+at(i) = mode_saturate(at(i),n+1,l);
+end
+for i=1:length(bt)
+bt(i) = mode_saturate(bt(i),n+1,l);
+end
+
+uf=u;
 
 y=dlsim(bt,at,uf);
 min = -1*((2^n));
-max = ((2^n)-1);
+max = ((2^n)-2^(-1*l));
 
 for i=1:length(y)
     if (y(i)> max) || (y(i)< min)
@@ -66,6 +73,5 @@ else
     output = 'Successfull';
 end
 
- 
 time_execution = toc;
 end
