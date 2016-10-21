@@ -52,7 +52,7 @@ disp(' ')
 disp('General Report:');
 disp(' ')
 total_tests = total_failed + total_successful;
-show_total_success = ['Total Successull: ' num2str(total_successful)];
+show_total_success = ['Total Successful: ' num2str(total_successful)];
 show_total_failed = ['Total Failed: ' num2str(total_failed)];
 show_total_test = ['Total Tests: ' num2str(total_tests)];
 show_total_execution = ['Total Time Execution: ' num2str(total_time_execution)];
