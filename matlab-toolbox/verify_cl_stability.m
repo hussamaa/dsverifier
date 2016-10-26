@@ -11,10 +11,10 @@ dsv_parser(system,'cl',0);
 %verifying using DSVerifier command-line
 property = 'STABILITY_CLOSED_LOOP';
 command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc ' --solver ' solver ' --connection-mode ' c_mode];
-dsv_verification(command_line);
+dsv_verification(command_line,'cl');
 
 %report the verification
-output = dsv_report('output.out');
+output = dsv_report('output.out','cl');
 disp(output);
 
 end
