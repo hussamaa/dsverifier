@@ -1,4 +1,4 @@
-function verify_cl_quantization_error(system, bmc, realization, solver, xsize, c_mode, error)
+function verify_cl_quantization_error(system, bmc, realization, solver, xsize, c_mode, error, varargin)
 
 global property;
 
@@ -10,7 +10,10 @@ dsv_parser(system,'cl', error);
 
 %verifying using DSVerifier command-line
 property = 'QUANTIZATION_ERROR_CLOSED_LOOP';
-command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc ' --solver ' solver ' --connection-mode ' c_mode];
+
+extra_param = get_macro_params(nargin-1,varargin,'cl');
+
+command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc ' --solver ' solver ' --connection-mode ' c_mode extra_param];
 dsv_verification(command_line,'cl');
 
 %report the verification
