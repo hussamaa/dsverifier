@@ -1,9 +1,9 @@
 function dsv_verification(command, representation)
 
 if strcmp(representation,'ss')
-s1 = './dsverifier file.ss';
+s1 = 'dsverifier file.ss';
 else
-s1 = './dsverifier input.c';
+s1 = 'dsverifier input.c';
 end
 
 s3 = ' --show-ce-data > output.out';

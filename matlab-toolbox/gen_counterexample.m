@@ -1,8 +1,10 @@
-function system = gen_counterexample(property)
+function system = gen_counterexample(property, directory)
+
+file_output = [directory '/dsv_counterexample_parameters.txt'];
 
 if strcmp(property,'OVERFLOW') || strcmp(property,'LIMIT_CYCLE')
 
-fid = fopen('dsv_counterexample_parameters.txt');
+fid = fopen(file_output);
 tline = fgetl(fid);
 tline = fgetl(fid);
 count = 0;
@@ -87,7 +89,7 @@ fclose(fid);
 
 else
 
-fid = fopen('dsv_counterexample_parameters.txt');
+fid = fopen(file_output);
 tline = fgetl(fid);
 tline = fgetl(fid);
 count = 0;
@@ -159,5 +161,6 @@ fclose(fid);
 
 end
 
-delete 'dsv_counterexample_parameters.txt';
+delete(file_output);
+
 end

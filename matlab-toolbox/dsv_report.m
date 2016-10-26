@@ -28,8 +28,10 @@ end
 if (is_closed_loop == 0) && (is_state_space == 0)
     
 if strcmp(output,'VERIFICATION FAILED')
+    home = pwd;
+    cd ~/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code
     sh = 'sh';
-    directory = pwd;
+    directory = home;
 
     if strcmp(property,'OVERFLOW') || strcmp(property,'LIMIT_CYCLE')
         script1 = 'dsverifier-directory-data-extractor-script.sh';
@@ -41,8 +43,11 @@ if strcmp(output,'VERIFICATION FAILED')
         system(command);
     end
     
-    counterexample = gen_counterexample(property);
+    counterexample = gen_counterexample(property, directory);
+    cd(home);
+    
     save ('counterexample.mat', 'counterexample');
+
 end
 
 end
