@@ -14,6 +14,14 @@ end
 tline = fgetl(fid);
 end
 
+is_closed_loop = 0;
+
+if (strcmp(property,'LIMIT_CYCLE_CLOSED_LOOP') || strcmp(property,'STABILITY_CLOSED_LOOP') || strcmp(property,'QUANTIZATION_ERROR_CLOSED_LOOP'))
+    is_closed_loop = 1;
+end
+
+if is_closed_loop == 0
+    
 if strcmp(output,'VERIFICATION FAILED')
     sh = 'sh';
     directory = pwd;
@@ -31,6 +39,9 @@ if strcmp(output,'VERIFICATION FAILED')
     counterexample = gen_counterexample(property);
     save ('counterexample.mat', 'counterexample');
 end
-%TO DO: .MAT File, Extract counterexample
+
+end
+
+
 end
 
