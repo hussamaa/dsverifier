@@ -1,4 +1,4 @@
-function output = verify_overflow(system, bmc, realization, solver, xsize)
+function verify_overflow(system, bmc, realization, solver, xsize)
 
 global property;
 %setting the DSVERIFIER_HOME

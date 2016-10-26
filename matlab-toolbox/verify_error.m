@@ -1,4 +1,4 @@
-function output = verify_error(system, bmc, realization, solver, xsize)
+function verify_error(system, bmc, realization, solver, xsize)
 
 global property;
 %setting the DSVERIFIER_HOME
