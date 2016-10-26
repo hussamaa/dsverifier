@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="3968761725" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSVerifier</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -62,6 +62,7 @@
       <file>${PROJECT_ROOT}/toolbox/verify_minimum_phase.m</file>
       <file>${PROJECT_ROOT}/toolbox/verify_overflow.m</file>
       <file>${PROJECT_ROOT}/toolbox/verify_ss_controllability.m</file>
+      <file>${PROJECT_ROOT}/toolbox/verify_ss_limit_cycle.m</file>
       <file>${PROJECT_ROOT}/toolbox/verify_ss_observability.m</file>
       <file>${PROJECT_ROOT}/toolbox/verify_ss_quantization_error.m</file>
       <file>${PROJECT_ROOT}/toolbox/verify_ss_stability.m</file>
