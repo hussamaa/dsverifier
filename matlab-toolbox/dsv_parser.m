@@ -82,6 +82,34 @@ fclose(fid);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
 elseif strcmp(type, 'ss')
     
+A = ds.system.A;
+B = ds.system.B;
+C = ds.system.C;
+D = ds.system.D;
+inputs = ds.inputs;
+
+[rA,cA] = size(A);
+nStates = rA;
+[rB,cB] = size(B);
+nInputs = cB;
+[rC,cC] = size(C);
+nOutputs = rC;
+
+frac_bits = ds.impl.frac_bits;
+int_bits = ds.impl.int_bits;
+
+fid = fopen('file.ss', 'wt' );
+fprintf(fid,'implementation <%d,%d>\n', int_bits, frac_bits);
+fprintf(fid,'states = %d;\n', nStates);
+fprintf(fid,'inputs = %d;\n', nInputs);
+fprintf(fid,'outputs = %d;\n', nOutputs);
+fprintf(fid,'A = %s \n', matrix2string(A));
+fprintf(fid,'B = %s \n', matrix2string(B));
+fprintf(fid,'C = %s \n', matrix2string(C));
+fprintf(fid,'D = %s \n', matrix2string(D));
+fprintf(fid,'inputs = %s \n', matrix2string(inputs));
+fclose(fid);
+
 end
 
 end

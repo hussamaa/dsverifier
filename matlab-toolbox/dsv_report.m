@@ -1,4 +1,4 @@
-function output = dsv_report(output)
+function output = dsv_report(output, representation)
 
 global property;
 fid = fopen(output);
@@ -16,11 +16,16 @@ end
 
 is_closed_loop = 0;
 
-if (strcmp(property,'LIMIT_CYCLE_CLOSED_LOOP') || strcmp(property,'STABILITY_CLOSED_LOOP') || strcmp(property,'QUANTIZATION_ERROR_CLOSED_LOOP'))
+if strcmp(representation,'cl')
     is_closed_loop = 1;
 end
 
-if is_closed_loop == 0
+is_state_space = 0;
+if strcmp(representation,'ss')
+    is_state_space = 1;
+end
+
+if (is_closed_loop == 0) && (is_state_space == 0)
     
 if strcmp(output,'VERIFICATION FAILED')
     sh = 'sh';
