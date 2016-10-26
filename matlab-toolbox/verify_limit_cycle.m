@@ -1,5 +1,6 @@
 function output = verify_limit_cycle(system, bmc, realization, solver, xsize)
 
+global property;
 %setting the DSVERIFIER_HOME
 dsv_setup();
 %translate to ANSI-C file
