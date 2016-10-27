@@ -1,4 +1,4 @@
-function verify_error(system, bmc, realization, solver, xsize, error, varargin)
+function verify_error(system, bmc, realization, xsize, error, varargin)
 
 global property;
 %setting the DSVERIFIER_HOME
@@ -10,7 +10,7 @@ property = 'ERROR';
 
 extra_param = get_macro_params(nargin-1,varargin,'tf');
 
-command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc ' --solver ' solver extra_param];
+command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc extra_param];
 dsv_verification(command_line,'tf');
 %report the verification
 output = dsv_report('output.out','tf');

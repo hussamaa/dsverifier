@@ -1,4 +1,4 @@
-function verify_limit_cycle(system, bmc, realization, solver, xsize, varargin)
+function verify_limit_cycle(system, bmc, realization, xsize, varargin)
 
 global property;
 %setting the DSVERIFIER_HOME
@@ -10,7 +10,7 @@ property = 'LIMIT_CYCLE';
 
 extra_param = get_macro_params(nargin,varargin,'tf');
 
-command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc ' --solver ' solver extra_param];
+command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc extra_param];
 dsv_verification(command_line,'tf');
 %report the verification
 output = dsv_report('output.out','tf');
