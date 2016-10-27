@@ -9,6 +9,8 @@ if strcmp(strtrim(tline),'VERIFICATION SUCCESSFUL')
     output = 'VERIFICATION SUCCESSFUL';
 elseif strcmp(strtrim(tline),'VERIFICATION FAILED')
     output = 'VERIFICATION FAILED';
+else
+    output = 'VERIFICATION ERROR';
 end
 
 tline = fgetl(fid);
