@@ -1,4 +1,4 @@
-function verify_ss_quantization_error(system, bmc, realization, solver, xsize, error)
+function verify_ss_quantization_error(system, bmc, realization, xsize, error)
 
 global property;
 %setting the DSVERIFIER_HOME
@@ -7,7 +7,7 @@ dsv_setup();
 dsv_parser(system,'ss',error);
 %verifying using DSVerifier command-line
 property = 'QUANTISATION_ERROR';
-command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc ' --solver ' solver];
+command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc];
 dsv_verification(command_line,'ss');
 %report the verification
 output = dsv_report('output.out','ss');
