@@ -1,10 +1,10 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="3968761725" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="4234638765" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSVerifier</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
     <param.company>Federal University of Amazonas</param.company>
-    <param.summary />
+    <param.summary>Support to CBMC 5.5 and ESBMC 3.0.0</param.summary>
     <param.description>DSVerifier (Digital Systems Verifier) is a bounded model checker to aid enginners to check for overflow, limit cycle, error, timing, stability, and minimum phase in digital systems, considering finite word length (FWL) effects.</param.description>
     <param.screenshot>${PROJECT_ROOT}/logo.png</param.screenshot>
     <param.version>1.0</param.version>
@@ -22,7 +22,6 @@
     <param.matlabpath.excludes />
     <param.javaclasspath.excludes />
     <unset>
-      <param.summary />
       <param.version />
       <param.output />
       <param.products.name />
