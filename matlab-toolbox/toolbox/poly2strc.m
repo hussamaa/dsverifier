@@ -1,4 +1,14 @@
 function output = poly2strc( poly )
+% Translate a polynomial representation to a string representation
+%
+% Function: output = poly2strc( poly )
+%
+%  poly: the polynomial format, in a MATLAB vector.
+%
+% Author: Lennon Chaves
+% Federal University of Amazonas
+% October 2016
+%
 
 n = length(poly);
 tmp = strings(1,n*2-1);

@@ -1,5 +1,17 @@
 function dsv_parser(ds, type, error)
-%read system struct and translate to a ANSI-C file
+% reads the system in struct form and translate to a ANSI-C file
+%
+% Function: dsv_parser(ds, type, error)
+%
+%  ds: digital system
+%  type: 'ss' for state-space, 'tf' for transfer function and 'cl' for
+%  closed-loop systems
+%  error: error for quantization error verification
+%
+% Author: Lennon Chaves
+% Federal University of Amazonas
+% October 2016
+%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if strcmp(type, 'tf')

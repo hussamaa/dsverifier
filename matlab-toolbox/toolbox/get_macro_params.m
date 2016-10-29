@@ -1,4 +1,17 @@
 function extra_param = get_macro_params(n, var, type)
+% Support function to get the extra params in order to add in command line
+% during the execution
+%
+% Function: extra_param = get_macro_params(n, var, type)
+%
+%  n: number of arguments passed during the verification
+%  var: vargin with all extra arguments
+%  type: state-space, transfer-function or closed-loop
+%
+% Author: Lennon Chaves
+% Federal University of Amazonas
+% October 2016
+%
 
 extra_param = '';
 if(strcmp(type,'tf') || strcmp(type,'ss'))

@@ -1,4 +1,16 @@
 function system = gen_counterexample(property, directory)
+% Translate .out file generated after verification to a .MAT file with
+% counterexample
+%
+% Function: system = gen_counterexample(property, directory)
+%
+%  property: the desired property according to the digital system
+%  directory: directory/path with .out files
+%
+% Author: Lennon Chaves
+% Federal University of Amazonas
+% October 2016
+%
 
 file_output = [directory '/dsv_counterexample_parameters.txt'];
 

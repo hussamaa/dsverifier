@@ -1,4 +1,14 @@
 function output = matrix2string( matrix )
+% Translate a matrix representation to a string representation
+%
+% Function: output = matrix2string( matrix )
+%
+%  poly: the matrix format, in a MATLAB matrix.
+%
+% Author: Lennon Chaves
+% Federal University of Amazonas
+% October 2016
+%
 
 [r,c]= size(matrix);
 linha = '[';
