@@ -44,7 +44,7 @@ function verify_error(system, bmc, realization, xsize, error, varargin)
 %  ds.delta = ...;
 %
 %  VERIFY_ERROR(ds,'CBMC','DFI',10, 0.18);
-%  VERICATION FAILED!
+%  VERIFICATION FAILED!
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas

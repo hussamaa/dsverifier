@@ -43,7 +43,7 @@ function verify_stability(system, bmc, realization, xsize, varargin)
 %  ds.delta = 0.25;
 %
 %  VERIFY_STABILITY(ds,'CBMC','DFI',10);
-%  VERICATION FAILED!
+%  VERIFICATION FAILED!
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas

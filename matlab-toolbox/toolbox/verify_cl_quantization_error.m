@@ -48,7 +48,7 @@ function verify_cl_quantization_error(system, bmc, realization, xsize, c_mode, e
 %  ds.delta = ...;
 %
 %  VERIFY_CL_QUANTIZATION_ERROR(ds,'CBMC','DFI',10, 0.18);
-%  VERICATION FAILED!
+%  VERIFICATION FAILED!
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas

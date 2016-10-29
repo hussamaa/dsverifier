@@ -43,7 +43,7 @@ function verify_timing(system, bmc, realization, xsize, varargin)
 %  ds.delta = ...;
 %
 %  VERIFY_TIMING(ds,'CBMC','DFI',10);
-%  VERICATION SUCCESSFUL!
+%  VERIFICATION SUCCESSFUL!
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas

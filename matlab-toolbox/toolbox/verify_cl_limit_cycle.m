@@ -47,7 +47,7 @@ function verify_cl_limit_cycle(system, bmc, realization, xsize, c_mode, varargin
 %  ds.delta = ...;
 %
 %  VERIFY_CL_LIMIT_CYCLE(ds,'CBMC','DFI',10, 0.18);
-%  VERICATION FAILED!
+%  VERIFICATION FAILED!
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
