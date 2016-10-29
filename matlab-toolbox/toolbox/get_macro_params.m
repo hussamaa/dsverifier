@@ -7,75 +7,40 @@ elseif strcmp(type,'cl')
   nvar= n -1;
 end
 
-switch(nvar)
-    case 6
-        if strcmp(var{1},'')
-            extra_param = '';
-        else
-            extra_param = [' --overflow-mode ' var{1}];
-        end
-    case 7
-        if strcmp(var{1},'') && strcmp(var{2},'')
-            extra_param = '';
-        elseif strcmp(var{1},'')
-            extra_param = [' --rounding-mode ' var{2}];
-        elseif strcmp(var{2},'')
-            extra_param = [' --overflow-mode ' var{1}];
-        else
-            extra_param = [' --overflow-mode ' var{1} ' --rounding-mode ' var{2}];
-        end
-    case 8
-         if strcmp(var{1},'') && strcmp(var{2},'') && strcmp(var{3},'')
-            extra_param = '';
-         elseif strcmp(var{1},'') && strcmp(var{2},'')
-            extra_param = [' --error-mode ' var{3}];
-         elseif strcmp(var{1},'') && strcmp(var{3},'')
-            extra_param = [' --rounding-mode ' var{2}];
-         elseif strcmp(var{2},'') && strcmp(var{3},'') 
-            extra_param = [' --overflow-mode ' var{1}];
-         elseif strcmp(var{1},'') 
-            extra_param = [' --rounding-mode ' var{2} ' --error-mode ' var{3}];
-         elseif strcmp(var{2},'') 
-            extra_param = [' --overflow-mode ' var{1} ' --error-mode ' var{3}];
-         elseif strcmp(var{3},'') 
-            extra_param = [' --overflow-mode ' var{1} ' --rounding-mode ' var{2}];
-         else
-            extra_param = [' --overflow-mode ' var{1} ' --rounding-mode ' var{2} ' --error-mode ' var{3}];
-         end
-    case 9
-         if strcmp(var{1},'') && strcmp(var{2},'') && strcmp(var{3},'') && strcmp(var{4},'')
-            extra_param = '';
-         elseif strcmp(var{1},'') && strcmp(var{2},'') && strcmp(var{3},'')
-             extra_param = [' --timeout ' var{4}];
-         elseif strcmp(var{1},'') && strcmp(var{3},'') && strcmp(var{4},'')
-             extra_param = [' --rounding-mode ' var{2}];
-         elseif strcmp(var{2},'') && strcmp(var{3},'')  && strcmp(var{4},'')
-             extra_param = [' --overflow-mode ' var{1}];
-         elseif strcmp(var{1},'') && strcmp(var{2},'')  && strcmp(var{4},'')
-             extra_param = [' --error-mode ' var{3}];
-         elseif strcmp(var{1},'') && strcmp(var{2},'')
-             extra_param = [' --error-mode ' var{3} ' --timeout ' var{4}];
-         elseif strcmp(var{1},'') && strcmp(var{3},'')
-             extra_param = ['--rounding-mode ' var{2} ' --timeout ' var{4}];
-         elseif strcmp(var{1},'') && strcmp(var{4},'')
-             extra_param = [' --rounding-mode ' var{2} ' --error-mode ' var{3}];
-         elseif strcmp(var{2},'') && strcmp(var{3},'')
-             extra_param = [' --overflow-mode ' var{1} ' --timeout ' var{4}];
-         elseif strcmp(var{2},'') && strcmp(var{4},'')
-             extra_param = [' --overflow-mode ' var{1} ' --error-mode ' var{3}];
-         elseif strcmp(var{3},'') && strcmp(var{4},'')
-             extra_param = [' --overflow-mode ' var{1} ' --rounding-mode ' var{2}]; 
-         elseif strcmp(var{1},'') 
-            extra_param = [' --rounding-mode ' var{2} ' --error-mode ' var{3} ' --timeout ' var{4}];
-         elseif strcmp(var{2},'') 
-            extra_param = [' --overflow-mode ' var{1} ' --error-mode ' var{3} ' --timeout ' var{4}];
-         elseif strcmp(var{3},'') 
-            extra_param = [' --overflow-mode ' var{1} ' --rounding-mode ' var{2} ' --timeout ' var{4}];
-         elseif strcmp(var{4},'') 
-            extra_param = [' --overflow-mode ' var{1} ' --rounding-mode ' var{2} ' --timeout ' var{3}];
-         else
-            extra_param = [' --overflow-mode ' var{1} ' --rounding-mode ' var{2} ' --error-mode ' var{3} ' --timeout ' var{4}];
-         end
+solver = ' --solver ';
+omode = ' --overflow-mode ';
+rmode = ' --rounding-mode ';
+emode = ' --error-mode ';
+timeout = ' --timeout ';
+
+if nvar >= 5
+if length(var{1}) > 0
+extra_param = [extra_param solver var{1}];
+end
+end
+
+if nvar >= 6
+if length(var{2}) > 0
+extra_param = [extra_param omode var{2}];
+end
+end
+
+if nvar >= 7
+if length(var{3}) > 0
+extra_param = [extra_param rmode var{3}];
+end
+end
+
+if nvar >= 8
+if length(var{4}) > 0
+extra_param = [extra_param emode var{4}];
+end
+end
+
+if nvar >= 9
+if length(var{5}) > 0
+extra_param = [extra_param timeout var{5}];
+end
 end
 
 end
