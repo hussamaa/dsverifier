@@ -1,7 +1,7 @@
 function dsv_setup()
 % Setup the DSVERIFIER_HOME and model checkers visibility in a variable environment
 %
-% Function: dsv_setup()
+% Function: DSV_SETUP()
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas

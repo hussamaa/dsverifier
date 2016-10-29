@@ -2,7 +2,7 @@ function system = gen_counterexample(property, directory)
 % Translate .out file generated after verification to a .MAT file with
 % counterexample
 %
-% Function: system = gen_counterexample(property, directory)
+% Function: system = GEN_COUNTEREXAMPLE(property, directory)
 %
 %  property: the desired property according to the digital system
 %  directory: directory/path with .out files

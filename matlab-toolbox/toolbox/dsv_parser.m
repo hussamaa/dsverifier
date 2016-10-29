@@ -1,7 +1,7 @@
 function dsv_parser(ds, type, error)
 % reads the system in struct form and translate to a ANSI-C file
 %
-% Function: dsv_parser(ds, type, error)
+% Function: DSV_PARSER(ds, type, error)
 %
 %  ds: digital system
 %  type: 'ss' for state-space, 'tf' for transfer function and 'cl' for

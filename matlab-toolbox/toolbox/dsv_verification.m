@@ -1,7 +1,7 @@
 function dsv_verification(command, representation)
 % Function to get the parameters, system and implementatio to start the verification
 %
-% Function: output =  dsv_verification(command, representation)
+% Function: output =  DSV_VERIFICATION(command, representation)
 %
 %  command: the command line with all parameters to execute the
 %  verification

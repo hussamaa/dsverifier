@@ -1,7 +1,7 @@
 function output = matrix2string( matrix )
 % Translate a matrix representation to a string representation
 %
-% Function: output = matrix2string( matrix )
+% Function: output = MATRIX2STRING( matrix )
 %
 %  poly: the matrix format, in a MATLAB matrix.
 %

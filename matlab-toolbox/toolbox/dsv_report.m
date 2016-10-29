@@ -1,7 +1,7 @@
 function output = dsv_report(output, representation)
 % shows the report about the verification: successful or failed
 %
-% Function: output = dsv_report(output, representation)
+% Function: output = DSV_REPORT(output, representation)
 %
 %  output: digital system in a output file .out
 %  representation: 'ss' for state-space, 'tf' for transfer function and 'cl' for

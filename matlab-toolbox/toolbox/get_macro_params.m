@@ -2,7 +2,7 @@ function extra_param = get_macro_params(n, var, type)
 % Support function to get the extra params in order to add in command line
 % during the execution
 %
-% Function: extra_param = get_macro_params(n, var, type)
+% Function: extra_param = GET_MACRO_PARAMS(n, var, type)
 %
 %  n: number of arguments passed during the verification
 %  var: vargin with all extra arguments
