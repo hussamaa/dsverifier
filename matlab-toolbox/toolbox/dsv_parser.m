@@ -1,5 +1,5 @@
 function dsv_parser(ds, type, error)
-% reads the system in struct form and translate to a ANSI-C file
+% Reads the system in struct form and translate to a ANSI-C file
 %
 % Function: DSV_PARSER(ds, type, error)
 %

@@ -1,7 +1,7 @@
 function verify_ss_limit_cycle(system, bmc, realization, xsize, varargin)
 %
-% Function: VERIFY_SS_LIMIT_CYCLE(system, bmc, realization, xsize)
 % Checks limit cycle property violation for digital systems (state-space representation) using a bounded model checking tool.
+% Function: VERIFY_SS_LIMIT_CYCLE(system, bmc, realization, xsize)
 %
 % Where
 %   system: represents a struct with digital system represented in state-space;

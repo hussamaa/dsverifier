@@ -1,7 +1,7 @@
 function verify_overflow(system, bmc, realization, xsize, varargin)
 %
-% Function: VERIFY_OVERFLOW(system, bmc, realization, xsize)
 % Checks overflow property violation for digital systems using a bounded model checking tool.
+% Function: VERIFY_OVERFLOW(system, bmc, realization, xsize)
 %
 % Where
 %   system: represents a struct with digital system represented in transfer-function;

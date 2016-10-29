@@ -1,5 +1,5 @@
 function output = dsv_report(output, representation)
-% shows the report about the verification: successful or failed
+% Shows the report about the verification: successful or failed
 %
 % Function: output = DSV_REPORT(output, representation)
 %

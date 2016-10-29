@@ -1,7 +1,7 @@
 function verify_minimum_phase(system, bmc, realization, xsize, varargin)
 %
-% Function: VERIFY_MINIMUM_PHASE(system, bmc, realization, xsize)
 % Checks minimum phase property violation for digital systems using a bounded model checking tool.
+% Function: VERIFY_MINIMUM_PHASE(system, bmc, realization, xsize)
 %
 % Where
 %   system: represents a struct with digital system represented in transfer-function;

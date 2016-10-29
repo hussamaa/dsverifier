@@ -1,7 +1,7 @@
 function verify_ss_observability(system, bmc, realization, xsize, varargin)
 %
-% Function: VERIFY_SS_OBSERVABILITY(system, bmc, realization, xsize)
 % Checks observability property violation for digital systems (state-space representation) using a bounded model checking tool.
+% Function: VERIFY_SS_OBSERVABILITY(system, bmc, realization, xsize)
 %
 % Where
 %   system: represents a struct with digital system represented in state-space;

@@ -1,7 +1,7 @@
 function verify_ss_quantization_error(system, bmc, realization, xsize, error, varargin)
 %
-% Function: VERIFY_SS_QUANTIZATION_ERROR(system, bmc, realization, xsize, error)
 % Checks quantization error property violation for digital systems (state-space representation) using a bounded model checking tool.
+% Function: VERIFY_SS_QUANTIZATION_ERROR(system, bmc, realization, xsize, error)
 %
 % Where
 %   system: represents a struct with digital system represented in state-space;

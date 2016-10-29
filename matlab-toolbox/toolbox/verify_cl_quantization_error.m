@@ -1,7 +1,7 @@
 function verify_cl_quantization_error(system, bmc, realization, xsize, c_mode, error, varargin)
 %
-% Function: VERIFY_CL_QUANTIZATION_ERROR(system, bmc, realization, xsize, c_mode, error)
 % Checks quantization error property violation for closed-loop digital systems using a bounded model checking tool.
+% Function: VERIFY_CL_QUANTIZATION_ERROR(system, bmc, realization, xsize, c_mode, error)
 %
 % Where
 %   system: represents a struct with digital system represented in transfer-function  for closed-loop systems;

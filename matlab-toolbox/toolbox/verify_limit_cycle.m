@@ -1,7 +1,7 @@
 function verify_limit_cycle(system, bmc, realization, xsize, varargin)
 %
-% Function: VERIFY_LIMIT_CYCLE(system, bmc, realization, xsize)
 % Checks limit cycle property violation for digital systems using a bounded model checking tool.
+% Function: VERIFY_LIMIT_CYCLE(system, bmc, realization, xsize)
 %
 % Where
 %   system: represents a struct with digital system represented in transfer-function;

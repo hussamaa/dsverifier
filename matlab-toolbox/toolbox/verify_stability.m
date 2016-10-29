@@ -1,7 +1,7 @@
 function verify_stability(system, bmc, realization, xsize, varargin)
 %
-% Function: VERIFY_STABILITY(system, bmc, realization, xsize)
 % Checks stability property violation for digital systems using a bounded model checking tool.
+% Function: VERIFY_STABILITY(system, bmc, realization, xsize)
 %
 % Where
 %   system: represents a struct with digital system represented in transfer-function;

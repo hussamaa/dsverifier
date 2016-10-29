@@ -1,7 +1,7 @@
 function verify_error(system, bmc, realization, xsize, error, varargin)
 %
-% Function: VERIFY_ERROR(system, bmc, realization, xsize, error)
 % Checks error property violation for digital systems using a bounded model checking tool.
+% Function: VERIFY_ERROR(system, bmc, realization, xsize, error)
 %
 % Where
 %   system: represents a struct with digital system represented in transfer-function;

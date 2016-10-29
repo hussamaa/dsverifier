@@ -1,7 +1,7 @@
 function verify_cl_limit_cycle(system, bmc, realization, xsize, c_mode, varargin)
 %
-% Function: VERIFY_CL_LIMIT_CYCLE(system, bmc, realization, xsize, c_mode)
 % Checks limit cycle property violation for closed-loop digital systems using a bounded model checking tool.
+% Function: VERIFY_CL_LIMIT_CYCLE(system, bmc, realization, xsize, c_mode)
 %
 % Where
 %   system: represents a struct with digital system represented in transfer-function  for closed-loop systems;

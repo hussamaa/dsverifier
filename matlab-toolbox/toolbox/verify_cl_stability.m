@@ -1,7 +1,7 @@
 function verify_cl_stability(system, bmc, realization, xsize, c_mode, varargin)
 %
-% Function: VERIFY_CL_STABILITY(system, bmc, realization, xsize, c_mode)
 % Checks robust stability property violation for closed-loop digital systems using a bounded model checking tool.
+% Function: VERIFY_CL_STABILITY(system, bmc, realization, xsize, c_mode)
 %
 % Where
 %   system: represents a struct with digital system represented in transfer-function for closed-loop systems;
