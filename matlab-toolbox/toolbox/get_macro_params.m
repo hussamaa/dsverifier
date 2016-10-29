@@ -1,7 +1,7 @@
 function extra_param = get_macro_params(n, var, type)
 
 extra_param = '';
-if(strcmp(type,'tf'))
+if(strcmp(type,'tf') || strcmp(type,'ss'))
   nvar = n;
 elseif strcmp(type,'cl')
   nvar= n -1;
