@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="430013941" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="1821990593" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSValidator</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -41,6 +41,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <file>${PROJECT_ROOT}/toolbox</file>
     </fileset.rootdir>
     <fileset.rootfiles>
+      <file>${PROJECT_ROOT}/toolbox/Contents.m</file>
       <file>${PROJECT_ROOT}/toolbox/deltapoly.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_check_limit_cycle.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_check_minimum_phase.m</file>

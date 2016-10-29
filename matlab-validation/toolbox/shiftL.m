@@ -1,8 +1,8 @@
 function [z_out] = shiftL(zIn,z, nZ)
 %
+% Function developed to shift left during the realizations (DFI,DFII and TDFII)
+%
 % Function: [z_out] = shiftL(zIn,z, nZ)
-% 
-% Function developed to support the realizations (DFI,DFII and TDFII)
 %
 % The main objective of this function is flip the vector in the right-left
 % direction and including a value in the end of vector in each interaction of the realization.

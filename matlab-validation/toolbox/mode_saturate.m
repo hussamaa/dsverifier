@@ -1,8 +1,9 @@
 function y = mode_saturate(value, n, l)
 % 
+%  Function to saturate mode for arithmetic overflow
+%
 % y = mode_saturate(value, n)
 %
-%  Function to saturate mode for arithmetic overflow
 %  where,
 %  'value' is number to be converted in case of arithmetic
 %  'n' is integer bits implementation

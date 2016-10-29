@@ -1,8 +1,9 @@
 function y = mode_wrap(value, n, l)
 % 
+%  Function to wrap around mode for arithmetic overflow
+%
 % y = mode_wrap(value, n)
 %
-%  Function to wrap around mode for arithmetic overflow
 %  where,
 %  'value' is number to be converted in case of arithmetic
 %  'n' is integer bits implementation
