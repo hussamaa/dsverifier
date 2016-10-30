@@ -1,11 +1,10 @@
-function verify_ss_quantization_error(system, bmc, realization, xsize, error, varargin)
+function verify_ss_quantization_error(system, realization, xsize, error, varargin)
 %
 % Checks quantization error property violation for digital systems (state-space representation) using a bounded model checking tool.
-% Function: VERIFY_SS_QUANTIZATION_ERROR(system, bmc, realization, xsize, error)
+% Function: VERIFY_SS_QUANTIZATION_ERROR(system, realization, xsize, error)
 %
 % Where
 %   system: represents a struct with digital system represented in state-space;
-%   bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
 %   realization: set the realization for the Digital-System (DFI, DFII, TDFII, DDFI, DDFII, and TDDFII);
 %   xsize:  set the bound of verification.
 %   error: set the error limits
@@ -22,9 +21,10 @@ function verify_ss_quantization_error(system, bmc, realization, xsize, error, va
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% VERIFY_SS_QUANTIZATION_ERROR(system, bmc, realization, xsize, error, solver, ovmode, rmode, emode, timeout)
+% VERIFY_SS_QUANTIZATION_ERROR(system, realization, xsize, error, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
+%  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
 %  solver: use the specified solver in BMC back-end which could be 'Z3', 'boolector', 'yices', 'cvc4', 'minisat';
 %  ovmode: set the overflow mode which could be 'WRAPAROUND' or 'SATURATE';
 %  rmode: set the rounding mode which could be 'ROUNDING', 'FLOOR', or 'CEIL';
@@ -42,7 +42,7 @@ function verify_ss_quantization_error(system, bmc, realization, xsize, error, va
 %  ds.impl.int_bits = ...;
 %  ds.impl.frac_bits = ...;
 %
-%  VERIFY_SS_QUANTIZATION_ERROR(ds,'CBMC','DFI',10,0.18);
+%  VERIFY_SS_QUANTIZATION_ERROR(ds,'DFI',10,0.18,'CBMC');
 %  VERIFICATION SUCCESSFUL!
 %
 % Author: Lennon Chaves
@@ -59,7 +59,7 @@ property = 'QUANTISATION_ERROR';
 
 extra_param = get_macro_params(nargin-1,varargin,'ss');
 
-command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc extra_param];
+command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) extra_param];
 dsv_verification(command_line,'ss');
 %report the verification
 output = dsv_report('output.out','ss');
