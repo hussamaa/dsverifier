@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="33224463" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="1865506554" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSVerifier</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -71,7 +71,18 @@
       <file>${PROJECT_ROOT}/toolbox/verify_timing.m</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
-    <fileset.depfun.excluded />
+    <fileset.depfun.excluded>
+      <file>${PROJECT_ROOT}/input.c</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/dsv_parser.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/dsv_report.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/dsv_setup.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/dsv_verification.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/gen_counterexample.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/get_macro_params.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/matrix2string.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/poly2strc.m</file>
+      <file>${MATLAB_ROOT}/toolbox/local/userpath.m</file>
+    </fileset.depfun.excluded>
     <fileset.package />
     <build-deliverables>
       <file location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox" name="DSVerifier.mltbx" optional="false">/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox/DSVerifier.mltbx</file>
