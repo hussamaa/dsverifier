@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="2684205949" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="1884417392" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-toolbox" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSVerifier</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
