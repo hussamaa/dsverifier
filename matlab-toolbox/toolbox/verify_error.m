@@ -54,7 +54,7 @@ global property;
 %setting the DSVERIFIER_HOME
 dsv_setup();
 %translate to ANSI-C file
-dsv_parser(system,'tf', error);
+dsv_parser(system,'tf', error,realization);
 %verifying using DSVerifier command-line
 property = 'ERROR';
 

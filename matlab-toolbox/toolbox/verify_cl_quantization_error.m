@@ -60,7 +60,7 @@ global property;
 dsv_setup();
 
 %translate to ANSI-C file
-dsv_parser(system,'cl', error);
+dsv_parser(system,'cl', error,realization);
 
 %verifying using DSVerifier command-line
 property = 'QUANTIZATION_ERROR_CLOSED_LOOP';

@@ -59,7 +59,7 @@ global property;
 dsv_setup();
 
 %translate to ANSI-C file
-dsv_parser(system,'cl',0);
+dsv_parser(system,'cl',0,realization);
 
 %verifying using DSVerifier command-line
 property = 'LIMIT_CYCLE_CLOSED_LOOP';

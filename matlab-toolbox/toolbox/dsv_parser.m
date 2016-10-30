@@ -1,12 +1,13 @@
-function dsv_parser(ds, type, error)
+function dsv_parser(ds, type, error, realization)
 % Reads the system in struct form and translate to a ANSI-C file
 %
-% Function: DSV_PARSER(ds, type, error)
+% Function: DSV_PARSER(ds, type, error, delta)
 %
 %  ds: digital system
 %  type: 'ss' for state-space, 'tf' for transfer function and 'cl' for
 %  closed-loop systems
 %  error: error for quantization error verification
+%  delta: delta form realization flag
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
@@ -14,6 +15,12 @@ function dsv_parser(ds, type, error)
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+if strcmp(realization,'DDFI') || strcmp(realization,'DDFII') || strcmp(realization,'TDDFII')
+delta = ds.delta;
+else
+delta = 0;
+end
+
 if strcmp(type, 'tf')
 a = cell2mat(ds.system.Denominator);
 nA = length(a);
@@ -24,7 +31,6 @@ frac_bits = ds.impl.frac_bits;
 int_bits = ds.impl.int_bits;
 max_range = ds.range.max;
 min_range = ds.range.min;
-delta = ds.delta;
 
 fid = fopen('input.c', 'wt' );
 fprintf(fid,'%s\n\n', '#include <dsverifier.h>');
@@ -63,7 +69,6 @@ frac_bits = ds.impl.frac_bits;
 int_bits = ds.impl.int_bits;
 max_range = ds.range.max;
 min_range = ds.range.min;
-delta = ds.delta;
 
 fid = fopen('input.c', 'wt' );
 fprintf(fid,'%s\n\n', '#include <dsverifier.h>');

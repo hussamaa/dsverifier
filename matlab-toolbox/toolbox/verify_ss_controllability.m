@@ -52,7 +52,7 @@ global property;
 %setting the DSVERIFIER_HOME
 dsv_setup();
 %translate to ANSI-C file
-dsv_parser(system,'ss',0);
+dsv_parser(system,'ss',0,realization);
 %verifying using DSVerifier command-line
 property = 'CONTROLLABILITY';
 
