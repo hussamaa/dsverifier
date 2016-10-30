@@ -19,7 +19,10 @@ sh = 'sh';
 cp = 'cp';
 
 current =  pwd;
-cd ~/Documents/MATLAB/Add-Ons/Toolboxes/DSValidator/code
+
+user = userpath;
+install_folder = [user '/Add-Ons/Toolboxes/DSValidator/code'];
+cd(install_folder);
 
 %extraction of parameters
 
