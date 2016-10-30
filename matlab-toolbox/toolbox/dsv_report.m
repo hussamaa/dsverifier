@@ -15,17 +15,19 @@ function output = dsv_report(output, representation)
 global property;
 fid = fopen(output);
 tline = fgetl(fid);
-
+output = '';
 while ischar(tline)
 if strcmp(strtrim(tline),'VERIFICATION SUCCESSFUL')
     output = 'VERIFICATION SUCCESSFUL';
 elseif strcmp(strtrim(tline),'VERIFICATION FAILED')
     output = 'VERIFICATION FAILED';
-else
-    output = 'VERIFICATION ERROR';
 end
 
 tline = fgetl(fid);
+end
+
+if strcmp(output,'')
+   output = 'VERIFICATION ERROR';
 end
 
 is_closed_loop = 0;
@@ -43,7 +45,9 @@ if (is_closed_loop == 0) && (is_state_space == 0)
     
 if strcmp(output,'VERIFICATION FAILED')
     home = pwd;
-    cd ~/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code
+    user = userpath;
+    install_folder = [user '/Add-Ons/Toolboxes/DSVerifier/code'];
+    cd(install_folder);
     sh = 'sh';
     directory = home;
 

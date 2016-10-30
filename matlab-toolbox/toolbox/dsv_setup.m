@@ -10,7 +10,11 @@ function dsv_setup()
 
 home = pwd;
 
-cd ~/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code
+user = userpath;
+
+install_folder = [user '/Add-Ons/Toolboxes/DSVerifier/code'];
+
+cd(install_folder);
 
 current = pwd;
 
