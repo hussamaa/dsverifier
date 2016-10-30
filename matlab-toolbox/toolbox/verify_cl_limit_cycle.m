@@ -1,11 +1,10 @@
-function verify_cl_limit_cycle(system, bmc, realization, xsize, c_mode, varargin)
+function verify_cl_limit_cycle(system, realization, xsize, c_mode, varargin)
 %
 % Checks limit cycle property violation for closed-loop digital systems using a bounded model checking tool.
-% Function: VERIFY_CL_LIMIT_CYCLE(system, bmc, realization, xsize, c_mode)
+% Function: VERIFY_CL_LIMIT_CYCLE(system, realization, xsize, c_mode)
 %
 % Where
 %   system: represents a struct with digital system represented in transfer-function  for closed-loop systems;
-%   bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
 %   realization: set the realization for the Digital-System (DFI, DFII, TDFII, DDFI, DDFII, and TDDFII);
 %   xsize:  set the bound of verification;
 %   c_mode: set the connection mode for the closed-loop system (SERIES or FEEDBACK);
@@ -24,9 +23,10 @@ function verify_cl_limit_cycle(system, bmc, realization, xsize, c_mode, varargin
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% VERIFY_CL_LIMIT_CYCLE(system, bmc, realization, xsize, solver, ovmode, rmode, emode, timeout)
+% VERIFY_CL_LIMIT_CYCLE(system, realization, xsize, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
+%  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
 %  solver: use the specified solver in BMC back-end which could be 'Z3', 'boolector', 'yices', 'cvc4', 'minisat';
 %  ovmode: set the overflow mode which could be 'WRAPAROUND' or 'SATURATE';
 %  rmode: set the rounding mode which could be 'ROUNDING', 'FLOOR', or 'CEIL';
@@ -46,7 +46,7 @@ function verify_cl_limit_cycle(system, bmc, realization, xsize, c_mode, varargin
 %  ds.range.min = -...;
 %  ds.delta = ...;
 %
-%  VERIFY_CL_LIMIT_CYCLE(ds,'CBMC','DFI',10, 0.18);
+%  VERIFY_CL_LIMIT_CYCLE(ds,'DFI',10, 'CBMC');
 %  VERIFICATION FAILED!
 %
 % Author: Lennon Chaves
@@ -66,7 +66,7 @@ property = 'LIMIT_CYCLE_CLOSED_LOOP';
 
 extra_param = get_macro_params(nargin,varargin,'cl');
 
-command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --bmc ' bmc ' --connection-mode ' c_mode extra_param];
+command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) ' --connection-mode ' c_mode extra_param];
 dsv_verification(command_line,'cl');
 
 %report the verification
