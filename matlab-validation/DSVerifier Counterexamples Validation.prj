@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="1821990593" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="150280962" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSValidator</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -53,6 +53,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <file>${PROJECT_ROOT}/toolbox/dsv_extraction.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_parser.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_report.m</file>
+      <file>${PROJECT_ROOT}/toolbox/dsv_reproduce_limit_cycle.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_simulation.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_tdf2.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_validation.m</file>
@@ -74,7 +75,9 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <file>${PROJECT_ROOT}/toolbox/shiftR.m</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
-    <fileset.depfun.excluded />
+    <fileset.depfun.excluded>
+      <file>${MATLAB_ROOT}/toolbox/local/userpath.m</file>
+    </fileset.depfun.excluded>
     <fileset.package />
     <build-deliverables>
       <file location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSValidator.mltbx" optional="false">/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSValidator.mltbx</file>
