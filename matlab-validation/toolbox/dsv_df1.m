@@ -79,6 +79,8 @@ for i=1:x_size
     y(i) = mode_wrap(sum, system.impl.int_bits, system.impl.frac_bits);
     elseif (strcmp(overflow_mode,'saturate'))
     y(i) = mode_saturate(sum, system.impl.int_bits, system.impl.frac_bits);
+    else
+    y(i) = sum;
     end
     
     y_aux = shiftL(y(i), y_aux, Na);

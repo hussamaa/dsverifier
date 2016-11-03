@@ -85,6 +85,8 @@ for i=1:x_size
     y(i) = mode_wrap(yout, system.impl.int_bits, system.impl.frac_bits);
     elseif (strcmp(overflow_mode,'saturate'))
     y(i) = mode_saturate(yout, system.impl.int_bits, system.impl.frac_bits);
+    else
+    y(i) = yout;
     end
     w_aux = w;
     

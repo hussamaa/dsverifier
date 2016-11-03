@@ -21,11 +21,7 @@ cp = 'cp';
 current =  pwd;
 
 user = userpath;
-if strfind(user,'/Documents/MATLAB') %default folder installation
-    install_folder = [user '/Add-Ons/Toolboxes/DSVerifier/code'];
-else
-    install_folder = [user '/Toolboxes/DSVerifier/code'];
-end
+install_folder = [user '/Add-Ons/Toolboxes/DSValidator/code'];
 cd(install_folder);
 
 %extraction of parameters
