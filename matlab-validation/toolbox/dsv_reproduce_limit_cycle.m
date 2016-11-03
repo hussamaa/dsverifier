@@ -1,11 +1,11 @@
-function [output_validation, output_overflow_mode] = dsv_reproduce_limit_cycle(system, ovmode)
+function output = dsv_reproduce_limit_cycle(system, ovmode)
 %
 % Script developed to reproduce the limit cycle counterexamples using DFI,
 % DFII and TDFII realizations, that considers the overflow mode effects.
 %
 % Give the system as a struct with all parameters of counterexample and the automated validation will simulate the system.
 % 
-% Function: [output_validation, output_overflow_mode] = dsv_check_limit_cycle(system, ovmode)
+% Function: output = dsv_check_limit_cycle(system, ovmode)
 %
 % The struct 'system' should have the following features:
 % system.sys.a = denominator;
@@ -23,8 +23,7 @@ function [output_validation, output_overflow_mode] = dsv_reproduce_limit_cycle(s
 %
 % And ovmode is the overflow mode, and it could be: 'wrap' or 'saturate';
 %
-% The outputs are the result from simulation considering the overflow mode
-% effects.
+% The output is a struct with the results considering the overflow mode effects.
 %
 % Lennon Chaves
 % November 1, 2016
@@ -57,4 +56,9 @@ end
  disp(output_validation);
  disp('Output according to Overflow Mode:');
  disp(output_overflow_mode);
+ 
+ output.output_validation = output_validation;
+ output.output_overflow_mode = output_overflow_mode;
+ output.overflow_mode = overflow_mode;
+ 
 end
