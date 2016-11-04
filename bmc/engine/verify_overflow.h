@@ -22,8 +22,8 @@ extern implementation impl;
 
 int verify_overflow(void) {
 
-	/* enable overflow detection */
-	overflow_mode = DETECT_OVERFLOW;
+	/* enable overflow saturate (nodes) */
+	overflow_mode = SATURATE;
 
 	/* check the realization */
 	#if	((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
@@ -173,7 +173,8 @@ int verify_overflow(void) {
 		#endif
 
 	}
-
+	/* enable detect overflow (in outputs) */
+	overflow_mode = DETECT_OVERFLOW;
 	fxp_verify_overflow_array(y, X_SIZE_VALUE);
 
 	return 0;
