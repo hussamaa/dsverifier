@@ -1,31 +1,28 @@
-function num_quantized = fxp_quantize (num, wl)
+function num_quantized = fxp_quantize (value, k, l)
 % 
-% Function to perform a fixed point quantization function.
+% Function to perform a fixed point quantization.
 %
-% Function: [fxp_quantitized]=fxp_quantize(num , wl)
+% Function: [num_quantized] = fxp_quantize(value, k, l)
 % 
 % where:
-% num is a input value to be quantized
-% wl is fractional word lenght
+% value is a input value to be quantized
+% k is integer bits lenght
+% l is fractional bits lenght
 %
-% return the parameter 'num' quantized according to word length and
-% implementation values.
+% return the parameter 'value' quantized according to implementation values and overflow mode.
 %
 % Lennon Chaves
-% October 09, 2016
+% November 04, 2016
 % Manaus, Brazil
 
-global round_mode;
+global overflow_mode;
 
-a = double(num);
-l = double(wl);
-
-if (strcmp(round_mode,'round'))
-num_quantized =(2^(-1*l))*round(a*(2^l));
-elseif (strcmp(round_mode,'floor'))
-num_quantized =(2^(-1*l))*floor(a*(2^l));
+if (strcmp(overflow_mode,'wrap'))
+ num_quantized = mode_wrap(value, k, l);
+elseif (strcmp(overflow_mode,'saturate'))
+ num_quantized = mode_saturate(value, k, l);
 else
-    num_quantized =(2^(-1*l))*(a*(2^l));
+ num_quantized = value;
 end
 
 end
