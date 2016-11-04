@@ -1,6 +1,6 @@
 function [output, time_execution] = simulate_limit_cycle(system)
 %
-% Script developed to reproduce the limit cycle counterexamples using DFI, DFII and TDFII realizations.
+% Script developed to simulate the limit cycle counterexamples using DFI, DFII and TDFII realizations.
 %
 % Give the system as a struct with all parameters of counterexample and
 % simulate the system.

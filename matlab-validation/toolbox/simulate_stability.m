@@ -1,6 +1,6 @@
 function [output, time_execution] = simulate_stability(system)
 %
-% Script developed to reproduce the stability property in counterexamples
+% Script developed to simulate the stability property in counterexamples
 %
 % Give the system as a struct with all parameters of counterexample and matlab will check stability property for delta and direct forms.
 % 
@@ -32,13 +32,13 @@ tic
 
 if (system.impl.delta ~= 0)
 [Da, Db] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
-fxp_a = fxp_quantize(Da, system.impl.frac_bits);
-fxp_b = fxp_quantize(Db, system.impl.frac_bits);
+fxp_a = fxp_rounding(Da, system.impl.frac_bits);
+fxp_b = fxp_rounding(Db, system.impl.frac_bits);
 rootsb = roots(fxp_b);
 rootsa = roots(fxp_a);
 else 
-fxp_a = fxp_quantize(system.sys.a, system.impl.frac_bits);
-fxp_b = fxp_quantize(system.sys.b, system.impl.frac_bits);
+fxp_a = fxp_rounding(system.sys.a, system.impl.frac_bits);
+fxp_b = fxp_rounding(system.sys.b, system.impl.frac_bits);
 rootsb = roots(fxp_b);
 rootsa = roots(fxp_a);
 end

@@ -1,6 +1,6 @@
 function [output, time_execution] = simulate_overflow(system)
 %
-% Script developed to reproduce the overflow property in counterexamples
+% Script developed to simulate the overflow property in counterexamples
 %
 % Give the system as a struct with all parameters of counterexample and matlab will check overflow property for direct and delta forms.
 % 
