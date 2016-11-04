@@ -21,7 +21,7 @@ function dsv_validation(path, property, ovmode, rmode, filename)
 %     'wrap' for wrap around overflow
 %     By default, the value is 'wrap'.
 %
-% rmode is the rounded mode. The values could be:
+% rmode is the rounding mode. The values could be:
 %     'round' to use round as rounded mode
 %     'floor' to use floor as rounded mode
 %      By default, the value is 'round'
