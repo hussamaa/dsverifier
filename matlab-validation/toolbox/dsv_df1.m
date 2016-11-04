@@ -62,26 +62,20 @@ for i=1:x_size
     b_ptr = b_fxp;
     
     x_aux = shiftL(x(i), x_aux, Nb);
-	y_ptr = fliplr(y_aux);
-	x_ptr = fliplr(x_aux);
+    y_ptr = fliplr(y_aux);
+    x_ptr = fliplr(x_aux);
     
     for j=1:Nb
-		sum = fxp_add(sum, fxp_mult(b_ptr(j), x_ptr(j), wl), wl);
+	sum = fxp_add(sum, fxp_mult(b_ptr(j), x_ptr(j), wl), wl);
     end
     
     for k=2:Na
-		sum = fxp_sub(sum, fxp_mult(a_ptr(k), y_ptr(k-1),wl),wl);
+	sum = fxp_sub(sum, fxp_mult(a_ptr(k), y_ptr(k-1),wl),wl);
     end
     
     sum = fxp_div(sum,a_fxp(1),wl);
-    
-    if (strcmp(overflow_mode,'wrap'))
-    y(i) = mode_wrap(sum, system.impl.int_bits, system.impl.frac_bits);
-    elseif (strcmp(overflow_mode,'saturate'))
-    y(i) = mode_saturate(sum, system.impl.int_bits, system.impl.frac_bits);
-    else
-    y(i) = sum;
-    end
+
+    y(i) = fxp_quantize(sum, system.impl.int_bits, system.impl.frac_bits);
     
     y_aux = shiftL(y(i), y_aux, Na);
 

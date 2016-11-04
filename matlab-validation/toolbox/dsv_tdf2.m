@@ -73,22 +73,17 @@ for i=1:x_size
     for j=1:(Nw-1)
 		w(j) = w(j+1);
         if (j < Na)
-			w(j) = fxp_sub(w(j), fxp_mult(a_ptr(j+1), yout, wl), wl);
+		w(j) = fxp_sub(w(j), fxp_mult(a_ptr(j+1), yout, wl), wl);
         end
         
         if (j < Nb)
-			w(j) = fxp_add(w(j), fxp_mult(b_ptr(j+1), x(i), wl), wl);
+		w(j) = fxp_add(w(j), fxp_mult(b_ptr(j+1), x(i), wl), wl);
         end
     end
     
-    if (strcmp(overflow_mode,'wrap'))
-    y(i) = mode_wrap(yout, system.impl.int_bits, system.impl.frac_bits);
-    elseif (strcmp(overflow_mode,'saturate'))
-    y(i) = mode_saturate(yout, system.impl.int_bits, system.impl.frac_bits);
-    else
-    y(i) = yout;
-    end
-    w_aux = w;
+    y(i) = fxp_quantize(yout, system.impl.int_bits, system.impl.frac_bits);
+    
+w_aux = w;
     
 end
 
