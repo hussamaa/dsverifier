@@ -29,7 +29,7 @@ function [y, time_execution] = dsv_df2(system)
 
 tic
 
-global overflow_mode;
+global property;
 
 wl = system.impl.frac_bits;
 
@@ -54,7 +54,9 @@ else
     Nw = Nb;
 end
 
+if (strcmp(property,'limit_cycle'))
 w_aux = system.inputs.initial_states;
+end
 
 x =  system.inputs.const_inputs;
 y =  zeros(1,x_size);

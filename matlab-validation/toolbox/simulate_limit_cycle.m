@@ -29,6 +29,10 @@ function [output, time_execution] = simulate_limit_cycle(system)
 % November 04, 2016
 % Manaus, Brazil
 
+global property;
+
+property = 'limit_cycle';
+
     if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
         [output, time_execution] = dsv_df1(system);
     elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realization_form,'DDFII')

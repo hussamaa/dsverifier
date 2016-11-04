@@ -36,6 +36,10 @@ function [output, time_execution] = dsv_simulation(system,p)
     	  [output, time_execution]  = simulate_minimum_phase(system);
 	case 'o' 
     	  [output, time_execution]  = simulate_overflow(system);
+	case 'e' 
+    	  [output, time_execution]  = simulate_error(system);
+	case 'scl' 
+    	  [output, time_execution]  = simulate_stability_closed_loop(system);
 	otherwise
            warning('Unexpected property or error during the automatic validation.')
   end
