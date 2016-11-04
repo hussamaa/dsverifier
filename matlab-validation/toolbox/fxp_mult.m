@@ -15,9 +15,9 @@ function fxp_num = fxp_mult(amult, bmult, wl)
 % October 09, 2016
 % Manaus, Brazil
 
-fxp_amult= fxp_quantize(amult,wl);
-fxp_bmult= fxp_quantize(bmult,wl);
+fxp_amult= fxp_rounding(amult,wl);
+fxp_bmult= fxp_rounding(bmult,wl);
 
-fxp_num = fxp_quantize(fxp_amult*fxp_bmult, wl);
+fxp_num = fxp_rounding(fxp_amult*fxp_bmult, wl);
 
 end

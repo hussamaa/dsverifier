@@ -15,9 +15,9 @@ function fxp_num = fxp_sub(asub, bsub, wl)
 % October 09, 2016
 % Manaus, Brazil
 
-fxp_asub= fxp_quantize(asub,wl);
-fxp_bsub= fxp_quantize(bsub,wl);
+fxp_asub= fxp_rounding(asub,wl);
+fxp_bsub= fxp_rounding(bsub,wl);
 
-fxp_num = fxp_quantize(fxp_asub - fxp_bsub, wl);
+fxp_num = fxp_rounding(fxp_asub - fxp_bsub, wl);
 
 end

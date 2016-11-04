@@ -15,9 +15,9 @@ function fxp_num = fxp_add(aadd, badd, wl)
 % October 09, 2016
 % Manaus, Brazil
 
-fxp_aadd= fxp_quantize(aadd,wl);
-fxp_badd= fxp_quantize(badd,wl);
+fxp_aadd= fxp_rounding(aadd,wl);
+fxp_badd= fxp_rounding(badd,wl);
 
-fxp_num = fxp_quantize(fxp_aadd + fxp_badd, wl);
+fxp_num = fxp_rounding(fxp_aadd + fxp_badd, wl);
 
 end

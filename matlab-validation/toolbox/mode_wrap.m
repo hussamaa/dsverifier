@@ -33,6 +33,6 @@ y = kLowerBound + mod((kX - kLowerBound),range_size);
 
 end
 
-y = fxp_quantize(y,l);
+y = fxp_rounding(y,l);
 
 end

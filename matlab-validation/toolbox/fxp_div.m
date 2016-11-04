@@ -15,9 +15,9 @@ function fxp_num = fxp_div(adiv,bdiv, wl)
 % October 09, 2016
 % Manaus, Brazil
 
-fxp_adiv= fxp_quantize(adiv,wl);
-fxp_bdiv= fxp_quantize(bdiv,wl);
+fxp_adiv= fxp_rounding(adiv,wl);
+fxp_bdiv= fxp_rounding(bdiv,wl);
 
-fxp_num = fxp_quantize(fxp_adiv/fxp_bdiv, wl);
+fxp_num = fxp_rounding(fxp_adiv/fxp_bdiv, wl);
 
 end

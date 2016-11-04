@@ -40,8 +40,8 @@ a_num = system.sys.a;
 b_num = system.sys.b;
 end
 
-a_fxp = fxp_quantize(a_num,wl);
-b_fxp = fxp_quantize(b_num,wl);
+a_fxp = fxp_rounding(a_num,wl);
+b_fxp = fxp_rounding(b_num,wl);
 
 x_size = system.impl.x_size;
 
