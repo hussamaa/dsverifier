@@ -24,18 +24,18 @@ function [output, time_execution] = dsv_simulation(system,p)
 % The time execution is the time to execute the simulation;
 %
 % Lennon Chaves
-% October 09, 2016
+% November 04, 2016
 % Manaus, Brazil
 
   switch p
 	case 'lc' 
-    	  [output, time_execution]  = dsv_check_limit_cycle(system);
+    	  [output, time_execution]  = simulate_limit_cycle(system);
 	case 's' 
-    	  [output, time_execution]  = dsv_check_stability(system);
+    	  [output, time_execution]  = simulate_stability(system);
 	case 'm' 
-    	  [output, time_execution]  = dsv_check_minimum_phase(system);
+    	  [output, time_execution]  = simulate_minimum_phase(system);
 	case 'o' 
-    	  [output, time_execution]  = dsv_check_overflow(system);
+    	  [output, time_execution]  = simulate_overflow(system);
 	otherwise
            warning('Unexpected property or error during the automatic validation.')
   end

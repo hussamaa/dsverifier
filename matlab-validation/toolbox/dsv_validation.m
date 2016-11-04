@@ -34,7 +34,7 @@ function dsv_validation(path, property, ovmode, rmode, filename)
 %  dsv_validation('/home/user/log/limit_cycle/','lc','saturate','floor','ds_limit');
 %
 % Lennon Chaves
-% October 09, 2016
+% November 04, 2016
 % Manaus, Brazil
 
 global overflow_mode;
