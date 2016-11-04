@@ -54,12 +54,12 @@ fxp_t fxp_direct_form_1(fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], int Na,	int 
 		sum = fxp_add(sum, fxp_mult(*b_ptr++, *x_ptr--));
 	}
 	sum = saturate_node(sum);
-	refresh_overflow_mode();
 
 	for (j = 1; j < Na; j++) {
 		sum = fxp_sub(sum, fxp_mult(*a_ptr++, *y_ptr--));
 	}
 	sum = fxp_div(sum,a[0]);
+	refresh_overflow_mode();
 	return fxp_quantize(sum);
 }
 
@@ -78,12 +78,13 @@ fxp_t fxp_direct_form_2(fxp_t w[], fxp_t x, fxp_t a[], fxp_t b[], int Na,	int Nb
 	w[0] = fxp_div(w[0], a[0]);
 	
 	w[0] = saturate_node(w[0]);
-	refresh_overflow_mode();
 
 	w_ptr = &w[0];
 	for (k = 0; k < Nb; k++) {
 		sum = fxp_add(sum, fxp_mult(*b_ptr++, *w_ptr++));
 	}
+
+	refresh_overflow_mode();
 	return fxp_quantize(sum);
 }
 

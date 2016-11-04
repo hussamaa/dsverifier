@@ -303,6 +303,7 @@ void fxp_to_double_array(double f[], fxp_t r[], int N) {
 fxp_t fxp_abs(fxp_t a) {
 	fxp_t tmp;
 	tmp = ((a < 0) ? -(fxp_t)(a) : a);
+	tmp = fxp_quantize(tmp);
 	return tmp;
 }
 
@@ -315,6 +316,7 @@ fxp_t fxp_abs(fxp_t a) {
 fxp_t fxp_add(fxp_t aadd, fxp_t badd) {
 	fxp_t tmpadd;
 	tmpadd = ((fxp_t)(aadd) + (fxp_t)(badd));
+	tmpadd = fxp_quantize(tmpadd);
 	return tmpadd;
 }
 
@@ -327,6 +329,7 @@ fxp_t fxp_add(fxp_t aadd, fxp_t badd) {
 fxp_t fxp_sub(fxp_t asub, fxp_t bsub) {
 	fxp_t tmpsub;
 	tmpsub = (fxp_t)((fxp_t)(asub) - (fxp_t)(bsub));
+	tmpsub = fxp_quantize(tmpsub);
 	return tmpsub;
 }
 
@@ -344,6 +347,7 @@ fxp_t fxp_mult(fxp_t amult, fxp_t bmult) {
 	} else {
 		tmpmultprec = -(((-tmpmult) + (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits);
 	}
+	tmpmultprec = fxp_quantize(tmpmultprec);
 	return tmpmultprec;
 }
 
@@ -356,6 +360,7 @@ fxp_t fxp_mult(fxp_t amult, fxp_t bmult) {
  */
 fxp_t fxp_div(fxp_t a, fxp_t b){
 	fxp_t tmpdiv = ((a << impl.frac_bits) / b);
+	tmpdiv = fxp_quantize(tmpdiv);
 	return tmpdiv;
 }
 
@@ -367,6 +372,7 @@ fxp_t fxp_div(fxp_t a, fxp_t b){
 fxp_t fxp_neg(fxp_t aneg) {
 	fxp_t tmpneg;
 	tmpneg = -(fxp_t)(aneg);
+	tmpneg = fxp_quantize(tmpneg);
 	return tmpneg;
 }
 
