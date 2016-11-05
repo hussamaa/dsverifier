@@ -47,6 +47,30 @@ end
         output = 'Failed';
     end
 
+elseif (strcmp(p,'o'))
+n = system.impl.int_bits;
+l = system.impl.frac_bits;
+
+min_wl = -1*((2^(n-1)));
+max_wl = ((2^(n-1))-2^(-1*l));
+y = system.output.output_simulation;
+result = 0;
+
+for i=1:system.impl.x_size
+
+if (y(i) >= max_wl || y(i) <= min_wl)
+        result=1;
+        break;
+end
+
+end
+
+if result == 1
+  output = 'Successful';
+else
+  output = 'Failed';
+end
+
 else
 
  if (strcmp(lower(strtrim(system.output.output_verification)),lower(strtrim(system.output.output_simulation))))

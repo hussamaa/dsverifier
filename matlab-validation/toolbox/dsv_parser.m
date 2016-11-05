@@ -78,11 +78,11 @@ while ischar(tline)
       system(i).impl.delta = 0;
       end
       system(i).impl.realization_form = strtrim(realization);
-      if(strcmp(p,'o'))
-          system(i).output.output_verification = 'Failed';
-      else
+      %if(strcmp(p,'o'))
+      %    system(i).output.output_verification = 'Failed';
+      %else
           system(i).output.output_verification = outputs;
-      end
+      %end
       if length(initial_states) > 0
       system(i).inputs.initial_states = initial_states;
       end
