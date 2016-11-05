@@ -14,28 +14,25 @@ function plot_overflow(system)
 a = system.sys.a;
 b = system.sys.b;
 
-u = system.inputs.const_inputs;
 delta = system.impl.delta;
+
 l = system.impl.frac_bits;
 n = system.impl.int_bits - 1;
 
-if delta > 0
-    [at,bt]=deltapoly(b,a,delta);
+if (delta > 0)
+[a_num, b_num] = deltapoly(b, a, delta);
 else
-    at=a;
-    bt=b;
+a_num = a;
+b_num = b;
 end
 
-for i=1:length(at)
-at(i) = mode_saturate(at(i),n+1,l);
-end
-for i=1:length(bt)
-bt(i) = mode_saturate(bt(i),n+1,l);
-end
+a_fxp = fxp_rounding(a_num,l);
+b_fxp = fxp_rounding(b_num,l);
 
-uf=u;
+uf =  system.inputs.const_inputs;
 
-y=dlsim(bt,at,uf);
+y = dlsim(b_fxp,a_fxp,uf);
+
 min = -1*((2^n));
 max = ((2^n)-2^(-1*l));
 

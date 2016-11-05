@@ -30,48 +30,33 @@ function [output, time_execution] = simulate_overflow(system)
 
 tic
 
-a = system.sys.a;
-b = system.sys.b;
-u = system.inputs.const_inputs;
-delta = system.impl.delta;
-l = system.impl.frac_bits;
-n = system.impl.int_bits - 1;
+global property;
+global overflow_mode;
+global round_mode;
 
-if delta > 0
-    [at,bt]=deltapoly(b,a,delta);
+property = 'overflow';
+overflow_mode = 'saturate';
+round_mode = 'double';
+
+wl = system.impl.frac_bits;
+
+if (system.impl.delta > 0)
+[a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
 else
-    at=a;
-    bt=b;
-end
-for i=1:length(at)
-at(i) = mode_saturate(at(i),n+1,l);
-end
-for i=1:length(bt)
-bt(i) = mode_saturate(bt(i),n+1,l);
+a_num = system.sys.a;
+b_num = system.sys.b;
 end
 
-uf=u;
+a_fxp = fxp_rounding(a_num,wl);
+b_fxp = fxp_rounding(b_num,wl);
 
-y=dlsim(bt,at,uf);
-min = -1*((2^n));
-max = ((2^n)-2^(-1*l));
+x =  system.inputs.const_inputs;
+y =  zeros(1,system.impl.x_size);
 
-for i=1:length(y)
-    if (y(i)> max) || (y(i)< min)
-        result=1;
-        %'An overflow occurred'
-        break;
-    else
- 	%'There were no overflow');
-        result=0;
-    end
+if strcmp(property,'overflow')
+y = dlsim(b_fxp,a_fxp, x);
 end
 
-if result == 1
-    output = 'Failed';
-else
-    output = 'Successfull';
-end
-
+output = y';
 time_execution = toc;
 end
