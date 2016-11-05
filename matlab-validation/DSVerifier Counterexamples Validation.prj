@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="94537750" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="2370246517" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/matlab-validation" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSValidator</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -41,20 +41,13 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <file>${PROJECT_ROOT}/toolbox</file>
     </fileset.rootdir>
     <fileset.rootfiles>
-      <file>${PROJECT_ROOT}/toolbox/Contents.m</file>
       <file>${PROJECT_ROOT}/toolbox/deltapoly.m</file>
-      <file>${PROJECT_ROOT}/toolbox/dsv_check_limit_cycle.m</file>
-      <file>${PROJECT_ROOT}/toolbox/dsv_check_minimum_phase.m</file>
-      <file>${PROJECT_ROOT}/toolbox/dsv_check_overflow.m</file>
-      <file>${PROJECT_ROOT}/toolbox/dsv_check_stability.m</file>
-      <file>${PROJECT_ROOT}/toolbox/dsv_check_stability_closed_loop.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_comparison.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_df1.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_df2.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_extraction.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_parser.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_report.m</file>
-      <file>${PROJECT_ROOT}/toolbox/dsv_reproduce_outputs.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_simulation.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_tdf2.m</file>
       <file>${PROJECT_ROOT}/toolbox/dsv_validation.m</file>
@@ -65,6 +58,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <file>${PROJECT_ROOT}/toolbox/fxp_div.m</file>
       <file>${PROJECT_ROOT}/toolbox/fxp_mult.m</file>
       <file>${PROJECT_ROOT}/toolbox/fxp_quantize.m</file>
+      <file>${PROJECT_ROOT}/toolbox/fxp_rounding.m</file>
       <file>${PROJECT_ROOT}/toolbox/fxp_sub.m</file>
       <file>${PROJECT_ROOT}/toolbox/logo.png</file>
       <file>${PROJECT_ROOT}/toolbox/mode_saturate.m</file>
@@ -72,8 +66,19 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <file>${PROJECT_ROOT}/toolbox/plot_limit_cycle.m</file>
       <file>${PROJECT_ROOT}/toolbox/plot_overflow.m</file>
       <file>${PROJECT_ROOT}/toolbox/plot_zero_pole.m</file>
+      <file>${PROJECT_ROOT}/toolbox/reproduce_limit_cycle.m</file>
+      <file>${PROJECT_ROOT}/toolbox/reproduce_minimum_phase.m</file>
+      <file>${PROJECT_ROOT}/toolbox/reproduce_outputs.m</file>
+      <file>${PROJECT_ROOT}/toolbox/reproduce_overflow.m</file>
+      <file>${PROJECT_ROOT}/toolbox/reproduce_stability.m</file>
       <file>${PROJECT_ROOT}/toolbox/shiftL.m</file>
       <file>${PROJECT_ROOT}/toolbox/shiftR.m</file>
+      <file>${PROJECT_ROOT}/toolbox/simulate_error.m</file>
+      <file>${PROJECT_ROOT}/toolbox/simulate_limit_cycle.m</file>
+      <file>${PROJECT_ROOT}/toolbox/simulate_minimum_phase.m</file>
+      <file>${PROJECT_ROOT}/toolbox/simulate_overflow.m</file>
+      <file>${PROJECT_ROOT}/toolbox/simulate_stability.m</file>
+      <file>${PROJECT_ROOT}/toolbox/simulate_stability_closed_loop.m</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
     <fileset.depfun.excluded>
