@@ -30,8 +30,10 @@ function [output, time_execution] = simulate_limit_cycle(system)
 % Manaus, Brazil
 
 global property;
+global overflow_mode;
 
 property = 'limit_cycle';
+overflow_mode = 'wrap';
 
     if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
         [output, time_execution] = dsv_df1(system);

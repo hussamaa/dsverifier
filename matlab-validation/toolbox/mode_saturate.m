@@ -16,13 +16,15 @@ function y = mode_saturate(value, n, l)
 
 y = value;
 
-min = -1*(2^(n-1));
-max = (2^(n-1)-2^(-1*l));
+min_length = -1*(2^(n-1));
+max_length = (2^(n-1)-2^(-1*l));
 
-if value > max
-    y = max;
-elseif value < min
-    y = min;
+if value > max_length
+    y = max_length;
+elseif value < min_length
+    y = min_length;
 end
+
+y = fxp_rounding(y,l);
 
 end

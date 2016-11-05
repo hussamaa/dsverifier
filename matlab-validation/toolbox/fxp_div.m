@@ -1,4 +1,4 @@
-function fxp_num = fxp_div(adiv,bdiv, wl)
+function fxp_num = fxp_div(adiv,bdiv,wl)
 % 
 % Function to perform a fixed point division out = a / b
 %
