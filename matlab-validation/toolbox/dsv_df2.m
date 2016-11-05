@@ -61,6 +61,10 @@ end
 x =  system.inputs.const_inputs;
 y =  zeros(1,x_size);
 
+if (strcmp(property,'overflow'))
+w_aux = zeros(1,Nw);
+end
+
 %% DFII Realization
 for i=1:x_size
     w_aux = shiftR(0, w_aux, Nw);
@@ -76,14 +80,19 @@ for i=1:x_size
      
     w_aux(1) = fxp_add(w_aux(1), x(i), wl);
     w_aux(1) = fxp_div(w_aux(1), a_fxp(1), wl);
-  
-	w_ptr = w_aux;
+
+    w_ptr = w_aux;
    
     for j=1:Nb
 	sum = fxp_add(sum, fxp_mult(b_ptr(j), w_ptr(j), wl), wl);
     end
     
     y(i) = fxp_quantize(sum, system.impl.int_bits, system.impl.frac_bits);
+
+end
+
+if strcmp(property,'overflow')
+y = dlsim(b_fxp,a_fxp, x);
 end
 
 time_execution = toc;
