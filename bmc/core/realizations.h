@@ -25,10 +25,6 @@ void refresh_overflow_mode()
    {
      overflow_mode = DETECT_OVERFLOW;
    }
- if ((overflow_mode == SATURATE) && (PROPERTY == LIMIT_CYCLE))
-   {
-     overflow_mode = WRAPAROUND;
-   }
 }
 
 /** direct form I realization in fixed point */
