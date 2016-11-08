@@ -18,26 +18,16 @@ extern digital_system ds;
 extern hardware hw;
 extern int generic_timer;
 
-/*function to saturate node in case of overflow verification*/
-fxp_t saturate_node(fxp_t node){
-
-fxp_t node_saturated = node;
-
- if((overflow_mode == SATURATE)&& (PROPERTY == OVERFLOW))
-   {
-     node_saturated = fxp_quantize(node);
-   }
-
-return node_saturated;
-
-}
-
-/*function to refresh from saturate overflow mode to detect overflow mode, in case of overflow verification*/
+/*function to refresh the overflow mode */
 void refresh_overflow_mode()
 {
  if ((overflow_mode == SATURATE) && (PROPERTY == OVERFLOW))
    {
      overflow_mode = DETECT_OVERFLOW;
+   }
+ if ((overflow_mode == SATURATE) && (PROPERTY == LIMIT_CYCLE))
+   {
+     overflow_mode = WRAPAROUND;
    }
 }
 
@@ -53,7 +43,6 @@ fxp_t fxp_direct_form_1(fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], int Na,	int 
 	for (i = 0; i < Nb; i++) {
 		sum = fxp_add(sum, fxp_mult(*b_ptr++, *x_ptr--));
 	}
-	sum = saturate_node(sum);
 
 	for (j = 1; j < Na; j++) {
 		sum = fxp_sub(sum, fxp_mult(*a_ptr++, *y_ptr--));
@@ -76,8 +65,6 @@ fxp_t fxp_direct_form_2(fxp_t w[], fxp_t x, fxp_t a[], fxp_t b[], int Na,	int Nb
 	}
 	w[0] = fxp_add(w[0], x); //w[0] += x;
 	w[0] = fxp_div(w[0], a[0]);
-	
-	w[0] = saturate_node(w[0]);
 
 	w_ptr = &w[0];
 	for (k = 0; k < Nb; k++) {
@@ -106,9 +93,6 @@ fxp_t fxp_transposed_direct_form_2(fxp_t w[], fxp_t x, fxp_t a[], fxp_t b[], int
 		if (j < Nb - 1) {
 			w[j] = fxp_add(w[j], fxp_mult(*b_ptr++, x));
 		}
-
-	w[j] = saturate_node(w[j]);
-
 	}
 	
 	refresh_overflow_mode();

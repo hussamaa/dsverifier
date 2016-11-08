@@ -110,7 +110,7 @@ int verify_limit_cycle_state_space(void){
 
 int verify_limit_cycle(void){
 
-	overflow_mode = WRAPAROUND;
+	overflow_mode = SATURATE;
 
 	int i;
 	int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;
@@ -276,7 +276,7 @@ int verify_limit_cycle(void){
 	}
 
 	/* check oscillations in produced output */
-	fxp_check_persistent_limit_cycle(y, X_SIZE_VALUE);
+	fxp_check_exhaustively_limit_cycle(y, X_SIZE_VALUE);
 
 	return 0;
 }
