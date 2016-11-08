@@ -69,6 +69,6 @@ int unit_test(){
 		shiftL(y[i], yaux, ds.a_size);
 	}
 
-	fxp_check_exhaustively_limit_cycle(y, x_size);
+	fxp_check_persistent_limit_cycle(y, x_size);
 
 }
