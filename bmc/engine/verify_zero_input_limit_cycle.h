@@ -188,7 +188,7 @@ int verify_zero_input_limit_cycle(void){
 	}
 
 	/* check oscillations in produced output */
-	fxp_check_exhaustively_limit_cycle(y, X_SIZE_VALUE);
+	fxp_check_persistent_limit_cycle(y, X_SIZE_VALUE);
 
 	return 0;
 }
