@@ -197,8 +197,8 @@ void fxp_check_limit_cycle(fxp_t y[], int y_size){
 	__DSVERIFIER_assert(0);
 }
 
-/* verify persistent limit_cycle oscillations in last outputs */
-void fxp_check_persistent_limit_cycle(fxp_t * y, int y_size){
+/* verify exhaustively limit_cycle oscillations in outputs */
+void fxp_check_exhaustively_limit_cycle(fxp_t * y, int y_size){
 
 	/* first element is the reference */
 	int idy = 0;
