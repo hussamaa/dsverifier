@@ -1,11 +1,11 @@
-function output =  reproduce_outputs(system, ovmode)
+function output =  reproduce_outputs(system, proper)
 %
 % Script developed to reproduce the counterexamples using DFI, DFII and TDFII realizations, 
-% that considers the overflow mode effects.
+% that considers the FWL effects.
 %
 % Give the system as a struct with all parameters of counterexample and the function will simulate the system according to overflow mode choosen.
 % 
-% Function: output =  reproduce_outputs(system, ovmode)
+% Function: output =  reproduce_outputs(system, property)
 %
 % The struct 'system' should have the following features:
 % system.sys.a = denominator;
@@ -21,7 +21,7 @@ function output =  reproduce_outputs(system, ovmode)
 % system.impl.sample_time = sample time of realization
 % system.impl.x_size = the bound size
 %
-% And ovmode is the overflow mode, and it could be: 'wrap' or 'saturate';
+% And property is related to overflow or limit cycle.
 %
 % The output is a struct with the results considering the overflow mode effects.
 %
@@ -31,38 +31,43 @@ function output =  reproduce_outputs(system, ovmode)
 
 global overflow_mode;
 global round_mode;
+global property;
 
-overflow_mode = ovmode;
+overflow_mode = 'wrap';
+round_mode = 'round';
+property = proper;
 
-if strcmp(overflow_mode,'')
-    round_mode = '';
-elseif strcmp(overflow_mode,'wrap')
-    round_mode = 'round';
-else
-    round_mode = 'floor';
-end
+if strcmp(property,'limit_cycle')
+ 
+    num = fwl(system.sys.b,system.impl.frac_bits);
+    den = fwl(system.sys.a,system.impl.frac_bits);
+    system.sys.b = num;
+    system.sys.a = den;
 
     if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
-        output_overflow_mode = dsv_df1(system);
-        round_mode = 'round'; overflow_mode = 'wrap';
-        output_validation = dsv_df1(system);
+        output_no_fwl_effects = dsv_df1(system);
     elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realization_form,'DDFII')
-        output_overflow_mode = dsv_df2(system);
-        round_mode = 'round'; overflow_mode = 'wrap';
-        output_validation = dsv_df2(system);
+        output_no_fwl_effects = dsv_df2(system);
     elseif strcmp(system.impl.realization_form,'TDFII') || strcmp(system.impl.realization_form,'TDDFII')
-       output_overflow_mode = dsv_tdf2(system);
-       round_mode = 'round'; overflow_mode = 'wrap';
-        output_validation = dsv_tdf2(system);
+       output_no_fwl_effects = dsv_tdf2(system);
     end
+
+end
+
+if strcmp(property,'overflow')
+num = fwl(system.sys.b,system.impl.frac_bits);
+den = fwl(system.sys.a,system.impl.frac_bits);
+output_no_fwl_effects = dlsim(num, den, system.inputs.const_inputs);
+end 
+
+output_with_fwl_effects = system.output.output_simulation;
+
+ disp('Output Reproduced from Simulation:');   
+ disp(output_with_fwl_effects);
+ disp('Output Reproduced without FWL effects:');
+ disp(output_no_fwl_effects);
  
- disp('Output Reproduced from Validation:');   
- disp(output_validation);
- disp('Output Reproduced from Overflow Mode:');
- disp(output_overflow_mode);
- 
- output.output_validation = output_validation;
- output.output_overflow_mode = output_overflow_mode;
- output.overflow_mode = overflow_mode;
+ output.output_with_fwl_effects = output_with_fwl_effects;
+ output.output_no_fwl_effects = output_no_fwl_effects;
  
 end

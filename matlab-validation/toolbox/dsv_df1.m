@@ -43,6 +43,9 @@ end
 a_fxp = fxp_rounding(a_num,wl);
 b_fxp = fxp_rounding(b_num,wl);
 
+a_fxp = fwl(a_fxp,wl);
+b_fxp = fwl(b_fxp,wl);
+
 
 x_size = system.impl.x_size;
 
