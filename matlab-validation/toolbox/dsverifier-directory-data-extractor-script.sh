@@ -51,6 +51,9 @@ IMPLEMENTATION=$(cat $OUTPUT_FILE | grep " Implementation \=" | cut -d "=" -f2 |
 if [ "$PROPERTY" = " OVERFLOW" ]; then
 NUMERATOR=$(cat $OUTPUT_FILE | grep " Numerator (fixed-point) \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
 DENOMINATOR=$(cat $OUTPUT_FILE | grep " Denominator (fixed-point) \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
+elif [ "$PROPERTY" = " LIMIT_CYCLE" ] && [ "$REALIZATION" = " TDFII" ]; then
+NUMERATOR=$(cat $OUTPUT_FILE | grep " Numerator (fixed-point) \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
+DENOMINATOR=$(cat $OUTPUT_FILE | grep " Denominator (fixed-point) \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
 else
 NUMERATOR=$(cat $OUTPUT_FILE | grep " Numerator  \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');
 DENOMINATOR=$(cat $OUTPUT_FILE | grep " Denominator  \=" | cut -d "=" -f2 | sed 's/}//' | sed 's/{//');

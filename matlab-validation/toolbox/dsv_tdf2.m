@@ -30,6 +30,11 @@ function [y, time_execution] = dsv_tdf2(system)
 tic
 
 global property;
+global overflow_mode;
+global round_mode;
+
+overflow_mode = 'wrap';
+round_mode = 'round';
 
 wl = system.impl.frac_bits;
 

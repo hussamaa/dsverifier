@@ -63,6 +63,7 @@ y_aux = zeros(1,Na);
 x_aux = zeros(1,Nb);
 end
 
+y_aux = fliplr(y_aux);
 %% DFI Realization
 for i=1:x_size
     sum = 0;
@@ -70,8 +71,8 @@ for i=1:x_size
     b_ptr = b_fxp;
     
     x_aux = shiftL(x(i), x_aux, Nb);
-    y_ptr = fliplr(y_aux);
-    x_ptr = fliplr(x_aux);
+    y_ptr = y_aux;
+    x_ptr = x_aux;
     
     for j=1:Nb
 	sum = fxp_add(sum, fxp_mult(b_ptr(j), x_ptr(j), wl), wl);
@@ -88,6 +89,8 @@ for i=1:x_size
     y_aux = shiftL(y(i), y_aux, Na);
 
 end
+
+y = fliplr(y);
 
 if strcmp(property,'overflow')
 y = dlsim(b_fxp,a_fxp, x);

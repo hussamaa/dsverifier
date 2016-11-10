@@ -31,17 +31,9 @@ function [output] = dsv_comparison(system, p)
 
 if (strcmp(p,'lc'))
 
-count = 0;
-max_error = 0.1;
-for i=1:system.impl.x_size
-    fxp_out_ver = abs(system.output.output_verification(i));
-    fxp_out_sim = abs(system.output.output_simulation(i));
-    erro = abs(fxp_out_ver-fxp_out_sim);
-    if erro < max_error
-       count = count + 1;
-    end
-end
-    if count == system.impl.x_size
+count = length(unique(system.output.output_simulation));
+
+    if count <= system.impl.x_size/2
         output = 'Successful';
     else
         output = 'Failed';

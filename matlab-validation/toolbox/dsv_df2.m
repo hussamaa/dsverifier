@@ -30,6 +30,11 @@ function [y, time_execution] = dsv_df2(system)
 tic
 
 global property;
+global overflow_mode;
+global round_mode;
+
+overflow_mode = 'wrap';
+round_mode = 'round';
 
 wl = system.impl.frac_bits;
 
@@ -70,9 +75,9 @@ for i=1:x_size
     w_aux = shiftR(0, w_aux, Nw);
     
     sum = 0;
-	a_ptr = a_fxp;
-	b_ptr = b_fxp;
-	w_ptr = w_aux;
+    a_ptr = a_fxp;
+    b_ptr = b_fxp;
+    w_ptr = w_aux;
     
     for k=2:Na
 	w_aux(1) = fxp_sub(w_aux(1), fxp_mult(a_ptr(k), w_ptr(k), wl),wl);
