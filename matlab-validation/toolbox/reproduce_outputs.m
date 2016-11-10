@@ -39,8 +39,8 @@ property = proper;
 
 if strcmp(property,'limit_cycle')
  
-    num = fwl(system.sys.b,system.impl.frac_bits);
-    den = fwl(system.sys.a,system.impl.frac_bits);
+    num = fwl(system.sys.b,system.impl.frac_bits)
+    den = fwl(system.sys.a,system.impl.frac_bits)
     system.sys.b = num;
     system.sys.a = den;
 
@@ -55,9 +55,12 @@ if strcmp(property,'limit_cycle')
 end
 
 if strcmp(property,'overflow')
-num = fwl(system.sys.b,system.impl.frac_bits);
-den = fwl(system.sys.a,system.impl.frac_bits);
-output_no_fwl_effects = dlsim(num, den, system.inputs.const_inputs);
+overflow_mode = 'saturate';
+round_mode = 'floor';
+num = fxp_rounding(system.sys.b,system.impl.frac_bits);
+den = fxp_rounding(system.sys.a,system.impl.frac_bits);
+
+output_no_fwl_effects = dlsim(num, den, system.inputs.const_inputs)';
 end 
 
 output_with_fwl_effects = system.output.output_simulation;
