@@ -38,7 +38,7 @@
 # --------------------------------------------------
 */
 
-#define DSVERIFIER_VERSION "2.0.1"
+#define DSVERIFIER_VERSION "2.0.2"
 
 #include <iostream>
 #include <stdlib.h>
