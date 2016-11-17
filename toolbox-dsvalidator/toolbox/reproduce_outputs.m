@@ -60,7 +60,20 @@ round_mode = 'floor';
 num = fxp_rounding(system.sys.b,system.impl.frac_bits);
 den = fxp_rounding(system.sys.a,system.impl.frac_bits);
 
+for i=1:length(num)
+num(i) = mode_saturate(num(i),system.impl.int_bits,system.impl.frac_bits);
+end
+
+for i=1:length(den)
+den(i) = mode_saturate(den(i),system.impl.int_bits,system.impl.frac_bits);
+end
+
 output_no_fwl_effects = dlsim(num, den, system.inputs.const_inputs)';
+
+for i=1:length(output_no_fwl_effects)
+y(i) = mode_saturate(output_no_fwl_effects(i),system.impl.int_bits,system.impl.frac_bits);
+end
+output_no_fwl_effects = y;
 end 
 
 output_with_fwl_effects = system.output.output_simulation;
