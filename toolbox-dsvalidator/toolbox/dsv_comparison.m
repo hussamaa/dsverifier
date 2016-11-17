@@ -71,10 +71,10 @@ y = system.output.output_simulation;
 
 if (max_error > 0)
 
-has_error = 1;
+has_error = 0;
 for i=1:length(y)
- if (abs(y(i)) > max_error)
-    has_error = 0;
+ if (y(i) < (-1)*max_error || y(i) > max_error)
+    has_error = 1;
     break;
  end
 end

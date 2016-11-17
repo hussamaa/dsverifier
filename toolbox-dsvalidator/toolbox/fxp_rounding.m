@@ -24,8 +24,10 @@ if (strcmp(round_mode,'round'))
 num_rounded =(2^(-1*l))*round(a*(2^l));
 elseif (strcmp(round_mode,'floor'))
 num_rounded =(2^(-1*l))*floor(a*(2^l));
+elseif (strcmp(round_mode,'double'))
+num_rounded =(2^(-1*l))*double(a*(2^l));
 else
-    num_rounded =(2^(-1*l))*(a*(2^l));
+num_rounded =(2^(-1*l))*(a*(2^l));
 end
 
 end

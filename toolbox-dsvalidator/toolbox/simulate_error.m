@@ -28,6 +28,7 @@ function [output, time_execution] = simulate_error(system)
 % Lennon Chaves
 % November 16, 2016
 % Manaus, Brazil
+tic
 
 global property;
 global overflow_mode;
@@ -37,27 +38,47 @@ property = 'error';
 overflow_mode = 'saturate';
 round_mode = 'round';
 
-    if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
-        [output_round, time_execution_round] = dsv_df1(system);
-    elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realization_form,'DDFII')
-        [output_round, time_execution_round]  = dsv_df2(system);
-    elseif strcmp(system.impl.realization_form,'TDFII') || strcmp(system.impl.realization_form,'TDDFII')
-        [output_round, time_execution_round]  = dsv_tdf2(system);
-    end
+wl = system.impl.frac_bits;
+
+if (system.impl.delta > 0)
+[a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
+else
+a_num = system.sys.a;
+b_num = system.sys.b;
+end
+
+a_fxp = fxp_rounding(a_num,wl);
+b_fxp = fxp_rounding(b_num,wl);
+
+x =  system.inputs.const_inputs;
+
+y = dlsim(b_fxp,a_fxp, x);
+output_round = y';
+
 
 property = 'error';
 overflow_mode = 'saturate';
 round_mode = 'double';
 
-    if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
-        [output_double, time_execution_double] = dsv_df1(system);
-    elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realization_form,'DDFII')
-        [output_double, time_execution_double]  = dsv_df2(system);
-    elseif strcmp(system.impl.realization_form,'TDFII') || strcmp(system.impl.realization_form,'TDDFII')
-        [output_double, time_execution_double]  = dsv_tdf2(system);
-    end
+wl = system.impl.frac_bits;
 
-time_execution = time_execution_double + time_execution_round;
-output = output_round - output_double;
+if (system.impl.delta > 0)
+[a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
+else
+a_num = system.sys.a;
+b_num = system.sys.b;
+end
+
+a_fxp = fxp_rounding(a_num,wl);
+b_fxp = fxp_rounding(b_num,wl);
+
+x =  system.inputs.const_inputs;
+
+y = dlsim(b_fxp,a_fxp, x);
+output_double = y';
+
+
+output = abs(output_round) - abs(output_double);
+time_execution = toc;
 
 end
