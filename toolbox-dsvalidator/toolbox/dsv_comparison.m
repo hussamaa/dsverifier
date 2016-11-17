@@ -26,8 +26,10 @@ function [output] = dsv_comparison(system, p)
 % The output is the feedback returned from comparison (successful or failed);
 %
 % Lennon Chaves
-% October 09, 2016
+% November 17, 2016
 % Manaus, Brazil
+
+global max_error;
 
 if (strcmp(p,'lc'))
 
@@ -67,7 +69,25 @@ elseif (strcmp(p,'e'))
 
 y = system.output.output_simulation;
 
-output = 'Successful';
+if (max_error > 0)
+
+has_error = 1;
+for i=1:length(y)
+ if (abs(y(i)) > max_error)
+    has_error = 0;
+    break;
+ end
+end
+
+if has_error == 1
+  output = 'Successful';
+else
+  output = 'Failed';
+end
+
+else
+output = 'Failed';
+end
 
 else
 
