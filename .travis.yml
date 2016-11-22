@@ -8,8 +8,6 @@ addons:
   apt:
     packages:
       - libwww-perl
-      - libeigen3-dev
-      - libboost-dev
 
 compiler:
   - gcc
@@ -17,7 +15,10 @@ compiler:
 
 before_install:
   - if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ] ; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get -qq update && sudo apt-get -qq install g++-4.9 gcc-4.9 && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 60 && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 ; fi
-
+  - sudo apt-get -qq update
+  - sudo apt-get install libeigen3-dev -y
+  - sudo apt-get install libboost-dev -y
+  
 install:
   - chmod a+x regression/cbmc/closed-loop/test.pl
   - chmod a+x regression/cbmc/digital-system/test.pl
