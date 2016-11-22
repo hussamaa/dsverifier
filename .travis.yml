@@ -10,6 +10,9 @@ addons:
       - libwww-perl
       - libeigen3-dev
       - libboost-dev
+      - eigen3-static
+      - eigen3
+      - eigen3-devel
 
 compiler:
   - gcc
