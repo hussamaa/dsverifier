@@ -26,7 +26,7 @@ install:
   - chmod a+x regression/esbmc/boolector/digital-system/test.pl
   - chmod a+x regression/esbmc/boolector/closed-loop/test.pl
   - chmod a+x regression/esbmc/z3/test.pl
-#  - make
+  - make
 
 #script:
  # - make CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2 && cd ../regression/cbmc/closed-loop && make
