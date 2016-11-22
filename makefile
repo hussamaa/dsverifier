@@ -1,4 +1,4 @@
-CC=g++
+CC=g++ 
 CFLAGS=-I.
 OS := $(shell uname)
 
