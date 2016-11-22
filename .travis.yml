@@ -9,6 +9,8 @@ addons:
   apt:
     packages:
       - libwww-perl
+      - libeigen3-dev
+      - libboost-dev
 
 compiler:
   - gcc
