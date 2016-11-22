@@ -21,8 +21,8 @@ before_install:
 
 install:
   - chmod a+x regression/cbmc/closed-loop/test.pl
-  - cd regression/cbmc/closed-loop && make
+  - make
 
 script:
-  - make CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2 && cd ../regression/cbmc/closed-loop && make test
+  - make CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2 && cd ../regression/cbmc/closed-loop && make
 
