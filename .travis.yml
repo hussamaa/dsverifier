@@ -32,5 +32,5 @@ install:
 script:
   - export DSVERIFIER_HOME=($pwd)
   - export PATH=$PATH:$DSVERIFIER_HOME
-  - make CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2 && cd ../regression/cbmc/closed-loop && make test
+  - make CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2 && cd regression/cbmc/closed-loop && make test
 
