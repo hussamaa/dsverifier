@@ -1,0 +1,35 @@
+language: cpp
+
+os:
+  - linux
+sudo: required
+
+addons:
+  apt:
+    packages:
+      - libwww-perl
+
+compiler:
+  - gcc
+  - clang
+
+before_install:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test  && sudo apt-get -qq update && sudo apt-get -qq install g++-4.9 gcc-4.9 && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 60 && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60
+  - sudo apt-get -qq update
+  - sudo apt-get install libeigen3-dev -y
+  - sudo apt-get install libboost-dev -y
+  
+install:
+  - chmod a+x regression/cbmc/closed-loop/test.pl
+  - chmod a+x regression/cbmc/digital-system/test.pl
+  - chmod a+x regression/cbmc/white-box/test.pl
+  - chmod a+x regression/esbmc/boolector/white-box/test.pl
+  - chmod a+x regression/esbmc/boolector/digital-system/test.pl
+  - chmod a+x regression/esbmc/boolector/closed-loop/test.pl
+  - chmod a+x regression/esbmc/z3/test.pl
+  - make bmc-download
+  - make
+
+script:
+  - make CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2 && cd regression/cbmc/closed-loop && make test
+

@@ -1,4 +1,6 @@
-# DSVerifier (Digital-Systems Verifier)
+[![Build Status][build_img]][travis]
+
+# DSVerifier (Digital-Systems Verifier) 
 
 DSVerifier is a verification tool for digital systems.
 In particular, DSVerifier employs the bounded model checking (BMC) technique
@@ -142,3 +144,6 @@ Version 8.0 Update 40 (jre1.8.0_40)
 Execution:
 
      java -jar dsverifier-gui.jar
+
+[build_img]: https://travis-ci.org/ssvlab/dsverifier.svg?branch=master
+[travis]: https://travis-ci.org/ssvlab/dsverifier
