@@ -25,16 +25,8 @@ before_install:
   - export PATH=$PATH:$DSVERIFIER_HOME
   
 install:
-  - chmod a+x regression/cbmc/closed-loop/test.pl
-  - chmod a+x regression/cbmc/digital-system/test.pl
-  - chmod a+x regression/cbmc/white-box/test.pl
-  - chmod a+x regression/esbmc/boolector/white-box/test.pl
-  - chmod a+x regression/esbmc/boolector/digital-system/test.pl
-  - chmod a+x regression/esbmc/boolector/closed-loop/test.pl
-  - chmod a+x regression/esbmc/z3/test.pl
+  - chmod a+x regression/run-all.sh
   - make bmc-download
-  - make
-
 
 script:
-  - make CXXFLAGS="-Wall -O2 -g -Werror -Wno-deprecated-register -pedantic -Wno-sign-compare" -j2 && cd regression/cbmc/closed-loop && make
+  - make && cd regression/ && ./run-all.sh
