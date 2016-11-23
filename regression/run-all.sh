@@ -15,9 +15,9 @@ echo "RUNNING CBMC TESTS";
 path=$PWD
 cd $path/cbmc
 ./run-all.sh
-echo "RUNNING ESBMC TESTS - Boolector";
-cd $path/esbmc/boolector
-./run-all.sh
-echo "RUNNING ESBMC TESTS - Z3";
-cd $path/esbmc/z3
-make
+#echo "RUNNING ESBMC TESTS - Boolector";
+#cd $path/esbmc/boolector
+#./run-all.sh
+#echo "RUNNING ESBMC TESTS - Z3";
+#cd $path/esbmc/z3
+#make
