@@ -5,11 +5,11 @@
  *
  * Authors:       Daniel Mello <dani-dmello@hotmail.com>
  *                
- * ------------------------------------------------------
+ * ------------------------------------------------------------------------
  *
  * Common functions needed for digital filters and frequency domain operations
  *
- * ------------------------------------------------------
+ * ------------------------------------------------------------------------
  */
 
 
@@ -17,7 +17,7 @@
  * Sine aproximation by taylor series (max 4 terms). 
  * Algorithm created aiming to avoid state explosion due to loops and recursion.  
  */
-double sin(double x, double precision){
+double sinTyl(double x, double precision){
     double sine;
     double xsquared = x*x;
     double aux;
@@ -54,14 +54,14 @@ double sin(double x, double precision){
  * Cosine aproximation by taylor series (max 4 terms). 
  * Algorithm created aiming to avoid state explosion due to loops and recursion.  
  */
-double cos(double x, double precision){
+double cosTyl(double x, double precision){
     double cosine;
     double xsquared = x*x;
     double aux;
 
     if (precision >= 0){
         aux = 0;
-        sine = aux;
+        cosine = aux;
 
          if (precision >= 1){
             aux = 1; 
@@ -73,11 +73,48 @@ double cos(double x, double precision){
             
                 if (precision >= 3){
                     aux = aux*xsquared; 
-                    sine += aux/24;
+                    cosine += aux/24;
                 
                     if(precision >=4){
                         aux = aux*xsquared
-                        sine -=aux/720
+                        cosine -=aux/720
+                    }
+                }
+            }
+        }
+    }
+    return cosine;
+}
+
+
+/**
+ * Arctangent aproximation by taylor series (max 4 terms). 
+ * Algorithm created aiming to avoid state explosion due to loops and recursion.  
+ */
+double atanTyl(double x, double precision){
+    double atangent;
+    double xsquared = x*x;
+    double aux;
+
+    if (precision >= 0){
+        aux = 0;
+        atangent = aux;
+
+         if (precision >= 1){
+            aux = x; 
+            atangent = aux; 
+
+            if (precision >= 2){
+                aux = xsquared; 
+                atangent -= aux/3; 
+            
+                if (precision >= 3){
+                    aux = aux*xsquared; 
+                    atangent += aux/5;
+                
+                    if(precision >=4){
+                        aux = aux*xsquared
+                        atangent -=aux/7
                     }
                 }
             }
@@ -104,7 +141,6 @@ double cos(double x, double precision){
   u.i = 0x5f3759df  - (u.i >> 1);  // gives initial guess y0
   return x*u.x*(1.5f - xhalf*u.x*u.x);// Newton step, repeating increases accuracy 
 }  
-
 
 
 
