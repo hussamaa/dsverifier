@@ -943,10 +943,18 @@ Function: prepare_bmc_command_line_ss
 
 std::string prepare_bmc_command_line_ss()
 {
+	char * dsverifier_home;
+	dsverifier_home = getenv("DSVERIFIER_HOME");
+	if (dsverifier_home == NULL)
+	{
+		std::cout << std::endl << "[ERROR] - You must set DSVERIFIER_HOME environment variable." << std::endl;
+		exit(1);
+	}
 	std::string command_line;
+	std::string bmc_path = std::string(dsverifier_home) + "/bmc";
 	if (desired_bmc == "ESBMC")
 	{
-		command_line = "esbmc input.c --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC";
+		command_line = "esbmc input.c --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " + bmc_path;
 		if (desired_timeout.size() > 0)
 		{
 			command_line += " --timeout " + desired_timeout;
@@ -954,7 +962,7 @@ std::string prepare_bmc_command_line_ss()
 	}
 	else if (desired_bmc == "CBMC")
 	{
-		command_line = "cbmc --fixedbv --stop-on-fail input.c -DBMC=CBMC";
+		command_line = "cbmc --fixedbv --stop-on-fail input.c -DBMC=CBMC -I " + bmc_path;
 	}
 	//if (desired_solver.size() > 0)
 	//{
@@ -2065,7 +2073,7 @@ void state_space_parser()
 	unsigned int i, j;
 	cf_value_precision.precision(64);
 
-	verification_file = "#include \"../../../../../bmc/dsverifier.h\" \n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
+	verification_file = "#include <dsverifier.h>\n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
 	verification_file.append(std::to_string(impl.int_bits));
 	verification_file.append(",\n .frac_bits = ");
 	verification_file.append(std::to_string(impl.frac_bits));
