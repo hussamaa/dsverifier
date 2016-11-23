@@ -12,8 +12,8 @@ int unit_test(){
 	overflow_mode = WRAPAROUND;
 	rounding_mode = FLOOR;
 
-	double value[4] = {1.000000000000000, -2.625000000000000, 2.125000000000000, -0.625000000000000};
-	double value_qtz_matlab[4] = {1.000000000000000, -2.625000000000000, 2.125000000000000, -0.625000000000000};
+	double value[4] = {1.0000, -2.6250, 2.1250, -0.6250};
+	double value_qtz_matlab[4] = {1.0000, -2.6250, 2.1250, -0.6250};
 
 	fxp_t value_fxp[4];
 	fxp_double_to_fxp_array(value, value_fxp, 4);
