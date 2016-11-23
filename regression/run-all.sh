@@ -12,13 +12,12 @@
 chmod a+x cbmc/run-all.sh
 chmod a+x esbmc/boolector/run-all.sh
 echo "RUNNING CBMC TESTS";
-cd cbmc
+path=$PWD
+cd $path/cbmc
 ./run-all.sh
-cd ..
 echo "RUNNING ESBMC TESTS - Boolector";
-cd esbmc/boolector
+cd $path/esbmc/boolector
 ./run-all.sh
-cd ../..
 echo "RUNNING ESBMC TESTS - Z3";
-cd esbmc/z3
+cd $path/esbmc/z3
 make
