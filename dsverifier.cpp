@@ -956,14 +956,14 @@ std::string prepare_bmc_command_line_ss()
 	{
 		command_line = "cbmc --fixedbv --stop-on-fail input.c -DBMC=CBMC";
 	}
-	if (desired_solver.size() > 0)
-	{
-		command_line += " --" + desired_solver;
-	}
-	if (desired_realization.size() > 0)
-	{
-		command_line += " -DREALIZATION=" + desired_realization;
-	}
+	//if (desired_solver.size() > 0)
+	//{
+		//command_line += " --" + desired_solver;
+	//}
+	//if (desired_realization.size() > 0)
+	//{
+	//	command_line += " -DREALIZATION=" + desired_realization;
+	//}
 	if (desired_property.size() > 0)
 	{
 		command_line += " -DPROPERTY=" + desired_property;
@@ -2065,7 +2065,7 @@ void state_space_parser()
 	unsigned int i, j;
 	cf_value_precision.precision(64);
 
-	verification_file = "#include <dsverifier.h> \n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
+	verification_file = "#include \"../../../../../bmc/dsverifier.h\" \n digital_system_state_space _controller;\n implementation impl = {\n .int_bits = ";
 	verification_file.append(std::to_string(impl.int_bits));
 	verification_file.append(",\n .frac_bits = ");
 	verification_file.append(std::to_string(impl.frac_bits));
