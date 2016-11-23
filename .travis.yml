@@ -20,7 +20,7 @@ before_install:
   - sudo apt-get install libboost-dev -y
   
 install:
-  - chmod a+x regression/cbmc/closed-loop/run-all.sh
+  - chmod a+x regression/cbmc/run-all.sh
   - chmod a+x regression/esbmc/boolector/white-box/test.pl
   - chmod a+x regression/esbmc/boolector/digital-system/test.pl
   - chmod a+x regression/esbmc/boolector/closed-loop/test.pl
