@@ -15,6 +15,17 @@
 #define M_PI     3.14159265358979323846
 #include "filter_functions.h"
 
+typedef struct filter_parameters{
+
+	String type; 
+	float Ap, Ar, Ac;
+	float wp, wc, wr; 
+
+}filter_parameters;
+
+
+
+
 /*
  *  Generates magnitude response from transfer function
  */
@@ -45,8 +56,8 @@ void resp_mag(double* num, int lnum, double* den, int lden, double* res, int N) 
 			out_denIm[i] = sin(w) * old_out_Re + cos(w) * out_denIm[i];
 		}
 
-		res[i] = sqrt(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
-		res[i] = res[i] / sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]); 
+		res[i] = sqrt1(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
+		res[i] = res[i] / sqrt1(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]); 
 
 	}
 }
@@ -80,5 +91,40 @@ void resp_phase(double* num, int lnum, double* den, int lden, double* res, int N
 
 		res[i] = atan2(out_numIm[i], out_numRe[i]); //numerator abs
 		res[i] = res[i] - atan2(out_denIm[i], out_denRe[i]); //den abs
+	}
+}
+
+
+/*
+ * Magnitude verifier 
+ */
+ void verify_magnitude(filter_parameters *p, double *res , int N) {
+
+	int i;
+	double w;
+	double w_incr = 1.0 / N;
+
+	if (p.type == lowpass) {
+		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+			if (w <= p.wp) {
+				assert(res[i] >= p.Ap);
+			} else if (w == p.wc) {
+				assert(res[i] <= p.Ac);
+			} else if ((w >= p.wr) && (w <= 1)) {
+				assert(res[i] <= p.Ar);
+			}
+		}
+	} else if (p.type == highpass) {
+		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+			if (w <= p.wr) {
+				assert(res[i] <= p.Ar);
+			} else if (w == p.wc) {
+				assert(res[i] <= p.Ac);
+			} else if ((w > p.wp) && (w <= 1)) {
+				assert(res[i] >= p.Ap);
+			}
+		}
+	} else {
+		assert(0); //Filter type not supported
 	}
 }
