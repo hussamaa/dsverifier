@@ -156,7 +156,7 @@ void fxp_verify_overflow(fxp_t value){
 }
 
 void fxp_verify_overflow_node(fxp_t value){
-	if (overflow_mode == SATURATE)
+	if (OVERFLOW_MODE == SATURATE)
 	{
 	 __DSVERIFIER_assert(value <= _fxp_max && value >= _fxp_min);  
 	}

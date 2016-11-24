@@ -18,15 +18,6 @@ extern digital_system ds;
 extern hardware hw;
 extern int generic_timer;
 
-/*function to refresh the overflow mode */
-void refresh_overflow_mode()
-{
- if ((overflow_mode == SATURATE) && (PROPERTY == OVERFLOW))
-   {
-     overflow_mode = DETECT_OVERFLOW;
-   }
-}
-
 /** direct form I realization in fixed point */
 fxp_t fxp_direct_form_1(fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], int Na,	int Nb) {
 	fxp_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
