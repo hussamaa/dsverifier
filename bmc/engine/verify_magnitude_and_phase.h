@@ -24,8 +24,6 @@ typedef struct filter_parameters{
 }filter_parameters;
 
 
-
-
 /*
  *  Generates magnitude response from transfer function
  */
@@ -107,21 +105,21 @@ void resp_phase(double* num, int lnum, double* den, int lden, double* res, int N
 	if (p.type == lowpass) {
 		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
 			if (w <= p.wp) {
-				assert(res[i] >= p.Ap);
+				__ESBMC_assert(res[i] >= p.Ap);
 			} else if (w == p.wc) {
-				assert(res[i] <= p.Ac);
+				__ESBMC_assert(res[i] <= p.Ac);
 			} else if ((w >= p.wr) && (w <= 1)) {
-				assert(res[i] <= p.Ar);
+				__ESBMC_assert(res[i] <= p.Ar);
 			}
 		}
 	} else if (p.type == highpass) {
 		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
 			if (w <= p.wr) {
-				assert(res[i] <= p.Ar);
+				__ESBMC_assert(res[i] <= p.Ar);
 			} else if (w == p.wc) {
-				assert(res[i] <= p.Ac);
+				__ESBMC_assert(res[i] <= p.Ac);
 			} else if ((w > p.wp) && (w <= 1)) {
-				assert(res[i] >= p.Ap);
+				__ESBMC_assert(res[i] >= p.Ap);
 			}
 		}
 	} else {

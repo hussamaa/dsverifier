@@ -17,6 +17,7 @@
  * Sine aproximation by taylor series (max 4 terms). 
  * Algorithm created aiming to avoid state explosion due to loops and recursion.  
  */
+ 
 double sinTyl(double x, double precision){
     double sine;
     double xsquared = x*x;
@@ -120,7 +121,7 @@ double atanTyl(double x, double precision){
             }
         }
     }
-    return cosine;
+    return atanTyl;
 }
 
 
