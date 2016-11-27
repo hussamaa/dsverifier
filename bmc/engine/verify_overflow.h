@@ -22,9 +22,6 @@ extern implementation impl;
 
 int verify_overflow(void) {
 
-	/* enable overflow saturate (nodes) */
-	overflow_mode = SATURATE;
-
 	/* check the realization */
 	#if	((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
 		fxp_t a_fxp[ds.a_size];
