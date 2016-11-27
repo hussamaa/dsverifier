@@ -32,6 +32,7 @@ rmode = '';
 filename = '';
 
 nvar = nargin;
+var = varargin;
 
 if nvar >= 2
 if length(var{1}) > 0
