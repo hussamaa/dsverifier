@@ -2183,7 +2183,7 @@ void state_space_parser()
 
 Function: closed_loop
 
-  Inputs:
+  Inputs: None
 
  Outputs:
 
@@ -2191,7 +2191,7 @@ Function: closed_loop
 
 \*******************************************************************/
 
-void closed_loop(){
+void closed_loop(){ // A-B*K and C-D*K
 
 	double result1[LIMIT][LIMIT];
 
@@ -2200,7 +2200,7 @@ void closed_loop(){
 		for(j=0; j<LIMIT;j++)
 			result1[i][j]=0;
 
-	double_matrix_multiplication(_controller.nStates,_controller.nInputs,1,_controller.nStates,_controller.B,_controller.K,result1);
+	double_matrix_multiplication(_controller.nStates,_controller.nInputs,_controller.nInputs,_controller.nStates,_controller.B,_controller.K,result1); // B*K
 
 	double_sub_matrix(_controller.nStates,
 			_controller.nStates,
@@ -2212,7 +2212,7 @@ void closed_loop(){
 		for(j=0; j<LIMIT;j++)
 			result1[i][j]=0;
 
-	double_matrix_multiplication(_controller.nOutputs,_controller.nInputs,1,_controller.nStates,_controller.D,_controller.K,result1);
+	double_matrix_multiplication(_controller.nOutputs,_controller.nInputs,_controller.nInputs,_controller.nStates,_controller.D,_controller.K,result1); //D*K
 
 	double_sub_matrix(_controller.nOutputs,
 			_controller.nStates,
