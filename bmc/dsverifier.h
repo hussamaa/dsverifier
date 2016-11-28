@@ -105,7 +105,7 @@ int main(){
 	if (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP){
 		call_closedloop_verification_task(&verify_error_closedloop);
 	}
-	if (PROPERTY == QUANTISATION_ERROR){
+	if (PROPERTY == QUANTIZATION_ERROR){
 		verify_error_state_space();
 	}
 	if (PROPERTY == CONTROLLABILITY){
@@ -123,7 +123,7 @@ int main(){
 
 /** validate the required parameters to use DSVerifier and your properties verification. */
 void validation(){
-	if (PROPERTY == QUANTISATION_ERROR){
+	if (PROPERTY == QUANTIZATION_ERROR){
 		if (K_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");

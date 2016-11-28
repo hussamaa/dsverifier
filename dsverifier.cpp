@@ -88,7 +88,7 @@ typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 
 const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "ERROR",
 		"TIMING", "TIMING_MSP430", "STABILITY", "STABILITY_CLOSED_LOOP", "LIMIT_CYCLE_CLOSED_LOOP",
-		"QUANTIZATION_ERROR_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY",
+		"QUANTIZATION_ERROR_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTIZATION_ERROR", "CONTROLLABILITY",
 		"OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE"};
 const char * rounding [] = { "ROUNDING", "FLOOR", "CEIL" };
 const char * overflow [] = { "DETECT_OVERFLOW", "SATURATE", "WRAPAROUND" };
@@ -118,7 +118,7 @@ bool stateSpaceVerification = false;
 bool closedloop = false;
 bool translate = false;
 digital_system_state_space _controller;
-double desired_quantisation_limit = 0.0;
+double desired_quantization_limit = 0.0;
 bool show_counterexample_data = false;
 
 /*******************************************************************\
@@ -777,7 +777,7 @@ void bind_parameters(int argc, char* argv[])
 		{
 			if (i + 1 < argc)
 			{
-				desired_quantisation_limit = std::stod(argv[++i]);
+				desired_quantization_limit = std::stod(argv[++i]);
 			}
 			else
 			{
@@ -2084,7 +2084,7 @@ void state_space_parser()
 	verification_file.append(";\n int nOutputs = ");
 	verification_file.append(std::to_string(_controller.nOutputs));
 	verification_file.append(";\n double error_limit = ");
-	cf_value_precision  << std::fixed << desired_quantisation_limit;
+	cf_value_precision  << std::fixed << desired_quantization_limit;
 	verification_file.append(cf_value_precision.str());
 	verification_file.append(";\n void initials(){\n");
 
@@ -2307,8 +2307,8 @@ int main(int argc, char* argv[])
 
 	bind_parameters(argc, argv);
 
-	if(desired_property == "QUANTISATION_ERROR" && desired_quantisation_limit == 0.0)
-		show_required_argument_message("QUANTISATION_ERROR");
+	if(desired_property == "QUANTIZATION_ERROR" && desired_quantization_limit == 0.0)
+		show_required_argument_message("QUANTIZATION_ERROR");
 
 	check_file_exists();
 
@@ -2335,7 +2335,7 @@ int main(int argc, char* argv[])
 			check_state_space_stability();
 			exit(0);
 		}
-		else if( desired_property == "QUANTISATION_ERROR" )
+		else if( desired_property == "QUANTIZATION_ERROR" )
 		{
 			state_space_parser();
 			std::string command_line = prepare_bmc_command_line_ss();

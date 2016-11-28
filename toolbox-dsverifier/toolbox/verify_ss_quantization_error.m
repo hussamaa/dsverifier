@@ -55,7 +55,7 @@ dsv_setup();
 %translate to ANSI-C file
 dsv_parser(system,'ss',error,realization);
 %verifying using DSVerifier command-line
-property = 'QUANTISATION_ERROR';
+property = 'QUANTIZATION_ERROR';
 
 extra_param = get_macro_params(nargin-1,varargin,'ss');
 
