@@ -1763,12 +1763,12 @@ void check_state_space_stability()
 
 	std::complex< double > lambda;
 	std::complex< double > margem(1,0);
-	for(i = 0; i < (matrixA.count() / 2); i++ )
+	for(i = 0; i < _controller.nStates; i++ )
 	{
 		lambda = matrixA.eigenvalues()[i];
-		//std::cout << "abs(lambda): " << std::abs(lambda) << std::endl;
+		std::cout << "abs(lambda): " << std::abs(lambda) << std::endl;
 		double v = std::abs(lambda);
-		if( v >= 1 )
+		if( v > 1.0 )
 		{
 			std::cout << "VERIFICATION FAILED" << std::endl; //unstable
 			exit(0);
@@ -2325,8 +2325,10 @@ int main(int argc, char* argv[])
 	if (stateSpaceVerification)
 	{
 		extract_data_from_ss_file();
+
 		if(closedloop)
 			closed_loop();
+
 		if( desired_property == "STABILITY" )
 		{
 			std::cout << "Checking stability..." << std::endl;
