@@ -19,20 +19,9 @@ function verifyClosedLoopStability(controller, plant, intBits, fracBits, rangeMa
 %  
 %  See also TF and C2D.
 %
-% For Delta Verification, the delta operator must be informed as:
-%
-% verifyClosedLoopStability(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, connectionMode, delta)
-%
-% Where
-%   delta: the delta operator for a delta realization (DDFI, DDFII or TDDFII)
-%
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
 % verifyClosedLoopStability(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, connectionMode, bmc, solver, ovmode, rmode, emode, timeout)
-%
-% For delta realization:
-%
-% verifyClosedLoopStability(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, connectionMode, delta, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);

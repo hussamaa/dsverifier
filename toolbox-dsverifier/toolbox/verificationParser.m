@@ -42,14 +42,16 @@ fprintf(fid,'%s %d,\n\t','.a_size = ', nA);
 fprintf(fid,'%s %d\n','.sample_time =', sample_time);
 fprintf(fid,'%s\n\n','};');
 fprintf(fid,'%s\n\t','implementation impl = { ');
-fprintf(fid,'%s %d,\n\t','.int_bits = ', int_bits);
-fprintf(fid,'%s %d,\n\t','.frac_bits =  ', frac_bits);
-fprintf(fid,'%s %f,\n\t','.max = ', max_range);
-fprintf(fid,'%s %f,\n\t','.min = ', min_range);
 if error > 0
 fprintf(fid,'%s %f,\n\t','.max_error = ', error);
 end
-fprintf(fid,'%s %f\n','.delta =', delta);
+if delta > 0
+fprintf(fid,'%s %f,\n','.delta =', delta);
+end
+fprintf(fid,'%s %d,\n\t','.int_bits = ', int_bits);
+fprintf(fid,'%s %d,\n\t','.frac_bits =  ', frac_bits);
+fprintf(fid,'%s %f,\n\t','.max = ', max_range);
+fprintf(fid,'%s %f\n\t','.min = ', min_range);
 fprintf(fid,'%s\n\n','};');
 fclose(fid);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -80,14 +82,13 @@ fprintf(fid,'%s %d,\n\t','.a_size = ', nAc);
 fprintf(fid,'%s %d\n','.sample_time =', sample_time);
 fprintf(fid,'%s\n\n','};');
 fprintf(fid,'%s\n\t','implementation impl = { ');
-fprintf(fid,'%s %d,\n\t','.int_bits = ', int_bits);
-fprintf(fid,'%s %d,\n\t','.frac_bits =  ', frac_bits);
-fprintf(fid,'%s %f,\n\t','.max = ', max_range);
-fprintf(fid,'%s %f,\n\t','.min = ', min_range);
 if error > 0
 fprintf(fid,'%s %f,\n\t','.max_error = ', error);
 end
-fprintf(fid,'%s %f\n','.delta =', delta);
+fprintf(fid,'%s %d,\n\t','.int_bits = ', int_bits);
+fprintf(fid,'%s %d,\n\t','.frac_bits =  ', frac_bits);
+fprintf(fid,'%s %f,\n\t','.max = ', max_range);
+fprintf(fid,'%s %f\n\t','.min = ', min_range);
 fprintf(fid,'%s\n\n','};');
 fprintf(fid,'%s\n\t', 'digital_system plant = { ');
 fprintf(fid,'%s %s },\n\t','.b = { ', poly2strc(bp));
@@ -104,6 +105,12 @@ B = ds.system.B;
 C = ds.system.C;
 D = ds.system.D;
 inputs = ds.inputs;
+if isempty(ds.K) == 0
+    K = ds.K;
+else 
+    K = [];
+end
+
 
 [rA,cA] = size(A);
 nStates = rA;
@@ -125,6 +132,9 @@ fprintf(fid,'B = %s \n', matrix2string(B));
 fprintf(fid,'C = %s \n', matrix2string(C));
 fprintf(fid,'D = %s \n', matrix2string(D));
 fprintf(fid,'inputs = %s \n', matrix2string(inputs));
+if isempty(K) == 0
+   fprintf(fid,'K = %s \n', matrix2string(K));
+end
 fclose(fid);
 
 end

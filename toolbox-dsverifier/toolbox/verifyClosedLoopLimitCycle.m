@@ -20,20 +20,10 @@ function verifyClosedLoopLimitCycle(controller, plant, intBits, fracBits, rangeM
 %  
 %  See also TF and C2D.
 %
-% For Delta Verification, the delta operator must be informed as:
-%
-% verifyClosedLoopLimitCycle(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, kbound, connectionMode, delta)
-%
-% Where
-%   delta: the delta operator for a delta realization (DDFI, DDFII or TDDFII)
-%
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
 % verifyClosedLoopLimitCycle(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, kbound, connectionMode, bmc, solver, ovmode, rmode, emode, timeout)
 %
-% For delta realization:
-%
-% verifyClosedLoopLimitCycle(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, kbound, connectionMode, delta, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);

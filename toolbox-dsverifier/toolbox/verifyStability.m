@@ -64,12 +64,21 @@ digitalSystem.impl.int_bits = intBits;
 digitalSystem.range.max = rangeMax;
 digitalSystem.range.min = rangeMin;
 
+delta = 0;
+if strcmp(realization, 'DDFI') || strcmp(realization, 'DDFII') || strcmp(realization, 'TDDFII')
+    if nargin >= 7
+    delta = varargin{1};
+    end
+end
+
+digitalSystem.delta = delta;
+
 %translate to ANSI-C file
 verificationParser(digitalSystem,'tf',0,realization);
 
 %verifying using DSVerifier command-line
 property = 'STABILITY';
-extra_param = getExtraParams(nargin,varargin,'tf',property);
+extra_param = getExtraParams(nargin,varargin,'tf', property, realization);
 command_line = [' --property ' property ' --realization ' realization extra_param];
 verificationExecution(command_line,'tf');
 

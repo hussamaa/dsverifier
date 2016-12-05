@@ -21,20 +21,9 @@ function verifyClosedLoopQuantizationError(controller, plant, intBits, fracBits,
 %  
 %  See also TF and C2D.
 %
-% For Delta Verification, the delta operator must be informed as:
-%
-% verifyClosedLoopQuantizationError(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, kbound, error, connectionMode, delta)
-%
-% Where
-%   delta: the delta operator for a delta realization (DDFI, DDFII or TDDFII)
-%
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
 % verifyClosedLoopQuantizationError(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, kbound, error, connectionMode, bmc, solver, ovmode, rmode, emode, timeout)
-%
-% For delta realization:
-%
-% verifyClosedLoopQuantizationError(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, kbound, error, connectionMode, delta, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
