@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="725713861" file="/home/ssvlab/Development/repository/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.prj" location="/home/ssvlab/Development/repository/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="725713861" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSVerifier</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -42,11 +42,14 @@
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}/toolbox/.gitignore</file>
       <file>${PROJECT_ROOT}/toolbox/Contents.m</file>
+      <file>${PROJECT_ROOT}/toolbox/bmc</file>
+      <file>${PROJECT_ROOT}/toolbox/dsverifier</file>
       <file>${PROJECT_ROOT}/toolbox/dsverifier-directory-data-extractor-script.sh</file>
       <file>${PROJECT_ROOT}/toolbox/dsverifier-restricted-counterexample-extractor-script.sh</file>
       <file>${PROJECT_ROOT}/toolbox/genCounterexample.m</file>
       <file>${PROJECT_ROOT}/toolbox/getExtraParams.m</file>
       <file>${PROJECT_ROOT}/toolbox/matrix2string.m</file>
+      <file>${PROJECT_ROOT}/toolbox/model-checker</file>
       <file>${PROJECT_ROOT}/toolbox/poly2strc.m</file>
       <file>${PROJECT_ROOT}/toolbox/verificationExecution.m</file>
       <file>${PROJECT_ROOT}/toolbox/verificationParser.m</file>
@@ -72,7 +75,7 @@
     </fileset.depfun.excluded>
     <fileset.package />
     <build-deliverables>
-      <file location="/home/ssvlab/Development/repository/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier.mltbx" optional="false">/home/ssvlab/Development/repository/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.mltbx</file>
+      <file location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier.mltbx" optional="false">/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
@@ -88,7 +91,7 @@
       <vista>false</vista>
       <linux>true</linux>
       <solaris>false</solaris>
-      <osver>4.4.0-31-generic</osver>
+      <osver>4.4.0-51-generic</osver>
       <os32>false</os32>
       <os64>true</os64>
       <arch>glnxa64</arch>
