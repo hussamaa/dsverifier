@@ -1,13 +1,14 @@
-function verifyStateSpaceControllability(system, inputs, intBits, fracBits, varargin)
+function verifyStateSpaceControllability(system, inputs, intBits, fracBits, K, varargin)
 %
 % Checks controllability property violation for digital systems (state-space representation) using a bounded model checking tool.
-% Function: verifyStateSpaceControllability(system, inputs, intBits, fracBits)
+% Function: verifyStateSpaceControllability(system, inputs, intBits, fracBits, K)
 %
 % Where
 %   system: represents a digital system represented in state-space;
 %   inputs: represents the inputs to be employed during verification;
 %   intBits: represents the integer bits part;
 %   fracBits: represents the fractionary bits part;
+%   K: represents the feedback matrix for closed-loop systems;
 %
 %  The 'system' must be structed as follow:
 %  system = ss(A,B,C,D,ts): state-space representation (A, B, C and D represent the matrix for state-space system, ts - sample time);
@@ -17,7 +18,7 @@ function verifyStateSpaceControllability(system, inputs, intBits, fracBits, vara
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% verifyStateSpaceControllability(system, inputs, intBits, fracBits, bmc, solver, ovmode, rmode, emode, timeout)
+% verifyStateSpaceControllability(system, inputs, intBits, fracBits, K, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
@@ -36,7 +37,7 @@ function verifyStateSpaceControllability(system, inputs, intBits, fracBits, vara
 %  system = c2d(sys,ts);
 %  inputs = [1.0 1.0 -1.0 -1.0 1.0 1.0];
 %
-%  verifyStateSpaceControllability(system, inputs, 10, 2);
+%  verifyStateSpaceControllability(system, inputs, 10, 2, '');
 %  VERIFICATION SUCCESSFUL!
 %
 % Author: Lennon Chaves
@@ -53,14 +54,22 @@ digitalSystem.system = system;
 digitalSystem.inputs = inputs;
 digitalSystem.impl.frac_bits = fracBits;
 digitalSystem.impl.int_bits = intBits;
+digitalSystem.K = K;
 
 %translate to ANSI-C file
 verificationParser(digitalSystem,'ss',0,'');
 
 %verifying using DSVerifier command-line
 property = 'CONTROLLABILITY';
-extra_param = getExtraParams(nargin,varargin,'ss',property);
-command_line = [' --property ' property extra_param];
+extra_param = getExtraParams(nargin,varargin,'ss',property,'');
+
+if isempty(K) == 1
+    closed_loop = '';
+else
+    closed_loop = ' --closed-loop ';
+end
+
+command_line = [' --property ' property closed_loop extra_param];
 verificationExecution(command_line,'ss');
 
 %report the verification

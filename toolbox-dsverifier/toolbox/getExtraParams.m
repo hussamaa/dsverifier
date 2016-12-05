@@ -54,6 +54,13 @@ if strcmp(type,'cl')
     end
 end
 
+if strcmp(type,'ss')
+   nvarIndice = 5;
+   if strcmp(property,'QUANTIZATION_ERROR')
+       nvarIndice = 7;
+   end
+end
+
 nvarIndice = nvarIndice + 1;
 
 nvar = n;
