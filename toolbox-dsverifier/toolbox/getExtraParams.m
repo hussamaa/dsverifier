@@ -1,23 +1,50 @@
-function extra_param = getExtraParams(n, var, type)
+function extra_param = getExtraParams(n, var, type, property, realization)
 % Support function to get the extra params in order to add in command line
 % during the execution
 %
-% Function: extra_param = getExtraParams(n, var, type)
+% Function: extra_param = getExtraParams(n, var, type, property, realization)
 %
 %  n: number of arguments passed during the verification
 %  var: vargin with all extra arguments
 %  type: state-space, transfer-function or closed-loop
+%  property: desired property to be verified
+%  realization: desired realization to be employed
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
-% October 2016
+% December 2016
 %
 
 extra_param = '';
+indice = 1;
 
+if strcmp(type,'tf')
 
+if strcmp(property,'STABILITY')
+    nvarIndice = 6;
+    indice = 1;
+    if strcmp(realization,'DDFI') || strcmp(realization,'DDFII') || strcmp(realization,'TDDFII')
+        nvarIndice = 7;
+        indice = 2;
+    end
+elseif strcmp(property,'ERROR')
+    nvarIndice = 8;
+    indice = 1;
+    if strcmp(realization,'DDFI') || strcmp(realization,'DDFII') || strcmp(realization,'TDDFII')
+        nvarIndice = 9;
+        indice = 2;
+    end  
+else     
+    nvarIndice = 7;
+    indice = 1;
+    if strcmp(realization,'DDFI') || strcmp(realization,'DDFII') || strcmp(realization,'TDDFII')
+        nvarIndice = 8;
+        indice = 2;
+    end    
+end
+end
 
-
+nvarIndice = nvarIndice + 1;
 
 if(strcmp(type,'tf') || strcmp(type,'ss'))
   nvar = n;
@@ -31,39 +58,39 @@ rmode = ' --rounding-mode ';
 emode = ' --error-mode ';
 timeout = ' --timeout ';
 
-if nvar >= 4
-if length(var{1}) > 0
-extra_param = [extra_param bmc var{1}];
+if nvar >= nvarIndice
+if length(var{indice}) > 0
+extra_param = [extra_param bmc var{indice}];
 end
 end
 
-if nvar >= 5
-if length(var{2}) > 0
-extra_param = [extra_param solver var{2}];
+if nvar >= nvarIndice + 1
+if length(var{indice+1}) > 0
+extra_param = [extra_param solver var{indice+1}];
 end
 end
 
-if nvar >= 6
-if length(var{3}) > 0
-extra_param = [extra_param omode var{3}];
+if nvar >= nvarIndice + 2
+if length(var{indice+2}) > 0
+extra_param = [extra_param omode var{indice+2}];
 end
 end
 
-if nvar >= 7
-if length(var{4}) > 0
-extra_param = [extra_param rmode var{4}];
+if nvar >= nvarIndice + 3
+if length(var{indice+3}) > 0
+extra_param = [extra_param rmode var{indice+3}];
 end
 end
 
-if nvar >= 8
-if length(var{5}) > 0
-extra_param = [extra_param emode var{5}];
+if nvar >= nvarIndice + 4
+if length(var{indice+4}) > 0
+extra_param = [extra_param emode var{indice+4}];
 end
 end
 
-if nvar >= 9
-if length(var{6}) > 0
-extra_param = [extra_param timeout var{6}];
+if nvar >= nvarIndice + 5
+if length(var{indice+5}) > 0
+extra_param = [extra_param timeout var{indice+5}];
 end
 end
 
