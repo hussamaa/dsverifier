@@ -1,17 +1,17 @@
-function dsv_parser(ds, type, error, realization)
+function verificationParser(ds, type, error, realization)
 % Reads the system in struct form and translate to a ANSI-C file
 %
-% Function: DSV_PARSER(ds, type, error, delta)
+% Function: verificationParser(ds, type, error, realization)
 %
 %  ds: digital system
 %  type: 'ss' for state-space, 'tf' for transfer function and 'cl' for
 %  closed-loop systems
 %  error: error for quantization error verification
-%  delta: delta form realization flag
+%  realization: direct or delta form realization
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
-% October 2016
+% December 2016
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

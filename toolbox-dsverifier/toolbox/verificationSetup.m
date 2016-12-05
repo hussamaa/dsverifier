@@ -1,11 +1,11 @@
-function dsv_setup()
-% Setup the DSVERIFIER_HOME and model checkers visibility in a variable environment
+function verificationSetup()
+% Setup the DSVERIFIER_HOME and model checkers visibility (ESBMC or CBMC) in a variable environment
 %
-% Function: DSV_SETUP()
+% Function: verificationSetup()
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
-% October 2016
+% December 2016
 %
 
 home = pwd;
