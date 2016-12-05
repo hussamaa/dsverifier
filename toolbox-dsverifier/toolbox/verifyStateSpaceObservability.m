@@ -1,26 +1,23 @@
-function verify_ss_observability(system, realization, xsize, varargin)
+function verifyStateSpaceObservability(system, inputs, intBits, fracBits, varargin)
 %
 % Checks observability property violation for digital systems (state-space representation) using a bounded model checking tool.
-% Function: VERIFY_SS_OBSERVABILITY(system, realization, xsize)
+% Function: verifyStateSpaceObservability(system, inputs, intBits, fracBits)
 %
 % Where
-%   system: represents a struct with digital system represented in state-space;
-%   realization: set the realization for the Digital-System (DFI, DFII, TDFII, DDFI, DDFII, and TDDFII);
-%   xsize:  set the bound of verification.
+%   system: represents a digital system represented in state-space;
+%   inputs: represents the inputs to be employed during verification;
+%   intBits: represents the integer bits part;
+%   fracBits: represents the fractionary bits part;
 %
 %  The 'system' must be structed as follow:
-%  system.system = ss(A,B,C,D,ts): state-space representation (A, B, C and D represent the matrix for state-space system, ts - sample time);
-%  or system.system = c2d(sys,ts): if the state-space representation should be discretized.
+%  system = ss(A,B,C,D,ts): state-space representation (A, B, C and D represent the matrix for state-space system, ts - sample time);
+%  or system = c2d(sys,ts): if the state-space representation should be discretized.
 %  
 %  See also SS and C2D.
 %
-%  system.inputs: the vector of inputs that will be interacted during the verification;
-%  system.impl.int_bits: integer bits implementation;
-%  system.impl.frac_bits: fractional bits representation;
-%
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% VERIFY_SS_OBSERVABILITY(system, realization, xsize, bmc, solver, ovmode, rmode, emode, timeout)
+% verifyStateSpaceObservability(system, inputs, intBits, fracBits, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
@@ -36,32 +33,38 @@ function verify_ss_observability(system, realization, xsize, varargin)
 %  C = [...];
 %  D = [...];
 %  sys = ss(A,B,C,D);
-%  ds.system = c2d(sys,ts);
-%  ds.inputs = [...];
-%  ds.impl.int_bits = ...;
-%  ds.impl.frac_bits = ...;
+%  system = c2d(sys,ts);
+%  inputs = [1.0 1.0 -1.0 -1.0 1.0 1.0];
 %
-%  VERIFY_SS_OBSERVABILITY(ds,'DFI',10,'CBMC');
+%  verifyStateSpaceObservability(system, inputs, 10, 2);
 %  VERIFICATION SUCCESSFUL!
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
-% October, 2016
+% December, 2016
 %
+
 global property;
 %setting the DSVERIFIER_HOME
-dsv_setup();
+verificationSetup();
+
+%generating struct with sytem and its implementations.
+digitalSystem.system = system;
+digitalSystem.inputs = inputs;
+digitalSystem.impl.frac_bits = fracBits;
+digitalSystem.impl.int_bits = intBits;
+
 %translate to ANSI-C file
-dsv_parser(system,'ss',0,realization);
+verificationParser(digitalSystem,'ss',0,'');
+
 %verifying using DSVerifier command-line
 property = 'OBSERVABILITY';
+extra_param = getExtraParams(nargin,varargin,'ss',property);
+command_line = [' --property ' property extra_param];
+verificationExecution(command_line,'ss');
 
-extra_param = get_macro_params(nargin,varargin,'ss');
-
-command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) extra_param];
-dsv_verification(command_line,'ss');
 %report the verification
-output = dsv_report('output.out','ss');
+output = verificationReport('output.out','ss');
 disp(output);
 
 end
