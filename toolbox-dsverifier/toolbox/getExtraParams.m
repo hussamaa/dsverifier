@@ -44,13 +44,20 @@ else
 end
 end
 
+if strcmp(type,'cl')
+    if strcmp(property,'STABILITY')
+        nvarIndice = 8;
+    elseif strcmp(property,'LIMIT_CYCLE_CLOSED_LOOP')
+        nvarIndice = 9;
+    elseif strcmp(property,'QUANTIZATION_ERROR_CLOSED_LOOP')
+        nvarIndice = 10;
+    end
+end
+
 nvarIndice = nvarIndice + 1;
 
-if(strcmp(type,'tf') || strcmp(type,'ss'))
-  nvar = n;
-elseif strcmp(type,'cl')
-  nvar= n -1;
-end
+nvar = n;
+
 bmc = ' --bmc ';
 solver = ' --solver ';
 omode = ' --overflow-mode ';

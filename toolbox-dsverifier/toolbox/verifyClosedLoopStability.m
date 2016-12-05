@@ -64,7 +64,7 @@ verificationParser(digitalSystem,'cl',0,realization);
 
 %verifying using DSVerifier command-line
 property = 'STABILITY_CLOSED_LOOP';
-extra_param = getExtraParams(nargin,varargin,'cl',property);
+extra_param = getExtraParams(nargin,varargin,'cl',property,realization);
 command_line = [' --property ' property ' --realization ' realization ' --connection-mode ' connectionMode extra_param];
 verificationExecution(command_line,'cl');
 
