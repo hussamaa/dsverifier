@@ -1,28 +1,37 @@
-function verify_overflow(system, realization, xsize, varargin)
+function verifyOverflow(system, intBits, fracBits, rangeMax, rangeMin, realization, kbound, varargin)
 %
 % Checks overflow property violation for digital systems using a bounded model checking tool.
-% Function: VERIFY_OVERFLOW(system, realization, xsize)
+% Function: verifyOverflow(system, intBits, fracBits, rangeMax, rangeMin, realization, kbound)
 %
 % Where
-%   system: represents a struct with digital system represented in transfer-function;
+%   system: represents a digital system represented in transfer-function;
+%   intBits: represents the integer bits part;
+%   fracBits: represents the fractionary bits part;
+%   rangeMax: represents the maximum dynamical range;
+%   rangeMin: represents the minimum dynamical range;
 %   realization: set the realization for the Digital-System (DFI, DFII, TDFII, DDFI, DDFII, and TDDFII);
-%   xsize:  set the bound of verification.
+%   kbound: sets the k bound of verification;
 %
 %  The 'system' must be structed as follow:
-%  system.system = tf(den,num,ts): transfer function representation (den - denominator, num - numerator, ts - sample time);
-%  or system.system = c2d(sys,ts): if the digital system should be discretized
+%  system = tf(den,num,ts): transfer function representation (den - denominator, num - numerator, ts - sample time);
+%  or system = c2d(sys,ts): if the digital system should be discretized
 %  
 %  See also TF and C2D.
 %
-%  system.impl.int_bits: integer bits implementation;
-%  system.impl.frac_bits: fractional bits representation;
-%  system.range.max = max dynamical range;
-%  system.range.min = min dynamical range;
-%  system.delta = delta operator (it must be '0' if it is not a delta realization).
+% For Delta Verification, the delta operator must be informed as:
+%
+% verifyOverflow(system, intBits, fracBits, rangeMax, rangeMin, realization, kbound, delta)
+%
+% Where
+%   delta: the delta operator for a delta realization (DDFI, DDFII or TDDFII)
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% VERIFY_OVERFLOW(system, realization, xsize, bmc, solver, ovmode, rmode, emode, timeout)
+% verifyOverflow(system, intBits, fracBits, rangeMax, rangeMin, realization, kbound, bmc, solver, ovmode, rmode, emode, timeout)
+%
+% For delta realization:
+%
+% verifyOverflow(system, intBits, fracBits, rangeMax, rangeMin, realization, kbound, delta, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
@@ -33,36 +42,40 @@ function verify_overflow(system, realization, xsize, varargin)
 %  timeout: configure time limit, integer followed by {s,m,h} (for ESBMC only).
 %
 % Example of usage:
-%  num = [...];
-%  den = [...];
-%  ds.system = tf(den,num,ts);
-%  ds.impl.int_bits = ...;
-%  ds.impl.frac_bits = ...;
-%  ds.range.max = ...;
-%  ds.range.min = -...;
-%  ds.delta = ...;
+%  num = [1 0.5 1];
+%  den = [1 -1.5 -3];
+%  system = tf(den,num,1);
 %
-%  VERIFY_OVERFLOW(ds,'DFI',10,'CBMC');
-%  VERIFICATION SUCCESSFUL!
+%  verifyOverflow(system,2,10,1,-1,'DFI',0.25);
+%  VERIFICATION FAILED!
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
-% October, 2016
+% December 2016
 %
+
 global property;
 %setting the DSVERIFIER_HOME
-dsv_setup();
+verificationSetup();
+
+%generating struct with sytem and its implementations.
+digitalSystem.system = system;
+digitalSystem.impl.frac_bits = fracBits;
+digitalSystem.impl.int_bits = intBits;
+digitalSystem.range.max = rangeMax;
+digitalSystem.range.min = rangeMin;
+
 %translate to ANSI-C file
-dsv_parser(system,'tf',0,realization);
+verificationParser(digitalSystem,'tf',0,realization);
+
 %verifying using DSVerifier command-line
 property = 'OVERFLOW';
+extra_param = getExtraParams(nargin,varargin,'tf',property);
+command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(kbound) extra_param];
+verificationExecution(command_line,'tf');
 
-extra_param = get_macro_params(nargin,varargin,'tf');
-
-command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(xsize) extra_param];
-dsv_verification(command_line,'tf');
 %report the verification
-output = dsv_report('output.out','tf');
+output = verificationReport('output.out','tf');
 disp(output);
 
 end
