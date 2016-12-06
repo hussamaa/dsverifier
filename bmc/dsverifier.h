@@ -196,6 +196,29 @@ void validation(){
 		    __DSVERIFIER_assert(value >= _dbl_min);
 		  }
 		}
+		
+		if (controller.b_size > 0){
+	          unsigned j;
+       		  for (j = 0; j < controller.b_size; ++j){
+		    const double value=controller.b[j];
+	            printf("\n\n*****************************************************************************************************\n");
+		    printf("* The controller numerator must be not zero *\n");
+		    printf("*****************************************************************************************************\n");
+		    __DSVERIFIER_assert(value != 0);
+		  }
+		}
+
+	       if (controller.a_size > 0){
+	          unsigned j;
+       		  for (j = 0; j < controller.a_size; ++j){
+		    const double value=controller.a[j];
+	            printf("\n\n*****************************************************************************************************\n");
+		    printf("* The controller denominator must be not zero *\n");
+		    printf("*****************************************************************************************************\n");
+		    __DSVERIFIER_assert(value != 0);
+		  }
+		}
+
 		if (CONNECTION_MODE == 0){
 			printf("\n\n***************************************************************************************************************\n");
 			printf("* set a connection mode to check CLOSED LOOP with DSVerifier (use: --connection-mode TYPE) *\n");
