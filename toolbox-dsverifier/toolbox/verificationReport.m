@@ -64,10 +64,11 @@ if strcmp(output,'VERIFICATION FAILED')
         command = [sh ' ' script2 ' ' directory];
         system(command);
     end
-    
+    disp('generating counterexample...');
     counterexample = genCounterexample(property, directory);
     cd(home);
-    
+    disp('counterexample generated!');
+    disp(' ');
     save ('counterexample.mat', 'counterexample');
 
 end
