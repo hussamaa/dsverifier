@@ -14,11 +14,11 @@
 
 
 /**
- * Sine aproximation by taylor series (max 4 terms). 
+ * Sine aproximation by taylor series (max 6 terms). 
  * Algorithm created aiming to avoid state explosion due to loops and recursion.  
  */
  
-double sinTyl(double x, double precision){
+double sinTyl(double x, int precision){
     double sine;
     double xsquared = x*x;
     double aux;
@@ -36,26 +36,35 @@ double sinTyl(double x, double precision){
                 sine -= aux/6;
             
                 if (precision >= 3){
-                    aux = aux*xsquared
-                    sine +=aux/120
+                    aux = aux*xsquared;
+                    sine +=aux/120;
                 
                     if(precision >=4){
-                        aux = aux*xsquared
-                        sine -=aux/5040
+                        aux = aux*xsquared;
+                        sine -=aux/5040;
+
+                        if(precision >= 5){
+                            aux = aux*xsquared;
+                            sine +=aux/362880;
+
+                            if(precision >= 6){
+                                aux = aux*xsquared;
+                                sine -=aux/39916800;
+                            }
+                        }                     
                     }
                 }
             }
         }
     }
-    return sine;
+    return (double)sine;
 }
 
-
 /**
- * Cosine aproximation by taylor series (max 4 terms). 
+ * Cosine aproximation by taylor series (max 6 terms). 
  * Algorithm created aiming to avoid state explosion due to loops and recursion.  
  */
-double cosTyl(double x, double precision){
+double cosTyl(double x, int precision){
     double cosine;
     double xsquared = x*x;
     double aux;
@@ -77,8 +86,18 @@ double cosTyl(double x, double precision){
                     cosine += aux/24;
                 
                     if(precision >=4){
-                        aux = aux*xsquared
-                        cosine -=aux/720
+                        aux = aux*xsquared;
+                        cosine -=aux/720;
+
+                        if(precision >= 5){
+                            aux = aux*xsquared;
+                            cosine +=aux/40320;
+
+                            if(precision >= 6){
+                                aux = aux*xsquared;
+                                cosine -=aux/3628800;
+                            }
+                        }
                     }
                 }
             }
@@ -87,12 +106,11 @@ double cosTyl(double x, double precision){
     return cosine;
 }
 
-
 /**
  * Arctangent aproximation by taylor series (max 4 terms). 
  * Algorithm created aiming to avoid state explosion due to loops and recursion.  
  */
-double atanTyl(double x, double precision){
+double atanTyl(double x, int precision){
     double atangent;
     double xsquared = x*x;
     double aux;
@@ -114,14 +132,14 @@ double atanTyl(double x, double precision){
                     atangent += aux/5;
                 
                     if(precision >=4){
-                        aux = aux*xsquared
-                        atangent -=aux/7
+                        aux = aux*xsquared;
+                        atangent -=aux/7;
                     }
                 }
             }
         }
     }
-    return atanTyl;
+    return atangent;
 }
 
 
@@ -129,7 +147,8 @@ double atanTyl(double x, double precision){
 /**
  * square root aproximation (80% faster than standard sqrt from math.h, 99.9% precision)
  */
- float  sqrt1(const float x)
+ 
+ float sqrt1(const float x)
 {
   const float xhalf = 0.5f*x;
  
@@ -160,10 +179,4 @@ float sqrt2(const float x)
   u.i = (1<<29) + (u.i >> 1) - (1<<22); 
   return u.x;
 } 
-
-
-
-}
-
-
 
