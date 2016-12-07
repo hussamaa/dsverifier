@@ -194,27 +194,36 @@ void validation()
 		
 		if (controller.b_size > 0)
 		{
-	          unsigned j;
+	          unsigned j, zeros=0;
        		  for (j = 0; j < controller.b_size; ++j)
        		  {
-       			  const double value=controller.b[j];
+       			  if (controller.b[j]==0)
+       			    ++zeros;
+       		  }
+
+       		  if (zeros == controller.b_size)
+       		  {
        			  printf("\n\n*****************************************************************************************************\n");
        			  printf("* The controller numerator must not be zero *\n");
        			  printf("*****************************************************************************************************\n");
-       			  __DSVERIFIER_assert(value != 0);
+       			  __DSVERIFIER_assert(0);
        		  }
 		}
 		if (controller.a_size > 0)
 	    {
-			unsigned j;
+			unsigned j, zeros=0;
        		for (j = 0; j < controller.a_size; ++j)
        		{
-       			const double value=controller.a[j];
-       			printf("\n\n*****************************************************************************************************\n");
-       			printf("* The controller denominator must not be zero *\n");
-       			printf("*****************************************************************************************************\n");
-       			__DSVERIFIER_assert(value != 0);
+       			if (controller.a[j]==0)
+       				++zeros;
        		}
+   		    if (zeros == controller.a_size)
+     		{
+   		    	printf("\n\n*****************************************************************************************************\n");
+   		    	printf("* The controller denominator must not be zero *\n");
+   		    	printf("*****************************************************************************************************\n");
+   		    	__DSVERIFIER_assert(0);
+     		}
 	    }
 
 		if (CONNECTION_MODE == 0)
