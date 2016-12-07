@@ -964,14 +964,6 @@ std::string prepare_bmc_command_line_ss()
 	{
 		command_line = "cbmc --fixedbv --stop-on-fail input.c -DBMC=CBMC -I " + bmc_path;
 	}
-	//if (desired_solver.size() > 0)
-	//{
-		//command_line += " --" + desired_solver;
-	//}
-	//if (desired_realization.size() > 0)
-	//{
-	//	command_line += " -DREALIZATION=" + desired_realization;
-	//}
 	if (desired_property.size() > 0)
 	{
 		command_line += " -DPROPERTY=" + desired_property;
