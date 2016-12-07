@@ -1,7 +1,7 @@
-function output = dsv_report(output, representation)
+function output = verificationReport(output, representation)
 % Shows the report about the verification: successful or failed
 %
-% Function: output = DSV_REPORT(output, representation)
+% Function: output = verificationReport(output, representation)
 %
 %  output: digital system in a output file .out
 %  representation: 'ss' for state-space, 'tf' for transfer function and 'cl' for
@@ -9,7 +9,7 @@ function output = dsv_report(output, representation)
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
-% October 2016
+% December 2016
 %
 
 global property;
@@ -64,10 +64,11 @@ if strcmp(output,'VERIFICATION FAILED')
         command = [sh ' ' script2 ' ' directory];
         system(command);
     end
-    
-    counterexample = gen_counterexample(property, directory);
+    disp('generating counterexample...');
+    counterexample = genCounterexample(property, directory);
     cd(home);
-    
+    disp('counterexample generated!');
+    disp(' ');
     save ('counterexample.mat', 'counterexample');
 
 end

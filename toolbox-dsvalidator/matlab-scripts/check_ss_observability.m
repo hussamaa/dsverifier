@@ -1,22 +1,24 @@
-function decision = check_ss_observability(A,B,C,D,ts)
+function decision = check_ss_observability(sys)
 % 
-% CHECK_SS_OBSERVABILITY(A,B,C,D,ts)
+% CHECK_SS_OBSERVABILITY(sys)
 % 
-% For a LTI system in state-space format, CHECK_SS_OBSERVABILITY(A,B,C,D,ts)
+% For a LTI system in state-space format, CHECK_SS_OBSERVABILITY(sys)
 % decides about the observability. 
 % It returns decision = 1 if the system is observable, and 
 % returns decision = 0 in other case.
 % 
 % Lennon Chaves
-% October 28, 2016
+% November 25, 2016
 % Manaus
 
-sys = ss(A,B,C,D);
-sys = c2d(sys,ts,'zoh');
+A = sys.A;
+B = sys.B;
+C = sys.C;
+D = sys.D;
 
-[r,c] = size(sys.A);
+[r,c] = size(A);
 
-obsv_matrix = obsv(sys.A,sys.C);
+obsv_matrix = obsv(A,C);
 n = rank(obsv_matrix);
 
 if n == r

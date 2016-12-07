@@ -115,7 +115,7 @@ int verify_error_state_space(void){
 
 	fxp_verify_overflow(output_fxp);
 
-	__quant_error = (((output_fxp - output_double)/output_double)) * 100;
+	__quant_error = output_double - fxp_to_double(output_fxp);
 
 	assert(__quant_error < error_limit && __quant_error > (-error_limit));
 

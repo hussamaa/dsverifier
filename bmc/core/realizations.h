@@ -18,15 +18,6 @@ extern digital_system ds;
 extern hardware hw;
 extern int generic_timer;
 
-/*function to refresh the overflow mode */
-void refresh_overflow_mode()
-{
- if ((overflow_mode == SATURATE) && (PROPERTY == OVERFLOW))
-   {
-     overflow_mode = DETECT_OVERFLOW;
-   }
-}
-
 /** direct form I realization in fixed point */
 fxp_t fxp_direct_form_1(fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], int Na,	int Nb) {
 	fxp_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
@@ -44,7 +35,6 @@ fxp_t fxp_direct_form_1(fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], int Na,	int 
 		sum = fxp_sub(sum, fxp_mult(*a_ptr++, *y_ptr--));
 	}
 	sum = fxp_div(sum,a[0]);
-	refresh_overflow_mode();
 	return fxp_quantize(sum);
 }
 
@@ -67,7 +57,6 @@ fxp_t fxp_direct_form_2(fxp_t w[], fxp_t x, fxp_t a[], fxp_t b[], int Na,	int Nb
 		sum = fxp_add(sum, fxp_mult(*b_ptr++, *w_ptr++));
 	}
 
-	refresh_overflow_mode();
 	return fxp_quantize(sum);
 }
 
@@ -90,8 +79,6 @@ fxp_t fxp_transposed_direct_form_2(fxp_t w[], fxp_t x, fxp_t a[], fxp_t b[], int
 			w[j] = fxp_add(w[j], fxp_mult(*b_ptr++, x));
 		}
 	}
-	
-	refresh_overflow_mode();
 
 	return fxp_quantize(yout);
 }

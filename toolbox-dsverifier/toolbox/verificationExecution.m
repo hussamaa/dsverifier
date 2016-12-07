@@ -1,7 +1,7 @@
-function dsv_verification(command, representation)
+function verificationExecution(command, representation)
 % Function to get the parameters, system and implementatio to start the verification
 %
-% Function: output =  DSV_VERIFICATION(command, representation)
+% Function: output =  verificationExecution(command, representation)
 %
 %  command: the command line with all parameters to execute the
 %  verification
@@ -10,7 +10,7 @@ function dsv_verification(command, representation)
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
-% October 2016
+% December 2016
 %
 
 if strcmp(representation,'ss')
