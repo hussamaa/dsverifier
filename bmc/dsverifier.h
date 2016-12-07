@@ -77,59 +77,59 @@ int main()
 	{
 		call_verification_task(&verify_overflow);
 	}
-	if (PROPERTY == LIMIT_CYCLE)
+	else if (PROPERTY == LIMIT_CYCLE)
 	{
 		call_verification_task(&verify_limit_cycle);
 	}
-	if (PROPERTY == ERROR)
+	else if (PROPERTY == ERROR)
 	{
 		call_verification_task(&verify_error);
 	}
-	if (PROPERTY == ZERO_INPUT_LIMIT_CYCLE)
+	else if (PROPERTY == ZERO_INPUT_LIMIT_CYCLE)
 	{
 		call_verification_task(&verify_zero_input_limit_cycle);
 	}
-	if (PROPERTY == TIMING_MSP430)
+	else if (PROPERTY == TIMING_MSP430)
 	{
 		call_verification_task(&verify_timing_msp_430);
 	}
-	if (PROPERTY == TIMING)
+	else if (PROPERTY == TIMING)
 	{
 		call_verification_task(&verify_generic_timing);
 	}
-	if (PROPERTY == STABILITY)
+	else if (PROPERTY == STABILITY)
 	{
 		call_verification_task(&verify_stability);
 	}
-	if (PROPERTY == MINIMUM_PHASE)
+	else if (PROPERTY == MINIMUM_PHASE)
 	{
 		call_verification_task(&verify_minimum_phase);
 	}
-	if (PROPERTY == STABILITY_CLOSED_LOOP)
+	else if (PROPERTY == STABILITY_CLOSED_LOOP)
 	{
 		call_closedloop_verification_task(&verify_stability_closedloop_using_dslib);
 	}
-	if (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)
+	else if (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)
 	{
 		call_closedloop_verification_task(&verify_limit_cycle_closed_loop);
 	}
-	if (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP)
+	else if (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP)
 	{
 		call_closedloop_verification_task(&verify_error_closedloop);
 	}
-	if (PROPERTY == QUANTIZATION_ERROR)
+	else if (PROPERTY == QUANTIZATION_ERROR)
 	{
 		verify_error_state_space();
 	}
-	if (PROPERTY == CONTROLLABILITY)
+	else if (PROPERTY == CONTROLLABILITY)
 	{
 		verify_controllability();
 	}
-	if (PROPERTY == OBSERVABILITY)
+	else if (PROPERTY == OBSERVABILITY)
 	{
 		verify_observability();
 	}
-	if (PROPERTY == LIMIT_CYCLE_STATE_SPACE)
+	else if (PROPERTY == LIMIT_CYCLE_STATE_SPACE)
 	{
 		verify_limit_cycle_state_space();
 	}
