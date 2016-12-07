@@ -964,14 +964,6 @@ std::string prepare_bmc_command_line_ss()
 	{
 		command_line = "cbmc --fixedbv --stop-on-fail input.c -DBMC=CBMC -I " + bmc_path;
 	}
-	//if (desired_solver.size() > 0)
-	//{
-		//command_line += " --" + desired_solver;
-	//}
-	//if (desired_realization.size() > 0)
-	//{
-	//	command_line += " -DREALIZATION=" + desired_realization;
-	//}
 	if (desired_property.size() > 0)
 	{
 		command_line += " -DPROPERTY=" + desired_property;
@@ -2046,10 +2038,12 @@ void extract_data_from_ss_file()
 		_controller.K[lines][columns] = std::stod(str_bits);
 	}
 
-	//print_matrix(_controller.K,1,states);
-	//print_matrix(_controller.B,states,inputs);
-	//print_matrix(_controller.C,outputs,states);
-	//print_matrix(_controller.D,outputs,inputs);
+#if DEBUG_DSV
+	print_matrix(_controller.K,1,states);
+	print_matrix(_controller.B,states,inputs);
+	print_matrix(_controller.C,outputs,states);
+	print_matrix(_controller.D,outputs,inputs);
+#enduf
 }
 
 /*******************************************************************\
