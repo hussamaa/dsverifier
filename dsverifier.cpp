@@ -1060,7 +1060,7 @@ int get_fxp_value(std::string exp)
 	std::vector<std::string> tokens;
     boost::split(tokens, exp,boost::is_any_of("="));
     return std::atoi(tokens[1].c_str());
-};
+}
 
 /*******************************************************************\
 
@@ -1085,7 +1085,7 @@ void extract_regexp_data_for_vector(std::string src, std::regex & regexp, std::v
 		vector.push_back(value);
 		next++;
 	}
-};
+}
 
 /*******************************************************************\
 
@@ -1742,7 +1742,6 @@ Function: check_state_space_stability
 
 void check_state_space_stability()
 {
-
 	Eigen::MatrixXd matrixA = Eigen::MatrixXd::Ones(_controller.nStates,_controller.nStates);
 	int i, j;
 	for(i=0; i<_controller.nStates;i++)
@@ -2038,10 +2037,12 @@ void extract_data_from_ss_file()
 		_controller.K[lines][columns] = std::stod(str_bits);
 	}
 
-	//print_matrix(_controller.K,1,states);
-	//print_matrix(_controller.B,states,inputs);
-	//print_matrix(_controller.C,outputs,states);
-	//print_matrix(_controller.D,outputs,inputs);
+#if DEBUG_DSV
+	print_matrix(_controller.K,1,states);
+	print_matrix(_controller.B,states,inputs);
+	print_matrix(_controller.C,outputs,states);
+	print_matrix(_controller.D,outputs,inputs);
+#endif
 }
 
 /*******************************************************************\
