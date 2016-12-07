@@ -2043,7 +2043,7 @@ void extract_data_from_ss_file()
 	print_matrix(_controller.B,states,inputs);
 	print_matrix(_controller.C,outputs,states);
 	print_matrix(_controller.D,outputs,inputs);
-#enduf
+#endif
 }
 
 /*******************************************************************\

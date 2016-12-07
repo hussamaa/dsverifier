@@ -123,40 +123,8 @@ int main(){
 
 /** validate the required parameters to use DSVerifier and your properties verification. */
 void validation(){
-	if (PROPERTY == QUANTIZATION_ERROR){
-		if (K_SIZE == 0){
-			printf("\n\n********************************************************************************************\n");
-			printf("* set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");
-			printf("********************************************************************************************\n");
-			__DSVERIFIER_assert(0);
-			exit(1);
-		}
-		initials();
-		return;
-	}
-	if (PROPERTY == LIMIT_CYCLE_STATE_SPACE){
-		if (K_SIZE == 0){
-			printf("\n\n********************************************************************************************\n");
-			printf("* set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");
-			printf("********************************************************************************************\n");
-			__DSVERIFIER_assert(0);
-			exit(1);
-		}
-		initials();
-		return;
-	}
-	if (PROPERTY == CONTROLLABILITY){
-		if (K_SIZE == 0){
-			printf("\n\n********************************************************************************************\n");
-			printf("* set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");
-			printf("********************************************************************************************\n");
-			__DSVERIFIER_assert(0);
-			exit(1);
-		}
-		initials();
-		return;
-	}
-	if (PROPERTY == OBSERVABILITY){
+	if (PROPERTY == QUANTIZATION_ERROR || PROPERTY == LIMIT_CYCLE_STATE_SPACE ||
+		PROPERTY == CONTROLLABILITY || PROPERTY == OBSERVABILITY){
 		if (K_SIZE == 0){
 			printf("\n\n********************************************************************************************\n");
 			printf("* set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");
