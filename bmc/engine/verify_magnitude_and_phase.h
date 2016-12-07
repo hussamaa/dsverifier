@@ -60,10 +60,10 @@ void resp_mag(double* num, int lnum, double* den, int lden, double* res, int N) 
 			out_denIm[i] = sinTyl(w, SINE_precision) * old_out_Re + cosTyl(w, SINE_precision) * out_denIm[i];
 		}
 
-		res[i] = (double)sqrt1(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
+		res[i] = (double)sqrt3(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
 	    
 
-	    zero_test = sqrt1(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
+	    zero_test = sqrt3(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
 	   	//if (zero_test != 0)
 		res[i] = (double)res[i] / zero_test;
 		//else 
@@ -108,7 +108,7 @@ void resp_phase(double* num, int lnum, double* den, int lden, double* res, int N
 /*
  * Magnitude verifier 
  */
-/*
+
 
  void verify_magnitude(filter_parameters prop, double *res , int N) {
 
@@ -119,21 +119,21 @@ void resp_phase(double* num, int lnum, double* den, int lden, double* res, int N
 	if (prop.type == 1) { //lowpass
 		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
 			if (w <= prop.wp) {
-				__ESBMC_assert(res[i] >= prop.Ap, "|------------MESSAGE 1 -----------|/n");
+				__ESBMC_assert(res[i] >= prop.Ap, "|----------------Passband Failure-------------|");
 			} else if (w == prop.wc) {
-				__ESBMC_assert(res[i] <= prop.Ac, "|------------MESSAGE 2 -----------|/n");
+				__ESBMC_assert(res[i] <= prop.Ac, "|-------------Cutoff Frequency Failure--------|");
 			} else if ((w >= prop.wr) && (w <= 1)) {
-				__ESBMC_assert(res[i] <= prop.Ar, "|------------MESSAGE 3 -----------|/n");
+				__ESBMC_assert(res[i] <= prop.Ar, "|----------------Stopband Failure-------------|");
 			}
 		}
 	} else if (prop.type == 2) { //highpass
 		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
 			if (w <= prop.wr) {
-				__ESBMC_assert(res[i] <= prop.Ar, "|------------MESSAGE 4 -----------|/n");
+				__ESBMC_assert(res[i] <= prop.Ar, "|----------------Stopband Failure-------------|");
 			} else if (w == prop.wc) {
-				__ESBMC_assert(res[i] <= prop.Ac, "|------------MESSAGE 5 -----------|/n");
+				__ESBMC_assert(res[i] <= prop.Ac, "|-------------Cutoff Frequency Failure--------|");
 			} else if ((w > prop.wp) && (w <= 1)) {
-				__ESBMC_assert(res[i] >= prop.Ap, "|------------MESSAGE 6 -----------|/n");
+				__ESBMC_assert(res[i] >= prop.Ap, "|----------------Passband Failure-------------|");
 			}
 		}
 	} else {
@@ -141,10 +141,10 @@ void resp_phase(double* num, int lnum, double* den, int lden, double* res, int N
 		//assert(0); //Filter type not supported
 	}
 
-*/
 
 
 
+/*
  void verify_magnitude(filter_parameters prop, double *res , int N) {
 
 	int i;
@@ -165,7 +165,7 @@ void resp_phase(double* num, int lnum, double* den, int lden, double* res, int N
 		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
 			if (w <= prop.wr) {
 				assert(res[i] <= prop.Ar);
-			} else if (w == prop.wc) 
+			} else if (w == prop.wc) {
 				assert(res[i] <= prop.Ac);
 			} else if ((w > prop.wp) && (w <= 1)) {
 				assert(res[i] >= prop.Ap);
@@ -176,6 +176,6 @@ void resp_phase(double* num, int lnum, double* den, int lden, double* res, int N
 		//assert(0); //Filter type not supported
 	}
 
-
+*/
 }
 
