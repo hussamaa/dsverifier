@@ -155,6 +155,13 @@ void fxp_verify_overflow(fxp_t value){
 	__DSVERIFIER_assert(value <= _fxp_max && value >= _fxp_min);
 }
 
+void fxp_verify_overflow_node(fxp_t value){
+	if (OVERFLOW_MODE == SATURATE)
+	{
+	 __DSVERIFIER_assert(value <= _fxp_max && value >= _fxp_min);  
+	}
+}
+
 void fxp_verify_overflow_array(fxp_t array[], int n){
 	int i=0;
 	for(i=0; i<n;i++){
@@ -303,6 +310,7 @@ void fxp_to_double_array(double f[], fxp_t r[], int N) {
 fxp_t fxp_abs(fxp_t a) {
 	fxp_t tmp;
 	tmp = ((a < 0) ? -(fxp_t)(a) : a);
+	fxp_verify_overflow_node(tmp);
 	tmp = fxp_quantize(tmp);
 	return tmp;
 }
@@ -316,6 +324,7 @@ fxp_t fxp_abs(fxp_t a) {
 fxp_t fxp_add(fxp_t aadd, fxp_t badd) {
 	fxp_t tmpadd;
 	tmpadd = ((fxp_t)(aadd) + (fxp_t)(badd));
+	fxp_verify_overflow_node(tmpadd);
 	tmpadd = fxp_quantize(tmpadd);
 	return tmpadd;
 }
@@ -329,6 +338,7 @@ fxp_t fxp_add(fxp_t aadd, fxp_t badd) {
 fxp_t fxp_sub(fxp_t asub, fxp_t bsub) {
 	fxp_t tmpsub;
 	tmpsub = (fxp_t)((fxp_t)(asub) - (fxp_t)(bsub));
+	fxp_verify_overflow_node(tmpsub);
 	tmpsub = fxp_quantize(tmpsub);
 	return tmpsub;
 }
@@ -347,6 +357,7 @@ fxp_t fxp_mult(fxp_t amult, fxp_t bmult) {
 	} else {
 		tmpmultprec = -(((-tmpmult) + (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits);
 	}
+	fxp_verify_overflow_node(tmpmultprec);
 	tmpmultprec = fxp_quantize(tmpmultprec);
 	return tmpmultprec;
 }
@@ -360,6 +371,7 @@ fxp_t fxp_mult(fxp_t amult, fxp_t bmult) {
  */
 fxp_t fxp_div(fxp_t a, fxp_t b){
 	fxp_t tmpdiv = ((a << impl.frac_bits) / b);
+	fxp_verify_overflow_node(tmpdiv);
 	tmpdiv = fxp_quantize(tmpdiv);
 	return tmpdiv;
 }
@@ -372,6 +384,7 @@ fxp_t fxp_div(fxp_t a, fxp_t b){
 fxp_t fxp_neg(fxp_t aneg) {
 	fxp_t tmpneg;
 	tmpneg = -(fxp_t)(aneg);
+	fxp_verify_overflow_node(tmpneg);
 	tmpneg = fxp_quantize(tmpneg);
 	return tmpneg;
 }

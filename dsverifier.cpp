@@ -88,7 +88,7 @@ typedef Eigen::PolynomialSolver<double, Eigen::Dynamic>::RootsType RootsType;
 
 const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "ERROR",
 		"TIMING", "TIMING_MSP430", "STABILITY", "STABILITY_CLOSED_LOOP", "LIMIT_CYCLE_CLOSED_LOOP",
-		"QUANTIZATION_ERROR_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTISATION_ERROR", "CONTROLLABILITY",
+		"QUANTIZATION_ERROR_CLOSED_LOOP", "MINIMUM_PHASE", "QUANTIZATION_ERROR", "CONTROLLABILITY",
 		"OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE"};
 const char * rounding [] = { "ROUNDING", "FLOOR", "CEIL" };
 const char * overflow [] = { "DETECT_OVERFLOW", "SATURATE", "WRAPAROUND" };
@@ -118,7 +118,7 @@ bool stateSpaceVerification = false;
 bool closedloop = false;
 bool translate = false;
 digital_system_state_space _controller;
-double desired_quantisation_limit = 0.0;
+double desired_quantization_limit = 0.0;
 bool show_counterexample_data = false;
 
 /*******************************************************************\
@@ -777,7 +777,7 @@ void bind_parameters(int argc, char* argv[])
 		{
 			if (i + 1 < argc)
 			{
-				desired_quantisation_limit = std::stod(argv[++i]);
+				desired_quantization_limit = std::stod(argv[++i]);
 			}
 			else
 			{
@@ -1754,12 +1754,12 @@ void check_state_space_stability()
 
 	std::complex< double > lambda;
 	std::complex< double > margem(1,0);
-	for(i = 0; i < (matrixA.count() / 2); i++ )
+	for(i = 0; i < _controller.nStates; i++ )
 	{
 		lambda = matrixA.eigenvalues()[i];
-		//std::cout << "abs(lambda): " << std::abs(lambda) << std::endl;
+		std::cout << "abs(lambda): " << std::abs(lambda) << std::endl;
 		double v = std::abs(lambda);
-		if( v >= 1 )
+		if( v > 1.0 )
 		{
 			std::cout << "VERIFICATION FAILED" << std::endl; //unstable
 			exit(0);
@@ -2077,7 +2077,7 @@ void state_space_parser()
 	verification_file.append(";\n int nOutputs = ");
 	verification_file.append(std::to_string(_controller.nOutputs));
 	verification_file.append(";\n double error_limit = ");
-	cf_value_precision  << std::fixed << desired_quantisation_limit;
+	cf_value_precision  << std::fixed << desired_quantization_limit;
 	verification_file.append(cf_value_precision.str());
 	verification_file.append(";\n void initials(){\n");
 
@@ -2176,7 +2176,7 @@ void state_space_parser()
 
 Function: closed_loop
 
-  Inputs:
+  Inputs: None
 
  Outputs:
 
@@ -2184,7 +2184,7 @@ Function: closed_loop
 
 \*******************************************************************/
 
-void closed_loop(){
+void closed_loop(){ // A-B*K and C-D*K
 
 	double result1[LIMIT][LIMIT];
 
@@ -2193,7 +2193,7 @@ void closed_loop(){
 		for(j=0; j<LIMIT;j++)
 			result1[i][j]=0;
 
-	double_matrix_multiplication(_controller.nStates,_controller.nInputs,1,_controller.nStates,_controller.B,_controller.K,result1);
+	double_matrix_multiplication(_controller.nStates,_controller.nInputs,_controller.nInputs,_controller.nStates,_controller.B,_controller.K,result1); // B*K
 
 	double_sub_matrix(_controller.nStates,
 			_controller.nStates,
@@ -2205,7 +2205,7 @@ void closed_loop(){
 		for(j=0; j<LIMIT;j++)
 			result1[i][j]=0;
 
-	double_matrix_multiplication(_controller.nOutputs,_controller.nInputs,1,_controller.nStates,_controller.D,_controller.K,result1);
+	double_matrix_multiplication(_controller.nOutputs,_controller.nInputs,_controller.nInputs,_controller.nStates,_controller.D,_controller.K,result1); //D*K
 
 	double_sub_matrix(_controller.nOutputs,
 			_controller.nStates,
@@ -2300,8 +2300,8 @@ int main(int argc, char* argv[])
 
 	bind_parameters(argc, argv);
 
-	if(desired_property == "QUANTISATION_ERROR" && desired_quantisation_limit == 0.0)
-		show_required_argument_message("QUANTISATION_ERROR");
+	if(desired_property == "QUANTIZATION_ERROR" && desired_quantization_limit == 0.0)
+		show_required_argument_message("QUANTIZATION_ERROR");
 
 	check_file_exists();
 
@@ -2318,15 +2318,17 @@ int main(int argc, char* argv[])
 	if (stateSpaceVerification)
 	{
 		extract_data_from_ss_file();
+
 		if(closedloop)
 			closed_loop();
+
 		if( desired_property == "STABILITY" )
 		{
 			std::cout << "Checking stability..." << std::endl;
 			check_state_space_stability();
 			exit(0);
 		}
-		else if( desired_property == "QUANTISATION_ERROR" )
+		else if( desired_property == "QUANTIZATION_ERROR" )
 		{
 			state_space_parser();
 			std::string command_line = prepare_bmc_command_line_ss();

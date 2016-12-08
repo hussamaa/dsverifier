@@ -77,59 +77,59 @@ int main()
 	{
 		call_verification_task(&verify_overflow);
 	}
-	if (PROPERTY == LIMIT_CYCLE)
+	else if (PROPERTY == LIMIT_CYCLE)
 	{
 		call_verification_task(&verify_limit_cycle);
 	}
-	if (PROPERTY == ERROR)
+	else if (PROPERTY == ERROR)
 	{
 		call_verification_task(&verify_error);
 	}
-	if (PROPERTY == ZERO_INPUT_LIMIT_CYCLE)
+	else if (PROPERTY == ZERO_INPUT_LIMIT_CYCLE)
 	{
 		call_verification_task(&verify_zero_input_limit_cycle);
 	}
-	if (PROPERTY == TIMING_MSP430)
+	else if (PROPERTY == TIMING_MSP430)
 	{
 		call_verification_task(&verify_timing_msp_430);
 	}
-	if (PROPERTY == TIMING)
+	else if (PROPERTY == TIMING)
 	{
 		call_verification_task(&verify_generic_timing);
 	}
-	if (PROPERTY == STABILITY)
+	else if (PROPERTY == STABILITY)
 	{
 		call_verification_task(&verify_stability);
 	}
-	if (PROPERTY == MINIMUM_PHASE)
+	else if (PROPERTY == MINIMUM_PHASE)
 	{
 		call_verification_task(&verify_minimum_phase);
 	}
-	if (PROPERTY == STABILITY_CLOSED_LOOP)
+	else if (PROPERTY == STABILITY_CLOSED_LOOP)
 	{
 		call_closedloop_verification_task(&verify_stability_closedloop_using_dslib);
 	}
-	if (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)
+	else if (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)
 	{
 		call_closedloop_verification_task(&verify_limit_cycle_closed_loop);
 	}
-	if (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP)
+	else if (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP)
 	{
 		call_closedloop_verification_task(&verify_error_closedloop);
 	}
-	if (PROPERTY == QUANTISATION_ERROR)
+	else if (PROPERTY == QUANTIZATION_ERROR)
 	{
 		verify_error_state_space();
 	}
-	if (PROPERTY == CONTROLLABILITY)
+	else if (PROPERTY == CONTROLLABILITY)
 	{
 		verify_controllability();
 	}
-	if (PROPERTY == OBSERVABILITY)
+	else if (PROPERTY == OBSERVABILITY)
 	{
 		verify_observability();
 	}
-	if (PROPERTY == LIMIT_CYCLE_STATE_SPACE)
+	else if (PROPERTY == LIMIT_CYCLE_STATE_SPACE)
 	{
 		verify_limit_cycle_state_space();
 	}
@@ -138,13 +138,14 @@ int main()
 }
 
 /** validate the required parameters to use DSVerifier and your properties verification. */
-void validation(){
-	if (PROPERTY == QUANTISATION_ERROR || PROPERTY == LIMIT_CYCLE_STATE_SPACE ||
+void validation()
+{
+	if (PROPERTY == QUANTIZATION_ERROR || PROPERTY == LIMIT_CYCLE_STATE_SPACE ||
 		PROPERTY == CONTROLLABILITY || PROPERTY == OBSERVABILITY)
 	{
 		if (K_SIZE == 0)
 		{
-			printf("\n\n****************************************************************************************\n");
+			printf("\n\n********************************************************************************************\n");
 			printf("* set a K_SIZE to use this property in DSVerifier (use: -DK_SIZE=VALUE) *\n");
 			printf("********************************************************************************************\n");
 			__DSVERIFIER_assert(0);
@@ -156,15 +157,17 @@ void validation(){
 	if (((PROPERTY != STABILITY_CLOSED_LOOP) && (PROPERTY != LIMIT_CYCLE_CLOSED_LOOP) &&
 			(PROPERTY != QUANTIZATION_ERROR_CLOSED_LOOP)) && (ds.a_size == 0 || ds.b_size == 0))
 	{
-		printf("\n\n************************************************************************\n");
+		printf("\n\n****************************************************************************\n");
 		printf("* set (ds and impl) parameters to check with DSVerifier *\n");
 		printf("****************************************************************************\n");
 		__DSVERIFIER_assert(0);
 	}
-	if ((PROPERTY == STABILITY_CLOSED_LOOP) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) || (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP)){
+	if ((PROPERTY == STABILITY_CLOSED_LOOP) || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) ||
+			(PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP))
+	{
 		if (controller.a_size == 0 || plant.b_size == 0 || impl.int_bits == 0 )
 		{
-			printf("\n\n*************************************************************************************************\n");
+			printf("\n\n*****************************************************************************************************\n");
 			printf("* set (controller, plant, and impl) parameters to check CLOSED LOOP with DSVerifier *\n");
 			printf("*****************************************************************************************************\n");
 			__DSVERIFIER_assert(0);
@@ -188,6 +191,41 @@ void validation(){
 		    __DSVERIFIER_assert(value >= _dbl_min);
 		  }
 		}
+		
+		if (controller.b_size > 0)
+		{
+	          unsigned j, zeros=0;
+       		  for (j = 0; j < controller.b_size; ++j)
+       		  {
+       			  if (controller.b[j]==0)
+       			    ++zeros;
+       		  }
+
+       		  if (zeros == controller.b_size)
+       		  {
+       			  printf("\n\n*****************************************************************************************************\n");
+       			  printf("* The controller numerator must not be zero *\n");
+       			  printf("*****************************************************************************************************\n");
+       			  __DSVERIFIER_assert(0);
+       		  }
+		}
+		if (controller.a_size > 0)
+	    {
+			unsigned j, zeros=0;
+       		for (j = 0; j < controller.a_size; ++j)
+       		{
+       			if (controller.a[j]==0)
+       				++zeros;
+       		}
+   		    if (zeros == controller.a_size)
+     		{
+   		    	printf("\n\n*****************************************************************************************************\n");
+   		    	printf("* The controller denominator must not be zero *\n");
+   		    	printf("*****************************************************************************************************\n");
+   		    	__DSVERIFIER_assert(0);
+     		}
+	    }
+
 		if (CONNECTION_MODE == 0)
 		{
 			printf("\n\n***************************************************************************************************************\n");
@@ -257,15 +295,15 @@ void validation(){
 			}
 			if (ds.sample_time == 0)
 			{
-				printf("\n\n*************************************************************************\n");
+				printf("\n\n*****************************************************************************\n");
 				printf("* provide the sample time of the digital system (ds.sample_time) *\n");
 				printf("*****************************************************************************\n");
 				__DSVERIFIER_assert(0);
 			}
 		}
 	}
-	if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFI) ||
-			(REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+	if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) ||
+			(REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
 	{
 		printf("\n\n******************************************\n");
 		printf("* Temporarily the cascade modes are disabled *\n");
@@ -277,14 +315,13 @@ void validation(){
 /** method to call the verification task considering or not the uncertainty for digital system (ds struct) */
 void call_verification_task(void * verification_task)
 {
-
 	int i = 0;
 	/* Base case is the execution using all parameters without uncertainty */
 	_Bool base_case_executed = 0;
 
+
 	if (ERROR_MODE == ABSOLUTE)
 	{
-
 		/* Considering uncertainty for numerator coefficients */
 		for(i=0; i<ds.b_size; i++)
 		{
@@ -310,7 +347,6 @@ void call_verification_task(void * verification_task)
 				__DSVERIFIER_assume((ds.b[i] >= min) && (ds.b[i] <= max));
 			}
 		}
-
 
 		/* considering uncertainty for denominator coefficients */
 		for(i=0; i<ds.a_size; i++)
@@ -344,7 +380,8 @@ void call_verification_task(void * verification_task)
 		int i=0;
 		for(i=0; i<ds.b_size; i++)
 		{
-			if (ds.b_uncertainty[i] > 0){
+			if (ds.b_uncertainty[i] > 0)
+			{
 				double factor = ((ds.b[i] * ds.b_uncertainty[i]) / 100);
 				factor = factor < 0 ? factor * (-1) : factor;
 
@@ -440,7 +477,8 @@ void call_closedloop_verification_task(void * closedloop_verification_task)
 	/* considering uncertainty for denominator coefficients */
 	for(i=0; i<plant.a_size; i++)
 	{
-		if (plant.a_uncertainty[i] > 0){
+		if (plant.a_uncertainty[i] > 0)
+		{
 			double factor = ((plant.a[i] * plant.a_uncertainty[i]) / 100);
 			factor = factor < 0 ? factor * (-1) : factor;
 
@@ -464,7 +502,9 @@ void call_closedloop_verification_task(void * closedloop_verification_task)
 				plant_cbmc.a[i] = nondet_double();
 				__DSVERIFIER_assume((plant_cbmc.a[i] >= min) && (plant_cbmc.a[i] <= max));
 			#endif
-		}else{
+		}
+		else
+		{
 			#if (BMC == CBMC)
 				plant_cbmc.a[i] = plant.a[i];
 			#endif

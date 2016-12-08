@@ -31,11 +31,9 @@ function [output, time_execution] = simulate_overflow(system)
 tic
 
 global property;
-global overflow_mode;
 global round_mode;
 
 property = 'overflow';
-overflow_mode = 'saturate';
 round_mode = 'double';
 
 wl = system.impl.frac_bits;
