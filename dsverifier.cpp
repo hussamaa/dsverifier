@@ -2162,7 +2162,25 @@ void state_space_parser()
 		}
 	}
 
-	verification_file.append("}");
+	if(closedloop){
+		for (i=0; i<_controller.nOutputs; i++)
+		{
+			for (j=0; j<_controller.nStates; j++)
+			{
+				verification_file.append("\t_controller.K[");
+				verification_file.append(std::to_string(i));
+				verification_file.append("][");
+				verification_file.append(std::to_string(j));
+				verification_file.append("] = ");
+				cf_value_precision.str(std::string());
+				cf_value_precision << std::fixed << _controller.K[i][j];
+				verification_file.append(cf_value_precision.str());
+				verification_file.append(";\n");
+			}
+		}
+	}
+
+	verification_file.append("}\n");
 
 	std::ofstream myfile ("input.c");
 	if (myfile.is_open())
@@ -2320,7 +2338,7 @@ int main(int argc, char* argv[])
 	{
 		extract_data_from_ss_file();
 
-		if(closedloop)
+		if(closedloop && desired_property != "QUANTIZATION_ERROR")
 			closed_loop();
 
 		if( desired_property == "STABILITY" )
