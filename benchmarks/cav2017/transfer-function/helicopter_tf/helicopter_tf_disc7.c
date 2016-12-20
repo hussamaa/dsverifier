@@ -1,0 +1,16 @@
+#include <dsverifier.h>
+
+implementation impl = { 
+	.int_bits =  7,
+	.frac_bits =   3,
+	.max =  1.000000,
+	.min =  -1.000000
+	};
+
+digital_system plant = { 
+	.b = {  0 , 0.097555 , -0.19554 , 0.098044 },
+	.b_size =  4,
+	.a = {  1 , -2.9958 , 2.9916 , -0.99581 },
+	.a_size =  4 
+	};
+
