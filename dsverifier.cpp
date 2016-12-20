@@ -952,9 +952,11 @@ std::string prepare_bmc_command_line_ss()
 	}
 	std::string command_line;
 	std::string bmc_path = std::string(dsverifier_home) + "/bmc";
+	std::string model_checker_path = std::string(dsverifier_home) + "/model-checker";
+
 	if (desired_bmc == "ESBMC")
 	{
-		command_line = "esbmc input.c --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " + bmc_path;
+		command_line = model_checker_path + "/esbmc input.c --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " + bmc_path;
 		if (desired_timeout.size() > 0)
 		{
 			command_line += " --timeout " + desired_timeout;
@@ -962,7 +964,7 @@ std::string prepare_bmc_command_line_ss()
 	}
 	else if (desired_bmc == "CBMC")
 	{
-		command_line = "cbmc --fixedbv --stop-on-fail input.c -DBMC=CBMC -I " + bmc_path;
+		command_line = model_checker_path + "/cbmc --fixedbv --stop-on-fail input.c -DBMC=CBMC -I " + bmc_path;
 	}
 	if (desired_property.size() > 0)
 	{
