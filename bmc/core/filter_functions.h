@@ -180,3 +180,42 @@ float sqrt2(const float x)
   return u.x;
 } 
 
+
+float fabsolut(float x)
+{
+     if (x < 0)
+         x = -x;
+     return x;
+}
+
+static float sqrt3(float val)
+{
+
+
+  float x = val/10;
+
+  float dx;
+
+  double diff;
+  double min_tol = 0.00001;
+
+  int i, flag;
+
+  flag = 0;
+  if (val == 0 ) x = 0;
+  else {
+    for (i=1;i<20;i++)
+      {
+  if (!flag) {
+    dx = (val - (x*x)) / (2.0 * x);
+    x = x + dx;
+    diff = val - (x*x);
+    if (fabsolut(diff) <= min_tol) flag = 1;
+  }
+  else 
+    x =x;
+      }
+  }
+  return (x);
+}
+

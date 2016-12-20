@@ -25,6 +25,7 @@
 #include "core/closed-loop.h"
 #include "core/initialization.h"
 #include "core/state-space.h"
+#include "core/filter_functions.h"
 
 #include "engine/verify_overflow.h"
 #include "engine/verify_limit_cycle.h"
@@ -40,6 +41,8 @@
 #include "engine/verify_error_state_space.h"
 #include "engine/verify_controllability.h"
 #include "engine/verify_observability.h"
+#include "engine/verify_magnitude.h"
+
 
 extern digital_system ds;
 extern digital_system plant;
@@ -133,7 +136,10 @@ int main()
 	{
 		verify_limit_cycle_state_space();
 	}
-
+	else if (PROPERTY == FILTER_MAGNITUDE) 
+		
+		call_verification_task(&verify_magnitude);
+	}
 	return 0;
 }
 
