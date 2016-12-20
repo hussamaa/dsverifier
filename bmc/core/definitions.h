@@ -27,7 +27,7 @@
 #endif
 
 /** required parameters */
-#define LIMIT 20
+#define LIMIT 4
 
 /* realizations (use: -DREALIZATION=DIRECTFORMI) */
 #define DIRECTFORMI	1

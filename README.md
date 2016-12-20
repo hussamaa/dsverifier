@@ -50,7 +50,7 @@ CBMC and ESBMC recommended versions for DSVerifier v2.0 are:
 (3) You need to install the Eigen library (e.g., eigen3, eigen3-static, 
 and eigen3-devel depending on your distribution).
 
-(4) Make sure that you have installed GCC version 4.9 (or higher).
+(4) Make sure that you have installed GCC version 5.4 (or higher).
 
 ## Command line mode
 
