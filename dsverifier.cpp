@@ -152,6 +152,7 @@ void help ()
 	std::cout << "                             (for Digital-Systems: OVERFLOW, LIMIT_CYCLE, ZERO_INPUT_LIMIT_CYCLE, ERROR, TIMING, STABILITY, and MINIMUM_PHASE)" << std::endl;
 	std::cout << "                             (for Digital-Systems in Closed-loop: STABILITY_CLOSED_LOOP, LIMIT_CYCLE_CLOSED_LOOP, and QUANTIZATION_ERROR_CLOSED_LOOP)" << std::endl;
 	std::cout << "--x-size <k>                 set the bound of verification" << std::endl;
+	std::cout << "--unlimited-x-size <k>       set the unlimited bound of verification and run the verifier using k-induction" << std::endl;	
 	std::cout << "--rounding-mode <rm>         set the rounding mode (ROUNDING, FLOOR, or CEIL)" << std::endl;
 	std::cout << "--error-mode <em>            set the error mode (ABSOLUTE or RELATIVE), default is RELATIVE" << std::endl;
 	std::cout << "--overflow-mode <om>         set the overflow mode (DETECT_OVERFLOW, SATURATE, or WRAPAROUND)" << std::endl;
