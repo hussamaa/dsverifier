@@ -117,6 +117,7 @@ std::string desired_ds_id;
 bool stateSpaceVerification = false;
 bool closedloop = false;
 bool translate = false;
+bool k_induction = false;
 digital_system_state_space _controller;
 double desired_quantization_limit = 0.0;
 bool show_counterexample_data = false;
@@ -686,6 +687,10 @@ void bind_parameters(int argc, char* argv[])
 				show_required_argument_message(argv[i]);
 			}
 		}
+		else if (std::string(argv[i]) == "--unlimited-x-size")
+		{
+			k_induction = true;
+		}
 		else if (std::string(argv[i]) == "--connection-mode")
 		{
 			if (i + 1 < argc)
@@ -881,6 +886,10 @@ std::string prepare_bmc_command_line()
 	if (desired_bmc == "ESBMC")
 	{
 		command_line = model_checker_path + "/esbmc " + desired_filename + " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " + bmc_path;
+		if (k_induction)
+		{
+			command_line += " --k-induction --unlimited-k-steps ";			
+		}
 		if (desired_timeout.size() > 0)
 		{
 			command_line += " --timeout " + desired_timeout;
@@ -925,6 +934,10 @@ std::string prepare_bmc_command_line()
 	if (desired_x_size > 0)
 	{
 		command_line += " -DX_SIZE=" + std::to_string(desired_x_size);
+	}
+	if (k_induction)
+	{
+		command_line += " -DK_INDUCTION=K_INDUCTION";
 	}
 	command_line += desired_macro_parameters;
 	return command_line;

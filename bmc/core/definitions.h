@@ -117,8 +117,11 @@
 	#define ROUNDING_MODE               	  1
 #endif
 
+/** k induction */
+#define K_INDUCTION         1
+
 /** overflow, x_size, and round parameters */
-int X_SIZE_VALUE = 0;
+unsigned int X_SIZE_VALUE = 0;
 int overflow_mode = DETECT_OVERFLOW;
 int rounding_mode = ROUNDING;
 

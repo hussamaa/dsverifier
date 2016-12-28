@@ -245,12 +245,16 @@ void validation()
 			(PROPERTY == LIMIT_CYCLE_CLOSED_LOOP) || (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP) ||
 			(PROPERTY == TIMING_MSP430 || PROPERTY == TIMING) || PROPERTY == ERROR)
 	{
-		if (X_SIZE == 0)
+		if ((X_SIZE == 0) && !(K_INDUCTION))
 		{
 			printf("\n\n********************************************************************************************\n");
 			printf("* set a X_SIZE to use this property in DSVerifier (use: --x-size VALUE) *\n");
 			printf("********************************************************************************************\n");
 			__DSVERIFIER_assert(0);
+		}
+		else if (K_INDUCTION)
+		{
+			X_SIZE_VALUE = nondet_uint();
 		}
 		else
 		{
