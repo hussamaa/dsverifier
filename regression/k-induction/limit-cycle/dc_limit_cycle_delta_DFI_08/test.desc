@@ -1,0 +1,3 @@
+input.c
+--property LIMIT_CYCLE --unlimited-x-size --realization DDFI --bmc ESBMC --solver boolector
+^VERIFICATION SUCCESSFUL$
