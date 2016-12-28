@@ -888,7 +888,8 @@ std::string prepare_bmc_command_line()
 		command_line = model_checker_path + "/esbmc " + desired_filename + " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " + bmc_path;
 		if (k_induction)
 		{
-			command_line += " --k-induction --unlimited-k-steps ";			
+			command_line += " --k-induction --unlimited-k-steps ";	
+			command_line += " -DK_INDUCTION_MODE=K_INDUCTION";		
 		}
 		if (desired_timeout.size() > 0)
 		{
@@ -934,10 +935,6 @@ std::string prepare_bmc_command_line()
 	if (desired_x_size > 0)
 	{
 		command_line += " -DX_SIZE=" + std::to_string(desired_x_size);
-	}
-	if (k_induction)
-	{
-		command_line += " -DK_INDUCTION=K_INDUCTION";
 	}
 	command_line += desired_macro_parameters;
 	return command_line;

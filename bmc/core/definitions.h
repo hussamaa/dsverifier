@@ -119,6 +119,9 @@
 
 /** k induction */
 #define K_INDUCTION         1
+#ifndef K_INDUCTION_MODE
+	#define K_INDUCTION_MODE               	  0
+#endif
 
 /** overflow, x_size, and round parameters */
 unsigned int X_SIZE_VALUE = 0;
