@@ -2,7 +2,7 @@
 
 total_time=0
 
-MODULES="digital-system overflow limit-cycle"
+MODULES="overflow limit-cycle"
 
 echo ""
 echo "Script for DSVerifier started at:" $(date +"%T")
