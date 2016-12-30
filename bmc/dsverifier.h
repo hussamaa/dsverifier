@@ -257,10 +257,16 @@ void validation()
 			X_SIZE_VALUE = nondet_uint();
 			__ESBMC_assume(X_SIZE_VALUE > 0);
 		}
+		else if (X_SIZE < 0)
+		{
+			printf("\n\n********************************************************************************************\n");
+			printf("* set a X_SIZE > 0 *\n");
+			printf("********************************************************************************************\n");
+			__DSVERIFIER_assert(0);
+		}
 		else
 		{
 			X_SIZE_VALUE = X_SIZE;
-			__ESBMC_assume(X_SIZE_VALUE > 0);
 		}
 	}
 	if ((REALIZATION == 0) && (PROPERTY != STABILITY_CLOSED_LOOP))
@@ -315,16 +321,6 @@ void validation()
 		printf("* Temporarily the cascade modes are disabled *\n");
 		printf("**********************************************\n");
 		__DSVERIFIER_assert(0);
-	}
-	if (ds.a_size > 0)
-	{
-		if (ds.a[0] == 0)
-		{
-			printf("\n\n******************************************\n");
-			printf("* The first coefficient in denominator could not be zero *\n");
-			printf("**********************************************\n");
-			__DSVERIFIER_assert(0);	
-		}
 	}
 }
 
