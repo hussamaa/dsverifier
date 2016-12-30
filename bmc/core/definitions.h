@@ -124,7 +124,7 @@
 #endif
 
 /** overflow, x_size, and round parameters */
-unsigned int X_SIZE_VALUE = 0;
+int X_SIZE_VALUE = 0;
 int overflow_mode = DETECT_OVERFLOW;
 int rounding_mode = ROUNDING;
 
