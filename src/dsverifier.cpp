@@ -787,8 +787,7 @@ std::string prepare_bmc_command_line()
 	  bmc_path;
 	if (k_induction)
 	{
-	  command_line += " --k-induction --unlimited-k-steps ";
-	  command_line += " -DK_INDUCTION_MODE=K_INDUCTION";
+	  command_line += " --k-induction --unlimited-k-steps -DK_INDUCTION_MODE=K_INDUCTION ";
 	}
 	if (desired_timeout.size() > 0)
 	{
