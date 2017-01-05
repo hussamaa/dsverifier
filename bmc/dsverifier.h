@@ -38,6 +38,7 @@
 #include "engine/verify_limit_cycle_closedloop.h"
 #include "engine/verify_error_closedloop.h"
 #include "engine/verify_error_state_space.h"
+#include "engine/verify_safety_state_space.h"
 #include "engine/verify_controllability.h"
 #include "engine/verify_observability.h"
 
@@ -48,6 +49,8 @@ extern digital_system controller;
 extern implementation impl;
 extern hardware hw;
 extern digital_system_state_space _controller;
+
+unsigned int nondet_uint();
 
 extern void initials();
 
@@ -121,6 +124,10 @@ int main()
 	{
 		verify_error_state_space();
 	}
+	else if (PROPERTY == SAFETY_STATE_SPACE)
+	{
+		verify_safety_state_space();
+	}
 	else if (PROPERTY == CONTROLLABILITY)
 	{
 		verify_controllability();
@@ -140,8 +147,9 @@ int main()
 /** validate the required parameters to use DSVerifier and your properties verification. */
 void validation()
 {
-	if (PROPERTY == QUANTIZATION_ERROR || PROPERTY == LIMIT_CYCLE_STATE_SPACE ||
-		PROPERTY == CONTROLLABILITY || PROPERTY == OBSERVABILITY)
+	if (PROPERTY == QUANTIZATION_ERROR || PROPERTY == SAFETY_STATE_SPACE ||
+		PROPERTY == LIMIT_CYCLE_STATE_SPACE || PROPERTY == CONTROLLABILITY ||
+		PROPERTY == OBSERVABILITY)
 	{
 		if (K_SIZE == 0)
 		{
@@ -255,7 +263,7 @@ void validation()
 		else if (K_INDUCTION_MODE == K_INDUCTION)
 		{
 			X_SIZE_VALUE = nondet_uint();
-			__ESBMC_assume(X_SIZE_VALUE > 0);
+			__DSVERIFIER_assume(X_SIZE_VALUE > 0);
 		}
 		else if (X_SIZE < 0)
 		{

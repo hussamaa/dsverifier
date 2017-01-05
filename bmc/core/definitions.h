@@ -74,6 +74,7 @@
 #define CONTROLLABILITY	13
 #define OBSERVABILITY	14
 #define LIMIT_CYCLE_STATE_SPACE	15
+#define SAFETY_STATE_SPACE	16
 
 /** Check Required Parameters */
 #ifndef PROPERTY

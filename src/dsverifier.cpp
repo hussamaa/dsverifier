@@ -95,7 +95,8 @@ const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE",
 		"TIMING", "TIMING_MSP430", "STABILITY", "STABILITY_CLOSED_LOOP",
 		"LIMIT_CYCLE_CLOSED_LOOP", "QUANTIZATION_ERROR_CLOSED_LOOP",
 		"MINIMUM_PHASE", "QUANTIZATION_ERROR", "CONTROLLABILITY",
-		"OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE"};
+		"OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE", "SAFETY_STATE_SPACE"};
+
 const char * rounding [] = { "ROUNDING", "FLOOR", "CEIL" };
 const char * overflow [] = { "DETECT_OVERFLOW", "SATURATE", "WRAPAROUND" };
 const char * realizations [] = { "DFI", "DFII", "TDFII", "DDFI", "DDFII", "TDDFII" };
@@ -2132,31 +2133,11 @@ int main(int argc, char* argv[])
 	  check_state_space_stability();
 	  exit(0);
 	}
-	else if( desired_property == "QUANTIZATION_ERROR" )
-	{
-	  state_space_parser();
-	  std::string command_line = prepare_bmc_command_line_ss();
-	  std::cout << "Back-end Verification: " << command_line << std::endl;
-	  execute_command_line(command_line);
-	  exit(0);
-	}
-	else if( desired_property == "CONTROLLABILITY" )
-	{
-	  state_space_parser();
-	  std::string command_line = prepare_bmc_command_line_ss();
-	  std::cout << "Back-end Verification: " << command_line << std::endl;
-	  execute_command_line(command_line);
-	  exit(0);
-	}
-	else if( desired_property == "OBSERVABILITY" )
-	{
-	  state_space_parser();
-	  std::string command_line = prepare_bmc_command_line_ss();
-	  std::cout << "Back-end Verification: " << command_line << std::endl;
-	  execute_command_line(command_line);
-	  exit(0);
-	}
-	else if( desired_property == "LIMIT_CYCLE_STATE_SPACE" )
+	else if(desired_property == "QUANTIZATION_ERROR" ||
+			desired_property == "SAFETY_STATE_SPACE" ||
+			desired_property == "CONTROLLABILITY" ||
+			desired_property == "OBSERVABILITY" ||
+			desired_property == "LIMIT_CYCLE_STATE_SPACE")
 	{
 	  state_space_parser();
 	  std::string command_line = prepare_bmc_command_line_ss();
