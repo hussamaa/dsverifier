@@ -24,9 +24,6 @@ Supported properties:
   * Limit Cycle in Closed-loop (Experimental)
   * Quantization Error in Closed-loop (Experimental)
 
-* http://www.dsverifier.org
-* http://esbmc.org/dsverifier
-
 ## Configuration
 
 (1) Before using DSVerifier, we need to configure an environment variable 
