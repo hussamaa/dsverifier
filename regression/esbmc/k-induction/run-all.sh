@@ -2,7 +2,7 @@
 
 total_time=0
 
-MODULES="digital-system overflow-delta-I overflow-delta-II overflow-direct-I overflow-direct-II limit-cycle-delta-I limit-cycle-delta-II limit-cycle-direct-I limit-cycle-direct-II"
+MODULES="overflow-delta-I overflow-delta-II overflow-direct-I overflow-direct-II limit-cycle-delta-I limit-cycle-delta-II limit-cycle-direct-I limit-cycle-direct-II"
 
 echo ""
 echo "Script for DSVerifier started at:" $(date +"%T")

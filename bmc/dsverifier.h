@@ -255,7 +255,7 @@ void validation()
 		else if (K_INDUCTION_MODE == K_INDUCTION)
 		{
 			X_SIZE_VALUE = nondet_uint();
-			__ESBMC_assume(X_SIZE_VALUE > 0);
+			__DSVERIFIER_assume( X_SIZE_VALUE > (2 * ds.a_size));
 		}
 		else if (X_SIZE < 0)
 		{
