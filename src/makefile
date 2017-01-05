@@ -6,8 +6,10 @@ dsverifier: dsverifier.cpp
 
 ifeq ($(shell uname),Darwin)
 	$(CC) -o dsverifier -std=c++11 dsverifier.cpp -I /usr/local/include/eigen3/ -I. -I /opt/local/include/
+	mv dsverifier ../
 else
 	$(CC) -o dsverifier -static -std=c++11 dsverifier.cpp -I /usr/include/eigen3/ -I.
+	mv dsverifier ../
 endif
 
 clean:
