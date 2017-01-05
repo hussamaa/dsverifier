@@ -135,9 +135,9 @@ double fxp_ss_closed_loop_safety(){
 
 int verify_safety_state_space(void){
 
-	fxp_t error_fxp = fxp_ss_closed_loop_safety();
-	double error_double = fxp_to_double(error_fxp);
-	assert(error_double < error_limit);
+	fxp_t output_fxp = fxp_ss_closed_loop_safety();
+	double output_double = fxp_to_double(output_fxp);
+	assert(output_double <= error_limit);
 
 	return 0;
 }
