@@ -51,6 +51,7 @@ extern digital_system controller;
 extern implementation impl;
 extern hardware hw;
 extern digital_system_state_space _controller;
+extern filter_parameters filter;
 
 extern void initials();
 
@@ -60,8 +61,7 @@ void call_closedloop_verification_task(void * closedloop_verification_task);
 float nondet_float();
 double nondet_double();
 
-int main()
-{
+int main(){
 
 	initialization();
 	validation();
@@ -136,8 +136,8 @@ int main()
 	{
 		verify_limit_cycle_state_space();
 	}
-	else if (PROPERTY == FILTER_MAGNITUDE) 
-		
+	else if (PROPERTY == FILTER_MAGNITUDE_NON_DET) 
+	{	
 		call_verification_task(&verify_magnitude);
 	}
 	return 0;
@@ -263,7 +263,7 @@ void validation()
 			X_SIZE_VALUE = X_SIZE;
 		}
 	}
-	if ((REALIZATION == 0) && (PROPERTY != STABILITY_CLOSED_LOOP))
+	if ((REALIZATION == 0) && (PROPERTY != STABILITY_CLOSED_LOOP) && (PROPERTY != FILTER_MAGNITUDE_NON_DET))
 	{
 		printf("\n\n*********************************************************************************************\n");
 		printf("* set the realization to check with DSVerifier (use: --realization NAME) *\n");
@@ -308,6 +308,18 @@ void validation()
 			}
 		}
 	}
+	if (PROPERTY == FILTER_MAGNITUDE_NON_DET)
+	{
+		if (!((filter.Ap > 0) && (filter.Ac >0) && (filter.Ar >0)))
+		{
+				printf("\n\n*****************************************************************************\n");
+				printf("* set values bigger than 0 for Ap, Ac and Ar* \n");
+				printf("*****************************************************************************\n");
+				__DSVERIFIER_assert(0);
+		}  
+
+
+	}
 	if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) ||
 			(REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
 	{
@@ -326,115 +338,7 @@ void call_verification_task(void * verification_task)
 	_Bool base_case_executed = 0;
 
 
-	if (ERROR_MODE == ABSOLUTE)
-	{
-		/* Considering uncertainty for numerator coefficients */
-		for(i=0; i<ds.b_size; i++)
-		{
-			if (ds.b_uncertainty[i] > 0)
-			{
-				double factor = ds.b_uncertainty[i];
-				factor = factor < 0 ? factor * (-1) : factor;
 
-				double min = ds.b[i] - factor;
-				double max = ds.b[i] + factor;
-
-				/* Eliminate redundant executions  */
-				if ((factor == 0) && (base_case_executed == 1))
-				{
-					continue;
-				}
-				else if ((factor == 0) && (base_case_executed == 0))
-				{
-					base_case_executed = 1;
-				}
-
-				ds.b[i] = nondet_double();
-				__DSVERIFIER_assume((ds.b[i] >= min) && (ds.b[i] <= max));
-			}
-		}
-
-		/* considering uncertainty for denominator coefficients */
-		for(i=0; i<ds.a_size; i++)
-		{
-			if (ds.a_uncertainty[i] > 0)
-			{
-				double factor = ds.a_uncertainty[i];
-				factor = factor < 0 ? factor * (-1) : factor;
-
-				double min = ds.a[i] - factor;
-				double max = ds.a[i] + factor;
-
-				/* Eliminate redundant executions  */
-				if ((factor == 0) && (base_case_executed == 1))
-				{
-					continue;
-				}
-				else if ((factor == 0) && (base_case_executed == 0))
-				{
-					base_case_executed = 1;
-				}
-
-				ds.a[i] = nondet_double();
-				__DSVERIFIER_assume((ds.a[i] >= min) && (ds.a[i] <= max));
-			}
-		}
-	}
-	else
-	{
-		/* Considering uncertainty for numerator coefficients */
-		int i=0;
-		for(i=0; i<ds.b_size; i++)
-		{
-			if (ds.b_uncertainty[i] > 0)
-			{
-				double factor = ((ds.b[i] * ds.b_uncertainty[i]) / 100);
-				factor = factor < 0 ? factor * (-1) : factor;
-
-				double min = ds.b[i] - factor;
-				double max = ds.b[i] + factor;
-
-				/* Eliminate redundant executions  */
-				if ((factor == 0) && (base_case_executed == 1))
-				{
-					continue;
-				}
-				else if ((factor == 0) && (base_case_executed == 0))
-				{
-					base_case_executed = 1;
-				}
-
-				ds.b[i] = nondet_double();
-				__DSVERIFIER_assume((ds.b[i] >= min) && (ds.b[i] <= max));
-			}
-		}
-
-		/* considering uncertainty for denominator coefficients */
-		for(i=0; i<ds.a_size; i++)
-		{
-			if (ds.a_uncertainty[i] > 0)
-			{
-				double factor = ((ds.a[i] * ds.a_uncertainty[i]) / 100);
-				factor = factor < 0 ? factor * (-1) : factor;
-
-				double min = ds.a[i] - factor;
-				double max = ds.a[i] + factor;
-
-				/* Eliminate redundant executions  */
-				if ((factor == 0) && (base_case_executed == 1))
-				{
-					continue;
-				}
-				else if ((factor == 0) && (base_case_executed == 0))
-				{
-					base_case_executed = 1;
-				}
-
-				ds.a[i] = nondet_double();
-				__DSVERIFIER_assume((ds.a[i] >= min) && (ds.a[i] <= max));
-			}
-		}
-	}
 
 	((void(*)())verification_task)(); /* call the verification task */
 }
