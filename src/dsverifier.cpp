@@ -1859,6 +1859,7 @@ void state_space_parser()
   verification_file.append(";\n double error_limit = ");
   cf_value_precision  << std::fixed << desired_quantization_limit;
   verification_file.append(cf_value_precision.str());
+  verification_file.append(";\n int closed_loop = "+std::string(closedloop ? "1": "0"));
   verification_file.append(";\n void initials(){\n");
 
   for (i=0; i<_controller.nStates; i++)
