@@ -18,14 +18,19 @@ extern digital_system_state_space _controller;
 extern double error_limit;
 extern int closed_loop;
 
+double new_state[LIMIT][LIMIT];
+double new_stateFWL[LIMIT][LIMIT];
 
-double ss_system_quantization_error(){
+double ss_system_quantization_error(fxp_t inputs){
 
 	digital_system_state_space __backupController;
+	
 	int i;
 	int j;
 
-	for(i=0; i<nStates;i++){
+			_controller.inputs[0][0] = inputs;
+
+			for(i=0; i<nStates;i++){
 				for(j=0; j<nStates;j++){
 					__backupController.A[i][j]= (_controller.A[i][j]);
 				}
@@ -69,7 +74,21 @@ double ss_system_quantization_error(){
 
 			double __quant_error = 0.0;
 
+			for(i=0; i<nStates;i++){
+				for(j=0; j<1;j++){
+					_controller.states[i][j]= (new_state[i][j]);
+				}
+			}
+
 			double output_double = double_state_space_representation();
+			
+			for(i=0; i<nStates;i++){
+				for(j=0; j<1;j++){
+					new_state[i][j]= (_controller.states[i][j]);
+				}
+			}
+
+			__backupController.inputs[0][0] = inputs;
 
 			for(i=0; i<nStates;i++){
 				for(j=0; j<nStates;j++){
@@ -113,11 +132,20 @@ double ss_system_quantization_error(){
 				}
 			}
 
+			for(i=0; i<nStates;i++){
+				for(j=0; j<1;j++){
+					_controller.states[i][j]= (new_stateFWL[i][j]);
+				}
+			} 
 			double output_fxp = fxp_state_space_representation();
+			
+			for(i=0; i<nStates;i++){
+				for(j=0; j<1;j++){
+					new_stateFWL[i][j]= (_controller.states[i][j]);
+				}
+			}
 
-			fxp_verify_overflow(output_fxp);
-
-			__quant_error = output_double - fxp_to_double(output_fxp);
+			__quant_error = output_double - output_fxp;
 
 			return __quant_error;
 }
@@ -309,18 +337,49 @@ double fxp_ss_closed_loop_quantization_error(){
 
 }
 
+
 int verify_error_state_space(void){
+	int i,j;
+
+	for(i=0; i<nStates;i++){
+		for(j=0; j<1;j++){
+	  	new_state[i][j]= (_controller.states[i][j]);
+		}
+	}
+
+	for(i=0; i<nStates;i++){
+		for(j=0; j<1;j++){
+	 	 new_stateFWL[i][j]= (_controller.states[i][j]);
+		}
+	}
+	
 	overflow_mode = 0;
+	
+	fxp_t x[K_SIZE];
+
+	fxp_t min_fxp = fxp_double_to_fxp(impl.min);
+	fxp_t max_fxp = fxp_double_to_fxp(impl.max);
+
+	double nondet_constant_input = nondet_double();
+
+	__DSVERIFIER_assume(nondet_constant_input >= min_fxp && nondet_constant_input <= max_fxp);
+	for (i = 0; i < K_SIZE; ++i) {
+		x[i] = nondet_constant_input;
+	}
 
 	double __quant_error;
 
 	if(closed_loop){
 		__quant_error = ss_closed_loop_quantization_error() - fxp_ss_closed_loop_quantization_error();
 	} else {
-		__quant_error = ss_system_quantization_error();
+	for (i=0; i < K_SIZE; i++)
+	{
+	  __quant_error = ss_system_quantization_error(x[i]);
 	}
 
-	assert(__quant_error < error_limit && __quant_error > (-error_limit));
+	}
 
+	assert(__quant_error < error_limit && __quant_error > ((-1)*error_limit));
+        // assert(__quant_error == 0);
 	return 0;
 }
