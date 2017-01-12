@@ -180,45 +180,32 @@ double ss_closed_loop_quantization_error(){
 		}
 	}
 
-	for (i = 1; i < K_SIZE; i++) {
+	  for (i = 1; i < K_SIZE; i++) {
 
-		double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller.C,_controller.states,result1);
+	    ////// inputs = reference - K * states
+	        //result 1 = first element of k * outputs
+	        double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller.K,_controller.states,result1);
+	        //inputs = reference - result1
+	        double_sub_matrix(nInputs,1,reference,result1, _controller.inputs);
 
-		if(flag == 1){
-			double_matrix_multiplication(nOutputs,nInputs,nInputs,1,_controller.D,_controller.inputs,result2);
-		}
+	    /////output = C*states + D * inputs
+	        //result1 = C * states
+	        double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller.C,_controller.states,result1);
+	        //result2 = D * inputs
+	        if(flag == 1)
+	            double_matrix_multiplication(nOutputs,nInputs,nInputs,1,_controller.D,_controller.inputs,result2);
+	        //outputs = result 1 + result 2 = C*states + D * inputs
+	        double_add_matrix(nOutputs,1,result1,result2,_controller.outputs);
 
-		double_add_matrix(nOutputs,
-				1,
-				result1,
-				result2,
-				_controller.outputs);
+	    /////states = A*states + B*inputs
+	        //result1 = A * states
+	        double_matrix_multiplication(nStates,nStates,nStates,1,_controller.A,_controller.states,result1);
+	        //result2 = B*inputs
+	        double_matrix_multiplication(nStates,nInputs,nInputs,1,_controller.B,_controller.inputs,result2);
+	        //states = result 1 + result 2 =A*states + B*inputs
+	        double_add_matrix(nStates,1,result1,result2,_controller.states);
 
-		double_matrix_multiplication(nInputs,nOutputs,nOutputs,1,_controller.K,_controller.outputs,result1);
-
-		printf("### U (before) = %.9f", _controller.inputs[0][0]);
-		printf("### reference = %.9f", reference[0][0]);
-		printf("### result1 = %.9f", result1[0][0]);
-		printf("### reference - result1 = %.9f", (reference[0][0] - result1[0][0]));
-
-		double_sub_matrix(nInputs,
-				1,
-				reference,
-				result1,
-				_controller.inputs);
-
-		printf("### Y = %.9f", _controller.outputs[0][0]);
-		printf("### U (after) = %.9f \n### \n### ", _controller.inputs[0][0]);
-
-		double_matrix_multiplication(nStates,nStates,nStates,1,_controller.A,_controller.states,result1);
-		double_matrix_multiplication(nStates,nInputs,nInputs,1,_controller.B,_controller.inputs,result2);
-
-		double_add_matrix(nStates,
-				1,
-				result1,
-				result2,
-				_controller.states);
-	}
+	        }
 
 	return _controller.outputs[0][0];
 }
