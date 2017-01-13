@@ -217,7 +217,7 @@ double fxp_ss_closed_loop_quantization_error(double reference){
 
      for(k=0;k<nInputs;k++)
       { 
-	reference_fxp[k][0] = fxp_double_to_fxp(reference_aux[k][0]);
+	reference_fxp[k][0] =fxp_double_to_fxp(fxp_quantize(reference_aux[k][0]));
       }
 
 
@@ -226,7 +226,7 @@ double fxp_ss_closed_loop_quantization_error(double reference){
 	  
       for(k=0; k<nInputs;k++)
 	{
-          _controller_fxp.inputs[k][0] = fxp_to_double(result_fxp2[k][0]);
+          _controller_fxp.inputs[k][0] = fxp_to_double(fxp_quantize(result_fxp2[k][0]));
         }
 
        /////output = C*states + D * inputs
