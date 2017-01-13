@@ -272,7 +272,7 @@ double ss_closed_loop_quantization_error(double reference){
 	}
 
 	for(i=0; i<nInputs;i++){
-		for(j=0; j<1;j++){ //BUG:: this shouldn't take inputs as reference
+		for(j=0; j<1;j++){
 			reference_aux[i][j]= reference;
 		}
 	}
