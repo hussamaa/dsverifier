@@ -21,6 +21,9 @@ extern int closed_loop;
 double new_state[LIMIT][LIMIT];
 double new_stateFWL[LIMIT][LIMIT];
 
+digital_system_state_space _controller_fxp;
+digital_system_state_space _controller_double;
+
 double ss_system_quantization_error(fxp_t inputs){
 
 	digital_system_state_space __backupController;
@@ -150,95 +153,119 @@ double ss_system_quantization_error(fxp_t inputs){
 			return __quant_error;
 }
 
-double ss_closed_loop_quantization_error(){
+double fxp_ss_closed_loop_quantization_error(double reference){
 
-	double reference[LIMIT][LIMIT];
-	double result1[LIMIT][LIMIT];
-	double result2[LIMIT][LIMIT];
-	unsigned int i;
-	unsigned int j;
-	short unsigned int flag = 0; // flag is 0 if matrix D is null matrix, otherwise flag is 1
+    double reference_aux[LIMIT][LIMIT];
+    double result1[LIMIT][LIMIT];
+    double temp_result1[LIMIT][LIMIT];
+    double result2[LIMIT][LIMIT];
+    double temp_states[LIMIT][LIMIT];
+    fxp_t K_fxp[LIMIT][LIMIT];
+    fxp_t states_fxp[LIMIT][LIMIT];
+    fxp_t result_fxp[LIMIT][LIMIT];
+    unsigned int i;
+    unsigned int j;
+    unsigned int k;
+    short unsigned int flag = 0; // flag is 0 if matrix D is null matrix, otherwise flag is 1
 
-	for(i=0; i<nOutputs;i++){ // check if matrix D is a null matrix
-		for(j=0; j<nInputs;j++){
-			if(_controller.D[i][j] != 0){
-				flag = 1;
-			}
-		}
-	}
+    for(i=0; i<nOutputs;i++){ // check if matrix D is a null matrix
+        for(j=0; j<nInputs;j++){
+            if(_controller_fxp.D[i][j] != 0){
+                flag = 1;
+            }
+        }
+    }
 
-	for(i=0; i<nInputs;i++){
-		for(j=0; j<1;j++){
-			reference[i][j]= (_controller.inputs[i][j]);
-		}
-	}
+    for(i=0; i<LIMIT;i++){
+        for(j=0; j<LIMIT;j++){
+            reference_aux[i][j]=0;
+	    K_fxp[i][j] = 0;
+        }
+    }
 
-	for(i=0; i<LIMIT;i++){
-		for(j=0; j<LIMIT;j++){
-			result1[i][j]=0;
-			result2[i][j]=0;
-		}
-	}
+    for(i=0; i<nInputs;i++){
+            reference_aux[i][0]= reference; 
+    }
 
-	for (i = 1; i < K_SIZE; i++) {
+    for(i=0; i<LIMIT;i++){
+            states_fxp[i][0]=0;
+    }
 
-		double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller.C,_controller.states,result1);
+    for(i=0; i<nStates;i++){
+            K_fxp[0][i]= fxp_double_to_fxp(_controller_fxp.K[0][i]);
+    }
 
-		if(flag == 1){
-			double_matrix_multiplication(nOutputs,nInputs,nInputs,1,_controller.D,_controller.inputs,result2);
-		}
+    for(i=0; i<LIMIT;i++){
+        for(j=0; j<LIMIT;j++){
+            result1[i][j]=0;
+            result2[i][j]=0;
+        }
+    }
 
-		double_add_matrix(nOutputs,
-				1,
-				result1,
-				result2,
-				_controller.outputs);
+     ////// inputs = reference - K * states
+     //result 1 = first element of k * outputs
 
-		double_matrix_multiplication(nInputs,nOutputs,nOutputs,1,_controller.K,_controller.outputs,result1);
+     for(k=0; k<nStates;k++)
+      {
+	 states_fxp[k][0]= fxp_double_to_fxp(_controller_fxp.states[k][0]);
+      }
 
-		printf("### U (before) = %.9f", _controller.inputs[0][0]);
-		printf("### reference = %.9f", reference[0][0]);
-		printf("### result1 = %.9f", result1[0][0]);
-		printf("### reference - result1 = %.9f", (reference[0][0] - result1[0][0]));
+     fxp_matrix_multiplication(nOutputs,nStates,nStates,1,K_fxp,states_fxp,result_fxp);
 
-		double_sub_matrix(nInputs,
-				1,
-				reference,
-				result1,
-				_controller.inputs);
+     fxp_t reference_fxp[LIMIT][LIMIT];
+     fxp_t result_fxp2[LIMIT][LIMIT];
 
-		printf("### Y = %.9f", _controller.outputs[0][0]);
-		printf("### U (after) = %.9f \n### \n### ", _controller.inputs[0][0]);
+     for(k=0;k<nInputs;k++)
+      { 
+	reference_fxp[k][0] =fxp_double_to_fxp(fxp_quantize(reference_aux[k][0]));
+      }
 
-		double_matrix_multiplication(nStates,nStates,nStates,1,_controller.A,_controller.states,result1);
-		double_matrix_multiplication(nStates,nInputs,nInputs,1,_controller.B,_controller.inputs,result2);
 
-		double_add_matrix(nStates,
-				1,
-				result1,
-				result2,
-				_controller.states);
-	}
+      //inputs = reference - result1
+      fxp_sub_matrix(nInputs,1, reference_fxp, result_fxp, result_fxp2);
+	  
+      for(k=0; k<nInputs;k++)
+	{
+          _controller_fxp.inputs[k][0] = fxp_to_double(fxp_quantize(result_fxp2[k][0]));
+        }
 
-	return _controller.outputs[0][0];
+       /////output = C*states + D * inputs
+       //result1 = C * states
+       double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller_fxp.C,_controller_fxp.states,result1);
+       //result2 = D * inputs
+       if(flag == 1)
+        {
+         double_matrix_multiplication(nOutputs,nInputs,nInputs,1,_controller_fxp.D,_controller_fxp.inputs,result2);
+        }
+       //outputs = result 1 + result 2 = C*states + D * inputs
+         double_add_matrix(nOutputs,1,result1,result2,_controller_fxp.outputs);
+
+
+       /////states = A*states + B*inputs
+        //result1 = A * states
+	double_matrix_multiplication(nStates,nStates,nStates,1,_controller_fxp.A,_controller_fxp.states,result1);
+        //result2 = B*inputs
+        double_matrix_multiplication(nStates,nInputs,nInputs,1,_controller_fxp.B,_controller_fxp.inputs,result2);
+        //states = result 1 + result 2 =A*states + B*inputs
+        double_add_matrix(nStates,1,result1,result2,_controller_fxp.states);            
+
+    return _controller_fxp.outputs[0][0];
+
 }
 
-double fxp_ss_closed_loop_quantization_error(){
 
-	double reference[LIMIT][LIMIT];
+double ss_closed_loop_quantization_error(double reference){
+
+	double reference_aux[LIMIT][LIMIT];
 	double result1[LIMIT][LIMIT];
 	double result2[LIMIT][LIMIT];
-	fxp_t K_fpx[LIMIT][LIMIT];
-	fxp_t outputs_fpx[LIMIT][LIMIT];
-	fxp_t result_fxp[LIMIT][LIMIT];
 	unsigned int i;
 	unsigned int j;
-	unsigned int k;
 	short unsigned int flag = 0; // flag is 0 if matrix D is null matrix, otherwise flag is 1
 
 	for(i=0; i<nOutputs;i++){ // check if matrix D is a null matrix
 		for(j=0; j<nInputs;j++){
-			if(_controller.D[i][j] != 0){
+			if(_controller_double.D[i][j] != 0){
 				flag = 1;
 			}
 		}
@@ -246,31 +273,7 @@ double fxp_ss_closed_loop_quantization_error(){
 
 	for(i=0; i<nInputs;i++){
 		for(j=0; j<1;j++){
-			reference[i][j]= (_controller.inputs[i][j]);
-		}
-	}
-
-	for(i=0; i<nInputs;i++){
-		for(j=0; j<nOutputs;j++){
-			K_fpx[i][j]=0;
-		}
-	}
-
-	for(i=0; i<nOutputs;i++){
-		for(j=0; j<1;j++){
-			outputs_fpx[i][j]=0;
-		}
-	}
-
-	for(i=0; i<LIMIT;i++){
-		for(j=0; j<LIMIT;j++){
-			result_fxp[i][j]=0;
-		}
-	}
-
-	for(i=0; i<nInputs;i++){
-		for(j=0; j<nOutputs;j++){
-			K_fpx[i][j]= fxp_double_to_fxp(_controller.K[i][j]);
+			reference_aux[i][j]= reference;
 		}
 	}
 
@@ -281,60 +284,30 @@ double fxp_ss_closed_loop_quantization_error(){
 		}
 	}
 
-	for (i = 1; i < K_SIZE; i++) {
+	   ////// inputs = reference - K * states
+	        //result 1 = first element of k * outputs
+	        double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller_double.K,_controller_double.states,result1);
+	        //inputs = reference - result1
+	        double_sub_matrix(nInputs,1,reference_aux,result1, _controller_double.inputs);
 
-		double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller.C,_controller.states,result1);
+	    /////output = C*states + D * inputs
+	        //result1 = C * states0
+	        double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller_double.C,_controller_double.states,result1);
+	        //result2 = D * inputs
+	        if(flag == 1)
+	            double_matrix_multiplication(nOutputs,nInputs,nInputs,1,_controller_double.D,_controller_double.inputs,result2);
+	        //outputs = result 1 + result 2 = C*states + D * inputs
+	        double_add_matrix(nOutputs,1,result1,result2,_controller_double.outputs);
 
-		if(flag == 1){
-			double_matrix_multiplication(nOutputs,nInputs,nInputs,1,_controller.D,_controller.inputs,result2);
-		}
+	    /////states = A*states + B*inputs
+	        //result1 = A * states
+	        double_matrix_multiplication(nStates,nStates,nStates,1,_controller_double.A,_controller_double.states,result1);
+	        //result2 = B*inputs
+	        double_matrix_multiplication(nStates,nInputs,nInputs,1,_controller_double.B,_controller_double.inputs,result2);
+	        //states = result 1 + result 2 =A*states + B*inputs
+	        double_add_matrix(nStates,1,result1,result2,_controller_double.states);
 
-		double_add_matrix(nOutputs,
-				1,
-				result1,
-				result2,
-				_controller.outputs);
-
-		for(k=0; k<nOutputs;k++){
-			for(j=0; j<1;j++){
-				outputs_fpx[k][j]= fxp_double_to_fxp(_controller.outputs[k][j]);
-			}
-		}
-
-		fxp_matrix_multiplication(nInputs,nOutputs,nOutputs,1,K_fpx,outputs_fpx,result_fxp);
-
-		for(k=0; k<nInputs;k++){
-			for(j=0; j<1;j++){
-				result1[k][j]= fxp_to_double(result_fxp[k][j]);
-			}
-		}
-
-		printf("### fxp: U (before) = %.9f", _controller.inputs[0][0]);
-		printf("### fxp: reference = %.9f", reference[0][0]);
-		printf("### fxp: result1 = %.9f", result1[0][0]);
-		printf("### fxp: reference - result1 = %.9f", (reference[0][0] - result1[0][0]));
-
-		double_sub_matrix(nInputs,
-				1,
-				reference,
-				result1,
-				_controller.inputs);
-
-		printf("### fxp: Y = %.9f", _controller.outputs[0][0]);
-		printf("### fxp: U (after) = %.9f \n### \n### ", _controller.inputs[0][0]);
-
-		double_matrix_multiplication(nStates,nStates,nStates,1,_controller.A,_controller.states,result1);
-		double_matrix_multiplication(nStates,nInputs,nInputs,1,_controller.B,_controller.inputs,result2);
-
-		double_add_matrix(nStates,
-				1,
-				result1,
-				result2,
-				_controller.states);
-	}
-
-	return _controller.outputs[0][0];
-
+	return _controller_double.outputs[0][0];
 }
 
 
@@ -353,6 +326,9 @@ int verify_error_state_space(void){
 		}
 	}
 	
+	_controller_fxp = _controller;
+	_controller_double = _controller;
+
 	overflow_mode = 0;
 	
 	fxp_t x[K_SIZE];
@@ -370,16 +346,19 @@ int verify_error_state_space(void){
 	double __quant_error;
 
 	if(closed_loop){
-		__quant_error = ss_closed_loop_quantization_error() - fxp_ss_closed_loop_quantization_error();
-	} else {
+	for (i = 0; i < K_SIZE; ++i) {
+          __quant_error = ss_closed_loop_quantization_error(x[i]) - fxp_ss_closed_loop_quantization_error(x[i]);
+	  assert(__quant_error < error_limit && __quant_error > ((-1)*error_limit));
+          } 
+	}
+	else {
 	for (i=0; i < K_SIZE; i++)
 	{
 	  __quant_error = ss_system_quantization_error(x[i]);
+	  assert(__quant_error < error_limit && __quant_error > ((-1)*error_limit));
 	}
 
 	}
 
-	assert(__quant_error < error_limit && __quant_error > ((-1)*error_limit));
-        // assert(__quant_error == 0);
 	return 0;
 }
