@@ -11,6 +11,8 @@
 #           Iury Bessa - iury.bessa@gmail.com
 #           Lucas Cordeiro - lucasccordeiro@gmail.com
 #
+#  Contributors: Daniel Mello - dani-dmello@hotmail.com
+#
 # --------------------------------------------------
 #
 #  Usage:
