@@ -22,9 +22,6 @@ extern implementation impl;
 
 int verify_overflow(void) {
 
-	/* enable overflow saturate (nodes) */
-	overflow_mode = SATURATE;
-
 	/* check the realization */
 	#if	((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
 		fxp_t a_fxp[ds.a_size];
@@ -57,7 +54,7 @@ int verify_overflow(void) {
 		/* quantize cascade numerators */
 		fxp_double_to_fxp_array(b_cascade, bc_fxp, b_cascade_size);
 	#elif ((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
-		double da_cascade[100];
+		double da_cascade[100];F
 		int a_cascade_size;
 		double db_cascade[100];
 		int b_cascade_size;

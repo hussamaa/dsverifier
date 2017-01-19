@@ -3,7 +3,7 @@
 # DSVerifier (Digital-Systems Verifier) 
 
 DSVerifier is a verification tool for digital systems.
-In particular, DSVerifier employs the bounded model checking (BMC) technique
+In particular, DSVerifier employs bounded model checking (BMC) techniques
 based on satisfiability modulo theories (SMT) and boolean satisfiability (SAT),
 which allows engineers to verify the occurrence of design errors,
 due to the finite word-length (FWL) effects employed in fixed-point digital filters
@@ -23,9 +23,6 @@ Supported properties:
   * Stability in Closed-loop
   * Limit Cycle in Closed-loop (Experimental)
   * Quantization Error in Closed-loop (Experimental)
-
-* http://www.dsverifier.org
-* http://esbmc.org/dsverifier
 
 ## Configuration
 
@@ -50,7 +47,7 @@ CBMC and ESBMC recommended versions for DSVerifier v2.0 are:
 (3) You need to install the Eigen library (e.g., eigen3, eigen3-static, 
 and eigen3-devel depending on your distribution).
 
-(4) Make sure that you have installed GCC version 4.9 (or higher).
+(4) Make sure that you have installed GCC version 5.4 (or higher).
 
 ## Command line mode
 

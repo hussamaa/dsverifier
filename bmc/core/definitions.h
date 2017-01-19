@@ -27,7 +27,7 @@
 #endif
 
 /** required parameters */
-#define LIMIT 20
+#define LIMIT 4
 
 /* realizations (use: -DREALIZATION=DIRECTFORMI) */
 #define DIRECTFORMI	1
@@ -70,10 +70,11 @@
 #define STABILITY_CLOSED_LOOP	9
 #define LIMIT_CYCLE_CLOSED_LOOP	10
 #define QUANTIZATION_ERROR_CLOSED_LOOP	11
-#define QUANTISATION_ERROR	12
+#define QUANTIZATION_ERROR	12
 #define CONTROLLABILITY	13
 #define OBSERVABILITY	14
 #define LIMIT_CYCLE_STATE_SPACE	15
+#define SAFETY_STATE_SPACE	16
 
 /** Check Required Parameters */
 #ifndef PROPERTY
@@ -115,6 +116,12 @@
 #define CEIL                                2
 #ifndef ROUNDING_MODE
 	#define ROUNDING_MODE               	  1
+#endif
+
+/** k induction */
+#define K_INDUCTION         1
+#ifndef K_INDUCTION_MODE
+	#define K_INDUCTION_MODE               	  0
 #endif
 
 /** overflow, x_size, and round parameters */

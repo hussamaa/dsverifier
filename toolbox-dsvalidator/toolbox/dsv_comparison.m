@@ -30,6 +30,7 @@ function [output] = dsv_comparison(system, p)
 % Manaus, Brazil
 
 global max_error;
+global overflow_mode;
 
 if (strcmp(p,'lc'))
 
@@ -42,6 +43,7 @@ count = length(unique(system.output.output_simulation));
     end
 
 elseif (strcmp(p,'o'))
+    
 n = system.impl.int_bits;
 l = system.impl.frac_bits;
 
@@ -50,6 +52,8 @@ max_wl = ((2^(n-1))-2^(-1*l));
 y = system.output.output_simulation;
 result = 0;
 
+if strcmp(overflow_mode,'wrap')
+    
 for i=1:system.impl.x_size
 
 if (y(i) >= max_wl || y(i) <= min_wl)
@@ -59,6 +63,29 @@ end
 
 end
 
+elseif strcmp(overflow_mode, 'saturate')
+n_y = length(system.output.output_verification);
+count = 0;
+yv = system.output.output_verification;
+ys = system.output.output_simulation;
+for i=1:n_y
+erro = abs(abs(yv(i))-abs(ys(i)));
+if yv(i) ~= 0
+erro = erro/abs(yv(i));
+end
+if round(erro) <= 0.1
+count = count + 1;
+end
+end
+
+if count == n_y
+    result = 1;
+else
+    result = 0;
+end
+
+end
+    
 if result == 1
   output = 'Successful';
 else

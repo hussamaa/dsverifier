@@ -42,7 +42,6 @@ double double_state_space_representation(void){
 			result2,
 			_controller.outputs);
 
-	for (i = 1; i < K_SIZE; i++) {
 		double_matrix_multiplication(nStates,nStates,nStates,1,_controller.A,_controller.states,result1);
 		double_matrix_multiplication(nStates,nInputs,nInputs,1,_controller.B,_controller.inputs,result2);
 
@@ -52,15 +51,6 @@ double double_state_space_representation(void){
 				result2,
 				_controller.states);
 
-		double_matrix_multiplication(nOutputs,nStates,nStates,1,_controller.C,_controller.states,result1);
-		double_matrix_multiplication(nOutputs,nInputs,nInputs,1,_controller.D,_controller.inputs,result2);
-
-		double_add_matrix(nOutputs,
-				1,
-				result1,
-				result2,
-				_controller.outputs);
-	}
 	return _controller.outputs[0][0];
 }
 
@@ -178,7 +168,6 @@ double fxp_state_space_representation(void){
 			result2,
 			outputs_fpx);
 
-	for (i = 1; i < K_SIZE; i++) {
 		fxp_matrix_multiplication(nStates,nStates,nStates,1,A_fpx,states_fpx,result1);
 		fxp_matrix_multiplication(nStates,nInputs,nInputs,1,B_fpx,inputs_fpx,result2);
 
@@ -188,15 +177,6 @@ double fxp_state_space_representation(void){
 				result2,
 				states_fpx);
 
-		fxp_matrix_multiplication(nOutputs,nStates,nStates,1,C_fpx,states_fpx,result1);
-		fxp_matrix_multiplication(nOutputs,nInputs,nInputs,1,D_fpx,inputs_fpx,result2);
-
-		fxp_add_matrix(nOutputs,
-				1,
-				result1,
-				result2,
-				outputs_fpx);
-	}
 
 	for(i=0; i<nStates;i++){
 		for(j=0; j<1;j++){
