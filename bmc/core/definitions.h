@@ -76,6 +76,7 @@
 #define LIMIT_CYCLE_STATE_SPACE	15
 #define FILTER_MAGNITUDE_DET 16
 #define FILTER_MAGNITUDE_NON_DET 17
+#define SAFETY_STATE_SPACE	16 
 
 /** Check Required Parameters */
 #ifndef PROPERTY
@@ -117,6 +118,12 @@
 #define CEIL                                2
 #ifndef ROUNDING_MODE
 	#define ROUNDING_MODE               	  1
+#endif
+
+/** k induction */
+#define K_INDUCTION         1
+#ifndef K_INDUCTION_MODE
+	#define K_INDUCTION_MODE               	  0
 #endif
 
 /** overflow, x_size, and round parameters */

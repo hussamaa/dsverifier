@@ -1,0 +1,3 @@
+input.c
+--property ERROR --realization DFI --unlimited-x-size --bmc ESBMC --solver boolector
+^VERIFICATION SUCCESSFUL$

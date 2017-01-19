@@ -370,6 +370,7 @@ fxp_t fxp_mult(fxp_t amult, fxp_t bmult) {
  * @return div result out
  */
 fxp_t fxp_div(fxp_t a, fxp_t b){
+	__DSVERIFIER_assume( b!=0 );
 	fxp_t tmpdiv = ((a << impl.frac_bits) / b);
 	fxp_verify_overflow_node(tmpdiv);
 	tmpdiv = fxp_quantize(tmpdiv);
