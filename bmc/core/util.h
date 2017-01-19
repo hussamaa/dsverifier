@@ -467,7 +467,9 @@ void double_exp_matrix(unsigned int lines,  unsigned int columns, double m1[LIMI
 void fxp_add_matrix( unsigned int lines,  unsigned int columns, fxp_t m1[LIMIT][LIMIT], fxp_t m2[LIMIT][LIMIT], fxp_t result[LIMIT][LIMIT]){
 	unsigned int i, j;
     for (i = 0; i < lines; i++)
-    	for (j = 0; j < columns; j++) result[i][j] = fxp_add(m1[i][j] , m2[i][j]);
+    	for (j = 0; j < columns; j++) {
+		result[i][j] = fxp_add(m1[i][j] , m2[i][j]);
+	}
 }
 
 /* subtracts two matrices, fixed point version */

@@ -1783,6 +1783,21 @@ void extract_data_from_ss_file()
   impl.frac_bits = std::stoi(str_bits);
   str_bits.clear();
 
+  getline( verification_file, current_line ); // range
+
+  std::string str_range;
+  for(i = 0; current_line[i] != '[';i++);
+  i++;
+  for(; current_line[i] != ','; i++)
+	str_range.push_back(current_line[i]);
+  impl.min = std::stoi(str_range);
+  str_range.clear();
+  i++;
+  for(; current_line[i] != ']'; i++)
+	str_range.push_back(current_line[i]);
+  impl.max = std::stoi(str_range);
+  str_range.clear();
+
   getline( verification_file, current_line ); // states
 
   for(i = 0; current_line[i] != '=';i++){}
@@ -2053,6 +2068,10 @@ void state_space_parser()
   verification_file.append(std::to_string(impl.int_bits));
   verification_file.append(",\n .frac_bits = ");
   verification_file.append(std::to_string(impl.frac_bits));
+  verification_file.append(",\n .min = ");
+  verification_file.append(std::to_string(impl.min));
+  verification_file.append(",\n .max = ");
+  verification_file.append(std::to_string(impl.max));
   verification_file.append("};\n int nStates = ");
   verification_file.append(std::to_string(_controller.nStates));
   verification_file.append(";\n int nInputs = ");
@@ -2062,6 +2081,7 @@ void state_space_parser()
   verification_file.append(";\n double error_limit = ");
   cf_value_precision  << std::fixed << desired_quantization_limit;
   verification_file.append(cf_value_precision.str());
+  verification_file.append(";\n int closed_loop = "+std::string(closedloop ? "1": "0"));
   verification_file.append(";\n void initials(){\n");
 
   for (i=0; i<_controller.nStates; i++)
