@@ -204,7 +204,6 @@ Function: extract_data_from_file
 
 void extract_data_from_file()
 {
-
 	std::ifstream verification_file(desired_filename);
 	bool ds_id_found = false;
 
@@ -589,7 +588,8 @@ Function: validate_selected_property
 
 \*******************************************************************/
 
-void validate_selected_property(std::string data){
+void validate_selected_property(std::string data)
+{
 	int length = (sizeof(properties)/sizeof(*properties));
 	for(int i=0; i<length; i++)
 	{
