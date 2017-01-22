@@ -1,7 +1,7 @@
 /**
  * DSVerifier - Digital Systems Verifier
  *
- * 		 Federal University of Amazonas - UFAM
+ * 		 		Federal University of Amazonas - UFAM
  *
  * Authors:       Daniel Mello <dani-dmello@hotmail.com>
  *                
