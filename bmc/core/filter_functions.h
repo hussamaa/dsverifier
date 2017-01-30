@@ -24,7 +24,8 @@ double sinTyl(double x, int precision){
 
     if (precision < 0)
     { 
-        printf("Warning: Function sinTyl from bmc/core/filter_functions.h: Precision must be a positive integer. Assuming 0 precision\n") 
+        printf("Warning: Function sinTyl from bmc/core/filter_functions.h: "
+          "Precision must be a positive integer. Assuming 0 precision\n");
         precision = 0;
     }
     if (precision >= 0)
@@ -55,7 +56,10 @@ double sinTyl(double x, int precision){
                             {
                                 aux = aux*xsquared;
                                 sine -=aux/39916800;
-                                if (precision >= 7) printf("Warning: Function sinTyl from bmc/core/filter_functions.h: Precision representation exceeded. Assuming maximum precision of 6\n")
+                                if (precision >= 7)
+                                  printf("Warning: Function sinTyl "
+                                  "from bmc/core/filter_functions.h: Precision "
+                                  "representation exceeded. Assuming maximum precision of 6\n");
                             }
                         }                     
                     }
@@ -77,7 +81,8 @@ double cosTyl(double x, int precision){
 
     if (precision < 0)
     { 
-        printf("Warning: Function cosTyl from bmc/core/filter_functions.h: Precision must be a positive integer. Assuming 0 precision\n") 
+        printf("Warning: Function cosTyl from bmc/core/filter_functions.h: "
+        "Precision must be a positive integer. Assuming 0 precision\n");
         precision = 0;
     }
     if (precision >= 0)
@@ -108,7 +113,9 @@ double cosTyl(double x, int precision){
                             {
                                 aux = aux*xsquared;
                                 cosine -=aux/3628800;
-                                if (precision >= 7) printf("Warning: Function sinTyl from bmc/core/filter_functions.h: Precision representation exceeded. Assuming maximum precision of 6\n")
+                                if (precision >= 7) printf("Warning: Function sinTyl "
+                                "from bmc/core/filter_functions.h: Precision "
+                                "representation exceeded. Assuming maximum precision of 6\n");
                             }
                         }
                     }
@@ -130,7 +137,8 @@ double atanTyl(double x, int precision){
 
     if (precision < 0)
     { 
-        printf("Warning: Function sinTyl from bmc/core/filter_functions.h: Precision must be a positive integer. Assuming 0 precision\n") 
+        printf("Warning: Function sinTyl from bmc/core/filter_functions.h: "
+        "Precision must be a positive integer. Assuming 0 precision\n");
         precision = 0;
     }
     if (precision >= 0)
@@ -153,7 +161,9 @@ double atanTyl(double x, int precision){
                     {
                         aux = aux*xsquared;
                         atangent -=aux/7;
-                        if (precision >= 7) printf("Warning: Function sinTyl from bmc/core/filter_functions.h: Precision representation exceeded. Assuming maximum precision of 4\n")
+                        if (precision >= 7)
+                          printf("Warning: Function sinTyl from bmc/core/filter_functions.h: "
+                          "Precision representation exceeded. Assuming maximum precision of 4\n");
                     }
                 }
             }
