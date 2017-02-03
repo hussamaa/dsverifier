@@ -20,7 +20,7 @@ indice = 1;
 
 if strcmp(type,'tf')
 
-if strcmp(property,'STABILITY')
+if strcmp(property,'STABILITY') || strcmp(property,'MINIMUM_PHASE')
     nvarIndice = 6;
     indice = 1;
     if strcmp(realization,'DDFI') || strcmp(realization,'DDFII') || strcmp(realization,'TDDFII')

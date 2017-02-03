@@ -121,6 +121,8 @@ nOutputs = rC;
 
 frac_bits = ds.impl.frac_bits;
 int_bits = ds.impl.int_bits;
+max_range = ds.range.max;
+min_range = ds.range.min;
 
 fid = fopen('file.ss', 'wt' );
 fprintf(fid,'implementation <%d,%d>\n', int_bits, frac_bits);

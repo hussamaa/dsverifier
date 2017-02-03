@@ -1,7 +1,7 @@
-function verifyClosedLoopStability(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, connectionMode, varargin)
+function verifyRobustStability(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, connectionMode, varargin)
 %
 % Checks stability property violation for closed-loop digital systems using a bounded model checking tool.
-% Function: verifyClosedLoopStability(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, connectionMode)
+% Function: verifyRobustStability(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, connectionMode)
 %
 % Where
 %   controller: represents a controller represented in transfer-function;
@@ -21,7 +21,7 @@ function verifyClosedLoopStability(controller, plant, intBits, fracBits, rangeMa
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% verifyClosedLoopStability(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, connectionMode, bmc, solver, ovmode, rmode, emode, timeout)
+% verifyRobustStability(controller, plant, intBits, fracBits, rangeMax, rangeMin, realization, connectionMode, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
@@ -39,7 +39,7 @@ function verifyClosedLoopStability(controller, plant, intBits, fracBits, rangeMa
 %  dencontrol = [...];
 %  controller = tf(dencontrol,numcontrol,ts);
 %
-%  verifyClosedLoopStability(controller, plant, 2, 10, 1, -1, 'DFI', 'SERIES');
+%  verifyRobustStability(controller, plant, 2, 10, 1, -1, 'DFI', 'SERIES');
 %  VERIFICATION FAILED!
 %
 % Author: Lennon Chaves

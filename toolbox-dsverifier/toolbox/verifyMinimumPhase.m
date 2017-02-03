@@ -1,7 +1,7 @@
-function verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, realization, kbound, varargin)
+function verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, realization, varargin)
 %
 % Checks minimum phase property violation for digital systems using a bounded model checking tool.
-% Function: verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, realization, kbound)
+% Function: verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, realization)
 %
 % Where
 %   system: represents a digital system represented in transfer-function;
@@ -10,7 +10,6 @@ function verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, reali
 %   rangeMax: represents the maximum dynamical range;
 %   rangeMin: represents the minimum dynamical range;
 %   realization: set the realization for the Digital-System (DFI, DFII, TDFII, DDFI, DDFII, and TDDFII);
-%   kbound: sets the k bound of verification;
 %
 %  The 'system' must be structed as follow:
 %  system = tf(den,num,ts): transfer function representation (den - denominator, num - numerator, ts - sample time);
@@ -20,18 +19,18 @@ function verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, reali
 %
 % For Delta Verification, the delta operator must be informed as:
 %
-% verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, realization, kbound, delta)
+% verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, realization, delta)
 %
 % Where
 %   delta: the delta operator for a delta realization (DDFI, DDFII or TDDFII)
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, realization, kbound, bmc, solver, ovmode, rmode, emode, timeout)
+% verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, realization, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % For delta realization:
 %
-% verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, realization, kbound, delta, bmc, solver, ovmode, rmode, emode, timeout)
+% verifyMinimumPhase(system, intBits, fracBits, rangeMax, rangeMin, realization, delta, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
@@ -67,7 +66,7 @@ digitalSystem.range.min = rangeMin;
 
 delta = 0;
 if strcmp(realization, 'DDFI') || strcmp(realization, 'DDFII') || strcmp(realization, 'TDDFII')
-    if nargin >= 8
+    if nargin >= 7
     delta = varargin{1};
     end
 end
@@ -80,7 +79,7 @@ verificationParser(digitalSystem,'tf',0,realization);
 %verifying using DSVerifier command-line
 property = 'MINIMUM_PHASE';
 extra_param = getExtraParams(nargin,varargin,'tf', property, realization);
-command_line = [' --property ' property ' --realization ' realization ' --x-size ' num2str(kbound) extra_param];
+command_line = [' --property ' property ' --realization ' realization extra_param];
 verificationExecution(command_line,'tf');
 
 %report the verification
