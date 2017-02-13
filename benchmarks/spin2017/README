@@ -1,0 +1,23 @@
+We should type the following command in MATLAB to produce all benchmarks:
+
+$makebenchmarks
+
+We get as result:
+
+Creating test suite for DS Tools...
+DC Motor - 8 benchmarks
+HSCC 2017 - 6 benchmarks
+Pendulum - 8 benchmarks
+Inverted Cart Pendulum - 16 benchmarks
+1/4 Car Suspension System - 7 benchmarks
+Simple Magnetic Suspension System - 8 benchmarks
+Car Cruise Control - 7 benchmarks
+Computer Tape Driver - 8 benchmarks
+Helicopter Longitudinal Motion - 8 benchmarks
+USCG cutter Tampa Heading Angle - 8 benchmarks
+Magnetic Pointer - 8 benchmarks
+Done
+Total of benchmarks: 92
+The .mat file benchmark_tf.mat contains the transfer function models.
+The .mat file benchmark_ss.mat contains the state space models.
+
