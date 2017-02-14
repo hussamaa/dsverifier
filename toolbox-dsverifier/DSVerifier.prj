@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="1782388842" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="3633310945" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSVerifier</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -70,6 +70,14 @@
     </fileset.rootfiles>
     <fileset.depfun.included />
     <fileset.depfun.excluded>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/genCounterexample.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/getExtraParams.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/matrix2string.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/poly2strc.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationExecution.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationParser.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationReport.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationSetup.m</file>
       <file>${MATLAB_ROOT}/toolbox/local/userpath.m</file>
     </fileset.depfun.excluded>
     <fileset.package />
