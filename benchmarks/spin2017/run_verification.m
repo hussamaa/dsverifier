@@ -1,0 +1,17 @@
+clear all
+clc
+
+%Running Verification for Transfer-Function:
+
+run_verification_tf_stability
+run_verification_tf_minimum_phase
+run_verification_tf_overflow
+run_verification_tf_limit_cycle
+run_verification_tf_error
+
+%Running Verification for State-Space:
+
+run_verification_ss_stability
+run_verification_ss_observability
+run_verification_ss_controllability
+run_verification_ss_quantization_error
