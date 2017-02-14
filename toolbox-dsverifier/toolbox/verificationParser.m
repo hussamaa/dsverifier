@@ -126,6 +126,7 @@ min_range = ds.range.min;
 
 fid = fopen('file.ss', 'wt' );
 fprintf(fid,'implementation <%d,%d>\n', int_bits, frac_bits);
+fprintf(fid,'range [%d,%d]\n', max_range, min_range);
 fprintf(fid,'states = %d;\n', nStates);
 fprintf(fid,'inputs = %d;\n', nInputs);
 fprintf(fid,'outputs = %d;\n', nOutputs);
