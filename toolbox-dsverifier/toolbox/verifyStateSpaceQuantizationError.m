@@ -76,7 +76,7 @@ else
     closed_loop = ' --closed-loop ';
 end
 
-command_line = [' --property ' property ' --limit ' errorLimit ' --x-size ' kbound closed_loop extra_param];
+command_line = [' --property ' property ' --limit ' num2str(errorLimit) ' --x-size ' num2str(kbound) closed_loop extra_param];
 verificationExecution(command_line,'ss');
 
 %report the verification
