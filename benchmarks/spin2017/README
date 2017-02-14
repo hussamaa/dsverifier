@@ -21,3 +21,11 @@ Total of benchmarks: 92
 The .mat file benchmark_tf.mat contains the transfer function models.
 The .mat file benchmark_ss.mat contains the state space models.
 
+Running The Verification
+
+In order to run the verification for all benchmarks using DSVerifier Toolbox, please run:
+
+$run_verification
+
+and then, wait for all results provided by DSVerifier.
+
