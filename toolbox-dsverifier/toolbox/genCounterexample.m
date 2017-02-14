@@ -77,7 +77,7 @@ while ischar(tline)
       system(i).impl.delta = 0;
       end
       system(i).impl.realization_form = strtrim(realization);
-      if(strcmp(p,'o'))
+      if(strcmp(property,'OVERFLOW'))
           system(i).output.output_verification = 'Failed';
       else
           system(i).output.output_verification = outputs;

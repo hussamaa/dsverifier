@@ -1,7 +1,7 @@
-function verifyStateSpaceQuantizationError(system, inputs, intBits, fracBits, errorLimit, kbound, K, varargin)
+function verifyStateSpaceQuantizationError(system, inputs, intBits, fracBits, maxRange, minRange, errorLimit, kbound, K, varargin)
 %
 % Checks quantization error property violation for digital systems (state-space representation) using a bounded model checking tool.
-% Function: verifyStateSpaceQuantizationError(system, inputs, intBits, fracBits, errorLimit, kbound, K)
+% Function: verifyStateSpaceQuantizationError(system, inputs, intBits, fracBits,  maxRange, minRange, errorLimit, kbound, K)
 %
 % Where
 %   system: represents a digital system represented in state-space;
@@ -11,6 +11,8 @@ function verifyStateSpaceQuantizationError(system, inputs, intBits, fracBits, er
 %   errorLimit: represents the maximum error allowed;
 %   kbound: represents the k maximum bound;
 %   K: represents the feedback matrix for closed-loop systems;
+%   maxRange: represents the maximum dynamical range;
+%   minRange: represents the minimum dynamical range;	
 %
 %  The 'system' must be structed as follow:
 %  system = ss(A,B,C,D,ts): state-space representation (A, B, C and D represent the matrix for state-space system, ts - sample time);
@@ -20,7 +22,7 @@ function verifyStateSpaceQuantizationError(system, inputs, intBits, fracBits, er
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% verifyStateSpaceQuantizationError(system, inputs, intBits, fracBits, errorLimit, kbound, K, bmc, solver, ovmode, rmode, emode, timeout)
+% verifyStateSpaceQuantizationError(system, inputs, intBits, fracBits,  maxRange, minRange, errorLimit, kbound, K, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
@@ -40,7 +42,7 @@ function verifyStateSpaceQuantizationError(system, inputs, intBits, fracBits, er
 %  inputs = [1.0 1.0 -1.0 -1.0 1.0 1.0];
 %  K = [...];
 %
-%  verifyStateSpaceQuantizationError(system, inputs, 10, 2 , 0.018 , 10, K);
+%  verifyStateSpaceQuantizationError(system, inputs, 10, 2 ,  1, -1, 0.018 , 10, K);
 %  VERIFICATION FAILED!
 %
 % Author: Lennon Chaves
@@ -57,6 +59,8 @@ digitalSystem.system = system;
 digitalSystem.inputs = inputs;
 digitalSystem.impl.frac_bits = fracBits;
 digitalSystem.impl.int_bits = intBits;
+digitalSystem.range.max = maxRange;
+digitalSystem.range.min = minRange;
 digitalSystem.K = K;
 
 %translate to ANSI-C file
@@ -72,7 +76,7 @@ else
     closed_loop = ' --closed-loop ';
 end
 
-command_line = [' --property ' property ' --limit ' errorLimit ' --x-size ' kbound closed_loop extra_param];
+command_line = [' --property ' property ' --limit ' num2str(errorLimit) ' --x-size ' num2str(kbound) closed_loop extra_param];
 verificationExecution(command_line,'ss');
 
 %report the verification

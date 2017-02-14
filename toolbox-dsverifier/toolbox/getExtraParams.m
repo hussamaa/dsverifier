@@ -20,7 +20,7 @@ indice = 1;
 
 if strcmp(type,'tf')
 
-if strcmp(property,'STABILITY')
+if strcmp(property,'STABILITY') || strcmp(property,'MINIMUM_PHASE')
     nvarIndice = 6;
     indice = 1;
     if strcmp(realization,'DDFI') || strcmp(realization,'DDFII') || strcmp(realization,'TDDFII')
@@ -45,7 +45,7 @@ end
 end
 
 if strcmp(type,'cl')
-    if strcmp(property,'STABILITY')
+    if strcmp(property,'STABILITY_CLOSED_LOOP')
         nvarIndice = 8;
     elseif strcmp(property,'LIMIT_CYCLE_CLOSED_LOOP')
         nvarIndice = 9;
@@ -55,9 +55,9 @@ if strcmp(type,'cl')
 end
 
 if strcmp(type,'ss')
-   nvarIndice = 5;
+   nvarIndice = 7;
    if strcmp(property,'QUANTIZATION_ERROR')
-       nvarIndice = 7;
+       nvarIndice = 9;
    end
 end
 

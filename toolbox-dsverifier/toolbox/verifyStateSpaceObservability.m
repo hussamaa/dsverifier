@@ -1,7 +1,7 @@
-function verifyStateSpaceObservability(system, inputs, intBits, fracBits, K, varargin)
+function verifyStateSpaceObservability(system, inputs, intBits, fracBits, maxRange, minRange, K, varargin)
 %
 % Checks observability property violation for digital systems (state-space representation) using a bounded model checking tool.
-% Function: verifyStateSpaceObservability(system, inputs, intBits, fracBits, K)
+% Function: verifyStateSpaceObservability(system, inputs, intBits, fracBits,  maxRange, minRange, K)
 %
 % Where
 %   system: represents a digital system represented in state-space;
@@ -9,6 +9,8 @@ function verifyStateSpaceObservability(system, inputs, intBits, fracBits, K, var
 %   intBits: represents the integer bits part;
 %   fracBits: represents the fractionary bits part;
 %   K: represents the feedback matrix for closed-loop systems;
+%   maxRange: represents the maximum dynamical range;
+%   minRange: represents the minimum dynamical range;	
 %
 %  The 'system' must be structed as follow:
 %  system = ss(A,B,C,D,ts): state-space representation (A, B, C and D represent the matrix for state-space system, ts - sample time);
@@ -18,7 +20,7 @@ function verifyStateSpaceObservability(system, inputs, intBits, fracBits, K, var
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% verifyStateSpaceObservability(system, inputs, intBits, fracBits, K, bmc, solver, ovmode, rmode, emode, timeout)
+% verifyStateSpaceObservability(system, inputs, intBits, fracBits,  maxRange, minRange, K, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
@@ -37,7 +39,7 @@ function verifyStateSpaceObservability(system, inputs, intBits, fracBits, K, var
 %  system = c2d(sys,ts);
 %  inputs = [1.0 1.0 -1.0 -1.0 1.0 1.0];
 %
-%  verifyStateSpaceObservability(system, inputs, 10, 2, '');
+%  verifyStateSpaceObservability(system, inputs, 10, 2,  1, -1, '');
 %  VERIFICATION SUCCESSFUL!
 %
 % Author: Lennon Chaves
@@ -54,6 +56,8 @@ digitalSystem.system = system;
 digitalSystem.inputs = inputs;
 digitalSystem.impl.frac_bits = fracBits;
 digitalSystem.impl.int_bits = intBits;
+digitalSystem.range.max = maxRange;
+digitalSystem.range.min = minRange;
 digitalSystem.K = K;
 
 %translate to ANSI-C file

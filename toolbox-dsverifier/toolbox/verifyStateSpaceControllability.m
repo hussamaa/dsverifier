@@ -1,7 +1,7 @@
-function verifyStateSpaceControllability(system, inputs, intBits, fracBits, K, varargin)
+function verifyStateSpaceControllability(system, inputs, intBits, fracBits, maxRange, minRange, K, varargin)
 %
 % Checks controllability property violation for digital systems (state-space representation) using a bounded model checking tool.
-% Function: verifyStateSpaceControllability(system, inputs, intBits, fracBits, K)
+% Function: verifyStateSpaceControllability(system, inputs, intBits, fracBits,  maxRange, minRange, K)
 %
 % Where
 %   system: represents a digital system represented in state-space;
@@ -18,7 +18,7 @@ function verifyStateSpaceControllability(system, inputs, intBits, fracBits, K, v
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% verifyStateSpaceControllability(system, inputs, intBits, fracBits, K, bmc, solver, ovmode, rmode, emode, timeout)
+% verifyStateSpaceControllability(system, inputs, intBits, fracBits,  maxRange, minRange, K, bmc, solver, ovmode, rmode, emode, timeout)
 %
 % Where
 %  bmc: set the BMC back-end for DSVerifier (ESBMC or CBMC);
@@ -27,6 +27,8 @@ function verifyStateSpaceControllability(system, inputs, intBits, fracBits, K, v
 %  rmode: set the rounding mode which could be 'ROUNDING', 'FLOOR', or 'CEIL';
 %  emode: set the error mode which could be 'ABSOLUTE' or 'RELATIVE';
 %  timeout: configure time limit, integer followed by {s,m,h} (for ESBMC only).
+%  maxRange: represents the maximum dynamical range;
+%  minRange: represents the minimum dynamical range;	
 %
 % Example of usage:
 %  A = [...];
@@ -37,7 +39,7 @@ function verifyStateSpaceControllability(system, inputs, intBits, fracBits, K, v
 %  system = c2d(sys,ts);
 %  inputs = [1.0 1.0 -1.0 -1.0 1.0 1.0];
 %
-%  verifyStateSpaceControllability(system, inputs, 10, 2, '');
+%  verifyStateSpaceControllability(system, inputs, 10, 2,  1, -1, '');
 %  VERIFICATION SUCCESSFUL!
 %
 % Author: Lennon Chaves
@@ -54,6 +56,8 @@ digitalSystem.system = system;
 digitalSystem.inputs = inputs;
 digitalSystem.impl.frac_bits = fracBits;
 digitalSystem.impl.int_bits = intBits;
+digitalSystem.range.max = maxRange;
+digitalSystem.range.min = minRange;
 digitalSystem.K = K;
 
 %translate to ANSI-C file
