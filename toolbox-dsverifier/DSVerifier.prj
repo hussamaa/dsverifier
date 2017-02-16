@@ -70,14 +70,6 @@
     </fileset.rootfiles>
     <fileset.depfun.included />
     <fileset.depfun.excluded>
-      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/genCounterexample.m</file>
-      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/getExtraParams.m</file>
-      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/matrix2string.m</file>
-      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/poly2strc.m</file>
-      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationExecution.m</file>
-      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationParser.m</file>
-      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationReport.m</file>
-      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationSetup.m</file>
       <file>${MATLAB_ROOT}/toolbox/local/userpath.m</file>
     </fileset.depfun.excluded>
     <fileset.package />

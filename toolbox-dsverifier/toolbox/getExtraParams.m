@@ -104,7 +104,7 @@ end
 
 if nvar >= nvarIndice + 5
 if length(var{indice+5}) > 0
-extra_param = [extra_param timeout var{indice+5}];
+extra_param = [extra_param timeout num2str(var{indice+5})];
 end
 end
 
