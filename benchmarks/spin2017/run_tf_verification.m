@@ -69,6 +69,6 @@ end
 for i=1:length(controller_vant)
     message = ['VANT: Verifying Digital System ' num2str(i)];
     disp(message)
-    verifyError(controller_vant(i).system, controller_vant(i).int_bits, controller_vant(i).frac_bits, controller_vant(i).rangeMax, controller_vant(i).rangeMin, controller_vant(i).realization, 10, 018, 'CBMC', '', '', '', '', 600)
+    verifyError(controller_vant(i).system, controller_vant(i).int_bits, controller_vant(i).frac_bits, controller_vant(i).rangeMax, controller_vant(i).rangeMin, controller_vant(i).realization, 10, 0.18, 'CBMC', '', '', '', '', 600)
 end
 disp('End of Verification of Transfer-Function')
