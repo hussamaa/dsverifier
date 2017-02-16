@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="1737650440" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="2035632380" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSVerifier</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
