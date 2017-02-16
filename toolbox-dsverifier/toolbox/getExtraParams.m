@@ -14,6 +14,7 @@ function extra_param = getExtraParams(n, var, type, property, realization)
 % Federal University of Amazonas
 % December 2016
 %
+global bmc_mode;
 
 extra_param = '';
 indice = 1;
@@ -74,6 +75,7 @@ timeout = ' --timeout ';
 
 if nvar >= nvarIndice
 if length(var{indice}) > 0
+bmc_mode = var{indice};
 extra_param = [extra_param bmc var{indice}];
 end
 end
