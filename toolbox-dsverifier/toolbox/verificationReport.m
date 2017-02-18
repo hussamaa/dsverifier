@@ -13,6 +13,8 @@ function output = verificationReport(output, representation)
 %
 
 global property;
+global bmc_mode;
+
 fid = fopen(output);
 tline = fgetl(fid);
 output = '';
@@ -43,7 +45,7 @@ end
 
 if (is_closed_loop == 0) && (is_state_space == 0)
     
-if strcmp(output,'VERIFICATION FAILED')
+if strcmp(output,'VERIFICATION FAILED') && strcmp(bmc_mode,'CBMC')
     home = pwd;
     user = userpath;
     if strfind(user,'/Documents/MATLAB') %default folder installation

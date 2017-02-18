@@ -14,6 +14,8 @@ function system = genCounterexample(property, directory)
 global bmc_mode;
 
 file_output = [directory '/dsv_counterexample_parameters.txt'];
+
+if strcmp(bmc_mode, 'CBMC')
     
 if strcmp(property,'OVERFLOW') || strcmp(property,'LIMIT_CYCLE')
 
@@ -171,6 +173,8 @@ while ischar(tline)
 end
 
 fclose(fid);
+
+end
 
 end
 

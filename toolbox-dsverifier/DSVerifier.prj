@@ -1,10 +1,10 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="2035632380" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="1752687736" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSVerifier</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
     <param.company>Federal University of Amazonas</param.company>
-    <param.summary>Support to CBMC 5.6 and ESBMC 3.1.0</param.summary>
+    <param.summary>Support to CBMC 5.5 and ESBMC 3.1.0</param.summary>
     <param.description>DSVerifier (Digital Systems Verifier) is a bounded model checker to aid enginners to check for overflow, limit cycle, error, timing, stability, and minimum phase in digital systems, considering finite word length (FWL) effects.</param.description>
     <param.screenshot>${PROJECT_ROOT}/logo.png</param.screenshot>
     <param.version>1.0.0</param.version>
@@ -70,6 +70,14 @@
     </fileset.rootfiles>
     <fileset.depfun.included />
     <fileset.depfun.excluded>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/genCounterexample.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/getExtraParams.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/matrix2string.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/poly2strc.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationExecution.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationParser.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationReport.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationSetup.m</file>
       <file>${MATLAB_ROOT}/toolbox/local/userpath.m</file>
     </fileset.depfun.excluded>
     <fileset.package />

@@ -1,15 +1,15 @@
-disp('Verifying Transfer-Function Stability')
 %Verify Stability
+disp('Verifying Transfer-Function Stability')
 for i=1:10
     message = ['DAES: Verifying Digital System ' num2str(i)];
     disp(message)
     verifyStability(controller_daes(i).system, controller_daes(i).int_bits, controller_daes(i).frac_bits, controller_daes(i).rangeMax, controller_daes(i).rangeMin, controller_daes(i).realization, 'ESBMC', '', '', '', '', 600)
 end
 
-for i=1:length(controller_vant)
-    message = ['VANT: Verifying Digital System ' num2str(i)];
+for i=1:length(controller_UAV)
+    message = ['UAV: Verifying Digital System ' num2str(i)];
     disp(message)
-    verifyStability(controller_vant(i).system, controller_vant(i).int_bits, controller_vant(i).frac_bits, controller_vant(i).rangeMax, controller_vant(i).rangeMin, controller_vant(i).realization, 'ESBMC', '', '', '', '', 600)
+    verifyStability(controller_UAV(i).system, controller_UAV(i).int_bits, controller_UAV(i).frac_bits, controller_UAV(i).rangeMax, controller_UAV(i).rangeMin, controller_UAV(i).realization, 'ESBMC', '', '', '', '', 600)
 end
 
 disp('Verifying Transfer-Function Minimum Phase')
@@ -21,10 +21,10 @@ for i=1:10
     verifyMinimumPhase(controller_daes(i).system, controller_daes(i).int_bits, controller_daes(i).frac_bits, controller_daes(i).rangeMax, controller_daes(i).rangeMin, controller_daes(i).realization, 'ESBMC', '', '', '', '', 600)
 end
 
-for i=1:length(controller_vant)
-    message = ['VANT: Verifying Digital System ' num2str(i)];
+for i=1:length(controller_UAV)
+    message = ['UAV: Verifying Digital System ' num2str(i)];
     disp(message)
-    verifyMinimumPhase(controller_vant(i).system, controller_vant(i).int_bits, controller_vant(i).frac_bits, controller_vant(i).rangeMax, controller_vant(i).rangeMin, controller_vant(i).realization, 'ESBMC', '', '', '', '', 600)
+    verifyMinimumPhase(controller_UAV(i).system, controller_UAV(i).int_bits, controller_UAV(i).frac_bits, controller_UAV(i).rangeMax, controller_UAV(i).rangeMin, controller_UAV(i).realization, 'ESBMC', '', '', '', '', 600)
 end
 
 disp('Verifying Transfer-Function Overflow')
@@ -36,10 +36,10 @@ for i=1:10
     verifyOverflow(controller_daes(i).system, controller_daes(i).int_bits, controller_daes(i).frac_bits, controller_daes(i).rangeMax, controller_daes(i).rangeMin, controller_daes(i).realization, 10, 'ESBMC', '', '', '', '', 600)
 end
 
-for i=1:length(controller_vant)
-    message = ['VANT: Verifying Digital System ' num2str(i)];
+for i=1:length(controller_UAV)
+    message = ['UAV: Verifying Digital System ' num2str(i)];
     disp(message)
-    verifyOverflow(controller_vant(i).system, controller_vant(i).int_bits, controller_vant(i).frac_bits, controller_vant(i).rangeMax, controller_vant(i).rangeMin, controller_vant(i).realization, 10, 'ESBMC', '', '', '', '', 600)
+    verifyOverflow(controller_UAV(i).system, controller_UAV(i).int_bits, controller_UAV(i).frac_bits, controller_UAV(i).rangeMax, controller_UAV(i).rangeMin, controller_UAV(i).realization, 10, 'ESBMC', '', '', '', '', 600)
 end
 
 disp('Verifying Transfer-Function Limit Cycle')
@@ -51,10 +51,10 @@ for i=1:10
     verifyLimitCycle(controller_daes(i).system, controller_daes(i).int_bits, controller_daes(i).frac_bits, controller_daes(i).rangeMax, controller_daes(i).rangeMin, controller_daes(i).realization, 10, 'ESBMC', '', '', '', '', 600)
 end
 
-for i=1:length(controller_vant)
-    message = ['VANT: Verifying Digital System ' num2str(i)];
+for i=1:length(controller_UAV)
+    message = ['UAV: Verifying Digital System ' num2str(i)];
     disp(message)
-    verifyLimitCycle(controller_vant(i).system, controller_vant(i).int_bits, controller_vant(i).frac_bits, controller_vant(i).rangeMax, controller_vant(i).rangeMin, controller_vant(i).realization, 10, 'ESBMC', '', '', '', '', 600)
+    verifyLimitCycle(controller_UAV(i).system, controller_UAV(i).int_bits, controller_UAV(i).frac_bits, controller_UAV(i).rangeMax, controller_UAV(i).rangeMin, controller_UAV(i).realization, 10, 'ESBMC', '', '', '', '', 600)
 end
 
 disp('Verifying Transfer-Function Quantization Error')
@@ -66,9 +66,9 @@ for i=1:10
     verifyError(controller_daes(i).system, controller_daes(i).int_bits, controller_daes(i).frac_bits, controller_daes(i).rangeMax, controller_daes(i).rangeMin, controller_daes(i).realization, 10, 0.18, 'ESBMC', '', '', '', '', 600)
 end
 
-for i=1:length(controller_vant)
-    message = ['VANT: Verifying Digital System ' num2str(i)];
+for i=1:length(controller_UAV)
+    message = ['UAV: Verifying Digital System ' num2str(i)];
     disp(message)
-    verifyError(controller_vant(i).system, controller_vant(i).int_bits, controller_vant(i).frac_bits, controller_vant(i).rangeMax, controller_vant(i).rangeMin, controller_vant(i).realization, 10, 0.18, 'ESBMC', '', '', '', '', 600)
+    verifyError(controller_UAV(i).system, controller_UAV(i).int_bits, controller_UAV(i).frac_bits, controller_UAV(i).rangeMax, controller_UAV(i).rangeMin, controller_UAV(i).realization, 10, 0.18, 'ESBMC', '', '', '', '', 600)
 end
 disp('End of Verification of Transfer-Function')
