@@ -4,8 +4,8 @@ function output = verificationReport(output, representation)
 % Function: output = verificationReport(output, representation)
 %
 %  output: digital system in a output file .out
-%  representation: 'ss' for state-space, 'tf' for transfer function and 'cl' for
-%  closed-loop systems
+%  representation: 'ss' for state-space, 'tf' for transfer function, 'cl' for
+%  closed-loop systems, and 'rb' for robust closed-loop system (with uncertainty)
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
@@ -35,6 +35,10 @@ end
 is_closed_loop = 0;
 
 if strcmp(representation,'cl')
+    is_closed_loop = 1;
+end
+
+if strcmp(representation,'rb')
     is_closed_loop = 1;
 end
 
