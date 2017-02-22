@@ -12,7 +12,7 @@ function extra_param = getExtraParams(n, var, type, property, realization)
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
-% December 2016
+% February 2017
 %
 
 global bmc_mode;
@@ -54,6 +54,16 @@ if strcmp(type,'cl')
         nvarIndice = 9;
     elseif strcmp(property,'QUANTIZATION_ERROR_CLOSED_LOOP')
         nvarIndice = 10;
+    end
+end
+
+if strcmp(type,'rb')
+    if strcmp(property,'STABILITY_CLOSED_LOOP')
+        nvarIndice = 10;
+    elseif strcmp(property,'LIMIT_CYCLE_CLOSED_LOOP')
+        nvarIndice = 11;
+    elseif strcmp(property,'QUANTIZATION_ERROR_CLOSED_LOOP')
+        nvarIndice = 12;
     end
 end
 

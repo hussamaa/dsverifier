@@ -5,12 +5,12 @@ function verificationExecution(command, representation)
 %
 %  command: the command line with all parameters to execute the
 %  verification
-%  representation: 'ss' for state-space, 'tf' for transfer function and 'cl' for
-%  closed-loop systems
+%  representation: 'ss' for state-space, 'tf' for transfer function, 'cl' for
+%  closed-loop systems, and 'rb' for robust closed-loop system (with uncertainty)
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
-% December 2016
+% February 2017
 %
 
 if strcmp(representation,'ss')
