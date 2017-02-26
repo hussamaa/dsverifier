@@ -836,12 +836,13 @@ std::string prepare_bmc_command_line()
   std::string command_line;
   if (desired_bmc == "ESBMC")
   {
+	if (k_induction)
+	{
+	  command_line = "gcc -E " + desired_filename + " -DK_INDUCTION_MODE=K_INDUCTION -DBMC=ESBMC -I " + bmc_path;
+	} else {
 	command_line = model_checker_path + "/esbmc " + desired_filename +
 	  " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " +
 	  bmc_path;
-	if (k_induction)
-	{
-	  command_line += " --k-induction --unlimited-k-steps -DK_INDUCTION_MODE=K_INDUCTION ";
 	}
 	if (desired_timeout.size() > 0)
 	{
@@ -2389,7 +2390,20 @@ int main(int argc, char* argv[])
 	{
 	  std::string command_line = prepare_bmc_command_line();
 	  std::cout << "Back-end Verification: " << command_line << std::endl;
-	  std::string counterexample = execute_command_line(command_line);
+	  std::string counterexample;
+	  
+        if (k_induction)
+	  {
+		char *dsverifier_home = getenv("DSVERIFIER_HOME");
+ 		std::string model_checker_path = std::string(dsverifier_home) + "/model-checker";
+		command_line += " > temp.c";
+		execute_command_line(command_line);
+		command_line = model_checker_path + "/esbmc temp.c --clang-frontend --k-induction --boolector";
+		counterexample = execute_command_line(command_line);
+          } else{
+	        counterexample = execute_command_line(command_line);
+          }	
+
 	  if (show_counterexample_data)
 	  {
 	    if(is_counterexample_property)
