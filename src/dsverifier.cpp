@@ -840,7 +840,7 @@ std::string prepare_bmc_command_line()
 	{
 	  command_line = "gcc -E " + desired_filename + " -DK_INDUCTION_MODE=K_INDUCTION -DBMC=ESBMC -I " + bmc_path;
 	} else {
-	command_line = model_checker_path + "/esbmc " + desired_filename +
+          command_line = model_checker_path + "/esbmc " + desired_filename +
 	  " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " +
 	  bmc_path;
 	}
@@ -2394,14 +2394,14 @@ int main(int argc, char* argv[])
 	  
         if (k_induction)
 	  {
-		char *dsverifier_home = getenv("DSVERIFIER_HOME");
- 		std::string model_checker_path = std::string(dsverifier_home) + "/model-checker";
-		command_line += " > temp.c";
-		execute_command_line(command_line);
-		command_line = model_checker_path + "/esbmc temp.c --clang-frontend --k-induction --boolector";
-		counterexample = execute_command_line(command_line);
+            char *dsverifier_home = getenv("DSVERIFIER_HOME");
+ 	    std::string model_checker_path = std::string(dsverifier_home) + "/model-checker";
+	    command_line += " > temp.c";
+	    execute_command_line(command_line);
+	    command_line = model_checker_path + "/esbmc temp.c --clang-frontend --k-induction --boolector";
+	    counterexample = execute_command_line(command_line);
           } else{
-	        counterexample = execute_command_line(command_line);
+	    counterexample = execute_command_line(command_line);
           }	
 
 	  if (show_counterexample_data)
