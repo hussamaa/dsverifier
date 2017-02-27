@@ -21,9 +21,9 @@ if test $# -ne 1; then
    exit 1
 fi
 
-PROPERTIES=(OVERFLOW LIMIT_CYCLE)
+PROPERTIES=(OVERFLOW)
 REALIZATIONS=(DFI DFII TDFII)
-TIMEOUT="600" # seconds
+TIMEOUT="3600" # seconds
 X_SIZE=10
 
 ## default parameters
@@ -35,8 +35,8 @@ BENCHMARKS=$(cat $BENCHMARKS_LIBRARY | grep 'DS_ID\|IMPLEMENTATION_COUNT')
 TOTAL_DS=$(echo "$BENCHMARKS" | grep 'DS_ID' | wc -l)
 OUTPUT_LOGS_DIRECTORY="./logs"
 DSV_EXECUTABLE="dsverifier"
-BMC_EXECUTABLE="ESBMC"
-BMC_PARAMETERS="-DBMC=ESBMC"
+BMC_EXECUTABLE="CBMC"
+BMC_PARAMETERS="-DBMC=CBMC"
 
 # header 
 INITIAL_TIMESTAMP=$(date +%s)
@@ -80,7 +80,7 @@ while [ $AUX -le $(($TOTAL_DS * 2)) ]; do
 
               # do the verification
               INITIAL_EXECUTION_TIMESTAMP=$(date +%s)
-              timeout $TIMEOUT bash -c "{ time $DSV_EXECUTABLE $BENCHMARKS_LIBRARY -DDS_ID=$CURRENT_DS_ID -DIMPLEMENTATION_ID=$CURRENT_IMPLEMENTATION --realization $CURRENT_REALIZATION --property $CURRENT_PROPERTY --unlimited-x-size --bmc ESBMC > $OUT_FILE; } 2>> $OUT_FILE ";
+              timeout $TIMEOUT bash -c "{ time $DSV_EXECUTABLE $BENCHMARKS_LIBRARY $BMC_PARAMETERS -DDS_ID=$CURRENT_DS_ID -DIMPLEMENTATION_ID=$CURRENT_IMPLEMENTATION --realization $CURRENT_REALIZATION --property $CURRENT_PROPERTY --overflow-mode WRAPAROUND --x-size $X_SIZE --show-ce-data> $OUT_FILE; } 2>> $OUT_FILE ";
               FINAL_EXECUTION_TIMESTAMP=$(date +%s)
 
               # analyse the result 

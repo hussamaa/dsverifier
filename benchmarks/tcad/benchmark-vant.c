@@ -49,8 +49,8 @@ hardware hw = {
 	/* carletta's implementation */
 	#if IMPLEMENTATION_ID == 1
 		implementation impl = {
-			.int_bits = 2,
-			.frac_bits = 14,
+			.int_bits = 4,
+			.frac_bits = 12,
 			.max = 1.0,
 			.min = -1.0,
 		};
