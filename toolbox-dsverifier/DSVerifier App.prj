@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="1214829143" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier App.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier App" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="1710880196" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier App.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier App" target="target.mlapps" target-name="Package App">
     <param.appname>DSVerifier App</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -8,7 +8,7 @@
     <param.icons />
     <param.summary>DSVerifier Application for DSVerifier Toolbox</param.summary>
     <param.description />
-    <param.screenshot />
+    <param.screenshot>${PROJECT_ROOT}/logo.png</param.screenshot>
     <param.version>1.0</param.version>
     <param.products.name />
     <param.products.id />
@@ -20,7 +20,6 @@
       <param.icon />
       <param.icons />
       <param.description />
-      <param.screenshot />
       <param.version />
       <param.products.name />
       <param.products.id />
@@ -31,7 +30,22 @@
     <fileset.main>
       <file>${PROJECT_ROOT}/DSVerifier.mlapp</file>
     </fileset.main>
-    <fileset.depfun />
+    <fileset.depfun>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/genCounterexample.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/getExtraParams.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/matrix2string.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/poly2strc.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationExecution.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationParser.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationReport.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationSetup.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyError.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyLimitCycle.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyMinimumPhase.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyOverflow.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyStability.m</file>
+      <file>${MATLAB_ROOT}/toolbox/local/userpath.m</file>
+    </fileset.depfun>
     <fileset.resources />
     <fileset.package />
     <build-deliverables>
@@ -51,7 +65,7 @@
       <vista>false</vista>
       <linux>true</linux>
       <solaris>false</solaris>
-      <osver>4.4.0-62-generic</osver>
+      <osver>4.4.0-64-generic</osver>
       <os32>false</os32>
       <os64>true</os64>
       <arch>glnxa64</arch>
