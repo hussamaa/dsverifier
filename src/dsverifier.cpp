@@ -131,6 +131,7 @@ bool k_induction = false;
 digital_system_state_space _controller;
 double desired_quantization_limit = 0.0;
 bool show_counterexample_data = false;
+bool preprocess = false;
 
 /*******************************************************************\
 
@@ -747,6 +748,10 @@ void bind_parameters(int argc, char* argv[])
 	{
 	  translate = true;
 	}
+        else if (std::string(argv[i]) == "--preprocess")
+	{
+          preprocess = true;	
+	}
 	else if (std::string(argv[i]) == "--show-ce-data")
 	{
 	  show_counterexample_data = true;
@@ -834,8 +839,10 @@ std::string prepare_bmc_command_line()
   std::string bmc_path = std::string(dsverifier_home) + "/bmc";
   std::string model_checker_path = std::string(dsverifier_home) + "/model-checker";
   std::string command_line;
-  if (desired_bmc == "ESBMC")
+  if (!(preprocess))
   {
+   if (desired_bmc == "ESBMC")
+   {
 	if (k_induction)
 	{
 	  command_line = "gcc -E " + desired_filename + " -DK_INDUCTION_MODE=K_INDUCTION -DBMC=ESBMC -I " + bmc_path;
@@ -848,18 +855,39 @@ std::string prepare_bmc_command_line()
 	{
 	  command_line += " --timeout " + desired_timeout;
 	}
-  }
-  else if (desired_bmc == "CBMC")
-  {
+   }
+    else if (desired_bmc == "CBMC")
+   {
 	command_line =  model_checker_path + "/cbmc " + desired_filename +
 	  " --fixedbv --stop-on-fail -DBMC=CBMC -I " + bmc_path;
-  }
+   }
+  } else if (preprocess)
+   {
+     command_line = "gcc -E " + desired_filename;
+     
+     if (desired_bmc == "ESBMC")
+      {
+       command_line += " -DBMC=ESBMC -I " + bmc_path;
+
+       if (k_induction)
+        {
+         command_line += " -DK_INDUCTION_MODE=K_INDUCTION ";
+        }
+      }
+     if (desired_bmc == "CBMC")
+      {
+        command_line += " -DBMC=CBMC -I " + bmc_path;
+      }
+   }
 
   if (desired_function.size() > 0)
 	command_line += " --function " + desired_function;
 
   if (desired_solver.size() > 0)
-	command_line += " --" + desired_solver;
+     {
+	if (!preprocess)	
+	  command_line += " --" + desired_solver;
+     }
 
   if (desired_realization.size() > 0)
 	command_line += " -DREALIZATION=" + desired_realization;
@@ -2340,6 +2368,13 @@ int main(int argc, char* argv[])
 	extract_data_from_file();
 	tf2ss();
 	state_space_parser();
+	exit(0);
+  }
+
+  if(preprocess)
+  {
+	std::string command_line_preprocess = prepare_bmc_command_line();
+	execute_command_line(command_line_preprocess);
 	exit(0);
   }
 
