@@ -39,6 +39,7 @@ void help ()
   std::cout << "--timeout <t>                configure time limit, integer followed by {s,m,h} (for ESBMC only)" << std::endl;
   std::cout << "--tf2ss                      converts a transfer function representation of a given system to an equivalent state-space representation" << std::endl;
   std::cout << "--show-ce-data               shows initial states, inputs, and outputs extracted from counterexample" << std::endl;
+  std::cout << "--preprocess                 preprocess the digital-system file to be verified" << std::endl;
   std::cout << "" << std::endl;
   exit(0);
 }
