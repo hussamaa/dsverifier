@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="1710880196" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier App.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier App" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="1774501232" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier App.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier App" target="target.mlapps" target-name="Package App">
     <param.appname>DSVerifier App</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -39,11 +39,18 @@
       <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationParser.m</file>
       <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationReport.m</file>
       <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verificationSetup.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyClosedLoopLimitCycle.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyClosedLoopQuantizationError.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyClosedLoopStability.m</file>
       <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyError.m</file>
       <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyLimitCycle.m</file>
       <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyMinimumPhase.m</file>
       <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyOverflow.m</file>
       <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyStability.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyStateSpaceControllability.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyStateSpaceObservability.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyStateSpaceQuantizationError.m</file>
+      <file>/home/lennon/Documents/MATLAB/Add-Ons/Toolboxes/DSVerifier/code/verifyStateSpaceStability.m</file>
       <file>${MATLAB_ROOT}/toolbox/local/userpath.m</file>
     </fileset.depfun>
     <fileset.resources />
