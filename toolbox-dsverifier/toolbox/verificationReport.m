@@ -4,8 +4,8 @@ function output = verificationReport(output, representation)
 % Function: output = verificationReport(output, representation)
 %
 %  output: digital system in a output file .out
-%  representation: 'ss' for state-space, 'tf' for transfer function and 'cl' for
-%  closed-loop systems
+%  representation: 'ss' for state-space, 'tf' for transfer function, 'cl' for
+%  closed-loop systems, and 'rb' for robust closed-loop system (with uncertainty)
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
@@ -13,6 +13,8 @@ function output = verificationReport(output, representation)
 %
 
 global property;
+global bmc_mode;
+
 fid = fopen(output);
 tline = fgetl(fid);
 output = '';
@@ -36,6 +38,10 @@ if strcmp(representation,'cl')
     is_closed_loop = 1;
 end
 
+if strcmp(representation,'rb')
+    is_closed_loop = 1;
+end
+
 is_state_space = 0;
 if strcmp(representation,'ss')
     is_state_space = 1;
@@ -43,7 +49,7 @@ end
 
 if (is_closed_loop == 0) && (is_state_space == 0)
     
-if strcmp(output,'VERIFICATION FAILED')
+if strcmp(output,'VERIFICATION FAILED') && strcmp(bmc_mode,'CBMC')
     home = pwd;
     user = userpath;
     if strfind(user,'/Documents/MATLAB') %default folder installation

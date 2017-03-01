@@ -11,6 +11,8 @@
 #           Iury Bessa - iury.bessa@gmail.com
 #           Lucas Cordeiro - lucasccordeiro@gmail.com
 #
+#  Contributors: Daniel Mello - dani-dmello@hotmail.com
+#
 # --------------------------------------------------
 #
 #  Usage:
@@ -95,7 +97,8 @@ const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE",
 		"TIMING", "TIMING_MSP430", "STABILITY", "STABILITY_CLOSED_LOOP",
 		"LIMIT_CYCLE_CLOSED_LOOP", "QUANTIZATION_ERROR_CLOSED_LOOP",
 		"MINIMUM_PHASE", "QUANTIZATION_ERROR", "CONTROLLABILITY",
-		"OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE", "SAFETY_STATE_SPACE"};
+		"OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE", "SAFETY_STATE_SPACE",
+		"FILTER_MAGNITUDE_NON_DET", "FILTER_MAGNITUDE_DET"};
 
 const char * rounding [] = { "ROUNDING", "FLOOR", "CEIL" };
 const char * overflow [] = { "DETECT_OVERFLOW", "SATURATE", "WRAPAROUND" };
@@ -128,6 +131,7 @@ bool k_induction = false;
 digital_system_state_space _controller;
 double desired_quantization_limit = 0.0;
 bool show_counterexample_data = false;
+bool preprocess = false;
 
 /*******************************************************************\
 
@@ -266,6 +270,56 @@ void extract_data_from_file()
 	{
 	  current_line = replace_all_string(current_line, ".delta=", "");
 	  impl.delta = std::atof(current_line.c_str());
+	  continue;
+	}
+	//FILTER COEFFICIENTS 
+	std::string::size_type filter_Ap = current_line.find(".Ap", 0);
+	if (filter_Ap != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".Ap=", "");
+	  filter.Ap = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_Ac = current_line.find(".Ac", 0);
+	if (filter_Ac != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".Ac=", "");
+	  filter.Ac = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_Ar = current_line.find(".Ar", 0);
+	if (filter_Ar != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".Ar=", "");
+	  filter.Ar = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_wp = current_line.find(".wp", 0);
+	if (filter_wp != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".wp=", "");
+	  filter.wp = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_wc = current_line.find(".wc", 0);
+	if (filter_wc != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".wc=", "");
+	  filter.wc = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_wr = current_line.find(".wr", 0);
+	if (filter_wr != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".wr=", "");
+	  filter.wr = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_type = current_line.find(".type", 0);
+	if (filter_type != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".type=", "");
+	  filter.type = std::atof(current_line.c_str());
 	  continue;
 	}
   }
@@ -497,6 +551,7 @@ Function: validate_selected_property
 
 \*******************************************************************/
 
+
 void validate_selected_property(std::string data)
 {
   int length = (sizeof(properties)/sizeof(*properties));
@@ -693,6 +748,10 @@ void bind_parameters(int argc, char* argv[])
 	{
 	  translate = true;
 	}
+        else if (std::string(argv[i]) == "--preprocess")
+	{
+          preprocess = true;	
+	}
 	else if (std::string(argv[i]) == "--show-ce-data")
 	{
 	  show_counterexample_data = true;
@@ -780,31 +839,55 @@ std::string prepare_bmc_command_line()
   std::string bmc_path = std::string(dsverifier_home) + "/bmc";
   std::string model_checker_path = std::string(dsverifier_home) + "/model-checker";
   std::string command_line;
-  if (desired_bmc == "ESBMC")
+  if (!(preprocess))
   {
-	command_line = model_checker_path + "/esbmc " + desired_filename +
-	  " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " +
-	  bmc_path;
+   if (desired_bmc == "ESBMC")
+   {
 	if (k_induction)
 	{
-	  command_line += " --k-induction --unlimited-k-steps -DK_INDUCTION_MODE=K_INDUCTION ";
+	  command_line = "gcc -E " + desired_filename + " -DK_INDUCTION_MODE=K_INDUCTION -DBMC=ESBMC -I " + bmc_path;
+	} else {
+          command_line = model_checker_path + "/esbmc " + desired_filename +
+	  " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " +
+	  bmc_path;
 	}
 	if (desired_timeout.size() > 0)
 	{
 	  command_line += " --timeout " + desired_timeout;
 	}
-  }
-  else if (desired_bmc == "CBMC")
-  {
+   }
+    else if (desired_bmc == "CBMC")
+   {
 	command_line =  model_checker_path + "/cbmc " + desired_filename +
 	  " --fixedbv --stop-on-fail -DBMC=CBMC -I " + bmc_path;
-  }
+   }
+  } else if (preprocess)
+   {
+     command_line = "gcc -E " + desired_filename;
+     
+     if (desired_bmc == "ESBMC")
+      {
+       command_line += " -DBMC=ESBMC -I " + bmc_path;
+
+       if (k_induction)
+        {
+         command_line += " -DK_INDUCTION_MODE=K_INDUCTION ";
+        }
+      }
+     if (desired_bmc == "CBMC")
+      {
+        command_line += " -DBMC=CBMC -I " + bmc_path;
+      }
+   }
 
   if (desired_function.size() > 0)
 	command_line += " --function " + desired_function;
 
   if (desired_solver.size() > 0)
-	command_line += " --" + desired_solver;
+     {
+	if (!preprocess)	
+	  command_line += " --" + desired_solver;
+     }
 
   if (desired_realization.size() > 0)
 	command_line += " -DREALIZATION=" + desired_realization;
@@ -883,7 +966,7 @@ std::string prepare_bmc_command_line_ss()
 
 digital_system ds;
 implementation impl;
-
+filter_parameters filter; 
 
 /*******************************************************************\
 
@@ -1200,7 +1283,6 @@ bool check_shift_stability_margin(std::vector<RootType> roots)
 
   return stable;
 }
-
 
 /*******************************************************************\
 
@@ -1522,6 +1604,156 @@ void check_state_space_stability()
   }
 
   show_verification_successful(); //stable
+}
+
+/*******************************************************************\
+
+Function: generates_mag_response
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+#define M_PI 3.14159265358979323846
+#define LOWPASS 1
+#define HIGHPASS 2
+
+void generates_mag_response(double* num, int lnum, double* den, int lden, double* res, int N) {
+
+	double w;
+	int m, i;
+	double out_numRe[N + 1];
+	double out_numIm[N + 1];
+	double out_denRe[N + 1];
+	double out_denIm[N + 1];
+	double old_out_Re;
+	double zero_test;
+	for (w = 0, i = 0; w <= M_PI; w += M_PI / N, ++i) {
+		out_numRe[i] = num[0];
+		out_numIm[i] = 0;
+		for (m = 1; m < lnum; ++m) {
+			old_out_Re = out_numRe[i];
+			out_numRe[i] = cos(w) * out_numRe[i] - sin(w) * out_numIm[i] + num[m];
+			out_numIm[i] = sin(w) * old_out_Re + cos(w) * out_numIm[i];
+		}
+		out_denRe[i] = den[0];
+		out_denIm[i] = 0;
+
+		for (m = 1; m < lden; ++m) {
+			old_out_Re = out_denRe[i];
+			out_denRe[i] = cos(w) * out_denRe[i] - sin(w) * out_denIm[i] + den[m];
+			out_denIm[i] = sin(w) * old_out_Re + cos(w) * out_denIm[i];
+		}
+
+		res[i] = sqrt(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
+	    zero_test = sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
+	 	//if (zero_test != 0)
+		res[i] = res[i] / zero_test;
+	}
+}
+
+/*******************************************************************\
+
+Function: check_filter_magnitude_det
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
+void check_filter_magnitude_det()
+{
+    int freq_response_samples = 100;
+	double w;
+	double w_incr = 1.0 / freq_response_samples;
+  	double res[freq_response_samples+1];
+  	int i,j;
+  	bool response_is_valid = true;
+
+ 	/* generates magnitude response of the quantized TF, placing the result in the "res" array*/	
+ 	generates_mag_response(ds.b, ds.b_size, ds.a, ds.a_size, res, freq_response_samples);
+
+
+  	/* quantize "a" array using fxp */
+	fxp_t a_fxp[ds.a_size];
+	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
+	double _a[ds.a_size];
+	fxp_to_double_array(_a, a_fxp, ds.a_size);
+
+
+  	/* quantize "b" array using fxp */
+	fxp_t b_fxp[ds.b_size];
+	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
+	double _b[ds.b_size];
+	fxp_to_double_array(_b, b_fxp, ds.b_size);
+
+
+    /* generates magnitude response of the quantized TF, placing the result in the "res" array*/
+    generates_mag_response(ds.b, ds.b_size, ds.a, ds.a_size, res, freq_response_samples);	
+
+	if (filter.type == LOWPASS) { //lowpass
+		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+			if (w <= filter.wp) {
+				if(!(res[i] >= filter.Ap)) 
+				{
+					printf("|----------------Passband Failure-------------|");
+					response_is_valid = false;
+					break;
+				} 
+			} else if (w == filter.wc) {
+				if(!(res[i] <= filter.Ac)) 
+				{
+					printf("|-------------Cutoff Frequency Failure--------|");
+					response_is_valid = false;
+					break; 
+				}
+			} else if ((w >= filter.wr) && (w <= 1)) {
+				if(!(res[i] <= filter.Ar))
+				{
+					printf("|----------------Stopband Failure-------------|");
+					response_is_valid = false;
+					break; 
+				} 
+			}
+		}
+
+	} else if (filter.type == HIGHPASS) { //highpass
+		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+			if (w <= filter.wr) {
+				if(!(res[i] <= filter.Ar)) 
+				{
+					printf("|----------------Stopband Failure-------------|");
+					response_is_valid = false;
+					break; 
+				}
+			} else if (w == filter.wc) {
+				if(!(res[i] <= filter.Ac)) 
+				{
+					printf("|-------------Cutoff Frequency Failure--------|");
+					response_is_valid = false;
+					break; 
+				}
+			} else if ((w > filter.wp) && (w <= 1)) {
+				if(!(res[i] >= filter.Ap))
+				{
+					printf("|----------------Passband Failure-------------|");
+					response_is_valid = false;
+					break;
+				} 
+			}
+		}
+	} 
+	
+	if (response_is_valid == false)
+		show_verification_failed();
+	else 
+		show_verification_successful();
 }
 
 /*******************************************************************\
@@ -2139,6 +2371,13 @@ int main(int argc, char* argv[])
 	exit(0);
   }
 
+  if(preprocess)
+  {
+	std::string command_line_preprocess = prepare_bmc_command_line();
+	execute_command_line(command_line_preprocess);
+	exit(0);
+  }
+
   if (stateSpaceVerification)
   {
 	extract_data_from_ss_file();
@@ -2182,11 +2421,24 @@ int main(int argc, char* argv[])
 
 	extract_data_from_file();
 
-  	if (!(is_delta_realization && is_restricted_property))
+  	if (!((is_delta_realization && is_restricted_property)||(desired_property == "FILTER_MAGNITUDE_DET")))
 	{
 	  std::string command_line = prepare_bmc_command_line();
 	  std::cout << "Back-end Verification: " << command_line << std::endl;
-	  std::string counterexample = execute_command_line(command_line);
+	  std::string counterexample;
+	  
+        if (k_induction)
+	  {
+            char *dsverifier_home = getenv("DSVERIFIER_HOME");
+ 	    std::string model_checker_path = std::string(dsverifier_home) + "/model-checker";
+	    command_line += " > temp.c";
+	    execute_command_line(command_line);
+	    command_line = model_checker_path + "/esbmc temp.c --clang-frontend --k-induction --boolector";
+	    counterexample = execute_command_line(command_line);
+          } else{
+	    counterexample = execute_command_line(command_line);
+          }	
+
 	  if (show_counterexample_data)
 	  {
 	    if(is_counterexample_property)
@@ -2210,6 +2462,8 @@ int main(int argc, char* argv[])
 			check_stability_delta_domain();
 		else if (desired_property == "MINIMUM_PHASE")
 			check_minimum_phase_delta_domain();
+		else if (desired_property == "FILTER_MAGNITUDE_DET")
+			check_filter_magnitude_det();
 
         if(show_counterexample_data)
           print_counterexample_data_for_restricted_properties();

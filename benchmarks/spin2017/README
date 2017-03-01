@@ -1,0 +1,6 @@
+In order to run all benchmarks, please run in command-line:
+
+$run_all_verification
+
+and then, the verification output will be stored in a file called 
+'verification_results.out'

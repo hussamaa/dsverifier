@@ -11,9 +11,12 @@ function system = genCounterexample(property, directory)
 % Federal University of Amazonas
 % December 2016
 %
+global bmc_mode;
 
 file_output = [directory '/dsv_counterexample_parameters.txt'];
 
+if strcmp(bmc_mode, 'CBMC')
+    
 if strcmp(property,'OVERFLOW') || strcmp(property,'LIMIT_CYCLE')
 
 fid = fopen(file_output);
@@ -77,7 +80,7 @@ while ischar(tline)
       system(i).impl.delta = 0;
       end
       system(i).impl.realization_form = strtrim(realization);
-      if(strcmp(p,'o'))
+      if(strcmp(property,'OVERFLOW'))
           system(i).output.output_verification = 'Failed';
       else
           system(i).output.output_verification = outputs;
@@ -170,6 +173,8 @@ while ischar(tline)
 end
 
 fclose(fid);
+
+end
 
 end
 

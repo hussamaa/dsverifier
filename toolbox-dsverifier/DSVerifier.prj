@@ -1,13 +1,13 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="1343847645" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="576384533" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier/DSVerifier.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsverifier" name="DSVerifier" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSVerifier</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
     <param.company>Federal University of Amazonas</param.company>
-    <param.summary>Support to CBMC 5.5 and ESBMC 3.0.0</param.summary>
+    <param.summary>Support to CBMC 5.5 and ESBMC 3.1.0</param.summary>
     <param.description>DSVerifier (Digital Systems Verifier) is a bounded model checker to aid enginners to check for overflow, limit cycle, error, timing, stability, and minimum phase in digital systems, considering finite word length (FWL) effects.</param.description>
     <param.screenshot>${PROJECT_ROOT}/logo.png</param.screenshot>
-    <param.version>1.0</param.version>
+    <param.version>1.0.1</param.version>
     <param.output>${PROJECT_ROOT}/DSVerifier.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -22,7 +22,6 @@
     <param.matlabpath.excludes />
     <param.javaclasspath.excludes />
     <unset>
-      <param.version />
       <param.output />
       <param.products.name />
       <param.products.id />
@@ -62,6 +61,7 @@
       <file>${PROJECT_ROOT}/toolbox/verifyLimitCycle.m</file>
       <file>${PROJECT_ROOT}/toolbox/verifyMinimumPhase.m</file>
       <file>${PROJECT_ROOT}/toolbox/verifyOverflow.m</file>
+      <file>${PROJECT_ROOT}/toolbox/verifyRobustStability.m</file>
       <file>${PROJECT_ROOT}/toolbox/verifyStability.m</file>
       <file>${PROJECT_ROOT}/toolbox/verifyStateSpaceControllability.m</file>
       <file>${PROJECT_ROOT}/toolbox/verifyStateSpaceObservability.m</file>
@@ -91,7 +91,7 @@
       <vista>false</vista>
       <linux>true</linux>
       <solaris>false</solaris>
-      <osver>4.4.0-51-generic</osver>
+      <osver>4.4.0-63-generic</osver>
       <os32>false</os32>
       <os64>true</os64>
       <arch>glnxa64</arch>

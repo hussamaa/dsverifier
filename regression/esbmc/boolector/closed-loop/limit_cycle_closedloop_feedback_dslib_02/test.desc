@@ -1,0 +1,3 @@
+input.c
+--bmc ESBMC --solver boolector --property LIMIT_CYCLE_CLOSED_LOOP --connection-mode FEEDBACK --x-size 4 --realization DFI
+^VERIFICATION FAILED$

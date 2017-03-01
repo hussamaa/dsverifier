@@ -12,15 +12,18 @@ function extra_param = getExtraParams(n, var, type, property, realization)
 %
 % Author: Lennon Chaves
 % Federal University of Amazonas
-% December 2016
+% February 2017
 %
+
+global bmc_mode;
+bmc_mode = 'CBMC';
 
 extra_param = '';
 indice = 1;
 
 if strcmp(type,'tf')
 
-if strcmp(property,'STABILITY')
+if strcmp(property,'STABILITY') || strcmp(property,'MINIMUM_PHASE')
     nvarIndice = 6;
     indice = 1;
     if strcmp(realization,'DDFI') || strcmp(realization,'DDFII') || strcmp(realization,'TDDFII')
@@ -45,7 +48,7 @@ end
 end
 
 if strcmp(type,'cl')
-    if strcmp(property,'STABILITY')
+    if strcmp(property,'STABILITY_CLOSED_LOOP')
         nvarIndice = 8;
     elseif strcmp(property,'LIMIT_CYCLE_CLOSED_LOOP')
         nvarIndice = 9;
@@ -54,10 +57,20 @@ if strcmp(type,'cl')
     end
 end
 
+if strcmp(type,'rb')
+    if strcmp(property,'STABILITY_CLOSED_LOOP')
+        nvarIndice = 10;
+    elseif strcmp(property,'LIMIT_CYCLE_CLOSED_LOOP')
+        nvarIndice = 11;
+    elseif strcmp(property,'QUANTIZATION_ERROR_CLOSED_LOOP')
+        nvarIndice = 12;
+    end
+end
+
 if strcmp(type,'ss')
-   nvarIndice = 5;
+   nvarIndice = 7;
    if strcmp(property,'QUANTIZATION_ERROR')
-       nvarIndice = 7;
+       nvarIndice = 9;
    end
 end
 
@@ -74,6 +87,7 @@ timeout = ' --timeout ';
 
 if nvar >= nvarIndice
 if length(var{indice}) > 0
+bmc_mode = var{indice};
 extra_param = [extra_param bmc var{indice}];
 end
 end
@@ -104,7 +118,7 @@ end
 
 if nvar >= nvarIndice + 5
 if length(var{indice+5}) > 0
-extra_param = [extra_param timeout var{indice+5}];
+extra_param = [extra_param timeout num2str(var{indice+5})];
 end
 end
 
