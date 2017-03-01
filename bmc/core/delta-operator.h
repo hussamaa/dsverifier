@@ -7,6 +7,8 @@
  *                Iury Bessa     <iury.bessa@gmail.com>
  *                Renato Abreu   <renatobabreu@yahoo.com.br>
  *
+ * Contributors: Lennon Chaves <lennon.correach@gmail.com>
+ *
  * ------------------------------------------------------
  *
  * delta operator transformation

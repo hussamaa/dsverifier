@@ -6,6 +6,9 @@
 # Authors:       Iury Bessa     <iury.bessa@gmail.com>
 #                Hussama Ismail <hussamaismail@gmail.com>
 #                Felipe Monteiro <felipemonteiro@ufam.edu.br>
+#
+# Contributors: Lennon Chaves <lennon.correach@gmail.com>
+#
 # ------------------------------------------------------
 #
 # For UNCERTAINTY: For use uncertainty, It's only permitted

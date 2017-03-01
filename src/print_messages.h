@@ -4,6 +4,8 @@ Module: Print standard messaged about DSVerifier
 
 Author: Lucas Cordeiro
 
+Contributors: Lennon Chaves <lennon.correach@gmail.com>
+
 Date: January 2017
 
 \*******************************************************************/

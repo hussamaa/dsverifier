@@ -12,6 +12,7 @@
 #           Lucas Cordeiro - lucasccordeiro@gmail.com
 #
 #  Contributors: Daniel Mello - dani-dmello@hotmail.com
+#		 Lennon Chaves <lennon.correach@gmail.com>
 #
 # --------------------------------------------------
 #
