@@ -98,7 +98,7 @@ const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE",
 		"LIMIT_CYCLE_CLOSED_LOOP", "QUANTIZATION_ERROR_CLOSED_LOOP",
 		"MINIMUM_PHASE", "QUANTIZATION_ERROR", "CONTROLLABILITY",
 		"OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE", "SAFETY_STATE_SPACE",
-		"FILTER_MAGNITUDE_NON_DET", "FILTER_MAGNITUDE_DET"};
+		"FILTER_MAGNITUDE_NON_DET", "FILTER_MAGNITUDE_DET", "FILTER_PHASE_DET"};
 
 const char * rounding [] = { "ROUNDING", "FLOOR", "CEIL" };
 const char * overflow [] = { "DETECT_OVERFLOW", "SATURATE", "WRAPAROUND" };
@@ -1756,6 +1756,112 @@ void check_filter_magnitude_det()
 		show_verification_successful();
 }
 
+
+/*******************************************************************\
+
+Function: generates_mag_response
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
+void resp_phase(double* num, int lnum, double* den, int lden, double* res, int N) {
+	
+	double w;
+	int m, i;
+	double out_numRe[N + 1], old_out_r;
+	double out_numIm[N + 1];
+	double out_denRe[N + 1], out_denIm[N + 1];
+	for (w = 0, i = 0; w <= M_PI; w += M_PI / N, ++i) {
+		out_numRe[i] = num[0];
+		out_numIm[i] = 0;
+		for (m = 1; m < lnum; ++m) {
+			old_out_r = out_numRe[i];
+			out_numRe[i] = cos(w) * out_numRe[i] - sin(w) * out_numIm[i] + num[m];
+			out_numIm[i] = sin(w) * old_out_r + cos(w) * out_numIm[i];
+		}
+
+		out_denRe[i] = den[0];
+		out_denIm[i] = 0;
+		for (m = 1; m < lden; ++m) { 
+			old_out_r = out_denRe[i];
+			out_denRe[i] = cos(w) * out_denRe[i] - sin(w) * out_denIm[i] + den[m];
+			out_denIm[i] = sin(w) * old_out_r + cos(w) * out_denIm[i];
+		}
+
+		res[i] = atan(out_numIm[i]/out_numRe[i]); //numerator abs
+		res[i] = res[i] - atan(out_denIm[i]/out_denRe[i]); //den abs
+	}
+}
+
+/*******************************************************************\
+
+Function: check_filter_phase_det
+
+  Inputs:
+
+ Outputs:
+
+ Purpose:
+
+\*******************************************************************/
+
+ int check_filter_phase_det(void) {
+
+	int freq_response_samples = 100;
+	double w;
+	double w_incr = 1.0 / freq_response_samples;
+  	double res[freq_response_samples+1];
+  	double _res[freq_response_samples+1];
+  	int i,j;
+  	bool response_is_valid = true;
+
+  	/* quantize "a" array using fxp */
+
+	fxp_t a_fxp[ds.a_size];
+	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
+	double _a[ds.a_size];
+	fxp_to_double_array(_a, a_fxp, ds.a_size);
+
+  	/* quantize "b" array using fxp */
+
+	fxp_t b_fxp[ds.b_size];
+	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
+	double _b[ds.b_size];
+	fxp_to_double_array(_b, b_fxp, ds.b_size);
+
+	/* generates magnitude response of the floating point TF, placing the result in the "res" array*/
+	resp_phase(ds.b, ds.b_size, ds.a, ds.a_size, res, freq_response_samples);
+
+	/* generates magnitude response of the quantized TF, placing the result in the "_res" array*/
+	resp_phase(ds.b, ds.b_size, ds.a, ds.a_size, _res, freq_response_samples);
+
+	/* generates magnitude response, placing the result in the "res" array*/
+
+	float diff = 0.3;
+
+	for (i=0, w=0; (w <= 1.0); ++i, w += w_incr) {
+     
+	    printf("w= %f %f\n", w, res[i]);
+	    printf("_res= %f %f\n", w, _res[i]);
+	    if(!(fabs(res[i]-_res[i]) <= diff)){
+	    	printf("|-------------Phase Failure------------|");
+	    	response_is_valid = false;
+			break; 
+		}
+	}
+
+	if (response_is_valid == false)
+		show_verification_failed();
+	else 
+		show_verification_successful();
+}
+
+
 /*******************************************************************\
 
 Function: check_file_exists
@@ -2421,7 +2527,8 @@ int main(int argc, char* argv[])
 
 	extract_data_from_file();
 
-  	if (!((is_delta_realization && is_restricted_property)||(desired_property == "FILTER_MAGNITUDE_DET")))
+  	if (!((is_delta_realization && is_restricted_property)||(desired_property == "FILTER_MAGNITUDE_DET") ||
+  		(desired_property == "FILTER_PHASE_DET")))
 	{
 	  std::string command_line = prepare_bmc_command_line();
 	  std::cout << "Back-end Verification: " << command_line << std::endl;
@@ -2464,6 +2571,8 @@ int main(int argc, char* argv[])
 			check_minimum_phase_delta_domain();
 		else if (desired_property == "FILTER_MAGNITUDE_DET")
 			check_filter_magnitude_det();
+		else if (desired_property == "FILTER_PHASE_DET")
+			check_filter_phase_det();
 
         if(show_counterexample_data)
           print_counterexample_data_for_restricted_properties();
