@@ -37,7 +37,7 @@ fxp_t fxp_direct_form_1(fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], int Na,	int 
 		sum = fxp_sub(sum, fxp_mult(*a_ptr++, *y_ptr--));
 	}
 
-        fxp_verify_overflow_node(sum, "An Overflow Occurred in the node b0");
+        fxp_verify_overflow_node(sum, "An Overflow Occurred in the node a0");
 
 	sum = fxp_div(sum,a[0]);
 	return fxp_quantize(sum);
@@ -56,12 +56,12 @@ fxp_t fxp_direct_form_2(fxp_t w[], fxp_t x, fxp_t a[], fxp_t b[], int Na,	int Nb
 	}
 	w[0] = fxp_add(w[0], x); //w[0] += x;
 	w[0] = fxp_div(w[0], a[0]);
+        fxp_verify_overflow_node(w[0], "An Overflow Occurred in the node b0");
 
 	w_ptr = &w[0];
 	for (k = 0; k < Nb; k++) {
 		sum = fxp_add(sum, fxp_mult(*b_ptr++, *w_ptr++));
 	}
-
 	return fxp_quantize(sum);
 }
 
@@ -85,7 +85,7 @@ fxp_t fxp_transposed_direct_form_2(fxp_t w[], fxp_t x, fxp_t a[], fxp_t b[], int
 		}
 	}
 
-	fxp_verify_overflow_node(w[j], "An Overflow Occurred in the node b0");
+	fxp_verify_overflow_node(w[j], "An Overflow Occurred in the node a0");
 	return fxp_quantize(yout);
 }
 
@@ -101,12 +101,10 @@ double double_direct_form_1(double y[], double x[], double a[], double b[], int 
 	for (i = 0; i < Nb; i++) {
 		sum += *b_ptr++ * *x_ptr--;
 	}
-        fxp_verify_overflow_node(sum, "An Overflow Occurred in the node b1");
 	for (j = 1; j < Na; j++) {
 		sum -= *a_ptr++ * *y_ptr--;
 	}
 	sum = (sum / a[0]);
-	fxp_verify_overflow_node(sum, "An Overflow Occurred in the node b0");
 	return sum;
 }
 

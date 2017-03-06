@@ -154,11 +154,16 @@ fxp_t fxp_quantize(fxp_t aquant) {
 
 void fxp_verify_overflow(fxp_t value){
 	fxp_quantize(value);
-	__DSVERIFIER_assert_msg(value <= _fxp_max && value >= _fxp_min, "An Overflow Occurred in the node b0");
+	printf("An Overflow Occurred in system's output");
+	__DSVERIFIER_assert(value <= _fxp_max && value >= _fxp_min);
 }
 
 void fxp_verify_overflow_node(fxp_t value, char* msg){
-	 __DSVERIFIER_assert_msg(value <= _fxp_max && value >= _fxp_min, msg);  
+	if (OVERFLOW_MODE == SATURATE)
+        {
+	   printf("%s",msg);
+	   __DSVERIFIER_assert(value <= _fxp_max && value >= _fxp_min);  
+        }
 }
 
 void fxp_verify_overflow_array(fxp_t array[], int n){
