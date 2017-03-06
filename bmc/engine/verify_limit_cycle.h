@@ -5,6 +5,8 @@
  *
  * Authors:       Hussama Ismail <hussamaismail@gmail.com>
  *
+ * Contributors: Lennon Chaves <lennon.correach@gmail.com>
+ *
  * ------------------------------------------------------
  *
  * ------------------------------------------------------

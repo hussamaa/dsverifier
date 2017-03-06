@@ -8,6 +8,8 @@
  *                Renato Abreu   <renatobabreu@yahoo.com.br>
  *                Felipe Monteiro <felipemonteiro@ufam.edu.br>
  *
+ * Contributors: Lennon Chaves <lennon.correach@gmail.com>
+ *
  * ------------------------------------------------------
  *
  * util functions for DSVerifier
