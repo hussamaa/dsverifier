@@ -1,0 +1,59 @@
+Test 'filter_1'
+  Input: input.c
+  Output: input.out
+  Options: --bmc ESBMC --solver z3 --property FILTER_MAGNITUDE_NON_DET 
+  Results:
+    ^VERIFICATION SUCCESSFUL$
+Running dsverifier  input.c --bmc ESBMC --solver z3 --property FILTER_MAGNITUDE_NON_DET  >input.out 2>&1
+  Exit: 0
+  Signal: 0
+  Core: 0
+Execution [OK]
+^VERIFICATION SUCCESSFUL$ [OK]
+
+Test 'filter_2'
+  Input: input.c
+  Output: input.out
+  Options: --bmc ESBMC --solver z3 --property FILTER_MAGNITUDE_NON_DET 
+  Results:
+    ^VERIFICATION SUCCESSFUL$
+Running dsverifier  input.c --bmc ESBMC --solver z3 --property FILTER_MAGNITUDE_NON_DET  >input.out 2>&1
+  Exit: 0
+  Signal: 0
+  Core: 0
+Execution [OK]
+^VERIFICATION SUCCESSFUL$ [OK]
+
+Test 'filter_3'
+  Input: input.c
+  Output: input.out
+  Options: --bmc ESBMC --solver z3 --property FILTER_MAGNITUDE_NON_DET 
+  Results:
+    ^VERIFICATION SUCCESSFUL$
+Running dsverifier  input.c --bmc ESBMC --solver z3 --property FILTER_MAGNITUDE_NON_DET  >input.out 2>&1
+  Exit: 0
+  Signal: 0
+  Core: 0
+Execution [OK]
+^VERIFICATION SUCCESSFUL$ [OK]
+
+Test 'filter_4'
+  Input: input.c
+  Output: input.out
+  Options: --bmc ESBMC --solver z3 --property FILTER_MAGNITUDE_NON_DET 
+  Results:
+    ^VERIFICATION SUCCESSFUL$
+Running dsverifier  input.c --bmc ESBMC --solver z3 --property FILTER_MAGNITUDE_NON_DET  >input.out 2>&1
+  Exit: 0
+  Signal: 0
+  Core: 0
+Execution [OK]
+^VERIFICATION SUCCESSFUL$ [OK]
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" hostname="pony.ecs.soton.ac.uk" name="ESBMC single threaded regression tests" tests="4" time="7057.947424">
+<testcase name="filter_1" time="1176.445088"/>
+<testcase name="filter_2" time="1149.188724"/>
+<testcase name="filter_3" time="1100.567685"/>
+<testcase name="filter_4" time="3631.745927"/>
+</testsuite>
