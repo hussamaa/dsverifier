@@ -7,14 +7,14 @@
     .a_size = 3
 };
 
+      implementation impl = {
+         .int_bits = 2,
+         .frac_bits = 5,
+         .min = -1.6,
+         .max = 1.6,
+         .max_error = 5.0
+      };
 
-implementation impl = {
-	.int_bits = 2,
-	.frac_bits = 5,
-	.min = -1.6,
-	.max = 1.6,
-	.max_error = 0
-};
 
     filter_parameters filter = {
     .Ap =  0.8, 
