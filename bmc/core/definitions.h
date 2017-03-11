@@ -77,6 +77,8 @@
 #define SAFETY_STATE_SPACE	16
 #define FILTER_MAGNITUDE_DET 17
 #define FILTER_MAGNITUDE_NON_DET 18
+#define FILTER_PHASE_DET 19
+#define FILTER_PHASE_NON_DET 20
 
 /** Check Required Parameters */
 #ifndef PROPERTY

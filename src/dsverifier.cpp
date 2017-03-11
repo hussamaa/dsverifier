@@ -98,7 +98,7 @@ const char * properties [] = { "OVERFLOW", "LIMIT_CYCLE",
 		"LIMIT_CYCLE_CLOSED_LOOP", "QUANTIZATION_ERROR_CLOSED_LOOP",
 		"MINIMUM_PHASE", "QUANTIZATION_ERROR", "CONTROLLABILITY",
 		"OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE", "SAFETY_STATE_SPACE",
-		"FILTER_MAGNITUDE_NON_DET", "FILTER_MAGNITUDE_DET", "FILTER_PHASE_DET"};
+		"FILTER_MAGNITUDE_NON_DET", "FILTER_MAGNITUDE_DET", "FILTER_PHASE_DET", "FILTER_PHASE_NON_DET"};
 
 const char * rounding [] = { "ROUNDING", "FLOOR", "CEIL" };
 const char * overflow [] = { "DETECT_OVERFLOW", "SATURATE", "WRAPAROUND" };
@@ -1651,7 +1651,7 @@ void generates_mag_response(double* num, int lnum, double* den, int lden, double
 		res[i] = sqrt(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
 	    zero_test = sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
 	 	//if (zero_test != 0)
-		res[i] = res[i] / zero_test;
+		res[i] = res[i] / (zero_test + 1e-10);
 	}
 }
 
@@ -1673,12 +1673,12 @@ void check_filter_magnitude_det()
 	double w;
 	double w_incr = 1.0 / freq_response_samples;
   	double res[freq_response_samples+1];
+  	double _res[freq_response_samples+1];
   	int i,j;
   	bool response_is_valid = true;
 
  	/* generates magnitude response of the quantized TF, placing the result in the "res" array*/	
  	generates_mag_response(ds.b, ds.b_size, ds.a, ds.a_size, res, freq_response_samples);
-
 
   	/* quantize "a" array using fxp */
 	fxp_t a_fxp[ds.a_size];
@@ -1693,28 +1693,41 @@ void check_filter_magnitude_det()
 	double _b[ds.b_size];
 	fxp_to_double_array(_b, b_fxp, ds.b_size);
 
+	cplus_print_array_elements("\n a", ds.a, ds.a_size);
+	cplus_print_array_elements("\n b", ds.b, ds.b_size);
 
-    /* generates magnitude response of the quantized TF, placing the result in the "res" array*/
-    generates_mag_response(ds.b, ds.b_size, ds.a, ds.a_size, res, freq_response_samples);	
+
+	cplus_print_array_elements("\n _a", _a, ds.a_size);
+	cplus_print_array_elements("\n _b", _b, ds.b_size);
+
+
+ 	/* generates magnitude response of the quantized TF, placing the result in the "res" array*/	
+ 	generates_mag_response(_b, ds.b_size, _a, ds.a_size, _res, freq_response_samples);
+
+ 	cplus_print_array_elements("\n res", res, freq_response_samples);
+ 	cplus_print_array_elements("\n_res", _res, freq_response_samples);
 
 	if (filter.type == LOWPASS) { //lowpass
 		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+			
+		    printf("w= %f res = %f\n", w, res[i]);
+		    printf( "w=  %f _res= %f\n", w, _res[i]);
 			if (w <= filter.wp) {
-				if(!(res[i] >= filter.Ap)) 
+				if(!(_res[i] >= filter.Ap)) 
 				{
 					printf("|----------------Passband Failure-------------|");
 					response_is_valid = false;
 					break;
 				} 
 			} else if (w == filter.wc) {
-				if(!(res[i] <= filter.Ac)) 
+				if(!(_res[i] <= filter.Ac)) 
 				{
 					printf("|-------------Cutoff Frequency Failure--------|");
 					response_is_valid = false;
 					break; 
 				}
 			} else if ((w >= filter.wr) && (w <= 1)) {
-				if(!(res[i] <= filter.Ar))
+				if(!(_res[i] <= filter.Ar))
 				{
 					printf("|----------------Stopband Failure-------------|");
 					response_is_valid = false;
@@ -1725,22 +1738,25 @@ void check_filter_magnitude_det()
 
 	} else if (filter.type == HIGHPASS) { //highpass
 		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+
+		    printf("w= %f res = %f\n", w, res[i]);
+		    printf( "w=  %f _res= %f\n", w, _res[i]);
 			if (w <= filter.wr) {
-				if(!(res[i] <= filter.Ar)) 
+				if(!(_res[i] <= filter.Ar)) 
 				{
 					printf("|----------------Stopband Failure-------------|");
 					response_is_valid = false;
 					break; 
 				}
 			} else if (w == filter.wc) {
-				if(!(res[i] <= filter.Ac)) 
+				if(!(_res[i] <= filter.Ac)) 
 				{
 					printf("|-------------Cutoff Frequency Failure--------|");
 					response_is_valid = false;
 					break; 
 				}
 			} else if ((w > filter.wp) && (w <= 1)) {
-				if(!(res[i] >= filter.Ap))
+				if(!(_res[i] >= filter.Ap))
 				{
 					printf("|----------------Passband Failure-------------|");
 					response_is_valid = false;
@@ -1838,7 +1854,7 @@ Function: check_filter_phase_det
 	resp_phase(ds.b, ds.b_size, ds.a, ds.a_size, res, freq_response_samples);
 
 	/* generates magnitude response of the quantized TF, placing the result in the "_res" array*/
-	resp_phase(ds.b, ds.b_size, ds.a, ds.a_size, _res, freq_response_samples);
+	resp_phase(_b, ds.b_size, _a, ds.a_size, _res, freq_response_samples);
 
 	/* generates magnitude response, placing the result in the "res" array*/
 
@@ -1846,8 +1862,10 @@ Function: check_filter_phase_det
 
 	for (i=0, w=0; (w <= 1.0); ++i, w += w_incr) {
      
-	    printf("w= %f %f\n", w, res[i]);
-	    printf("_res= %f %f\n", w, _res[i]);
+
+		//printf("w= %f res = %f\n", w, res[i]);
+		//printf( "w=  %f _res= %f\n", w, _res[i]);
+
 	    if(!(fabs(res[i]-_res[i]) <= diff)){
 	    	printf("|-------------Phase Failure------------|");
 	    	response_is_valid = false;

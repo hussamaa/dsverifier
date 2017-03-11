@@ -86,7 +86,7 @@ void resp_mag(double* num, int lnum, double* den, int lden, double* res, int N) 
 
  /* generates magnitude response of the quantized TF, placing the result in the "res" array*/
 
-  resp_mag(ds.b, ds.b_size, ds.a, ds.a_size, res, freq_response_samples);
+  resp_mag(_b, ds.b_size, _a, ds.a_size, res, freq_response_samples);
 
 	/* generates magnitude response, placing the result in the "res" array*/
 
