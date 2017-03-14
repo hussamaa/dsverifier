@@ -43,7 +43,7 @@
 #include "engine/verify_controllability.h"
 #include "engine/verify_observability.h"
 #include "engine/verify_magnitude.h"
-
+#include "engine/verify_phase.h"
 
 extern digital_system ds;
 extern digital_system plant;
@@ -146,6 +146,10 @@ int main(){
 	else if (PROPERTY == FILTER_MAGNITUDE_NON_DET) 
 	{	
 		call_verification_task(&verify_magnitude);
+	}
+	else if (PROPERTY == FILTER_PHASE_NON_DET) 
+	{	
+		call_verification_task(&verify_phase);
 	}
 	return 0;
 }
@@ -329,7 +333,7 @@ void validation()
 			}
 		}
 	}
-	if (PROPERTY == FILTER_MAGNITUDE_NON_DET)
+	if ((PROPERTY == FILTER_MAGNITUDE_NON_DET)||(PROPERTY == FILTER_PHASE_NON_DET))
 	{
 		if (!((filter.Ap > 0) && (filter.Ac >0) && (filter.Ar >0)))
 		{
@@ -413,7 +417,7 @@ void call_verification_task(void * verification_task)
 			}
 		}
 	}
-	else
+	else if (ERROR_MODE == RELATIVE)
 	{
 		/* Considering uncertainty for numerator coefficients */
 		int i=0;

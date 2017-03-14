@@ -54,8 +54,8 @@ void resp_mag(double* num, int lnum, double* den, int lden, double* res, int N) 
 
 		res[i] = sqrt3(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
 	    zero_test = sqrt3(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
-	    __DSVERIFIER_assume(zero_test != 0);
-		res[i] = res[i] / zero_test;
+	    //__DSVERIFIER_assume(zero_test != 0);
+		res[i] = res[i] / (zero_test + 1e-10);
 	}
 }
 
