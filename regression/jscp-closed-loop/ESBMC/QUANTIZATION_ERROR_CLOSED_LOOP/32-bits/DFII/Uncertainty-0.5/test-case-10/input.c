@@ -11,6 +11,7 @@ digital_system controller = {
 };
 
 implementation impl = { 
+	.max_error =  0.050000,
 	.int_bits =  3,
 	.frac_bits =   28,
 	.max =  1.000000,
@@ -22,7 +23,7 @@ digital_system plant = {
 	.b_uncertainty = {  0.005 , 0.005 },
 	.b_size =  2,
 	.a = {  1 , -4.6764e-166 },
-	.a_size =  2 
-	.a_uncertainty = {  0.005 , 0.005 },
+	.a_size =  2, 
+	.a_uncertainty = {  0.005 , 0.005 }
 	};
 
