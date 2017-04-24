@@ -22,7 +22,7 @@ digital_system plant = {
 	.b_uncertainty = {  0.015 , 0.015 },
 	.b_size =  2,
 	.a = {  1 , -0.9512 },
-	.a_size =  2 
-	.a_uncertainty = {  0.015 , 0.015 },
+	.a_size =  2, 
+	.a_uncertainty = {  0.015 , 0.015 }
 	};
 
