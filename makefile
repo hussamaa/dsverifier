@@ -23,9 +23,9 @@ bmc-download:
 	@mv cbmc-5-6-linux-64/cbmc model-checker/
 	@rm cbmc-5-6-linux-64.tgz
 	@rm -Rf cbmc-5-6-linux-64/
-	@echo "Downloading ESBMC 4.0.0"
-	@lwp-download http://svlab.hussamaismail.eti.br/binaries/esbmc-v4.0.0-linux-static-64.tgz
-	@tar -xvzf esbmc-v4.0.0-linux-static-64.tgz
-	@mv esbmc-v4.0.0-linux-static-64/bin/esbmc model-checker/
-	@rm esbmc-v4.0.0-linux-static-64.tgz
-	@rm -Rf esbmc-v4.0.0-linux-static-64/
+	@echo "Downloading ESBMC 4.1.0"
+	@lwp-download http://ssvlab.hussama.io/binaries/esbmc-v4.1.0-linux-static-64.tgz
+	@tar -xvzf esbmc-v4.1.0-linux-static-64.tgz
+	@mv esbmc-v4.1.0-linux-static-64/bin/esbmc model-checker/
+	@rm esbmc-v4.1.0-linux-static-64.tgz
+	@rm -Rf esbmc-v4.1.0-linux-static-64/
