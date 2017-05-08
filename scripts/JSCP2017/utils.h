@@ -17,6 +17,8 @@
 #include <string>
 #include <vector>
 #include <cstdio>
+#include <fstream>
+#include <iterator>
 #include <dirent.h>
 #include <unistd.h>
 
