@@ -15,6 +15,8 @@ std::vector<std::string> utils::execute_command(const char *command)
     std::array<char, BUFFER_SIZE> buffer;
     std::vector<std::string> result;
     std::shared_ptr<FILE> pipe(popen(command, PIPE_READ_MODE), pclose);
+    std::ofstream output_file("./output.txt");
+    std::ostream_iterator<std::string> output_iterator(output_file, "\n");
     if(pipe)
     {
         while(!feof(pipe.get()))
@@ -26,6 +28,7 @@ std::vector<std::string> utils::execute_command(const char *command)
             }
         }
     }
+    std::copy(result.begin(), result.end(), output_iterator);
     return result;
 }
 
