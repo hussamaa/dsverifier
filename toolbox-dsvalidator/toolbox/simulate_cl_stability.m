@@ -1,4 +1,4 @@
-function [output, time_execution] = simulate_stability_closed_loop(system)
+function [output, time_execution] = simulate_cl_stability(system)
 %
 % Script developed to simulate the stability property in counterexamples
 %
