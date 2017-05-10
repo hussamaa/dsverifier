@@ -1,0 +1,3 @@
+input.c
+--property OVERFLOW --bmc ESBMC --solver z3 --realization DFI
+^VERIFICATION SUCCESSFUL$

@@ -9,17 +9,14 @@ digital_system ds = {
 };
 
 filter_parameters filter = {
-    .Ap =  0.8, 
-    .Ac =  0.707945784384138, 
-    .Ar = 0.5,
-    .wp = 0.3, 
-    .wc = 0.4, 
-    .wr = 0.5,
+    .Ap = 0.891250938133746, 
+    .Ar = 0.891250938133746,
+    .wp = 0.4, 
+    .wr = 0.41,
     .type = 1
 };
-
 implementation impl = {
-    .int_bits = 4,
+    .int_bits = 5,
     .frac_bits = 10,
     .min = -1.6,
     .max = 1.6,
