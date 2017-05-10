@@ -1,4 +1,4 @@
-function decision = check_ss_controllability (sys)
+function decision = simulate_ss_controllability (sys)
 % 
 % CHECK_SS_CONTROLLABILITY(sys)
 % 

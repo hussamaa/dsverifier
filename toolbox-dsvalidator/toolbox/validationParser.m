@@ -1,18 +1,18 @@
-function [system] = dsv_parser(p)
+function [system] = validationParser(p)
 %
 % Script to get the counterexamples parameters and transform them in variables on workspace
-% Function>: [system] = dsv_parser(p)
+% Function>: [system] = validationParser(p)
 %
 % Where 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle and (e) for quantization error in transfer function
 % 
-% The function dsv_extraction must be done before this function! 
+% The function validationExtraction must be done before this function! 
 % dsv_parser only read the extraction file and transform all counterexamples in variables.
 %
 % The output of this function is the counterexamples extracted in variables
 % on MATLAB workspace.
 %
 % Lennon Chaves
-% October 09, 2016
+% May 10, 2017
 % Manaus, Brazil
 
 if (strcmp(p ,'lc') || strcmp(p,'o') || strcmp(p,'e') )

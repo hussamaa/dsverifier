@@ -1,8 +1,8 @@
-function [output, time_execution] = dsv_simulation(system,p)
+function [output, time_execution] = validationSimulation(system,p)
 %
 % Script to simulate and validate a property for a system automatically.
 %
-% Function: [output, time_execution] = dsv_simulation(system, p)
+% Function: [output, time_execution] = validationSimulation(system, p)
 %
 % The struct 'system' should have the following features:
 % system.sys.a = denominator;
@@ -25,7 +25,7 @@ function [output, time_execution] = dsv_simulation(system,p)
 % The time execution is the time to execute the simulation;
 %
 % Lennon Chaves
-% November 04, 2016
+% May 10, 2017
 % Manaus, Brazil
 
   switch p
@@ -40,7 +40,13 @@ function [output, time_execution] = dsv_simulation(system,p)
 	case 'e' 
     	  [output, time_execution]  = simulate_error(system);
 	case 'scl' 
-    	  [output, time_execution]  = simulate_stability_closed_loop(system);
+    	  [output, time_execution]  = simulate_cl_stability(system);
+	case 'sss' 
+    	  [output, time_execution]  = simulate_ss_stability(system);
+	case 'sso' 
+    	  [output, time_execution]  = simulate_ss_observability(system);
+	case 'ssc' 
+    	  [output, time_execution]  = simulate_ss_controllability(system);       
 	otherwise
            warning('Unexpected property or error during the automatic validation.')
   end

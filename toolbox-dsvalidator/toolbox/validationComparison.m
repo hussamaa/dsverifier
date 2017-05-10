@@ -1,10 +1,10 @@
-function [output] = dsv_comparison(system, p)
+function [output] = validationComparison(system, p)
 %
 % Script to verify and compare the results between MATLAB and DSVerifier
 % Give the system as input on this function and check if the outputs of
 % MATLAB and DSVerifier are the same.
 % 
-% Function: [output] = dsv_comparison(system, p)
+% Function: [output] = validationComparison(system, p)
 %
 % The struct 'system' should have the following features:
 % system.sys.a = denominator;
@@ -26,7 +26,7 @@ function [output] = dsv_comparison(system, p)
 % The output is the feedback returned from comparison (successful or failed);
 %
 % Lennon Chaves
-% November 17, 2016
+% May 10, 2017
 % Manaus, Brazil
 
 global max_error;

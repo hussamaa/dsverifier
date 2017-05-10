@@ -1,8 +1,8 @@
-function dsv_validation(path, property, ovmode, rmode, filename)
+function validation(path, property, ovmode, rmode, filename)
 %
 % Script to run all steps to validate counterexamples
 %
-% Function: dsv_validation(path, property, ovmode, rmode, filename)
+% Function: validation(path, property, ovmode, rmode, filename)
 %
 % To start the validation, the folder with all counterexamples should be
 % informed.
@@ -32,11 +32,11 @@ function dsv_validation(path, property, ovmode, rmode, filename)
 %      By default, the value is 'digital_system'
 %
 % Example of usage:
-%  dsv_validation('/home/user/log/limit_cycle/','lc','wrap','round','ds_limit');
-%  dsv_validation('/home/user/log/limit_cycle/','lc','saturate','floor','ds_limit');
+%  validation('/home/user/log/limit_cycle/','lc','wrap','round','ds_limit');
+%  validation('/home/user/log/limit_cycle/','lc','saturate','floor','ds_limit');
 %
 % Lennon Chaves
-% November 04, 2016
+% May 10, 2017
 % Manaus, Brazil
 
 global overflow_mode;
@@ -75,28 +75,28 @@ if ~(strcmp(round_mode,'round') || strcmp(round_mode,'floor'))
 end
 
 %function to extract the parameters from counterexamples output. 
-dsv_extraction(path, property);
+validationExtraction(path, property);
 
 %parsing the paramaters to variables workspace
-digital_system = dsv_parser(property);
+digital_system = validationParser(property);
 
 %simulation automatically of all counterexamples
 
 for i=1:length(digital_system)
-  [output, time_execution] = dsv_simulation(digital_system(i), property);
+  [output, time_execution] = validationSimulation(digital_system(i), property);
   digital_system(i).output.output_simulation = output;
   digital_system(i).output.time_execution = time_execution;
 end
 	
 %comparison between matlab and dsverifier outputs
 for i=1:length(digital_system)
-    status = dsv_comparison(digital_system(i), property);
+    status = validationComparison(digital_system(i), property);
     digital_system(i).output.status = status;
     digital_system(i).status = status;
 end
 
 %report for user
-dsv_report(digital_system);
+validationReport(digital_system);
 
 %saving all variables created in a file .MAT in order to be used later.
 

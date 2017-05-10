@@ -54,6 +54,6 @@ end
 
 property = 'm';
 
-dsv_validation(path, property, ovmode, rmode, filename);
+validation(path, property, ovmode, rmode, filename);
 
 end

@@ -1,9 +1,9 @@
-function [y, time_execution] = dsv_df2(system)
+function [y, time_execution] = realizationDF2(system)
 % 
 % Simulate and reproduce a counterexample for limit cycle using DFII realization.
 % In case of delta form (DDFII), the delta operator should be represented in system struct.
 %
-% Function: [y, time_execution] = dsv_df2(system)
+% Function: [y, time_execution] = realizationDF2(system)
 %
 % The struct 'system' should have the following features:
 % system.sys.a = denominator;

@@ -1,6 +1,6 @@
-function decision = check_ss_stability (sys,K,type)
+function decision = simulate_ss_stability (sys,K,type)
 % 
-% CHECK_SS_STABILITY(sys,K,type)
+% SIMULATE_SS_STABILITY(sys,K,type)
 % 
 % For a LTI system in state-space format, CHECK_SS_STABILITY(sys,K,type)
 % decides about the stability. 
@@ -11,7 +11,7 @@ function decision = check_ss_stability (sys,K,type)
 % returns decision = 0 in other case.
 % 
 % Lennon Chaves
-% November 25, 2016
+% May 10, 2017
 % Manaus
 
 A = sys.A;

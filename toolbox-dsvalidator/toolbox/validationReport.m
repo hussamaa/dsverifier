@@ -1,8 +1,8 @@
-function dsv_report(digital_system)
+function  validationReport(digital_system)
 %
 % Script to generate a report about automatic validation
 %
-% Function: dsv_report(digital_system) 
+% Function: validationReport(digital_system) 
 %
 % where digital_system is a .MAT File generated
 % by automatic validation of counterexamples.
@@ -24,7 +24,7 @@ function dsv_report(digital_system)
 % system.impl.x_size = the bound size
 %
 % Lennon Chaves
-% October 09, 2016
+% May 10, 2017
 % Manaus, Brazil
 
 total_successful = 0;
@@ -61,28 +61,5 @@ disp(show_total_success);
 disp(show_total_failed);
 disp(show_total_test);
 disp(show_total_execution);
-
-%if total_successful > total_failed
-%    max_disp = total_successful + 2;
-%else
-%    max_disp = total_failed + 2;
-%end 
-%% Generate Graphics
-%Successful vs Failed
-%p1X = [1 2]; p1Y = [total_successful 0];
-%p2X = [3 4]; p2Y = [0 total_failed];
-%p1 = bar(p1X,p1Y);
-%text(1,total_successful+0.5,num2str(total_successful))
-%hold on;
-%p2 = bar(p2X,p2Y);
-%text(4,total_failed+0.5,num2str(total_failed))
-%set(p1,'FaceColor','green');
-%set(p2,'FaceColor','red');
-%ylabel('Test Cases');
-%axis([0 5 1 max_disp])
-%legend('Sucessfull Tests','Failed Tests');
-%title('Graphic about Successful and Failed Tests');
-%grid on;
-%set(gca,'xticklabel',{[]}) 
 
 end

@@ -1,4 +1,4 @@
-function decision = check_ss_observability(sys)
+function decision = simulate_ss_observability(sys)
 % 
 % CHECK_SS_OBSERVABILITY(sys)
 % 

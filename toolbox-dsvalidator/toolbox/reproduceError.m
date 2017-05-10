@@ -55,6 +55,6 @@ end
 
 property = 'e';
 max_error = error;
-dsv_validation(path, property, ovmode, rmode, filename);
+validation(path, property, ovmode, rmode, filename);
 
 end
