@@ -219,12 +219,12 @@ fxp_t fxp_double_to_fxp(double value) {
 	fxp_t tmp;
 	double ftemp = value * scale_factor[impl.frac_bits];
 	if (rounding_mode == ROUNDING){
-		if(value >= 0) {
-			tmp = (fxp_t)(ftemp + 0.5);
-		}
-		else {
-			tmp = (fxp_t)(ftemp - 0.5);
-		}
+		//if(value >= 0) {
+		//	tmp = (fxp_t)(ftemp + 0.5);
+		//}
+		//else {
+		//	tmp = (fxp_t)(ftemp - 0.5);
+		//}
 	} else if(rounding_mode == FLOOR){
 		tmp = (fxp_t) ftemp;
 		double residue = ftemp - tmp;

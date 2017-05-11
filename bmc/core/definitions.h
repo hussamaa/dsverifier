@@ -231,7 +231,9 @@ typedef struct {
 } hardware;
 
 typedef struct{
-  float Ap, Ar, Ac;
-  float wp, wc, wr; 
+  double Ap, Ar, Ac;
+  double wp, wc, wr;
+  double w1p, w1c, w1r;
+  double w2p, w2c, w2r;
   int type; 
 }filter_parameters;

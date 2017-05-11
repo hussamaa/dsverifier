@@ -86,6 +86,7 @@ void __DSVERIFIER_assert(_Bool expression)
 #include "../bmc/core/util.h"
 #include "../bmc/core/delta-operator.h"
 #include "../bmc/core/initialization.h"
+#include "../bmc/core/filter_functions.h"
 
 #include "print_messages.h"
 
@@ -313,6 +314,48 @@ void extract_data_from_file()
 	{
 	  current_line = replace_all_string(current_line, ".wr=", "");
 	  filter.wr = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_w1p = current_line.find(".w1p", 0);
+	if (filter_w1p != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".w1p=", "");
+	  filter.w1p = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_w1c = current_line.find("w1c", 0);
+	if (filter_w1c != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".w1c=", "");
+	  filter.w1c = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_w1r = current_line.find(".w1r", 0);
+	if (filter_w1r != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".w1r=", "");
+	  filter.w1r = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_w2p = current_line.find(".w2p", 0);
+	if (filter_w2p != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".w2p=", "");
+	  filter.w2p = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_w2c = current_line.find(".w2c", 0);
+	if (filter_w2c != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".w2c=", "");
+	  filter.w2c = std::atof(current_line.c_str());
+	  continue;
+	}
+	std::string::size_type filter_w2r = current_line.find(".w2r", 0);
+	if (filter_w2r != std::string::npos)
+	{
+	  current_line = replace_all_string(current_line, ".w2r=", "");
+	  filter.w2r = std::atof(current_line.c_str());
 	  continue;
 	}
 	std::string::size_type filter_type = current_line.find(".type", 0);
@@ -848,7 +891,7 @@ std::string prepare_bmc_command_line()
 	  command_line = "gcc -E " + desired_filename + " -DK_INDUCTION_MODE=K_INDUCTION -DBMC=ESBMC -I " + bmc_path;
 	} else {
           command_line = model_checker_path + "/esbmc " + desired_filename +
-	  " --no-bounds-check --no-pointer-check --no-div-by-zero-check -DBMC=ESBMC -I " +
+	  " --no-bounds-check --no-pointer-check  --fixedbv -DBMC=ESBMC -I " +
 	  bmc_path;
 	}
 	if (desired_timeout.size() > 0)
@@ -1620,6 +1663,9 @@ Function: generates_mag_response
 #define M_PI 3.14159265358979323846
 #define LOWPASS 1
 #define HIGHPASS 2
+#define PASSBAND 3
+#define SINE_precision 7
+
 
 void generates_mag_response(double* num, int lnum, double* den, int lden, double* res, int N) {
 
@@ -1636,23 +1682,35 @@ void generates_mag_response(double* num, int lnum, double* den, int lden, double
 		out_numIm[i] = 0;
 		for (m = 1; m < lnum; ++m) {
 			old_out_Re = out_numRe[i];
-			out_numRe[i] = cos(w) * out_numRe[i] - sin(w) * out_numIm[i] + num[m];
-			out_numIm[i] = sin(w) * old_out_Re + cos(w) * out_numIm[i];
+			out_numRe[i] = cosTyl(w, SINE_precision) * out_numRe[i] - sinTyl(w, SINE_precision) * out_numIm[i] + num[m];
+			out_numIm[i] = sinTyl(w, SINE_precision) * old_out_Re + cosTyl(w, SINE_precision) * out_numIm[i];
 		}
 		out_denRe[i] = den[0];
 		out_denIm[i] = 0;
 
 		for (m = 1; m < lden; ++m) {
 			old_out_Re = out_denRe[i];
-			out_denRe[i] = cos(w) * out_denRe[i] - sin(w) * out_denIm[i] + den[m];
-			out_denIm[i] = sin(w) * old_out_Re + cos(w) * out_denIm[i];
+			out_denRe[i] = cosTyl(w, SINE_precision) * out_denRe[i] - sinTyl(w, SINE_precision) * out_denIm[i] + den[m];
+			out_denIm[i] = sinTyl(w, SINE_precision) * old_out_Re + cosTyl(w, SINE_precision) * out_denIm[i];
 		}
 
 		res[i] = sqrt(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
 	    zero_test = sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
-	 	//if (zero_test != 0)
-		res[i] = res[i] / (zero_test + 1e-10);
+		res[i] = res[i] /zero_test;
 	}
+
+	//If necessary, uncomment the following "for" statement for debug porpouses
+	/*
+	for (i=0;i<N+1;++i) {
+	      
+	    printf("\ni = %d\n",i);
+	    printf("Den = %.16f + j*%.16f \n", out_denRe[i], out_denIm[i]);
+	    printf("Sqrt den = %.30f \n", sqrt(out_denRe[i]*out_denRe[i]+out_denIm[i]*out_denIm[i]));
+	    printf("Num = %.16f + j*%.16f \n", out_numRe[i], out_numIm[i]);
+	    printf("Sqrt den = %.30f \n", sqrt(out_numRe[i]*out_numRe[i]+out_numIm[i]*out_numIm[i]));
+	}
+	*/
+  
 }
 
 /*******************************************************************\
@@ -1669,14 +1727,14 @@ Function: check_filter_magnitude_det
 
 void check_filter_magnitude_det()
 {
-    int freq_response_samples = 100;
+    int freq_response_samples = 10000;
 	double w;
 	double w_incr = 1.0 / freq_response_samples;
   	double res[freq_response_samples+1];
   	double _res[freq_response_samples+1];
   	int i,j;
+  	int cuttof_freq_index;
   	bool response_is_valid = true;
-
  	/* generates magnitude response of the quantized TF, placing the result in the "res" array*/	
  	generates_mag_response(ds.b, ds.b_size, ds.a, ds.a_size, res, freq_response_samples);
 
@@ -1693,40 +1751,67 @@ void check_filter_magnitude_det()
 	double _b[ds.b_size];
 	fxp_to_double_array(_b, b_fxp, ds.b_size);
 
-	cplus_print_array_elements("\n a", ds.a, ds.a_size);
-	cplus_print_array_elements("\n b", ds.b, ds.b_size);
 
+ 	/* generates magnitude response of the quantized TF, placing the result in the "_res" array */
+	generates_mag_response(_b, ds.b_size, _a, ds.a_size, _res, freq_response_samples);
+ 
 
-	cplus_print_array_elements("\n _a", _a, ds.a_size);
-	cplus_print_array_elements("\n _b", _b, ds.b_size);
+	printf("\nOriginal floating point input coefficients are")
 
+ 	printf("\n a= {");
+ 	for (i=0;i<ds.a_size; i++)
+ 		printf("%.60lf, ", ds.a[i]);
+ 	printf("}\n");
 
- 	/* generates magnitude response of the quantized TF, placing the result in the "res" array*/	
- 	generates_mag_response(_b, ds.b_size, _a, ds.a_size, _res, freq_response_samples);
+ 	printf("\n b= {");
+ 	for (i=0;i<ds.b_size; i++)
+ 		printf("%.60lf, ", ds.b[i]);
+ 	printf("}\n");
 
- 	cplus_print_array_elements("\n res", res, freq_response_samples);
- 	cplus_print_array_elements("\n_res", _res, freq_response_samples);
+	printf("\nNew coefficients after fixed-point conversion are")
+
+ 	printf("\n _a= {");
+ 	for (i=0;i<ds.a_size; i++)
+ 		printf("%.60lf, ", _a[i]);
+ 	printf("}\n");
+
+ 	printf("\n _b= {");
+ 	for (i=0;i<ds.a_size; i++)
+ 		printf("%.60lf, ", _b[i]);
+ 	printf("}\n");
+
 
 	if (filter.type == LOWPASS) { //lowpass
-		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+		
+		if ((filter.wp == 0) && (filter.wr == 0)){
 			
-		    printf("w= %f res = %f\n", w, res[i]);
-		    printf( "w=  %f _res= %f\n", w, _res[i]);
-			if (w <= filter.wp) {
+			filter.wp = filter.wc - w_incr;
+			filter.wr = filter.wc + w_incr;
+		}
+
+		if (filter.Ar == 0) filter.Ar = 1; 
+
+		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+
+		    printf("sample: %d\n", i);
+		    printf("w= %f res = %.32lf\n", w, res[i]);
+		    printf( "w=  %f _res= %.32lf\n", w, _res[i]);
+
+			if ((w < filter.wp) || (doubleComparisson(filter.wp,w, 0.0000001))) {
 				if(!(_res[i] >= filter.Ap)) 
 				{
 					printf("|----------------Passband Failure-------------|");
 					response_is_valid = false;
 					break;
 				} 
-			} else if (w == filter.wc) {
-				if(!(_res[i] <= filter.Ac)) 
-				{
+			}if (doubleComparisson(filter.wc,w, 0.000001) && (filter.wc!=0)) {
+				if(!((_res[i])<(filter.Ac))) 
+					{
 					printf("|-------------Cutoff Frequency Failure--------|");
 					response_is_valid = false;
 					break; 
 				}
-			} else if ((w >= filter.wr) && (w <= 1)) {
+			}if (((w > filter.wr) || (doubleComparisson(filter.wr,w, 0.0000001))) && (w <= 1) && (filter.wr != 0)) {
 				if(!(_res[i] <= filter.Ar))
 				{
 					printf("|----------------Stopband Failure-------------|");
@@ -1737,30 +1822,111 @@ void check_filter_magnitude_det()
 		}
 
 	} else if (filter.type == HIGHPASS) { //highpass
+		
+		if ((filter.wp == 0) && (filter.wr == 0)){
+
+			filter.wp = filter.wc + w_incr;
+			filter.wr = filter.wc - w_incr;
+		}
+
+		if (filter.Ar == 0) filter.Ar = 1; 
+
 		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
 
-		    printf("w= %f res = %f\n", w, res[i]);
-		    printf( "w=  %f _res= %f\n", w, _res[i]);
-			if (w <= filter.wr) {
+			printf("sample: %d\n", i);
+		    printf("w= %f res = %.32lf\n", w, res[i]);
+		    printf( "w=  %f _res= %.32lf\n", w, _res[i]);
+
+			if ((w < filter.wr) || (doubleComparisson(filter.wr,w, 0.0000001))) {
 				if(!(_res[i] <= filter.Ar)) 
 				{
 					printf("|----------------Stopband Failure-------------|");
 					response_is_valid = false;
 					break; 
 				}
-			} else if (w == filter.wc) {
-				if(!(_res[i] <= filter.Ac)) 
+			}if (doubleComparisson(filter.wc,w, 0.0000001) && (filter.wc!=0)) {
+				if(!((_res[i])<(filter.Ac))) 
 				{
 					printf("|-------------Cutoff Frequency Failure--------|");
 					response_is_valid = false;
 					break; 
 				}
-			} else if ((w > filter.wp) && (w <= 1)) {
+			}if (((w > filter.wp) || (doubleComparisson(filter.wp,w, 0.0000001))) && (w <= 1) && (filter.wr != 0)) {
 				if(!(_res[i] >= filter.Ap))
 				{
 					printf("|----------------Passband Failure-------------|");
 					response_is_valid = false;
 					break;
+				} 
+			}
+		}
+	} else if (filter.type == PASSBAND) { //passband
+
+	/*	if ((filter.w1p == 0) || (filter.w2p == 0)) {
+			filter.w1p = filter.w1c + w_incr;
+			filter.w2p = filter.w2c - w_incr;		
+		}
+		if ((filter.w1r == 0) || (filter.w2r == 0)){
+			filter.w1r = filter.w1c - w_incr;
+			filter.w2r = filter.w2c + w_incr;
+		}
+	*/		
+		if (filter.Ar == 0) filter.Ar = 1; 
+
+		printf("wc = %.32lf\n", filter.wc);
+
+		printf("w1r = %.32lf\n", filter.w1r);
+		printf("w2r = %.32lf\n", filter.w2r);
+
+		printf("w1c = %.32lf\n", filter.w1c);
+		printf("w2c = %.32lf\n", filter.w2c);
+
+		printf("w1p = %.32lf\n", filter.w1p);
+		printf("w2p = %.32lf\n", filter.w2p);
+
+		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+
+
+			printf("sample: %d\n", i);
+		    printf("w= %f res = %.32lf\n", w, res[i]);
+		    printf( "w=  %f _res= %.32lf\n", w, _res[i]);
+			if (((w < filter.w1r) || (doubleComparisson(filter.w1r,w, 0.0000001))) && (filter.w1r != 0)) {
+				if(!(_res[i] <= filter.Ar)) 
+				{
+					printf("filter.w1r = %f \n", filter.w1r);
+					printf("|----------------Stopband Failure1-------------|");
+					response_is_valid = false;
+					break; 
+				}
+			}if (((w < filter.w1c) || (doubleComparisson(filter.w1c,w, 0.0000001))) && ((w > (filter.w1c-w_incr)) || (doubleComparisson(filter.w1c-w_incr,w, 0.0000001))) && (filter.w1c != 0)) {
+				printf(" Entrou em wc1 = %f\n", w);
+				if(!(_res[i] <= filter.Ac)) 
+				{
+					printf("|-------------Cutoff Frequency Failure1--------|");
+					response_is_valid = false;
+					break; 
+				}
+			}if (((w > filter.w1p) || (doubleComparisson(filter.w1p,w, 0.0000001))) && ((w < filter.w2p) || (doubleComparisson(filter.w2p,w, 0.0000001)))) {
+				if(!(_res[i] >= filter.Ap))
+				{
+					printf("|----------------Passband Failure1-------------|");
+					response_is_valid = false;
+					break;
+				} 
+			}if (((w > filter.w2c) || (doubleComparisson(filter.w2c,w, 0.0000001))) && (w < (filter.w2c+w_incr) || (doubleComparisson(filter.w2c+w_incr,w, 0.0000001))) && (filter.w2c != 0)) {
+				printf(" Entrou em wc2 = %f\n", w);
+				if(!(_res[i] <= filter.Ac)) 
+				{
+					printf("|-------------Cutoff Frequency Failure2--------|");
+					response_is_valid = false;
+					break; 
+				}				
+			}if (((w > filter.w2r) ) && (w <= 1) && (filter.w2r != 0)) {
+				if(!(_res[i] <= filter.Ar))
+				{
+					printf("|----------------Stopband Failure2-------------|");
+					response_is_valid = false;
+					break; 
 				} 
 			}
 		}
@@ -1861,10 +2027,6 @@ Function: check_filter_phase_det
 	float diff = 0.3;
 
 	for (i=0, w=0; (w <= 1.0); ++i, w += w_incr) {
-     
-
-		//printf("w= %f res = %f\n", w, res[i]);
-		//printf( "w=  %f _res= %f\n", w, _res[i]);
 
 	    if(!(fabs(res[i]-_res[i]) <= diff)){
 	    	printf("|-------------Phase Failure------------|");

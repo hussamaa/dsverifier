@@ -12,19 +12,26 @@
  * ------------------------------------------------------
  */
 
+#include <stdio.h>
+#include <stdint.h>
+#include <assert.h>
+#include <math.h>
+#include "../core/definitions.h"
 
 extern filter_parameters filter;
 extern implementation impl;
 extern digital_system ds;
 
 #define M_PI     3.14159265358979323846
-#define SINE_precision 6
+#define SINE_precision 7
 #define LOWPASS 1
 #define HIGHPASS 2
+#define PASSBAND 3
 
 /*
  *  Generates magnitude response from transfer function
  */
+ 
 void resp_mag(double* num, int lnum, double* den, int lden, double* res, int N) {
 
 	double w;
@@ -52,67 +59,223 @@ void resp_mag(double* num, int lnum, double* den, int lden, double* res, int N) 
 			out_denIm[i] = sinTyl(w, SINE_precision) * old_out_Re + cosTyl(w, SINE_precision) * out_denIm[i];
 		}
 
-		res[i] = sqrt3(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
-	    zero_test = sqrt3(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
+		res[i] = sqrt(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
+	    zero_test = sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
 	    //__DSVERIFIER_assume(zero_test != 0);
-		res[i] = res[i] / (zero_test + 1e-10);
+		res[i] = res[i] /zero_test;
+ 			
+
+
 	}
 }
+
+/*
+void resp_mag(double* num, int lnum, double* den, int lden, double* res, int N) {
+
+	double w;
+	int m, i;
+	double out_numRe[N + 1];
+	double out_numIm[N + 1];
+	double out_denRe[N + 1];
+	double out_denIm[N + 1];
+	double old_out_Re;
+	double zero_test;
+	for (w = 0, i = 0; w <= M_PI; w += M_PI / N, ++i) {
+		out_numRe[i] = num[0];
+		out_numIm[i] = 0;
+		for (m = 1; m < lnum; ++m) {
+			old_out_Re = out_numRe[i];
+			out_numRe[i] = cos(w) * out_numRe[i] - sin(w)  * out_numIm[i] + num[m];
+			out_numIm[i] = sin(w) * old_out_Re + cos(w) * out_numIm[i];
+		}
+		out_denRe[i] = den[0];
+		out_denIm[i] = 0;
+
+		for (m = 1; m < lden; ++m) {
+			old_out_Re = out_denRe[i];
+			out_denRe[i] = cos(w) * out_denRe[i] - sin(w)  * out_denIm[i] + den[m];
+			out_denIm[i] = sin(w)  * old_out_Re + cos(w) * out_denIm[i];
+		}
+
+		res[i] = sqrt(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
+	    zero_test = sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
+	 	//if (zero_test != 0)
+	 	//__DSVERIFIER_assume(zero_test != 0);
+		res[i] = res[i] / (zero_test);
+
+	}
+
+}
+*/
+ 	//Ac_margin =  fabs_(res[cuttof_freq_index]-filter.Ac);
+	//Ac_margin = diff;
 
 /*
  * Magnitude verifier 
  */
  int verify_magnitude(void) {
 
-	int freq_response_samples = 100;
+ 	rounding_mode = ROUNDING;
+
+
+	int freq_response_samples = 100;	
 	double w;
 	double w_incr = 1.0 / freq_response_samples;
-  	double res[freq_response_samples+1];
+  	//double res[freq_response_samples+1];
+  	double _res[freq_response_samples+1];
   	int i,j;
-
-  	/* quantize "a" array using fxp */
-
-	fxp_t a_fxp[ds.a_size];
-	fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
-	double _a[ds.a_size];
-	fxp_to_double_array(_a, a_fxp, ds.a_size);
-
-  	/* quantize "b" array using fxp */
-
-	fxp_t b_fxp[ds.b_size];
-	fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
-	double _b[ds.b_size];
-	fxp_to_double_array(_b, b_fxp, ds.b_size);
-
- /* generates magnitude response of the quantized TF, placing the result in the "res" array*/
-
-  resp_mag(_b, ds.b_size, _a, ds.a_size, res, freq_response_samples);
+  	char msg[50]; 
 
 	/* generates magnitude response, placing the result in the "res" array*/
+	//resp_mag(ds.b, ds.b_size, ds.a, ds.a_size, res, freq_response_samples);
 
+
+	/*quantization of the floating point transfer function coefficients */
+	for (i=0; i<ds.b_size; i++) {
+	  ds.b[i] = fxp_to_double(fxp_double_to_fxp(ds.b[i]));	
+	}
+	for (i=0; i<ds.a_size; i++) {
+	  ds.a[i] = fxp_to_double(fxp_double_to_fxp(ds.a[i]));
+	}  	
+
+
+	/* generates magnitude response of the quantized TF, placing the result in the "_res" array*/
+	resp_mag(ds.b, ds.b_size, ds.a, ds.a_size, _res, freq_response_samples);
+
+ 	//double res_Ac;
+ 	//double Ac_margin;
+  	//int cuttof_freq_index;
+ 	
+ 	//cuttof_freq_index = filter.wc * 100; 
+ 	
+ 	//res_Ac = res[40]; 
+
+ 	//Ac_margin = res_Ac - filter.Ac;
+	
+	//if (Ac_margin < 0) {
+	//	double aux = Ac_margin * (-1);
+	//	Ac_margin = aux;
+	//}
+
+
+	//double Ac_margin = 0;
+
+	if ((filter.wp == 0) && (filter.wr == 0)){
+
+		if (filter.type == LOWPASS){
+			filter.wp = filter.wc - w_incr;
+			filter.wr = filter.wc + w_incr;
+		}
+
+		if (filter.type == HIGHPASS){
+			filter.wp = filter.wc + w_incr;
+			filter.wr = filter.wc - w_incr;
+		}
+	}
+
+/*
 	if (filter.type == LOWPASS) { //lowpass
+
+		if (filter.Ar == 0) filter.Ar = 1; 
+
 		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+
 			if (w <= filter.wp) {
-				__DSVERIFIER_assert_msg(res[i] >= filter.Ap, "|----------------Passband Failure-------------|");
-			} else if (w == filter.wc) {
-				__DSVERIFIER_assert_msg(res[i] <= filter.Ac, "|-------------Cutoff Frequency Failure--------|");
-			} else if ((w >= filter.wr) && (w <= 1)) {
-				__DSVERIFIER_assert_msg(res[i] <= filter.Ar, "|----------------Stopband Failure-------------|");
+				assert(_res[i] >= filter.Ap);
+			}
+			if ((w == filter.wc) && (filter.wc!=0)){
+				assert((_res[i] - Ac_margin)<(filter.Ac));
+			}
+			if ((w >= filter.wr) && (filter.wr != 0)) {
+				assert(_res[i] <= filter.Ar);
 			}
 		}
 	} else if (filter.type == HIGHPASS) { //highpass
+
+		if (filter.Ar == 0) filter.Ar = 1; 
+
 		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
-			if (w <= filter.wr) {
-				__DSVERIFIER_assert_msg(res[i] <= filter.Ar, "|----------------Stopband Failure-------------|");
-			} else if (w == filter.wc) {
-				__DSVERIFIER_assert_msg(res[i] <= filter.Ac, "|-------------Cutoff Frequency Failure--------|");
-			} else if ((w > filter.wp) && (w <= 1)) {
-				__DSVERIFIER_assert_msg(res[i] >= filter.Ap, "|----------------Passband Failure-------------|");
+
+			if ((w < filter.wr)) {
+				assert(_res[i] <= filter.Ar);
+			}
+			if ((filter.wc == w) && (filter.wc!=0)) {
+				assert((_res[i] - Ac_margin)<(filter.Ac));
+			}
+			if ((w > filter.wp) && (w <= 1) && (filter.wr != 0)) {
+				assert(_res[i] >= filter.Ap);
 			}
 		}
 	} else {
-		__DSVERIFIER_assert(0);	
+		assert(0);	
 	}
 	return 0;
 }
 
+*/
+
+	if (filter.type == LOWPASS) { //lowpass
+
+		if (filter.Ar == 0) filter.Ar = 1; 
+
+		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+
+			if ((w < filter.wp) || (doubleComparisson(filter.wp,w, 0.0000001))) {
+				assert(_res[i] >= filter.Ap);
+			}
+			if (doubleComparisson(filter.wc,w, 0.000001) && (filter.wc!=0)){
+				assert((_res[i])<(filter.Ac));
+			}
+			if (((w > filter.wr) || (doubleComparisson(filter.wr,w, 0.0000001))) && (w <= 1) && (filter.wr != 0)) {
+				assert(_res[i] <= filter.Ar);
+			}
+		}
+	} else if (filter.type == HIGHPASS) { //highpass
+
+		if (filter.Ar == 0) filter.Ar = 1; 
+
+		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+
+			if ((w < filter.wr) || (doubleComparisson(filter.wr,w, 0.0000001))) {
+				assert(_res[i] <= filter.Ar);
+			}
+			if (doubleComparisson(filter.wc,w, 0.0000001) && (filter.wc!=0)) {
+				assert((_res[i])<(filter.Ac));
+			}
+			if (((w > filter.wp) || (doubleComparisson(filter.wp,w, 0.0000001))) && (w <= 1) && (filter.wr != 0)) {
+				assert(_res[i] >= filter.Ap);
+			}
+		}
+	}
+
+	else if (filter.type == PASSBAND) { //passband
+
+		if (filter.Ar == 0) filter.Ar = 1; 
+
+		for (i = 0, w = 0; (w <= 1.0); ++i, w += w_incr) {
+
+
+			if (((w < filter.w1r) || (doubleComparisson(filter.w1r,w, 0.0000001))) && (filter.w1r != 0)) {
+				assert(_res[i] <= filter.Ar);
+
+			}if (((w < filter.w1c) || (doubleComparisson(filter.w1c,w, 0.0000001))) && ((w > (filter.w1c-w_incr)) || (doubleComparisson(filter.w1c-w_incr,w, 0.0000001))) && (filter.w1c != 0)) {
+				assert(_res[i] <= filter.Ac);
+
+			}if (((w > filter.w1p) || (doubleComparisson(filter.w1p,w, 0.0000001))) && ((w < filter.w2p) || (doubleComparisson(filter.w2p,w, 0.0000001)))) {
+				assert(_res[i] >= filter.Ap);
+
+			}if (((w > filter.w2c) || (doubleComparisson(filter.w2c,w, 0.0000001))) && (w < (filter.w2c+w_incr) || (doubleComparisson(filter.w2c+w_incr,w, 0.0000001))) && (filter.w2c != 0)) {
+				assert(_res[i] <= filter.Ac);
+
+			}if (((w > filter.w2r) ) && (w <= 1) && (filter.w2r != 0)) {
+				assert(_res[i] <= filter.Ar);
+
+			}
+		}
+	} 
+
+	else {
+		assert(0);	
+	}
+	return 0;
+}
