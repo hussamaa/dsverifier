@@ -18,8 +18,8 @@ function [output, time_execution] = simulate_cl_stability(plant, controller, bit
 
 tic
 
-fxp_controller_num = fwl(cell2mat(controller.Numerator),bits);
-fxp_controller_den = fwl(cell2mat(controller.Denominator),bits);
+fxp_controller_num = fxp_rounding(cell2mat(controller.Numerator),bits);
+fxp_controller_den = fxp_rounding(cell2mat(controller.Denominator),bits);
 
 controller = tf(fxp_controller_num, fxp_controller_den, controller.Ts);
  

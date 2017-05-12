@@ -3,7 +3,9 @@ function [system] = validationParser(p)
 % Script to get the counterexamples parameters and transform them in variables on workspace
 % Function>: [system] = validationParser(p)
 %
-% Where 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle and (e) for quantization error in transfer function
+% Where 'p' is the property to be analyzed: (m) for minimum phase, (s) for
+% stability, (o) for overflow and (lc) for limit cycle in transfer function
+% format.
 % 
 % The function validationExtraction must be done before this function! 
 % dsv_parser only read the extraction file and transform all counterexamples in variables.
@@ -15,7 +17,7 @@ function [system] = validationParser(p)
 % May 10, 2017
 % Manaus, Brazil
 
-if (strcmp(p ,'lc') || strcmp(p,'o') || strcmp(p,'e') )
+if (strcmp(p ,'lc') || strcmp(p,'o')) %for overflow and LCO only.
 
 fid = fopen('dsv_counterexample_parameters.txt');
 tline = fgetl(fid);
@@ -100,7 +102,7 @@ end
 
 fclose(fid);
 
-else
+else %for all the other properties in transfer-function format.
 
 fid = fopen('dsv_counterexample_parameters.txt');
 tline = fgetl(fid);

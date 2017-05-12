@@ -15,8 +15,10 @@ function validation(path, property, ovmode, rmode, filename)
 %     's' is for stability property
 %     'm' is for minimum phase property
 %     'o' is for overflow property
-%     'e' is for quantization error in transfer function
 %     'scl' is for stability in closed-loop system
+%     'sss' is for stability in state-space system
+%     'sso' is for observability in state-space system
+%     'ssc' is for controllability in state-space system
 %
 % ovmode is the overflow mode. The values could be:
 %     'saturate' for saturate overflow
@@ -54,11 +56,11 @@ end
 
 
 if (isempty(property))
-    disp('Error. The parameter "property" should be "m","lc","o","s","e" or "scl"!');
+    disp('Error. The parameter "property" should be "m","lc","o","s","sss", "sso", "ssc" or "scl"!');
     return
 elseif (strcmp(property,'m') || strcmp(property,'o') || strcmp(property,'lc') || strcmp(property,'s') || strcmp(property,'e') || strcmp(property,'scl'))
 else
-    disp('Error. The parameter "property" should be "m","lc","o","s","e" or "scl"!');
+    disp('Error. The parameter "property" should be "m","lc","o","s","sss", "sso", "sscor "scl"!');
     return
 end
 

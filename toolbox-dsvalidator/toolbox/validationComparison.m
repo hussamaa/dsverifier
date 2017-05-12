@@ -32,7 +32,7 @@ function [output] = validationComparison(system, p)
 global max_error;
 global overflow_mode;
 
-if (strcmp(p,'lc'))
+if (strcmp(p,'lc')) %limit cycle
 
 count = length(unique(system.output.output_simulation));
 
@@ -42,7 +42,7 @@ count = length(unique(system.output.output_simulation));
         output = 'Failed';
     end
 
-elseif (strcmp(p,'o'))
+elseif (strcmp(p,'o')) %overflow
     
 n = system.impl.int_bits;
 l = system.impl.frac_bits;
@@ -52,7 +52,7 @@ max_wl = ((2^(n-1))-2^(-1*l));
 y = system.output.output_simulation;
 result = 0;
 
-if strcmp(overflow_mode,'wrap')
+if strcmp(overflow_mode,'wrap') % wrap-around mode
     
 for i=1:system.impl.x_size
 
@@ -63,7 +63,7 @@ end
 
 end
 
-elseif strcmp(overflow_mode, 'saturate')
+elseif strcmp(overflow_mode, 'saturate') % saturation mode
 n_y = length(system.output.output_verification);
 count = 0;
 yv = system.output.output_verification;
@@ -92,31 +92,7 @@ else
   output = 'Failed';
 end
 
-elseif (strcmp(p,'e'))
-
-y = system.output.output_simulation;
-
-if (max_error > 0)
-
-has_error = 0;
-for i=1:length(y)
- if (y(i) < (-1)*max_error || y(i) > max_error)
-    has_error = 1;
-    break;
- end
-end
-
-if has_error == 1
-  output = 'Successful';
-else
-  output = 'Failed';
-end
-
-else
-output = 'Failed';
-end
-
-else
+else %for all the other properties
 
  if (strcmp(lower(strtrim(system.output.output_verification)),lower(strtrim(system.output.output_simulation))))
 	output = 'Successful';

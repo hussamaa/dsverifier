@@ -8,7 +8,7 @@ function validationExtraction(directory, p)
 % Function: validationExtraction(directory, p)
 %
 % Where 'directory' should be the path with all counterexamples inside .out files.
-% the parameter 'p' is the property to be analyzed and it should be (m) for minimum phase, (s) for stability, (o) for overflow, (lc) for limit cycle, (e) for quantization error in transfer function and (scl) for stability in closed-loop systems
+% the parameter 'p' is the property to be analyzed and it should be (m) for minimum phase, (s) for stability, (o) for overflow, and (lc) for limit cycle in transfer function and (scl) for stability in closed-loop systems
 %
 %
 % Lennon Chaves
@@ -26,7 +26,7 @@ cd(install_folder);
 
 %extraction of parameters
 
-if (strcmp(p,'lc') || strcmp(p,'o') || strcmp(p,'e'))
+if (strcmp(p,'lc') || strcmp(p,'o')) %for overflow and lco only.
 
 script1 = 'dsverifier-directory-data-extractor-script.sh';
 command = [sh ' ' script1 ' ' directory];
@@ -36,8 +36,8 @@ system(command);
 command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' dsv_counterexample_parameters.txt'];
 system(command);
 
-else
-
+else %for all the others properties in transfer-function format.
+ 
 script2 = 'dsverifier-restricted-counterexample-extractor-script.sh';
 command = [sh ' ' script2 ' ' directory];
 system(command);
