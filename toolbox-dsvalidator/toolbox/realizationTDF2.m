@@ -1,9 +1,9 @@
-function [y, time_execution] = dsv_df2(system)
+function [y, time_execution] = realizationTDF2(system)
 % 
-% Simulate and reproduce a counterexample for limit cycle using DFII realization.
-% In case of delta form (DDFII), the delta operator should be represented in system struct.
+% Simulate and reproduce a counterexample for limit cycle using DDFII realization.
+% In case of delta form (TDDFI), the delta operator should be represented in system struct.
 %
-% Function: [y, time_execution] = dsv_df2(system)
+% Function: [y, time_execution] = realizationTDF2(system)
 %
 % The struct 'system' should have the following features:
 % system.sys.a = denominator;
@@ -23,8 +23,8 @@ function [y, time_execution] = dsv_df2(system)
 % The parameter 'y' is the output returned from simulation;
 % The time execution is the time to execute the simulation;
 %
-% Lennon Chaves
-% October 09, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 tic
@@ -73,30 +73,33 @@ if (strcmp(property,'overflow'))||(strcmp(property,'error'))
 w_aux = zeros(1,Nw);
 end
 
-%% DFII Realization
+%% TDFII Realization
 for i=1:x_size
-    w_aux = shiftR(0, w_aux, Nw);
     
-    sum = 0;
-    a_ptr = a_fxp;
-    b_ptr = b_fxp;
-    w_ptr = w_aux;
+    yout = 0;
+	a_ptr = a_fxp;
+	b_ptr = b_fxp;
+        w = w_aux;
+  
+	yout = fxp_add(fxp_mult(b_ptr(1), x(i), wl), w(1), wl);
+	yout = fxp_div(yout, a_fxp(1), wl);
     
-    for k=2:Na
-	w_aux(1) = fxp_sub(w_aux(1), fxp_mult(a_ptr(k), w_ptr(k), wl),wl);
-    end
-     
-    w_aux(1) = fxp_add(w_aux(1), x(i), wl);
-    w_aux(1) = fxp_div(w_aux(1), a_fxp(1), wl);
+    for j=1:(Nw-1)
+		w(j) = w(j+1);
+        if (j < Na)
+		w(j) = fxp_sub(w(j), fxp_mult(a_ptr(j+1), yout, wl), wl);
+        end
+        
+        if (j < Nb)
+		w(j) = fxp_add(w(j), fxp_mult(b_ptr(j+1), x(i), wl), wl);
+        end
 
-    w_ptr = w_aux;
-   
-    for j=1:Nb
-	sum = fxp_add(sum, fxp_mult(b_ptr(j), w_ptr(j), wl), wl);
     end
     
-    y(i) = fxp_quantize(sum, system.impl.int_bits, system.impl.frac_bits);
-
+    y(i) = fxp_quantize(yout, system.impl.int_bits, system.impl.frac_bits);
+    
+    w_aux = w;
+    
 end
 
 if strcmp(property,'overflow')

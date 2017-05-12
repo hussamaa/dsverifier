@@ -25,8 +25,8 @@ function [output, time_execution] = simulate_limit_cycle(system)
 % The output is the feedback returned from simulation;
 % The time execution is the time to execute the simulation;
 %
-% Lennon Chaves
-% November 04, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 global property;
@@ -36,10 +36,10 @@ property = 'limit_cycle';
 overflow_mode = 'wrap';
 
     if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
-        [output, time_execution] = dsv_df1(system);
+        [output, time_execution] = realizationDF1(system);
     elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realization_form,'DDFII')
-        [output, time_execution]  = dsv_df2(system);
+        [output, time_execution]  = realizationDF2(system);
     elseif strcmp(system.impl.realization_form,'TDFII') || strcmp(system.impl.realization_form,'TDDFII')
-        [output, time_execution]  = dsv_tdf2(system);
+        [output, time_execution]  = realizationTDF2(system);
     end
 end

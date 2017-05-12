@@ -1,21 +1,22 @@
-function [system] = dsv_parser(p)
+function [system] = validationParser(p)
 %
 % Script to get the counterexamples parameters and transform them in variables on workspace
-% Function>: [system] = dsv_parser(p)
+% Function>: [system] = validationParser(p)
 %
-% Where 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle and (e) for quantization error in transfer function
+% Where the parameter 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle.
+% (scl) for stability in closed-loop systems, (sss) for stability in state-space format, (ssc) for controllability in state-space format and (sso) for observability in state-space format.
 % 
-% The function dsv_extraction must be done before this function! 
+% The function validationExtraction must be done before this function! 
 % dsv_parser only read the extraction file and transform all counterexamples in variables.
 %
 % The output of this function is the counterexamples extracted in variables
 % on MATLAB workspace.
 %
-% Lennon Chaves
-% October 09, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
-if (strcmp(p ,'lc') || strcmp(p,'o') || strcmp(p,'e') )
+if (strcmp(p ,'lc') || strcmp(p,'o')) %for overflow and LCO only.
 
 fid = fopen('dsv_counterexample_parameters.txt');
 tline = fgetl(fid);
@@ -100,7 +101,7 @@ end
 
 fclose(fid);
 
-else
+else %for all the other properties in transfer-function format.
 
 fid = fopen('dsv_counterexample_parameters.txt');
 tline = fgetl(fid);

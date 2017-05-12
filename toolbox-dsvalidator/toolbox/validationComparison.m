@@ -1,10 +1,10 @@
-function [output] = dsv_comparison(system, p)
+function [output] = validationComparison(system, p)
 %
 % Script to verify and compare the results between MATLAB and DSVerifier
 % Give the system as input on this function and check if the outputs of
 % MATLAB and DSVerifier are the same.
 % 
-% Function: [output] = dsv_comparison(system, p)
+% Function: [output] = validationComparison(system, p)
 %
 % The struct 'system' should have the following features:
 % system.sys.a = denominator;
@@ -21,18 +21,19 @@ function [output] = dsv_comparison(system, p)
 % system.impl.x_size = the bound size
 %
 %
-% The parameter 'p' is the property to be analyzed: minimum phase (m), stability (s), overflow(o), limit cycle (lc).
+% And the parameter 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle.
+% (scl) for stability in closed-loop systems, (sss) for stability in state-space format, (ssc) for controllability in state-space format and (sso) for observability in state-space format.
 %
 % The output is the feedback returned from comparison (successful or failed);
 %
-% Lennon Chaves
-% November 17, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 global max_error;
 global overflow_mode;
 
-if (strcmp(p,'lc'))
+if (strcmp(p,'lc')) %limit cycle
 
 count = length(unique(system.output.output_simulation));
 
@@ -42,7 +43,7 @@ count = length(unique(system.output.output_simulation));
         output = 'Failed';
     end
 
-elseif (strcmp(p,'o'))
+elseif (strcmp(p,'o')) %overflow
     
 n = system.impl.int_bits;
 l = system.impl.frac_bits;
@@ -52,7 +53,7 @@ max_wl = ((2^(n-1))-2^(-1*l));
 y = system.output.output_simulation;
 result = 0;
 
-if strcmp(overflow_mode,'wrap')
+if strcmp(overflow_mode,'wrap') % wrap-around mode
     
 for i=1:system.impl.x_size
 
@@ -63,7 +64,7 @@ end
 
 end
 
-elseif strcmp(overflow_mode, 'saturate')
+elseif strcmp(overflow_mode, 'saturate') % saturation mode
 n_y = length(system.output.output_verification);
 count = 0;
 yv = system.output.output_verification;
@@ -92,31 +93,7 @@ else
   output = 'Failed';
 end
 
-elseif (strcmp(p,'e'))
-
-y = system.output.output_simulation;
-
-if (max_error > 0)
-
-has_error = 0;
-for i=1:length(y)
- if (y(i) < (-1)*max_error || y(i) > max_error)
-    has_error = 1;
-    break;
- end
-end
-
-if has_error == 1
-  output = 'Successful';
-else
-  output = 'Failed';
-end
-
-else
-output = 'Failed';
-end
-
-else
+else %for all the other properties
 
  if (strcmp(lower(strtrim(system.output.output_verification)),lower(strtrim(system.output.output_simulation))))
 	output = 'Successful';

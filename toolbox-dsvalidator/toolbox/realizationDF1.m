@@ -1,9 +1,9 @@
-function [y, time_execution] = dsv_tdf2(system)
+function [y, time_execution] = realizationDF1(system)
 % 
-% Simulate and reproduce a counterexample for limit cycle using DDFII realization.
-% In case of delta form (TDDFI), the delta operator should be represented in system struct.
+% Simulate and reproduce a counterexample for limit cycle using DFI realization.
+% In case of delta form (DDFI), the delta operator should be represented in system struct.
 %
-% Function: [y, time_execution] = dsv_tdf2(system)
+% Function: [y, time_execution] = realizationDF1(system)
 %
 % The struct 'system' should have the following features:
 % system.sys.a = denominator;
@@ -23,18 +23,13 @@ function [y, time_execution] = dsv_tdf2(system)
 % The parameter 'y' is the output returned from simulation;
 % The time execution is the time to execute the simulation;
 %
-% Lennon Chaves
-% October 09, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 tic
 
 global property;
-global overflow_mode;
-global round_mode;
-
-overflow_mode = 'wrap';
-round_mode = 'round';
 
 wl = system.impl.frac_bits;
 
@@ -51,56 +46,54 @@ b_fxp = fxp_rounding(b_num,wl);
 a_fxp = fwl(a_fxp,wl);
 b_fxp = fwl(b_fxp,wl);
 
+
 x_size = system.impl.x_size;
 
 Na = length(a_fxp);
 Nb = length(b_fxp);
 
-if (Na > Nb)
-    Nw = Na;
-else
-    Nw = Nb;
-end
+x_aux = system.inputs.const_inputs(1:Nb);
 
 if (strcmp(property,'limit_cycle'))
-w_aux = system.inputs.initial_states;
+y_aux = system.inputs.initial_states;
 end
 
 x =  system.inputs.const_inputs;
 y =  zeros(1,x_size);
 
 if (strcmp(property,'overflow'))||(strcmp(property,'error'))
-w_aux = zeros(1,Nw);
+y_aux = zeros(1,Na);
+x_aux = zeros(1,Nb);
 end
 
-%% TDFII Realization
+y_aux = fliplr(y_aux);
+%% DFI Realization
 for i=1:x_size
+    sum = 0;
+    a_ptr = a_fxp;
+    b_ptr = b_fxp;
     
-    yout = 0;
-	a_ptr = a_fxp;
-	b_ptr = b_fxp;
-        w = w_aux;
-  
-	yout = fxp_add(fxp_mult(b_ptr(1), x(i), wl), w(1), wl);
-	yout = fxp_div(yout, a_fxp(1), wl);
+    x_aux = shiftL(x(i), x_aux, Nb);
+    y_ptr = y_aux;
+    x_ptr = x_aux;
     
-    for j=1:(Nw-1)
-		w(j) = w(j+1);
-        if (j < Na)
-		w(j) = fxp_sub(w(j), fxp_mult(a_ptr(j+1), yout, wl), wl);
-        end
-        
-        if (j < Nb)
-		w(j) = fxp_add(w(j), fxp_mult(b_ptr(j+1), x(i), wl), wl);
-        end
+    for j=1:Nb
+	sum = fxp_add(sum, fxp_mult(b_ptr(j), x_ptr(j), wl), wl);
+    end
 
+    for k=2:Na
+	sum = fxp_sub(sum, fxp_mult(a_ptr(k), y_ptr(k-1),wl),wl);
     end
     
-    y(i) = fxp_quantize(yout, system.impl.int_bits, system.impl.frac_bits);
+    sum = fxp_div(sum,a_fxp(1),wl);
     
-    w_aux = w;
+    y(i) = fxp_quantize(sum, system.impl.int_bits, system.impl.frac_bits);
     
+    y_aux = shiftL(y(i), y_aux, Na);
+
 end
+
+y = fliplr(y);
 
 if strcmp(property,'overflow')
 y = dlsim(b_fxp,a_fxp, x);

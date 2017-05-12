@@ -1,8 +1,8 @@
-function dsv_validation(path, property, ovmode, rmode, filename)
+function validation(path, property, ovmode, rmode, filename)
 %
 % Script to run all steps to validate counterexamples
 %
-% Function: dsv_validation(path, property, ovmode, rmode, filename)
+% Function: validation(path, property, ovmode, rmode, filename)
 %
 % To start the validation, the folder with all counterexamples should be
 % informed.
@@ -15,8 +15,10 @@ function dsv_validation(path, property, ovmode, rmode, filename)
 %     's' is for stability property
 %     'm' is for minimum phase property
 %     'o' is for overflow property
-%     'e' is for quantization error in transfer function
 %     'scl' is for stability in closed-loop system
+%     'sss' is for stability in state-space system
+%     'sso' is for observability in state-space system
+%     'ssc' is for controllability in state-space system
 %
 % ovmode is the overflow mode. The values could be:
 %     'saturate' for saturate overflow
@@ -32,11 +34,11 @@ function dsv_validation(path, property, ovmode, rmode, filename)
 %      By default, the value is 'digital_system'
 %
 % Example of usage:
-%  dsv_validation('/home/user/log/limit_cycle/','lc','wrap','round','ds_limit');
-%  dsv_validation('/home/user/log/limit_cycle/','lc','saturate','floor','ds_limit');
+%  validation('/home/user/log/limit_cycle/','lc','wrap','round','ds_limit');
+%  validation('/home/user/log/limit_cycle/','lc','saturate','floor','ds_limit');
 %
-% Lennon Chaves
-% November 04, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 global overflow_mode;
@@ -54,11 +56,11 @@ end
 
 
 if (isempty(property))
-    disp('Error. The parameter "property" should be "m","lc","o","s","e" or "scl"!');
+    disp('Error. The parameter "property" should be "m","lc","o","s","sss", "sso", "ssc" or "scl"!');
     return
 elseif (strcmp(property,'m') || strcmp(property,'o') || strcmp(property,'lc') || strcmp(property,'s') || strcmp(property,'e') || strcmp(property,'scl'))
 else
-    disp('Error. The parameter "property" should be "m","lc","o","s","e" or "scl"!');
+    disp('Error. The parameter "property" should be "m","lc","o","s","sss", "sso", "sscor "scl"!');
     return
 end
 
@@ -75,28 +77,28 @@ if ~(strcmp(round_mode,'round') || strcmp(round_mode,'floor'))
 end
 
 %function to extract the parameters from counterexamples output. 
-dsv_extraction(path, property);
+validationExtraction(path, property);
 
 %parsing the paramaters to variables workspace
-digital_system = dsv_parser(property);
+digital_system = validationParser(property);
 
 %simulation automatically of all counterexamples
 
 for i=1:length(digital_system)
-  [output, time_execution] = dsv_simulation(digital_system(i), property);
+  [output, time_execution] = validationSimulation(digital_system(i), property);
   digital_system(i).output.output_simulation = output;
   digital_system(i).output.time_execution = time_execution;
 end
 	
 %comparison between matlab and dsverifier outputs
 for i=1:length(digital_system)
-    status = dsv_comparison(digital_system(i), property);
+    status = validationComparison(digital_system(i), property);
     digital_system(i).output.status = status;
     digital_system(i).status = status;
 end
 
 %report for user
-dsv_report(digital_system);
+validationReport(digital_system);
 
 %saving all variables created in a file .MAT in order to be used later.
 

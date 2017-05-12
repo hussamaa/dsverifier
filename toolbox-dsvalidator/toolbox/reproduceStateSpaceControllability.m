@@ -1,16 +1,16 @@
-function reproduceError(path, error, varargin)
+function reproduceStateSpaceControllability(path, varargin)
 %
-% Script developed to reproduce error property given a 'path' with all .out counterexamples.
+% Script developed to reproduce state-space controllability property given a 'path' with all .out counterexamples.
 %
-% Function: reproduceError(path, error)
+% Function: reproduceStateSpaceControllability(path)
 %
-% You need inform the 'path', that is a directory with all counterexamples stored in a .out files and the maximum error value.
+% You need inform the 'path', that is a directory with all counterexamples stored in a .out files.
 %
 % The output is the feedback returned from simulation (successful or failed) and a .MAT file with counterexamples stored.
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% reproduceError(path, error, ovmode, rmode, filename);
+% reproduceStateSpaceControllability(path, ovmode, rmode, filename);
 %
 % Where:
 %  ovmode is related to overflow mode and it could be: 'saturate' or 'wrap'. By default is 'wrap';
@@ -19,15 +19,14 @@ function reproduceError(path, error, varargin)
 %
 %  Example of usage:
 %
-%  reproduceError('/home/user/log/overflow/', 0.18);
+%  reproduceStateSpaceControllability('/home/user/log/stability/');
 %
-%  reproduceError('/home/user/log/overflow/', 0.18,'saturate','floor','counterexample_file');
+%  reproduceStateSpaceControllability('/home/user/log/stability/','saturate','floor','counterexample_file');
 %
-% Lennon Chaves
-% January, 2017
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
-global max_error;
 ovmode = '';
 rmode = '';
 filename = '';
@@ -35,26 +34,26 @@ filename = '';
 nvar = nargin;
 var = varargin;
 
-if nvar >= 3
+if nvar >= 2
 if length(var{1}) > 0
  ovmode = var{1};
 end
 end
 
-if nvar >= 4
+if nvar >= 3
 if length(var{2}) > 0
  rmode = var{2};
 end
 end
 
-if nvar >= 5
+if nvar >= 4
 if length(var{3}) > 0
  filename = var{3};
 end
 end
 
-property = 'e';
-max_error = error;
-dsv_validation(path, property, ovmode, rmode, filename);
+property = 'ssc';
+
+validation(path, property, ovmode, rmode, filename);
 
 end

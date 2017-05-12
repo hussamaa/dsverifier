@@ -11,8 +11,8 @@ function fxp_num = fxp_add(aadd, badd, wl)
 %
 % return result of summing the inputs
 %     
-% Lennon Chaves
-% October 09, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 fxp_aadd= fxp_rounding(aadd,wl);

@@ -11,8 +11,8 @@ function fxp_num = fxp_mult(amult, bmult, wl)
 %
 % Return the product result of fixed point inputs amult and bmult
 %     
-% Lennon Chaves
-% October 09, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 fxp_amult= fxp_rounding(amult,wl);

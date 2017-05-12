@@ -11,8 +11,8 @@ function fxp_num = fxp_div(adiv,bdiv,wl)
 %
 % return div result out
 %
-% Lennon Chaves
-% October 09, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 fxp_adiv= fxp_rounding(adiv,wl);

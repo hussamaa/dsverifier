@@ -11,8 +11,8 @@ function num_quantized = fxp_quantize (value, k, l)
 %
 % return the parameter 'value' quantized according to implementation values and overflow mode.
 %
-% Lennon Chaves
-% November 04, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 global overflow_mode;

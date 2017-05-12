@@ -1,8 +1,8 @@
-function reproduceMinimumPhase(path, varargin)
+function reproduceStateSpaceStability(path, varargin)
 %
-% Script developed to reproduce minimum-phase property given a 'path' with all .out counterexamples.
+% Script developed to reproduce state-space stability property given a 'path' with all .out counterexamples.
 %
-% Function: reproduceMinimumPhase(path)
+% Function: reproduceStateSpaceStability(path)
 %
 % You need inform the 'path', that is a directory with all counterexamples stored in a .out files.
 %
@@ -10,7 +10,7 @@ function reproduceMinimumPhase(path, varargin)
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% reproduceMinimumPhase(path, ovmode, rmode, filename);
+% reproduceStateSpaceStability(path, ovmode, rmode, filename);
 %
 % Where:
 %  ovmode is related to overflow mode and it could be: 'saturate' or 'wrap'. By default is 'wrap';
@@ -19,9 +19,9 @@ function reproduceMinimumPhase(path, varargin)
 %
 %  Example of usage:
 %
-%  reproduceMinimumPhase('/home/user/log/minimum/');
+%  reproduceStateSpaceStability('/home/user/log/stability/');
 %
-%  reproduceMinimumPhase('/home/user/log/minimum/','saturate','floor','counterexample_file');
+%  reproduceStateSpaceStability('/home/user/log/stability/','saturate','floor','counterexample_file');
 %
 % Federal University of Amazonas
 % May 15, 2017
@@ -52,7 +52,7 @@ if length(var{3}) > 0
 end
 end
 
-property = 'm';
+property = 'sss';
 
 validation(path, property, ovmode, rmode, filename);
 

@@ -8,5 +8,5 @@ function aq=fwl(a,l)
 % Setembro 9, 2016
 % Manaus
 
-aq=(2^(-1*l))*floor(a*(2^l));
+aq=(2^(-1*l))*round(a*(2^l),l,'significant');
 end

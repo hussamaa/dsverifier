@@ -1,8 +1,8 @@
-function [output, time_execution] = dsv_simulation(system,p)
+function [output, time_execution] = validationSimulation(system,p)
 %
 % Script to simulate and validate a property for a system automatically.
 %
-% Function: [output, time_execution] = dsv_simulation(system, p)
+% Function: [output, time_execution] = validationSimulation(system, p)
 %
 % The struct 'system' should have the following features:
 % system.sys.a = denominator;
@@ -19,13 +19,13 @@ function [output, time_execution] = dsv_simulation(system,p)
 % system.impl.x_size = the bound size
 % 
 % And the parameter 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle.
-% (e) for quantization error in transfer function and (scl) for stability in closed-loop systems.
+% (scl) for stability in closed-loop systems, (sss) for stability in state-space format, (ssc) for controllability in state-space format and (sso) for observability in state-space format.
 %
 % The output is the feedback returned from simulation;
 % The time execution is the time to execute the simulation;
 %
-% Lennon Chaves
-% November 04, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
   switch p
@@ -37,10 +37,14 @@ function [output, time_execution] = dsv_simulation(system,p)
     	  [output, time_execution]  = simulate_minimum_phase(system);
 	case 'o' 
     	  [output, time_execution]  = simulate_overflow(system);
-	case 'e' 
-    	  [output, time_execution]  = simulate_error(system);
 	case 'scl' 
-    	  [output, time_execution]  = simulate_stability_closed_loop(system);
+    	  [output, time_execution]  = simulate_cl_stability(system);
+	case 'sss' 
+    	  [output, time_execution]  = simulate_ss_stability(system);
+	case 'sso' 
+    	  [output, time_execution]  = simulate_ss_observability(system);
+	case 'ssc' 
+    	  [output, time_execution]  = simulate_ss_controllability(system);       
 	otherwise
            warning('Unexpected property or error during the automatic validation.')
   end
