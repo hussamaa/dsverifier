@@ -11,7 +11,7 @@ function decision = simulate_ss_stability (sys,K,type)
 % returns decision = 0 in other case.
 % 
 % Lennon Chaves
-% May 10, 2017
+% May 12, 2017
 % Manaus
 
 A = sys.A;
@@ -30,16 +30,10 @@ eigs = eig(F);
 for i=1:length(eigs)
 
 if abs(real(eigs(i)))>1 %checking if roots are inside the unitary cycle.
-   decision=0;
+   decision=0; %The state-space system is UNSTABLE
    break;
 end
-decision=1;    
-end
-
-if decision
-  disp('The state-space system is STABLE');
-else
-   disp('The state-space system is UNSTABLE');
+decision=1;    %The state-space system is STABLE
 end
 
 end

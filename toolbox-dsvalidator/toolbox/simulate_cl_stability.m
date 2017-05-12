@@ -1,66 +1,45 @@
-function [output, time_execution] = simulate_cl_stability(system)
+function [output, time_execution] = simulate_cl_stability(plant, controller, bits)
 %
-% Script developed to simulate the stability property in counterexamples
+% Script developed to simulate the stability property for closed-loop systems in counterexamples
 %
 % Give the system as a struct with all parameters of counterexample and matlab will check stability property for delta and direct forms.
 % 
-% Function: [output, time_execution] = simulate_stability(system)
-%
-% The struct 'system' should have the following features:
-% system.sys.a = denominator;
-% system.sys.b = numerator;
-% system.sys.tf = transfer function system representation
-% system.impl.frac_bits = fractionary bits
-% system.impl.int_bits = integer bits
-% system.impl.realization_form = realization, and it should be DFI, DFII, TDFII, DDFI, DDFII or TDDFII
-% system.inputs.const_inputs = the inputs from counterexample
-% system.inputs.initial_states = the initial states from counterexample
-% system.outputs.output_verification = the output extracted from counterexample
-% system.impl.delta = in delta form realizations, the delta operator should be informed
-% system.impl.sample_time = sample time of realization
-% system.impl.x_size = the bound size
-%
+% Function: [output, time_execution] = simulate_stability(plant, controller, bits)
+% plant: the physical plant in transfer-function format
+% controller: the digital controller in transfer-function format
+% bits: the fractional bits
 %
 % The output is the feedback returned from simulation;
 % The time execution is the time to execute the simulation;
 %
 % Lennon Chaves
-% November 04, 2016
+% May 12, 2016
 % Manaus, Brazil
 
 tic
 
-if (system.impl.delta ~= 0)
-[Da, Db] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
-fxp_a = fxp_rounding(Da, system.impl.frac_bits);
-fxp_b = fxp_rounding(Db, system.impl.frac_bits);
-rootsb = roots(fxp_b);
-rootsa = roots(fxp_a);
-else 
-fxp_a = fxp_rounding(system.sys.a, system.impl.frac_bits);
-fxp_b = fxp_rounding(system.sys.b, system.impl.frac_bits);
-rootsb = roots(fxp_b);
-rootsa = roots(fxp_a);
-end
+fxp_controller_num = fwl(cell2mat(controller.Numerator),bits);
+fxp_controller_den = fwl(cell2mat(controller.Denominator),bits);
 
-decision = 0;
+controller = tf(fxp_controller_num, fxp_controller_den, controller.Ts);
+ 
+syscl = feedback(series(plant,controller),1);
 
- for i=1:length(rootsa)
-        if abs(rootsa(i))>=1
+denominator = cell2mat(syscl.Denominator);
+
+rootz = roots(denominator);
+
+
+ for i=1:length(rootz)
+        if abs(rootz(i))>=1
 	    %The system is UNSTABLE
-            decision = 0;
+            output = 0;
             break
         end
         %The system is STABLE
-        decision = 1;    
+        output = 1;    
  end
-  
- if decision == 1
-       output = 'Successful';
- else
-       output = 'Failed';
- end
- 
+
 time_execution = toc;
 
 end

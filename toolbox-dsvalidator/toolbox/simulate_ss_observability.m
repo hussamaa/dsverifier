@@ -8,7 +8,7 @@ function decision = simulate_ss_observability(sys)
 % returns decision = 0 in other case.
 % 
 % Lennon Chaves
-% November 25, 2016
+% May 12, 2017
 % Manaus
 
 A = sys.A;
@@ -22,15 +22,9 @@ obsv_matrix = obsv(A,C);
 n = rank(obsv_matrix);
 
 if n == r
-   decision=1;
+   decision=1; %The state-space system is OBSERVABLE
 else
-   decision=0;
-end
-
-if decision
-  disp('The state-space system is OBSERVABLE');
-else
-   disp('The state-space system is NOT OBSERVABLE');
+   decision=0; %The state-space system is NOT OBSERVABLE
 end
 
 end

@@ -8,7 +8,7 @@ function decision = simulate_ss_controllability (sys)
 % returns decision = 0 in other case.
 % 
 % Lennon Chaves
-% November 25, 2016
+% May 12, 2017
 % Manaus
 
 A = sys.A;
@@ -22,15 +22,9 @@ ctrb_matrix = ctrb(A,B);
 n = rank(ctrb_matrix);
 
 if n == c
-   decision=1;
+   decision=1; %The state-space system is CONTROLLABLE
 else
-   decision=0;
-end
-
-if decision
-  disp('The state-space system is CONTROLLABLE');
-else
-   disp('The state-space system is NOT CONTROLLABLE');
+   decision=0; %The state-space system is NOT CONTROLLABLE
 end
 
 end
