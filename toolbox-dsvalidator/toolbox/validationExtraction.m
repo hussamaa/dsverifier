@@ -8,8 +8,8 @@ function validationExtraction(directory, p)
 % Function: validationExtraction(directory, p)
 %
 % Where 'directory' should be the path with all counterexamples inside .out files.
-% the parameter 'p' is the property to be analyzed and it should be (m) for minimum phase, (s) for stability, (o) for overflow, and (lc) for limit cycle in transfer function and (scl) for stability in closed-loop systems
-%
+% And the parameter 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle.
+% (scl) for stability in closed-loop systems, (sss) for stability in state-space format, (ssc) for controllability in state-space format and (sso) for observability in state-space format.
 %
 % Federal University of Amazonas
 % May 15, 2017

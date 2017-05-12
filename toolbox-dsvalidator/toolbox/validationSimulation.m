@@ -19,7 +19,7 @@ function [output, time_execution] = validationSimulation(system,p)
 % system.impl.x_size = the bound size
 % 
 % And the parameter 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle.
-% (e) for quantization error in transfer function and (scl) for stability in closed-loop systems.
+% (scl) for stability in closed-loop systems, (sss) for stability in state-space format, (ssc) for controllability in state-space format and (sso) for observability in state-space format.
 %
 % The output is the feedback returned from simulation;
 % The time execution is the time to execute the simulation;

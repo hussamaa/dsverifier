@@ -21,7 +21,8 @@ function [output] = validationComparison(system, p)
 % system.impl.x_size = the bound size
 %
 %
-% The parameter 'p' is the property to be analyzed: minimum phase (m), stability (s), overflow(o), limit cycle (lc).
+% And the parameter 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle.
+% (scl) for stability in closed-loop systems, (sss) for stability in state-space format, (ssc) for controllability in state-space format and (sso) for observability in state-space format.
 %
 % The output is the feedback returned from comparison (successful or failed);
 %

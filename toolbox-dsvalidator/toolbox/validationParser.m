@@ -3,9 +3,8 @@ function [system] = validationParser(p)
 % Script to get the counterexamples parameters and transform them in variables on workspace
 % Function>: [system] = validationParser(p)
 %
-% Where 'p' is the property to be analyzed: (m) for minimum phase, (s) for
-% stability, (o) for overflow and (lc) for limit cycle in transfer function
-% format.
+% Where the parameter 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle.
+% (scl) for stability in closed-loop systems, (sss) for stability in state-space format, (ssc) for controllability in state-space format and (sso) for observability in state-space format.
 % 
 % The function validationExtraction must be done before this function! 
 % dsv_parser only read the extraction file and transform all counterexamples in variables.
