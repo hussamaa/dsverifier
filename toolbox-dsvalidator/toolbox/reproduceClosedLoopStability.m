@@ -23,8 +23,8 @@ function reproduceClosedLoopStability(path, varargin)
 %
 %  reproduceClosedLoopStability('/home/user/log/stability/','saturate','floor','counterexample_file');
 %
-% Lennon Chaves
-% May, 2017
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 ovmode = '';

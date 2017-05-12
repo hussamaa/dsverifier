@@ -25,8 +25,8 @@ function [output] = validationComparison(system, p)
 %
 % The output is the feedback returned from comparison (successful or failed);
 %
-% Lennon Chaves
-% May 10, 2017
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 global max_error;

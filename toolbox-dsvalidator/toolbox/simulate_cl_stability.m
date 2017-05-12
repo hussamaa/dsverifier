@@ -12,8 +12,8 @@ function [output, time_execution] = simulate_cl_stability(plant, controller, bit
 % The output is the feedback returned from simulation;
 % The time execution is the time to execute the simulation;
 %
-% Lennon Chaves
-% May 12, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 tic

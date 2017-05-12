@@ -23,8 +23,8 @@ function  validationReport(digital_system)
 % system.impl.sample_time = sample time of realization
 % system.impl.x_size = the bound size
 %
-% Lennon Chaves
-% May 10, 2017
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 total_successful = 0;

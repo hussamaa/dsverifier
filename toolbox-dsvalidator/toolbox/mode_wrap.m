@@ -10,8 +10,8 @@ function y = mode_wrap(value, n, l)
 %  'l' is fractionary bits implementation
 %   the return 'y' is the output converted in wrap around mode.
 %
-% Lennon Chaves
-% October 09, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 

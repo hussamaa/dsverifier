@@ -11,8 +11,8 @@ function num_rounded = fxp_rounding (num, wl)
 % return the parameter 'num' rounded according to word length and
 % implementation values.
 %
-% Lennon Chaves
-% October 09, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 global round_mode;

@@ -37,8 +37,8 @@ function validation(path, property, ovmode, rmode, filename)
 %  validation('/home/user/log/limit_cycle/','lc','wrap','round','ds_limit');
 %  validation('/home/user/log/limit_cycle/','lc','saturate','floor','ds_limit');
 %
-% Lennon Chaves
-% May 10, 2017
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 global overflow_mode;

@@ -11,8 +11,8 @@ function validationExtraction(directory, p)
 % the parameter 'p' is the property to be analyzed and it should be (m) for minimum phase, (s) for stability, (o) for overflow, and (lc) for limit cycle in transfer function and (scl) for stability in closed-loop systems
 %
 %
-% Lennon Chaves
-% May 10, 2017
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 sh = 'sh';

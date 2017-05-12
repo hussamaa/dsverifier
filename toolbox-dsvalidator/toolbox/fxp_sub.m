@@ -11,8 +11,8 @@ function fxp_num = fxp_sub(asub, bsub, wl)
 %
 % return result of subtracting the inputs
 %     
-% Lennon Chaves
-% October 09, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 fxp_asub= fxp_rounding(asub,wl);

@@ -1,4 +1,4 @@
-function decision = simulate_ss_observability(sys)
+function [decision, time_execution] = simulate_ss_observability(sys)
 % 
 % Script developed to simulate the state-space observability property in counterexamples
 % 
@@ -7,9 +7,11 @@ function decision = simulate_ss_observability(sys)
 % It returns decision = 1 if the system is observable, and 
 % returns decision = 0 in other case.
 % 
-% Lennon Chaves
-% May 12, 2017
-% Manaus
+% Federal University of Amazonas
+% May 15, 2017
+% Manaus, Brazil
+
+tic
 
 A = sys.A;
 B = sys.B;
@@ -26,6 +28,8 @@ if n == r
 else
    decision=0; %The state-space system is NOT OBSERVABLE
 end
+
+time_execution = toc;
 
 end
 

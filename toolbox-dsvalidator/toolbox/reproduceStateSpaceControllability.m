@@ -23,8 +23,8 @@ function reproduceStateSpaceControllability(path, varargin)
 %
 %  reproduceStateSpaceControllability('/home/user/log/stability/','saturate','floor','counterexample_file');
 %
-% Lennon Chaves
-% January, 2017
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 ovmode = '';

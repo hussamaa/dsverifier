@@ -1,4 +1,4 @@
-function decision = simulate_ss_stability (sys,K,type)
+function [decision, time_execution]  = simulate_ss_stability (sys,K,type)
 % 
 % Script developed to simulate the state-space stability property in counterexamples
 % 
@@ -10,9 +10,11 @@ function decision = simulate_ss_stability (sys,K,type)
 % It returns decision = 1 if the system presents stability, and 
 % returns decision = 0 in other case.
 % 
-% Lennon Chaves
-% May 12, 2017
-% Manaus
+% Federal University of Amazonas
+% May 15, 2017
+% Manaus, Brazil
+
+tic
 
 A = sys.A;
 B = sys.B;
@@ -35,6 +37,8 @@ if abs(real(eigs(i)))>1 %checking if roots are inside the unitary cycle.
 end
 decision=1;    %The state-space system is STABLE
 end
+
+time_execution = toc;
 
 end
 

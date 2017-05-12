@@ -23,8 +23,8 @@ function [y, time_execution] = realizationTDF2(system)
 % The parameter 'y' is the output returned from simulation;
 % The time execution is the time to execute the simulation;
 %
-% Lennon Chaves
-% October 09, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 tic

@@ -13,8 +13,8 @@ function [system] = validationParser(p)
 % The output of this function is the counterexamples extracted in variables
 % on MATLAB workspace.
 %
-% Lennon Chaves
-% May 10, 2017
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 if (strcmp(p ,'lc') || strcmp(p,'o')) %for overflow and LCO only.
