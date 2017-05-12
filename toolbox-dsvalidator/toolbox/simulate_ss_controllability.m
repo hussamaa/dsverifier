@@ -1,8 +1,8 @@
 function decision = simulate_ss_controllability(sys)
 % 
-% CHECK_SS_CONTROLLABILITY(sys)
+% Script developed to simulate the state-space controllability property in counterexamples
 % 
-% For a LTI system in state-space format, CHECK_SS_CONTROLLABILITY(sys)
+% For a LTI system in state-space format, SIMULATE_SS_CONTROLLABILITY(sys)
 % decides about the controlability. 
 % It returns decision = 1 if the system is controllable, and 
 % returns decision = 0 in other case.

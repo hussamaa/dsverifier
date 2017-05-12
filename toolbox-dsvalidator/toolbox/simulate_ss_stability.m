@@ -1,8 +1,8 @@
 function decision = simulate_ss_stability (sys,K,type)
 % 
-% SIMULATE_SS_STABILITY(sys,K,type)
+% Script developed to simulate the state-space stability property in counterexamples
 % 
-% For a LTI system in state-space format, CHECK_SS_STABILITY(sys,K,type)
+% For a LTI system in state-space format, SIMULATE_SS_STABILITY(sys,K,type)
 % decides about the stability. 
 % where 'sys' is a state-space system, 'K' is the feedback matrix and 'type' must be 'cl'
 % for closed-loop systems.

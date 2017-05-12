@@ -1,8 +1,8 @@
 function reproduceStateSpaceControllability(path, varargin)
 %
-% Script developed to reproduce stability property given a 'path' with all .out counterexamples.
+% Script developed to reproduce state-space controllability property given a 'path' with all .out counterexamples.
 %
-% Function: reproduceStability(path)
+% Function: reproduceStateSpaceControllability(path)
 %
 % You need inform the 'path', that is a directory with all counterexamples stored in a .out files.
 %
@@ -10,7 +10,7 @@ function reproduceStateSpaceControllability(path, varargin)
 %
 % Another usage form is adding other parameters (optional parameters) as follow:
 %
-% reproduceStability(path, ovmode, rmode, filename);
+% reproduceStateSpaceControllability(path, ovmode, rmode, filename);
 %
 % Where:
 %  ovmode is related to overflow mode and it could be: 'saturate' or 'wrap'. By default is 'wrap';
@@ -19,9 +19,9 @@ function reproduceStateSpaceControllability(path, varargin)
 %
 %  Example of usage:
 %
-%  reproduceStability('/home/user/log/stability/');
+%  reproduceStateSpaceControllability('/home/user/log/stability/');
 %
-%  reproduceStability('/home/user/log/stability/','saturate','floor','counterexample_file');
+%  reproduceStateSpaceControllability('/home/user/log/stability/','saturate','floor','counterexample_file');
 %
 % Lennon Chaves
 % January, 2017
