@@ -18,7 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
- #include <math.h>
+#include <math.h>
 
 /** initialise an array with zeroes */
 void initialize_array(double v[], int n){
@@ -608,13 +608,3 @@ double fabs_(double a){
 	else return a; 
 
 }
-/*
-double fabs2(double num){
-	double b = -1;
-
-	if(num*b>0){
-		num = num*b;	
-	}
-		
-	return num;
-}*/
