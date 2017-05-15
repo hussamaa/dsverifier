@@ -37,13 +37,7 @@ void __DSVERIFIER_assert(_Bool expression){
 }
 
 void __DSVERIFIER_assert_msg(_Bool expression, char  msg[]){
-	/*
-	for (int i=0; i++; i<50){
-	printf("%s", msg[i]);
-	}
-*/
-	//printf("%s", msg)
-	//printf("-------------------------TESTE DE PRINTF DE MENSAGEM-----------------------------------------");
+	printf("%s", msg);
 	assert(expression);
 }
  
