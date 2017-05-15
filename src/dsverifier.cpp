@@ -891,7 +891,7 @@ std::string prepare_bmc_command_line()
 	  command_line = "gcc -E " + desired_filename + " -DK_INDUCTION_MODE=K_INDUCTION -DBMC=ESBMC -I " + bmc_path;
 	} else {
           command_line = model_checker_path + "/esbmc " + desired_filename +
-	  " --no-bounds-check --no-pointer-check  --fixedbv -DBMC=ESBMC -I " +
+	  " --no-bounds-check --no-pointer-check  --no-div-by-zero-check --fixedbv -DBMC=ESBMC -I " +
 	  bmc_path;
 	}
 	if (desired_timeout.size() > 0)
@@ -1699,7 +1699,7 @@ void generates_mag_response(double* num, int lnum, double* den, int lden, double
 		res[i] = res[i] /zero_test;
 	}
 
-	//If necessary, uncomment the following "for" statement for debug porpouses
+	//If necessary, uncomment the following "for" statement for debugging porpouses
 	/*
 	for (i=0;i<N+1;++i) {
 	      
@@ -1860,27 +1860,15 @@ void check_filter_magnitude_det()
 				} 
 			}
 		}
-	} else if (filter.type == PASSBAND) { //passband
+	} else if (filter.type == PASSBAND) {
 
-	/*	if ((filter.w1p == 0) || (filter.w2p == 0)) {
-			filter.w1p = filter.w1c + w_incr;
-			filter.w2p = filter.w2c - w_incr;		
-		}
-		if ((filter.w1r == 0) || (filter.w2r == 0)){
-			filter.w1r = filter.w1c - w_incr;
-			filter.w2r = filter.w2c + w_incr;
-		}
-	*/		
 		if (filter.Ar == 0) filter.Ar = 1; 
 
 		printf("wc = %.32lf\n", filter.wc);
-
 		printf("w1r = %.32lf\n", filter.w1r);
 		printf("w2r = %.32lf\n", filter.w2r);
-
 		printf("w1c = %.32lf\n", filter.w1c);
 		printf("w2c = %.32lf\n", filter.w2c);
-
 		printf("w1p = %.32lf\n", filter.w1p);
 		printf("w2p = %.32lf\n", filter.w2p);
 
