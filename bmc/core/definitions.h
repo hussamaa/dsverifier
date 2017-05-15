@@ -230,6 +230,7 @@ typedef struct {
    instructions assembly;
 } hardware;
 
+/** filter parameters structure */
 typedef struct{
   double Ap, Ar, Ac;
   double wp, wc, wr;
