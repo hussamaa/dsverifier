@@ -1756,7 +1756,7 @@ void check_filter_magnitude_det()
 	generates_mag_response(_b, ds.b_size, _a, ds.a_size, _res, freq_response_samples);
  
 
-	printf("\nOriginal floating point input coefficients are")
+	printf("\nOriginal floating point input coefficients are");
 
  	printf("\n a= {");
  	for (i=0;i<ds.a_size; i++)
@@ -1768,7 +1768,7 @@ void check_filter_magnitude_det()
  		printf("%.60lf, ", ds.b[i]);
  	printf("}\n");
 
-	printf("\nNew coefficients after fixed-point conversion are")
+	printf("\nNew coefficients after fixed-point conversion are");
 
  	printf("\n _a= {");
  	for (i=0;i<ds.a_size; i++)
