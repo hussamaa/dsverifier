@@ -1,3 +1,0 @@
-input.c
---property STABILITY --bmc ESBMC --realization DFI
-^VERIFICATION SUCCESSFUL$

@@ -1,3 +1,0 @@
-input.c
---property FILTER_MAGNITUDE_NON_DET --bmc ESBMC --solver z3
-^VERIFICATION SUCCESSFUL$
