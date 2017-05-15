@@ -7,7 +7,7 @@
  *                
  * ------------------------------------------------------
  *
- * functions needed for magnitude and phase verification
+ * Engine needed for phase verification of filters
  *
  * ------------------------------------------------------
  */
@@ -17,18 +17,12 @@
 #include <math.h>
 #include "../core/definitions.h"
 
-//filter_parameters prop;
-//implementation impl;
-//digital_system ds;
-
 extern filter_parameters filter;
 extern implementation impl;
 extern digital_system ds;
 
-
-
 #define M_PI     3.14159265358979323846
-//#define SINE_precision 6
+#define SINE_precision 7
 #define ATAN_precision 7
 #define LOWPASS 1
 #define HIGHPASS 2
@@ -76,12 +70,7 @@ void verifyPhaseResp(double *res, double *fi, double dif, int N) {
     
       assert(fabs(res[i]-fi[i]) <= dif);
   }
-
 }
-/*
- * Magnitude verifier 
- */
-
 /*
  * Magnitude verifier 
  */
@@ -110,21 +99,13 @@ void verifyPhaseResp(double *res, double *fi, double dif, int N) {
 	double _b[ds.b_size];
 	fxp_to_double_array(_b, b_fxp, ds.b_size);
 
-	/* generates magnitude response of the floating point TF, placing the result in the "res" array*/
-	//resp_mag(ds.b, ds.b_size, ds.a, ds.a_size, res, freq_response_samples);
-
 	/* generates magnitude response of the quantized TF, placing the result in the "_res" array*/
 	resp_mag(ds.b, ds.b_size, ds.a, ds.a_size, _res, freq_response_samples);
-
-	/* generates magnitude response, placing the result in the "res" array*/
 
 	float dif = 0.3;
 
 	for (i=0, w=0; (w <= 1.0); ++i, w += w_incr) {
-     
-	   //printf("w= %f %f\n", w, res[i]);
-	   // printf("_res= %f %f\n", w, _res[i]);
-	    assert(fabs(res[i]-_res[i]) <= dif);
+		assert(fabs(res[i]-_res[i]) <= dif);
 	}
 	return 0;
 }
