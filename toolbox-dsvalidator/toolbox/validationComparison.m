@@ -3,7 +3,7 @@ function [output] = validationComparison(system, p)
 % Script to verify and compare the results between MATLAB and DSVerifier
 % Give the system as input on this function and check if the outputs of
 % MATLAB and DSVerifier are the same.
-% 
+%
 % Function: [output] = validationComparison(system, p)
 %
 % The struct 'system' should have the following features:
@@ -34,73 +34,73 @@ global max_error;
 global overflow_mode;
 
 if (strcmp(p,'lc')) %limit cycle
-
-count = length(unique(system.output.output_simulation));
-
+    
+    count = length(unique(system.output.output_simulation));
+    
     if count <= system.impl.x_size/2
         output = 'Successful';
     else
         output = 'Failed';
     end
-
+    
 elseif (strcmp(p,'o')) %overflow
     
-n = system.impl.int_bits;
-l = system.impl.frac_bits;
-
-min_wl = -1*((2^(n-1)));
-max_wl = ((2^(n-1))-2^(-1*l));
-y = system.output.output_simulation;
-result = 0;
-
-if strcmp(overflow_mode,'wrap') % wrap-around mode
+    n = system.impl.int_bits;
+    l = system.impl.frac_bits;
     
-for i=1:system.impl.x_size
-
-if (y(i) >= max_wl || y(i) <= min_wl)
-        result=1;
-        break;
-end
-
-end
-
-elseif strcmp(overflow_mode, 'saturate') % saturation mode
-n_y = length(system.output.output_verification);
-count = 0;
-yv = system.output.output_verification;
-ys = system.output.output_simulation;
-for i=1:n_y
-erro = abs(abs(yv(i))-abs(ys(i)));
-if yv(i) ~= 0
-erro = erro/abs(yv(i));
-end
-if round(erro) <= 0.1
-count = count + 1;
-end
-end
-
-if count == n_y
-    result = 1;
-else
+    min_wl = -1*((2^(n-1)));
+    max_wl = ((2^(n-1))-2^(-1*l));
+    y = system.output.output_simulation;
     result = 0;
-end
-
-end
     
-if result == 1
-  output = 'Successful';
-else
-  output = 'Failed';
-end
-
-else %for all the other properties
-
- if (strcmp(lower(strtrim(system.output.output_verification)),lower(strtrim(system.output.output_simulation))))
-	output = 'Successful';
+    if strcmp(overflow_mode,'wrap') % wrap-around mode
+        
+        for i=1:system.impl.x_size
+            
+            if (y(i) >= max_wl || y(i) <= min_wl)
+                result=1;
+                break;
+            end
+            
+        end
+        
+    elseif strcmp(overflow_mode, 'saturate') % saturation mode
+        n_y = length(system.output.output_verification);
+        count = 0;
+        yv = system.output.output_verification;
+        ys = system.output.output_simulation;
+        for i=1:n_y
+            erro = abs(abs(yv(i))-abs(ys(i)));
+            if yv(i) ~= 0
+                erro = erro/abs(yv(i));
+            end
+            if round(erro) <= 0.1
+                count = count + 1;
+            end
+        end
+        
+        if count == n_y
+            result = 1;
+        else
+            result = 0;
+        end
+        
+    end
+    
+    if result == 1
+        output = 'Successful';
     else
         output = 'Failed';
- end
-
+    end
+    
+else %for all the other properties
+    
+    if (strcmp(lower(strtrim(system.output.output_verification)),lower(strtrim(system.output.output_simulation))))
+        output = 'Successful';
+    else
+        output = 'Failed';
+    end
+    
 end
 
 end

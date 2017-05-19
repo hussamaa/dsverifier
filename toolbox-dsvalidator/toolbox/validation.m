@@ -48,10 +48,10 @@ overflow_mode = ovmode;
 round_mode = rmode;
 
 if isunix
-disp('Running Automatic Validation...');
+    disp('Running Automatic Validation...');
 else
-disp('Operating System not Supported for Automatic Validation Scripts!');
-return
+    disp('Operating System not Supported for Automatic Validation Scripts!');
+    return
 end
 
 
@@ -76,7 +76,7 @@ if ~(strcmp(round_mode,'round') || strcmp(round_mode,'floor'))
     round_mode = 'round';
 end
 
-%function to extract the parameters from counterexamples output. 
+%function to extract the parameters from counterexamples output.
 validationExtraction(path, property);
 
 %parsing the paramaters to variables workspace
@@ -85,11 +85,11 @@ digital_system = validationParser(property);
 %simulation automatically of all counterexamples
 
 for i=1:length(digital_system)
-  [output, time_execution] = validationSimulation(digital_system(i), property);
-  digital_system(i).output.output_simulation = output;
-  digital_system(i).output.time_execution = time_execution;
+    [output, time_execution] = validationSimulation(digital_system(i), property);
+    digital_system(i).output.output_simulation = output;
+    digital_system(i).output.time_execution = time_execution;
 end
-	
+
 %comparison between matlab and dsverifier outputs
 for i=1:length(digital_system)
     status = validationComparison(digital_system(i), property);
@@ -106,10 +106,10 @@ fname = 'counterexamples.mat';
 varname = 'digital_system';
 
 if length(filename) > 0
-fname = [filename '.mat'];
-rname = [filename,'= digital_system;'];
-eval(rname);
-varname = filename;
+    fname = [filename '.mat'];
+    rname = [filename,'= digital_system;'];
+    eval(rname);
+    varname = filename;
 end
 
 save (fname,varname);

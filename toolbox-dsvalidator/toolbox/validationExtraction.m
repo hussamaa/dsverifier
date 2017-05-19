@@ -27,25 +27,25 @@ cd(install_folder);
 %extraction of parameters
 
 if (strcmp(p,'lc') || strcmp(p,'o')) %for overflow and lco only.
-
-script1 = 'dsverifier-directory-data-extractor-script.sh';
-command = [sh ' ' script1 ' ' directory];
-system(command);
-
-%copying files to matlab directory
-command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' dsv_counterexample_parameters.txt'];
-system(command);
-
+    
+    script1 = 'dsverifier-directory-data-extractor-script.sh';
+    command = [sh ' ' script1 ' ' directory];
+    system(command);
+    
+    %copying files to matlab directory
+    command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' dsv_counterexample_parameters.txt'];
+    system(command);
+    
 else %for all the others properties in transfer-function format.
- 
-script2 = 'dsverifier-restricted-counterexample-extractor-script.sh';
-command = [sh ' ' script2 ' ' directory];
-system(command);
-
-%copying files to matlab directory
-command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' dsv_counterexample_parameters.txt'];
-system(command);
-
+    
+    script2 = 'dsverifier-restricted-counterexample-extractor-script.sh';
+    command = [sh ' ' script2 ' ' directory];
+    system(command);
+    
+    %copying files to matlab directory
+    command = [cp ' ' directory '/dsv_counterexample_parameters.txt' ' dsv_counterexample_parameters.txt'];
+    system(command);
+    
 end
 
 cd(current);

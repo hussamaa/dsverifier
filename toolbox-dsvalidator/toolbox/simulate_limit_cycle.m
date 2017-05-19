@@ -4,7 +4,7 @@ function [output, time_execution] = simulate_limit_cycle(system)
 %
 % Give the system as a struct with all parameters of counterexample and
 % simulate the system.
-% 
+%
 % Function: [output, time_execution] = simulate_limit_cycle(system)
 %
 % The struct 'system' should have the following features:
@@ -35,11 +35,11 @@ global overflow_mode;
 property = 'limit_cycle';
 overflow_mode = 'wrap';
 
-    if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
-        [output, time_execution] = realizationDF1(system);
-    elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realization_form,'DDFII')
-        [output, time_execution]  = realizationDF2(system);
-    elseif strcmp(system.impl.realization_form,'TDFII') || strcmp(system.impl.realization_form,'TDDFII')
-        [output, time_execution]  = realizationTDF2(system);
-    end
+if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
+    [output, time_execution] = realizationDF1(system);
+elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realization_form,'DDFII')
+    [output, time_execution]  = realizationDF2(system);
+elseif strcmp(system.impl.realization_form,'TDFII') || strcmp(system.impl.realization_form,'TDDFII')
+    [output, time_execution]  = realizationTDF2(system);
+end
 end

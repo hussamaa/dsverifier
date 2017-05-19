@@ -1,5 +1,5 @@
 function y = mode_saturate(value, n, l)
-% 
+%
 %  Function to saturate mode for arithmetic overflow
 %
 % y = mode_saturate(value, n)

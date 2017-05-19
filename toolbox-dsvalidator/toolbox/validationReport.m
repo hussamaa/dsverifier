@@ -2,7 +2,7 @@ function  validationReport(digital_system)
 %
 % Script to generate a report about automatic validation
 %
-% Function: validationReport(digital_system) 
+% Function: validationReport(digital_system)
 %
 % where digital_system is a .MAT File generated
 % by automatic validation of counterexamples.
@@ -37,7 +37,7 @@ disp(' ')
 for i=1:length(digital_system)
     time_execution = digital_system(i).output.time_execution;
     status = lower(strtrim(digital_system(i).status));
- 
+    
     total_time_execution = total_time_execution + time_execution;
     
     if (strcmp(status, 'successful'))
