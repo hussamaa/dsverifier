@@ -603,10 +603,9 @@ bool doubleComparisson(double a, double b, double epslon)
 }
 
 
-double fabs_(double a){
-
+double fabs_(double a)
+{
 	if (a < 0) return a * (-1.0);
 	
 	else return a; 
-
 }
