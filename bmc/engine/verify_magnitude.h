@@ -59,7 +59,7 @@ void resp_mag(double* num, int lnum, double* den, int lden, double* res, int N) 
 		}
 
 		res[i] = sqrt(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
-	    zero_test = sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
+		zero_test = sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
 		res[i] = res[i] /zero_test;
 	}
 }
