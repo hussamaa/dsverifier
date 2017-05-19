@@ -35,21 +35,21 @@ nvar = nargin;
 var = varargin;
 
 if nvar >= 2
-if length(var{1}) > 0
- ovmode = var{1};
-end
+    if length(var{1}) > 0
+        ovmode = var{1};
+    end
 end
 
 if nvar >= 3
-if length(var{2}) > 0
- rmode = var{2};
-end
+    if length(var{2}) > 0
+        rmode = var{2};
+    end
 end
 
 if nvar >= 4
-if length(var{3}) > 0
- filename = var{3};
-end
+    if length(var{3}) > 0
+        filename = var{3};
+    end
 end
 
 property = 'sso';

@@ -17,7 +17,7 @@ function [output, time_execution] = validationSimulation(system,p)
 % system.impl.delta = in delta form realizations, the delta operator should be informed
 % system.impl.sample_time = sample time of realization
 % system.impl.x_size = the bound size
-% 
+%
 % And the parameter 'p' is the property to be analyzed: (m) for minimum phase, (s) for stability, (o) for overflow and (lc) for limit cycle.
 % (scl) for stability in closed-loop systems, (sss) for stability in state-space format, (ssc) for controllability in state-space format and (sso) for observability in state-space format.
 %
@@ -28,25 +28,25 @@ function [output, time_execution] = validationSimulation(system,p)
 % May 15, 2017
 % Manaus, Brazil
 
-  switch p
-	case 'lc' 
-    	  [output, time_execution]  = simulate_limit_cycle(system);
-	case 's' 
-    	  [output, time_execution]  = simulate_stability(system);
-	case 'm' 
-    	  [output, time_execution]  = simulate_minimum_phase(system);
-	case 'o' 
-    	  [output, time_execution]  = simulate_overflow(system);
-	case 'scl' 
-    	  [output, time_execution]  = simulate_cl_stability(system);
-	case 'sss' 
-    	  [output, time_execution]  = simulate_ss_stability(system);
-	case 'sso' 
-    	  [output, time_execution]  = simulate_ss_observability(system);
-	case 'ssc' 
-    	  [output, time_execution]  = simulate_ss_controllability(system);       
-	otherwise
-           warning('Unexpected property or error during the automatic validation.')
-  end
+switch p
+    case 'lc'
+        [output, time_execution]  = simulate_limit_cycle(system);
+    case 's'
+        [output, time_execution]  = simulate_stability(system);
+    case 'm'
+        [output, time_execution]  = simulate_minimum_phase(system);
+    case 'o'
+        [output, time_execution]  = simulate_overflow(system);
+    case 'scl'
+        [output, time_execution]  = simulate_cl_stability(system);
+    case 'sss'
+        [output, time_execution]  = simulate_ss_stability(system);
+    case 'sso'
+        [output, time_execution]  = simulate_ss_observability(system);
+    case 'ssc'
+        [output, time_execution]  = simulate_ss_controllability(system);
+    otherwise
+        warning('Unexpected property or error during the automatic validation.')
+end
 
 end

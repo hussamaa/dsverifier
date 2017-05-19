@@ -1,5 +1,5 @@
 function [y, time_execution] = realizationTDF2(system)
-% 
+%
 % Simulate and reproduce a counterexample for limit cycle using DDFII realization.
 % In case of delta form (TDDFI), the delta operator should be represented in system struct.
 %
@@ -39,10 +39,10 @@ round_mode = 'round';
 wl = system.impl.frac_bits;
 
 if (system.impl.delta > 0)
-[a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
+    [a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
 else
-a_num = system.sys.a;
-b_num = system.sys.b;
+    a_num = system.sys.a;
+    b_num = system.sys.b;
 end
 
 a_fxp = fxp_rounding(a_num,wl);
@@ -63,37 +63,37 @@ else
 end
 
 if (strcmp(property,'limit_cycle'))
-w_aux = system.inputs.initial_states;
+    w_aux = system.inputs.initial_states;
 end
 
 x =  system.inputs.const_inputs;
 y =  zeros(1,x_size);
 
 if (strcmp(property,'overflow'))||(strcmp(property,'error'))
-w_aux = zeros(1,Nw);
+    w_aux = zeros(1,Nw);
 end
 
 %% TDFII Realization
 for i=1:x_size
     
     yout = 0;
-	a_ptr = a_fxp;
-	b_ptr = b_fxp;
-        w = w_aux;
-  
-	yout = fxp_add(fxp_mult(b_ptr(1), x(i), wl), w(1), wl);
-	yout = fxp_div(yout, a_fxp(1), wl);
+    a_ptr = a_fxp;
+    b_ptr = b_fxp;
+    w = w_aux;
+    
+    yout = fxp_add(fxp_mult(b_ptr(1), x(i), wl), w(1), wl);
+    yout = fxp_div(yout, a_fxp(1), wl);
     
     for j=1:(Nw-1)
-		w(j) = w(j+1);
+        w(j) = w(j+1);
         if (j < Na)
-		w(j) = fxp_sub(w(j), fxp_mult(a_ptr(j+1), yout, wl), wl);
+            w(j) = fxp_sub(w(j), fxp_mult(a_ptr(j+1), yout, wl), wl);
         end
         
         if (j < Nb)
-		w(j) = fxp_add(w(j), fxp_mult(b_ptr(j+1), x(i), wl), wl);
+            w(j) = fxp_add(w(j), fxp_mult(b_ptr(j+1), x(i), wl), wl);
         end
-
+        
     end
     
     y(i) = fxp_quantize(yout, system.impl.int_bits, system.impl.frac_bits);
@@ -103,7 +103,7 @@ for i=1:x_size
 end
 
 if strcmp(property,'overflow')
-y = dlsim(b_fxp,a_fxp, x);
+    y = dlsim(b_fxp,a_fxp, x);
 end
 
 time_execution = toc;

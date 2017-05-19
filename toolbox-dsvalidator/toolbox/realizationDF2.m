@@ -1,5 +1,5 @@
 function [y, time_execution] = realizationDF2(system)
-% 
+%
 % Simulate and reproduce a counterexample for limit cycle using DFII realization.
 % In case of delta form (DDFII), the delta operator should be represented in system struct.
 %
@@ -39,10 +39,10 @@ round_mode = 'round';
 wl = system.impl.frac_bits;
 
 if (system.impl.delta > 0)
-[a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
+    [a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
 else
-a_num = system.sys.a;
-b_num = system.sys.b;
+    a_num = system.sys.a;
+    b_num = system.sys.b;
 end
 
 a_fxp = fxp_rounding(a_num,wl);
@@ -63,14 +63,14 @@ else
 end
 
 if (strcmp(property,'limit_cycle'))
-w_aux = system.inputs.initial_states;
+    w_aux = system.inputs.initial_states;
 end
 
 x =  system.inputs.const_inputs;
 y =  zeros(1,x_size);
 
 if (strcmp(property,'overflow'))||(strcmp(property,'error'))
-w_aux = zeros(1,Nw);
+    w_aux = zeros(1,Nw);
 end
 
 %% DFII Realization
@@ -83,24 +83,24 @@ for i=1:x_size
     w_ptr = w_aux;
     
     for k=2:Na
-	w_aux(1) = fxp_sub(w_aux(1), fxp_mult(a_ptr(k), w_ptr(k), wl),wl);
+        w_aux(1) = fxp_sub(w_aux(1), fxp_mult(a_ptr(k), w_ptr(k), wl),wl);
     end
-     
+    
     w_aux(1) = fxp_add(w_aux(1), x(i), wl);
     w_aux(1) = fxp_div(w_aux(1), a_fxp(1), wl);
-
+    
     w_ptr = w_aux;
-   
+    
     for j=1:Nb
-	sum = fxp_add(sum, fxp_mult(b_ptr(j), w_ptr(j), wl), wl);
+        sum = fxp_add(sum, fxp_mult(b_ptr(j), w_ptr(j), wl), wl);
     end
     
     y(i) = fxp_quantize(sum, system.impl.int_bits, system.impl.frac_bits);
-
+    
 end
 
 if strcmp(property,'overflow')
-y = dlsim(b_fxp,a_fxp, x);
+    y = dlsim(b_fxp,a_fxp, x);
 end
 
 time_execution = toc;
