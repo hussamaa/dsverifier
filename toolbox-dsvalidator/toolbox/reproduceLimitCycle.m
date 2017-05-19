@@ -23,8 +23,8 @@ function reproduceLimitCycle(path, varargin)
 %
 %  reproduceLimitCycle('/home/user/log/limit_cycle/','saturate','floor','counterexample_file');
 %
-% Lennon Chaves
-% January, 2017
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 ovmode = '';
@@ -35,25 +35,25 @@ nvar = nargin;
 var = varargin;
 
 if nvar >= 2
-if length(var{1}) > 0
- ovmode = var{1};
-end
+    if length(var{1}) > 0
+        ovmode = var{1};
+    end
 end
 
 if nvar >= 3
-if length(var{2}) > 0
- rmode = var{2};
-end
+    if length(var{2}) > 0
+        rmode = var{2};
+    end
 end
 
 if nvar >= 4
-if length(var{3}) > 0
- filename = var{3};
-end
+    if length(var{3}) > 0
+        filename = var{3};
+    end
 end
 
 property = 'lc';
 
-dsv_validation(path, property, ovmode, rmode, filename);
+validation(path, property, ovmode, rmode, filename);
 
 end

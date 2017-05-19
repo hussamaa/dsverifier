@@ -3,7 +3,7 @@ function [output, time_execution] = simulate_minimum_phase(system)
 % Script developed to simulate the minimum phase property in counterexamples
 %
 % Give the system as a struct with all parameters of counterexample and matlab will check minimum phase property for direct and delta forms.
-% 
+%
 % Function: [output, time_execution] = simulate_minimum_phase(system)
 %
 % The struct 'system' should have the following features:
@@ -24,43 +24,43 @@ function [output, time_execution] = simulate_minimum_phase(system)
 % The output is the feedback returned from simulation;
 % The time execution is the time to execute the simulation;
 %
-% Lennon Chaves
-% November 04, 2016
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 tic
 
 if (system.impl.delta ~= 0)
-[Da, Db] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
-fxp_a = fxp_rounding(Da, system.impl.frac_bits);
-fxp_b = fxp_rounding(Db, system.impl.frac_bits);
-rootsb = roots(fxp_b);
-rootsa = roots(fxp_a);
-else 
-fxp_a = fxp_rounding(system.sys.a, system.impl.frac_bits);
-fxp_b = fxp_rounding(system.sys.b, system.impl.frac_bits);
-rootsb = roots(fxp_b);
-rootsa = roots(fxp_a);
+    [Da, Db] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
+    fxp_a = fxp_rounding(Da, system.impl.frac_bits);
+    fxp_b = fxp_rounding(Db, system.impl.frac_bits);
+    rootsb = roots(fxp_b);
+    rootsa = roots(fxp_a);
+else
+    fxp_a = fxp_rounding(system.sys.a, system.impl.frac_bits);
+    fxp_b = fxp_rounding(system.sys.b, system.impl.frac_bits);
+    rootsb = roots(fxp_b);
+    rootsa = roots(fxp_a);
 end
 
 decision = 0;
 
-    for i=1:length(rootsb)
-        if abs(rootsb(i))>=1
-	    %The system is a NON-MINIMUM-PHASE system
-            decision = 0;
-            break
-        end
-	%The system is a MINIMUM-PHASE system
-        decision = 1;
+for i=1:length(rootsb)
+    if abs(rootsb(i))>=1
+        %The system is a NON-MINIMUM-PHASE system
+        decision = 0;
+        break
     end
+    %The system is a MINIMUM-PHASE system
+    decision = 1;
+end
 
- if decision == 0
-       output = 'Failed';
- else
-       output = 'Successful';
- end
+if decision == 0
+    output = 'Failed';
+else
+    output = 'Successful';
+end
 
- time_execution = toc;
- 
+time_execution = toc;
+
 end

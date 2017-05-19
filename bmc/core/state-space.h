@@ -7,6 +7,8 @@
  *                Iury Bessa     <iury.bessa@gmail.com>
  *                Felipe Monteiro <felipemonteiro@ufam.edu.br>
  *
+ * Contributors: Lennon Chaves <lennon.correach@gmail.com>
+ *
  * ------------------------------------------------------
  *
  * Space state representation for DSVerifier

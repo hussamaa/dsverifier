@@ -3,7 +3,7 @@ function [output, time_execution] = simulate_overflow(system)
 % Script developed to simulate the overflow property in counterexamples
 %
 % Give the system as a struct with all parameters of counterexample and matlab will check overflow property for direct and delta forms.
-% 
+%
 % Function: [output, time_execution] = simulate_overflow(system)
 %
 % The struct 'system' should have the following features:
@@ -24,9 +24,9 @@ function [output, time_execution] = simulate_overflow(system)
 % The output is the feedback returned from simulation;
 % The time execution is the time to execute the simulation;
 %
-% Lennon Chaves
-% November 04, 2016
-% Manaus
+% Federal University of Amazonas
+% May 15, 2017
+% Manaus, Brazil
 
 tic
 
@@ -39,10 +39,10 @@ round_mode = 'double';
 wl = system.impl.frac_bits;
 
 if (system.impl.delta > 0)
-[a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
+    [a_num, b_num] = deltapoly(system.sys.b, system.sys.a, system.impl.delta);
 else
-a_num = system.sys.a;
-b_num = system.sys.b;
+    a_num = system.sys.a;
+    b_num = system.sys.b;
 end
 
 a_fxp = fxp_rounding(a_num,wl);
@@ -52,7 +52,7 @@ x =  system.inputs.const_inputs;
 y =  zeros(1,system.impl.x_size);
 
 if strcmp(property,'overflow')
-y = dlsim(b_fxp,a_fxp, x);
+    y = dlsim(b_fxp,a_fxp, x);
 end
 
 output = y';

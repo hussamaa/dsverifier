@@ -25,8 +25,8 @@ function output =  reproduceOutputs(system, proper)
 %
 % The output is a struct with the results considering the overflow mode effects.
 %
-% Lennon Chaves
-% January, 2017
+% Federal University of Amazonas
+% May 15, 2017
 % Manaus, Brazil
 
 global overflow_mode;

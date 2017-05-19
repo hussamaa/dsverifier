@@ -12,6 +12,7 @@
 #           Lucas Cordeiro - lucasccordeiro@gmail.com
 #
 #  Contributors: Daniel Mello - dani-dmello@hotmail.com
+#		 Lennon Chaves <lennon.correach@gmail.com>
 #
 # --------------------------------------------------
 #
@@ -1058,13 +1059,100 @@ void extract_regexp_data_for_vector(std::string src, std::regex & regexp, std::v
 
 /*******************************************************************\
 
+Function: print_counterexample_data_for_state_space
+
+  Inputs:
+
+ Outputs:
+
+ Purpose: print counterexample data for state-space systems
+
+\*******************************************************************/
+
+void print_counterexample_data_for_state_space()
+{
+  try
+  {
+	std::cout << std::endl << "Counterexample Data:" << std::endl;
+	
+	std::cout << "  Property = " << desired_property << std::endl;
+	cplus_print_array_elements_ignoring_empty("  Numerator Plant", ds.b, ds.b_size);
+	cplus_print_array_elements_ignoring_empty("  Denominator Plant", ds.a, ds.a_size);
+	std::cout << "  Numerator Plant Size = " << ds.b_size << std::endl;
+	std::cout << "  Denominator Plant Size = " << ds.a_size << std::endl;
+
+	cplus_print_array_elements_ignoring_empty("  Numerator Controller", ds.b, ds.b_size);
+	cplus_print_array_elements_ignoring_empty("  Denominator Controller", ds.a, ds.a_size);
+	std::cout << "  Numerator Controller Size = " << ds.b_size << std::endl;
+	std::cout << "  Denominator Controller Size = " << ds.a_size << std::endl;
+	
+	std::cout << "  X Size = " << desired_x_size << std::endl;
+	std::cout << "  Sample Time = " << ds.sample_time << std::endl;
+	std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;
+	std::cout << "  Realization = " << desired_realization << std::endl;
+	std::cout << "  Dynamic Range = " << "{" << impl.min << "," << impl.max << "}" << std::endl;
+
+  }
+  catch (std::regex_error& e)
+  {
+	std::cout << "[ERROR] It was not able to process the counterexample data. :(" << std::endl;
+	exit(1);
+  }
+}
+
+
+/*******************************************************************\
+
+Function: print_counterexample_data_for_closed_loop
+
+  Inputs:
+
+ Outputs:
+
+ Purpose: print counterexample data for closed-loop systems in transfer-function format
+
+\*******************************************************************/
+
+void print_counterexample_data_for_closed_loop()
+{
+  try
+  {
+	std::cout << std::endl << "Counterexample Data:" << std::endl;
+	
+	std::cout << "  Property = " << desired_property << std::endl;
+	cplus_print_array_elements_ignoring_empty("  Numerator Plant", ds.b, ds.b_size);
+	cplus_print_array_elements_ignoring_empty("  Denominator Plant", ds.a, ds.a_size);
+	std::cout << "  Numerator Plant Size = " << ds.b_size << std::endl;
+	std::cout << "  Denominator Plant Size = " << ds.a_size << std::endl;
+
+	cplus_print_array_elements_ignoring_empty("  Numerator Controller", ds.b, ds.b_size);
+	cplus_print_array_elements_ignoring_empty("  Denominator Controller", ds.a, ds.a_size);
+	std::cout << "  Numerator Controller Size = " << ds.b_size << std::endl;
+	std::cout << "  Denominator Controller Size = " << ds.a_size << std::endl;
+	
+	std::cout << "  X Size = " << desired_x_size << std::endl;
+	std::cout << "  Sample Time = " << ds.sample_time << std::endl;
+	std::cout << "  Implementation = " << "<" << impl.int_bits << "," << impl.frac_bits << ">" << std::endl;
+	std::cout << "  Realization = " << desired_realization << std::endl;
+	std::cout << "  Dynamic Range = " << "{" << impl.min << "," << impl.max << "}" << std::endl;
+
+  }
+  catch (std::regex_error& e)
+  {
+	std::cout << "[ERROR] It was not able to process the counterexample data. :(" << std::endl;
+	exit(1);
+  }
+}
+
+/*******************************************************************\
+
 Function: print_counterexample_data_for_restricted_properties
 
   Inputs:
 
  Outputs:
 
- Purpose: print counterexample data for overflow/stability/minimum phase properties
+ Purpose: print counterexample data for stability/minimum phase properties for ESBMC
 
 \*******************************************************************/
 
@@ -1107,7 +1195,7 @@ Function: print_counterexample_data
 
  Outputs:
 
- Purpose:
+ Purpose: print counterexample data for overflow/stability/minimum phase/limit-cycle properties for CBMC
 
 \*******************************************************************/
 
@@ -2690,8 +2778,14 @@ int main(int argc, char* argv[])
 	bool is_restricted_property = (desired_property == "STABILITY" ||
 	  desired_property == "MINIMUM_PHASE");
 
-	bool is_counterexample_property = ((desired_property == "OVERFLOW" && desired_bmc == "ESBMC") ||
+	bool is_restricted_counterexample = ((desired_property == "OVERFLOW" && desired_bmc == "ESBMC") ||
 	  desired_property == "STABILITY" || desired_property == "MINIMUM_PHASE");
+
+	bool is_closed_loop_counterexample = ( desired_property == "STABILITY_CLOSED_LOOP" ||
+	  desired_property == "LIMIT_CYCLE_CLOSED_LOOP" || desired_property == "QUANTIZATION_ERROR_CLOSED_LOOP");
+
+	bool is_state_space_counterexample = ( desired_property == "STABILITY" ||
+	  desired_property == "OBSERVABILITY" || desired_property == "CONTROLLABILITY" || desired_property == "QUANTIZATION_ERROR");
 
 	extract_data_from_file();
 
@@ -2716,14 +2810,22 @@ int main(int argc, char* argv[])
 
 	  if (show_counterexample_data)
 	  {
-	    if(is_counterexample_property)
-		{
-          print_counterexample_data_for_restricted_properties();
-        }
-		else
-		{
-          print_counterexample_data(counterexample);
-        }
+	    if(is_restricted_counterexample)
+             {
+               print_counterexample_data_for_restricted_properties();
+             }
+             else if (is_closed_loop_counterexample) 
+              {
+		//print_counterexample_data_for_closed_loop();	
+              }
+             else if (is_state_space_counterexample) 
+              {
+		//print_counterexample_data_for_state_space();
+              }
+              else      
+	      {
+               print_counterexample_data(counterexample);
+              }
 	  }
 
 	  exit(0);
