@@ -1783,22 +1783,9 @@ void generates_mag_response(double* num, int lnum, double* den, int lden, double
 		}
 
 		res[i] = sqrt(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]); 
-	    zero_test = sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
+		zero_test = sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
 		res[i] = res[i] /zero_test;
 	}
-
-	//If necessary, uncomment the following "for" statement for debugging porpouses
-	/*
-	for (i=0;i<N+1;++i) {
-	      
-	    printf("\ni = %d\n",i);
-	    printf("Den = %.16f + j*%.16f \n", out_denRe[i], out_denIm[i]);
-	    printf("Sqrt den = %.30f \n", sqrt(out_denRe[i]*out_denRe[i]+out_denIm[i]*out_denIm[i]));
-	    printf("Num = %.16f + j*%.16f \n", out_numRe[i], out_numIm[i]);
-	    printf("Sqrt den = %.30f \n", sqrt(out_numRe[i]*out_numRe[i]+out_numIm[i]*out_numIm[i]));
-	}
-	*/
-  
 }
 
 /*******************************************************************\
