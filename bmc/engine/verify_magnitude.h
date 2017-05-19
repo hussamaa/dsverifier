@@ -74,7 +74,6 @@ void resp_mag(double* num, int lnum, double* den, int lden, double* res, int N) 
 	int freq_response_samples = 100;	
 	double w;
 	double w_incr = 1.0 / freq_response_samples;
-  	//double res[freq_response_samples+1];
   	double _res[freq_response_samples+1];
   	int i,j;
   	char msg[50]; 
