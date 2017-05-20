@@ -19,8 +19,10 @@
  */
 double sinTyl(double x, int precision){
     double sine;
-    double xsquared = x*x;
+    double xsquared;
     double aux;
+
+    xsquared = x*x;
 
     if (precision < 0)
     { 
@@ -57,9 +59,14 @@ double sinTyl(double x, int precision){
                                 aux = aux*xsquared;
                                 sine -=aux/39916800;
                                 if (precision >= 7)
-                                  printf("Warning: Function sinTyl "
-                                  "from bmc/core/filter_functions.h: Precision "
-                                  "representation exceeded. Assuming maximum precision of 6\n");
+                                {    
+                                   aux = aux*xsquared;
+                                    sine +=aux/6227020800;
+                                    if (precision >= 8)
+                                    printf("Warning: Function sinTyl "
+                                    "from bmc/core/filter_functions.h: Precision "
+                                    "representation exceeded. Assuming maximum precision of 7\n");
+                                }  
                             }
                         }                     
                     }
@@ -113,9 +120,15 @@ double cosTyl(double x, int precision){
                             {
                                 aux = aux*xsquared;
                                 cosine -=aux/3628800;
-                                if (precision >= 7) printf("Warning: Function sinTyl "
-                                "from bmc/core/filter_functions.h: Precision "
-                                "representation exceeded. Assuming maximum precision of 6\n");
+                                if (precision >= 7) 
+                                {
+                                    aux = aux*xsquared;
+                                    cosine +=aux/479001600;
+                                    if (precision >= 8) 
+                                    printf("Warning: Function sinTyl "
+                                    "from bmc/core/filter_functions.h: Precision "
+                                    "representation exceeded. Assuming maximum precision of 7\n");
+                                }
                             }
                         }
                     }

@@ -79,6 +79,8 @@
 #define SAFETY_STATE_SPACE	16
 #define FILTER_MAGNITUDE_DET 17
 #define FILTER_MAGNITUDE_NON_DET 18
+#define FILTER_PHASE_DET 19
+#define FILTER_PHASE_NON_DET 20
 
 /** Check Required Parameters */
 #ifndef PROPERTY
@@ -230,8 +232,11 @@ typedef struct {
    instructions assembly;
 } hardware;
 
+/** filter parameters structure */
 typedef struct{
-  float Ap, Ar, Ac;
-  float wp, wc, wr; 
+  double Ap, Ar, Ac;
+  double wp, wc, wr;
+  double w1p, w1c, w1r;
+  double w2p, w2c, w2r;
   int type; 
 }filter_parameters;

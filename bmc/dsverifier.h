@@ -45,7 +45,7 @@
 #include "engine/verify_controllability.h"
 #include "engine/verify_observability.h"
 #include "engine/verify_magnitude.h"
-
+#include "engine/verify_phase.h"
 
 extern digital_system ds;
 extern digital_system plant;
@@ -148,6 +148,10 @@ int main(){
 	else if (PROPERTY == FILTER_MAGNITUDE_NON_DET) 
 	{	
 		call_verification_task(&verify_magnitude);
+	}
+	else if (PROPERTY == FILTER_PHASE_NON_DET) 
+	{	
+		call_verification_task(&verify_phase);
 	}
 	return 0;
 }
@@ -331,9 +335,9 @@ void validation()
 			}
 		}
 	}
-	if (PROPERTY == FILTER_MAGNITUDE_NON_DET)
+	if ((PROPERTY == FILTER_MAGNITUDE_NON_DET)||(PROPERTY == FILTER_PHASE_NON_DET))
 	{
-		if (!((filter.Ap > 0) && (filter.Ac >0) && (filter.Ar >0)))
+		if (!((filter.Ap >= 0) && (filter.Ac >= 0) && (filter.Ar >= 0)))
 		{
 				printf("\n\n*****************************************************************************\n");
 				printf("* set values bigger than 0 for Ap, Ac and Ar* \n");
@@ -360,14 +364,11 @@ void call_verification_task(void * verification_task)
 	/* Base case is the execution using all parameters without uncertainty */
 	_Bool base_case_executed = 0;
 
+	if (ERROR_MODE == ABSOLUTE){
 
-	if (ERROR_MODE == ABSOLUTE)
-	{
 		/* Considering uncertainty for numerator coefficients */
-		for(i=0; i<ds.b_size; i++)
-		{
-			if (ds.b_uncertainty[i] > 0)
-			{
+		for(i=0; i<ds.b_size; i++){
+			if (ds.b_uncertainty[i] > 0){
 				double factor = ds.b_uncertainty[i];
 				factor = factor < 0 ? factor * (-1) : factor;
 
@@ -375,12 +376,9 @@ void call_verification_task(void * verification_task)
 				double max = ds.b[i] + factor;
 
 				/* Eliminate redundant executions  */
-				if ((factor == 0) && (base_case_executed == 1))
-				{
+				if ((factor == 0) && (base_case_executed == 1)){
 					continue;
-				}
-				else if ((factor == 0) && (base_case_executed == 0))
-				{
+				}else if ((factor == 0) && (base_case_executed == 0)){
 					base_case_executed = 1;
 				}
 
@@ -389,11 +387,10 @@ void call_verification_task(void * verification_task)
 			}
 		}
 
+
 		/* considering uncertainty for denominator coefficients */
-		for(i=0; i<ds.a_size; i++)
-		{
-			if (ds.a_uncertainty[i] > 0)
-			{
+		for(i=0; i<ds.a_size; i++){
+			if (ds.a_uncertainty[i] > 0){
 				double factor = ds.a_uncertainty[i];
 				factor = factor < 0 ? factor * (-1) : factor;
 
@@ -401,12 +398,9 @@ void call_verification_task(void * verification_task)
 				double max = ds.a[i] + factor;
 
 				/* Eliminate redundant executions  */
-				if ((factor == 0) && (base_case_executed == 1))
-				{
+				if ((factor == 0) && (base_case_executed == 1)){
 					continue;
-				}
-				else if ((factor == 0) && (base_case_executed == 0))
-				{
+				}else if ((factor == 0) && (base_case_executed == 0)){
 					base_case_executed = 1;
 				}
 
@@ -414,15 +408,11 @@ void call_verification_task(void * verification_task)
 				__DSVERIFIER_assume((ds.a[i] >= min) && (ds.a[i] <= max));
 			}
 		}
-	}
-	else
-	{
+	} else {
 		/* Considering uncertainty for numerator coefficients */
 		int i=0;
-		for(i=0; i<ds.b_size; i++)
-		{
-			if (ds.b_uncertainty[i] > 0)
-			{
+		for(i=0; i<ds.b_size; i++){
+			if (ds.b_uncertainty[i] > 0){
 				double factor = ((ds.b[i] * ds.b_uncertainty[i]) / 100);
 				factor = factor < 0 ? factor * (-1) : factor;
 
@@ -430,12 +420,9 @@ void call_verification_task(void * verification_task)
 				double max = ds.b[i] + factor;
 
 				/* Eliminate redundant executions  */
-				if ((factor == 0) && (base_case_executed == 1))
-				{
+				if ((factor == 0) && (base_case_executed == 1)){
 					continue;
-				}
-				else if ((factor == 0) && (base_case_executed == 0))
-				{
+				}else if ((factor == 0) && (base_case_executed == 0)){
 					base_case_executed = 1;
 				}
 
@@ -445,10 +432,8 @@ void call_verification_task(void * verification_task)
 		}
 
 		/* considering uncertainty for denominator coefficients */
-		for(i=0; i<ds.a_size; i++)
-		{
-			if (ds.a_uncertainty[i] > 0)
-			{
+		for(i=0; i<ds.a_size; i++){
+			if (ds.a_uncertainty[i] > 0){
 				double factor = ((ds.a[i] * ds.a_uncertainty[i]) / 100);
 				factor = factor < 0 ? factor * (-1) : factor;
 
@@ -456,12 +441,9 @@ void call_verification_task(void * verification_task)
 				double max = ds.a[i] + factor;
 
 				/* Eliminate redundant executions  */
-				if ((factor == 0) && (base_case_executed == 1))
-				{
+				if ((factor == 0) && (base_case_executed == 1)){
 					continue;
-				}
-				else if ((factor == 0) && (base_case_executed == 0))
-				{
+				}else if ((factor == 0) && (base_case_executed == 0)){
 					base_case_executed = 1;
 				}
 
@@ -470,6 +452,7 @@ void call_verification_task(void * verification_task)
 			}
 		}
 	}
+
 
 	((void(*)())verification_task)(); /* call the verification task */
 }
