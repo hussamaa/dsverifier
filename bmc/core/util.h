@@ -19,6 +19,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <math.h>
 
 /** initialise an array with zeroes */
 void initialize_array(double v[], int n){
@@ -592,4 +594,18 @@ void fxp_transpose(fxp_t a[LIMIT][LIMIT], fxp_t b[LIMIT][LIMIT],int n, int m)
     	 b[j][i] = a[i][j];
       }
    }
+}
+
+
+bool doubleComparisson(double a, double b, double epslon)
+{
+    return fabs(a - b) < epslon;
+}
+
+
+double fabs_(double a)
+{
+	if (a < 0) return a * (-1.0);
+	
+	else return a; 
 }
