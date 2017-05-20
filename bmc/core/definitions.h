@@ -18,14 +18,14 @@
  * rounding mode, input and output formats, and etc.
  *
  * ------------------------------------------------------
-*/
+ */
 
 /** model checkers */
 #define NONE	0
 #define ESBMC	1
 #define CBMC	2
 #ifndef BMC
-	#define BMC	1
+#define BMC	1
 #endif
 
 /** required parameters */
@@ -84,26 +84,26 @@
 
 /** Check Required Parameters */
 #ifndef PROPERTY
-	#define PROPERTY              	          0
+#define PROPERTY              	          0
 #endif
 #ifndef REALIZATION
-	#define REALIZATION                     	0
+#define REALIZATION                     	0
 #endif
 #ifndef X_SIZE
-	#define X_SIZE                         		0
+#define X_SIZE                         		0
 #endif
 #ifndef K_SIZE
-	#define K_SIZE                        	  0
+#define K_SIZE                        	  0
 #endif
 #ifndef EXPECTED_ERROR
-	#define EXPECTED_ERROR                	  -1
+#define EXPECTED_ERROR                	  -1
 #endif
 
 /** processor parameters (DEPRECATED) */
 #define CLOCK                               16000000
 #define CYCLE                               1 / CLOCK
 #ifndef SAMPLERATE
-	#define SAMPLERATE                    	  100
+#define SAMPLERATE                    	  100
 #endif
 #define DEADLINE                            1 / SAMPLERATE
 #define OVERHEAD                            0
@@ -113,7 +113,7 @@
 #define SATURATE                            2
 #define WRAPAROUND                          3
 #ifndef OVERFLOW_MODE
-	#define OVERFLOW_MODE					1
+#define OVERFLOW_MODE					1
 #endif
 
 /** rounding mode */
@@ -121,13 +121,13 @@
 #define FLOOR                               1
 #define CEIL                                2
 #ifndef ROUNDING_MODE
-	#define ROUNDING_MODE               	  1
+#define ROUNDING_MODE               	  1
 #endif
 
 /** k induction */
 #define K_INDUCTION         1
 #ifndef K_INDUCTION_MODE
-	#define K_INDUCTION_MODE               	  0
+#define K_INDUCTION_MODE               	  0
 #endif
 
 /** overflow, x_size, and round parameters */
@@ -139,61 +139,64 @@ int rounding_mode = ROUNDING;
 #define SERIES                              1
 #define FEEDBACK                            2
 #ifndef CONNECTION_MODE
-	#define CONNECTION_MODE               	  0
+#define CONNECTION_MODE               	  0
 #endif
 
 /** error mode for digital and closed-loop verification */
 #define RELATIVE							1
 #define ABSOLUTE							2
 #ifndef ERROR_MODE
-	#define ERROR_MODE                     	0
+#define ERROR_MODE                     	0
 #endif
-
 
 /** device model */
 #define MSP430                              1
 
 /* digital system in transfer function structure */
-typedef struct {
-  double a[100];
-  int a_size;
-  double b[100];
-  int b_size;
-  double sample_time;
-  double a_uncertainty[100];
-  double b_uncertainty[100];
+typedef struct
+{
+	double a[100];
+	int a_size;
+	double b[100];
+	int b_size;
+	double sample_time;
+	double a_uncertainty[100];
+	double b_uncertainty[100];
 } digital_system;
 
 /** digital system in space state structure */
 
-typedef struct {
-    double A[LIMIT][LIMIT];
-    double B[LIMIT][LIMIT];
-    double C[LIMIT][LIMIT];
-    double D[LIMIT][LIMIT];
-    double states[LIMIT][LIMIT];
-    double outputs[LIMIT][LIMIT];
-    double inputs[LIMIT][LIMIT];
-    double K[LIMIT][LIMIT];
-    unsigned int nStates;
-    unsigned int nInputs;
-    unsigned int nOutputs;
+typedef struct
+{
+	double A[LIMIT][LIMIT];
+	double B[LIMIT][LIMIT];
+	double C[LIMIT][LIMIT];
+	double D[LIMIT][LIMIT];
+	double states[LIMIT][LIMIT];
+	double outputs[LIMIT][LIMIT];
+	double inputs[LIMIT][LIMIT];
+	double K[LIMIT][LIMIT];
+	unsigned int nStates;
+	unsigned int nInputs;
+	unsigned int nOutputs;
 } digital_system_state_space;
 
 /** implementation structure */
-typedef struct {
-   int int_bits;
-   int frac_bits;
-   double max;
-   double min;
-   int default_realization;
-   double delta;
-   int scale;
-   double max_error;
+typedef struct
+{
+	int int_bits;
+	int frac_bits;
+	double max;
+	double min;
+	int default_realization;
+	double delta;
+	int scale;
+	double max_error;
 } implementation;
 
 /** assembly structure */
-typedef struct {
+typedef struct
+{
 	int push;
 	int in;
 	int sbiw;
@@ -225,18 +228,20 @@ typedef struct {
 } instructions;
 
 /** hardware structure */
-typedef struct {
-   long clock;
-   int device;
-   double cycle;
-   instructions assembly;
+typedef struct
+{
+	long clock;
+	int device;
+	double cycle;
+	instructions assembly;
 } hardware;
 
 /** filter parameters structure */
-typedef struct{
-  double Ap, Ar, Ac;
-  double wp, wc, wr;
-  double w1p, w1c, w1r;
-  double w2p, w2c, w2r;
-  int type; 
-}filter_parameters;
+typedef struct
+{
+	double Ap, Ar, Ac;
+	double wp, wc, wr;
+	double w1p, w1c, w1r;
+	double w2p, w2c, w2r;
+	int type;
+} filter_parameters;
