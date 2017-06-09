@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="2278275664" file="/home/ssvlab/Development/repository/ssvlab/dsverifier/toolbox-dsvalidator/DSVerifier Counterexamples Validation.prj" location="/home/ssvlab/Development/repository/ssvlab/dsverifier/toolbox-dsvalidator" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="2278275664" file="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsvalidator/DSVerifier Counterexamples Validation.prj" location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsvalidator" name="DSVerifier Counterexamples Validation" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>DSValidator</param.appname>
     <param.authnamewatermark>Federal University of Amazonas</param.authnamewatermark>
     <param.email>dsverifier@gmail.com</param.email>
@@ -9,7 +9,7 @@
 Check validation for Minimum Phase, Stability, Limit Cycle and Overflow in Digital Systems.
 A very useful tool to be integrated after verification using DSVerifier.</param.description>
     <param.screenshot>${PROJECT_ROOT}/toolbox/logo.png</param.screenshot>
-    <param.version>2.0.0</param.version>
+    <param.version>1.1.0</param.version>
     <param.output>${PROJECT_ROOT}/DSValidator.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -73,6 +73,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <file>${PROJECT_ROOT}/toolbox/shiftL.m</file>
       <file>${PROJECT_ROOT}/toolbox/shiftR.m</file>
       <file>${PROJECT_ROOT}/toolbox/simulate_cl_stability.m</file>
+      <file>${PROJECT_ROOT}/toolbox/simulate_cl_stability_uncertainty.m</file>
       <file>${PROJECT_ROOT}/toolbox/simulate_limit_cycle.m</file>
       <file>${PROJECT_ROOT}/toolbox/simulate_minimum_phase.m</file>
       <file>${PROJECT_ROOT}/toolbox/simulate_overflow.m</file>
@@ -93,7 +94,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
     </fileset.depfun.excluded>
     <fileset.package />
     <build-deliverables>
-      <file location="/home/ssvlab/Development/repository/ssvlab/dsverifier/toolbox-dsvalidator" name="DSValidator.mltbx" optional="false">/home/ssvlab/Development/repository/ssvlab/dsverifier/toolbox-dsvalidator/DSValidator.mltbx</file>
+      <file location="/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsvalidator" name="DSValidator.mltbx" optional="false">/home/lennon/Development/Repositorio/ssvlab/dsverifier/toolbox-dsvalidator/DSValidator.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
@@ -109,7 +110,7 @@ A very useful tool to be integrated after verification using DSVerifier.</param.
       <vista>false</vista>
       <linux>true</linux>
       <solaris>false</solaris>
-      <osver>4.4.0-31-generic</osver>
+      <osver>4.4.0-78-generic</osver>
       <os32>false</os32>
       <os64>true</os64>
       <arch>glnxa64</arch>
