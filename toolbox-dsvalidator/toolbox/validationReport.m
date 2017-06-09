@@ -39,22 +39,25 @@ for i=1:length(digital_system)
     status = lower(strtrim(digital_system(i).status));
     
     total_time_execution = total_time_execution + time_execution;
+    reproducibility = 'reproducible';
     
     if (strcmp(status, 'successful'))
         total_successful = total_successful + 1;
+        reproducibility = 'reproducible';
     elseif (strcmp(status, 'failed'))
         total_failed = total_failed + 1;
+        reproducibility = 'irreproducible';
     end
-    message = ['Test case ' num2str(i) ' time: ' num2str(time_execution) ' status: ' status];
+    message = ['CE ' num2str(i) ' time: ' num2str(time_execution) ' status: ' reproducibility];
     disp(message);
 end
 disp(' ')
 disp('General Report:');
 disp(' ')
 total_tests = total_failed + total_successful;
-show_total_success = ['Total Successful: ' num2str(total_successful)];
-show_total_failed = ['Total Failed: ' num2str(total_failed)];
-show_total_test = ['Total Tests: ' num2str(total_tests)];
+show_total_success = ['Total Counterexamples Reproducible: ' num2str(total_successful)];
+show_total_failed = ['Total Counterexamples Irreproducible: ' num2str(total_failed)];
+show_total_test = ['Total Counterexamples: ' num2str(total_tests)];
 show_total_execution = ['Total Time Execution: ' num2str(total_time_execution)];
 
 disp(show_total_success);
