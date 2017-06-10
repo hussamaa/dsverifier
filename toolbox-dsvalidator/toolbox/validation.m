@@ -107,9 +107,6 @@ varname = 'digital_system';
 
 if length(filename) > 0
     fname = [filename '.mat'];
-    rname = [filename,'= digital_system;'];
-    eval(rname);
-    varname = filename;
 end
 
 save (fname,varname);

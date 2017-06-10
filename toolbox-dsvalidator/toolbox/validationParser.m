@@ -63,7 +63,9 @@ if (strcmp(p ,'lc') || strcmp(p,'o')) %for overflow and LCO only.
             system(i).test_case = name;
             system(i).sys.a = denominator;
             system(i).sys.b = numerator;
+            if (length(numerator) > 0) && (length(denominator) > 0)
             system(i).sys.tf = tf(numerator,denominator,1);
+            end
             system(i).impl.int_bits = implementation(1);
             system(i).impl.frac_bits = implementation(2);
             if length(sample_time) > 0
