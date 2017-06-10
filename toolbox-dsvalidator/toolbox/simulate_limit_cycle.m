@@ -35,6 +35,8 @@ global overflow_mode;
 property = 'limit_cycle';
 overflow_mode = 'wrap';
 
+if length(system.inputs.const_inputs) > 0
+
 if strcmp(system.impl.realization_form,'DFI') || strcmp(system.impl.realization_form,'DDFI')
     [output, time_execution] = realizationDF1(system);
 elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realization_form,'DDFII')
@@ -42,4 +44,10 @@ elseif strcmp(system.impl.realization_form,'DFII') || strcmp(system.impl.realiza
 elseif strcmp(system.impl.realization_form,'TDFII') || strcmp(system.impl.realization_form,'TDDFII')
     [output, time_execution]  = realizationTDF2(system);
 end
+
+else
+  output = -1;
+  time_execution = 0;
+end
+
 end
