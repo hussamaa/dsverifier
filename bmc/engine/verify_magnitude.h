@@ -16,12 +16,14 @@
 #include <stdint.h>
 #include <assert.h>
 #include <math.h>
-#include "../core/definitions.h"
 
 extern filter_parameters filter;
 extern implementation impl;
 extern digital_system ds;
+#ifndef M_PI
 #define M_PI     3.14159265358979323846
+#endif
+
 #define SINE_precision 7
 #define LOWPASS 1
 #define HIGHPASS 2

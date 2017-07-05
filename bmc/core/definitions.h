@@ -121,7 +121,7 @@
 #define WRAPAROUND                          3
 
 #ifndef OVERFLOW_MODE
-#define OVERFLOW_MODE                                   1
+#define OVERFLOW_MODE                       1
 #endif
 
 /** rounding mode */
@@ -142,7 +142,9 @@
 
 /** overflow, x_size, and round parameters */
 int X_SIZE_VALUE = 0;
-int overflow_mode = DETECT_OVERFLOW;
+
+int set_overflow_mode = DETECT_OVERFLOW;
+
 int rounding_mode = ROUNDING;
 
 /** connection mode for closed-loop verification */

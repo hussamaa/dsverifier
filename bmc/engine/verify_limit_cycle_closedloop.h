@@ -26,8 +26,8 @@ extern digital_system controller;
 double nondet_double();
 
 int verify_limit_cycle_closed_loop(void)
-    {
-    overflow_mode = WRAPAROUND;
+{
+    set_overflow_mode = WRAPAROUND;
 
     /* generating closed loop for series or feedback */
     double * c_num = controller.b;

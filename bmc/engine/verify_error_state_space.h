@@ -411,7 +411,7 @@ int verify_error_state_space(void)
 
     _controller_fxp = _controller;
     _controller_double = _controller;
-    overflow_mode = 0;
+    set_overflow_mode = 0;
 
     fxp_t x[K_SIZE];
     fxp_t min_fxp = fxp_double_to_fxp(impl.min);

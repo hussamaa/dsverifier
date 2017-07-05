@@ -21,8 +21,8 @@ extern digital_system ds;
 extern implementation impl;
 
 int verify_minimum_phase(void)
-    {
-    overflow_mode = 0;
+{
+    set_overflow_mode = 0;
 
     /* check the realization */
 
