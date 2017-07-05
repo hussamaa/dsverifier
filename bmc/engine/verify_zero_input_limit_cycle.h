@@ -13,8 +13,8 @@ extern digital_system ds;
 extern implementation impl;
 
 int verify_zero_input_limit_cycle(void)
-    {
-    overflow_mode = WRAPAROUND;
+{
+    set_overflow_mode = WRAPAROUND;
 
     int i, j;
     int Set_xsize_at_least_two_times_Na = 2 * ds.a_size;

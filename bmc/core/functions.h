@@ -249,7 +249,7 @@ void fxp_check_limit_cycle(fxp_t y[], int y_size)
 	{
 		if (idx > (y_size - window_size - 1))
 		{
-			printf("%.0f == %.0f\n", y[idx], y[idx - window_size]);
+			printf("%.0lld == %.0lld\n", y[idx], y[idx - window_size]);
 			int cmp_idx = idx - window_size;
 			if ((cmp_idx > 0) && (y[idx] == y[idx - window_size]))
 			{

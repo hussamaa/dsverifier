@@ -228,7 +228,7 @@ int verify_overflow(void)
 	}
 
     /* enable detect overflow (in outputs) */
-    overflow_mode = DETECT_OVERFLOW;
+    set_overflow_mode = DETECT_OVERFLOW;
 
     fxp_verify_overflow_array(y, X_SIZE_VALUE);
 

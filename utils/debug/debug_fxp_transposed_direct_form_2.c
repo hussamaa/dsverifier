@@ -40,7 +40,7 @@ int main(){
 	
 	initialization();
 
-	overflow_mode = 0;
+	set_overflow_mode = 0;
 
 	double x[11] = { 3.875, 3.875, 3.875, -3.975, 3.875, 4.0, 3.875, -3.9375, 3.875, 4.0, 3.875 } ;
 	printf("inputs: \n");

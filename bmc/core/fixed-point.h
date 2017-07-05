@@ -3455,7 +3455,7 @@ float fxp_to_float(fxp_t fxp);
 
 fxp_t fxp_quantize(fxp_t aquant)
 {
-	if (overflow_mode == SATURATE)
+	if (set_overflow_mode == SATURATE)
 	{
 		if (aquant < _fxp_min)
 		{
@@ -3466,7 +3466,7 @@ fxp_t fxp_quantize(fxp_t aquant)
 			return _fxp_max;
 		}
 	}
-	else if (overflow_mode == WRAPAROUND)
+	else if (set_overflow_mode == WRAPAROUND)
 	{
 		if (aquant < _fxp_min || aquant > _fxp_max)
 		{

@@ -24,8 +24,8 @@ extern digital_system plant_cbmc;
 extern digital_system controller;
 
 int verify_error_closedloop(void)
-    {
-    overflow_mode = WRAPAROUND;
+{
+    set_overflow_mode = WRAPAROUND;
 
     /* generating closed loop for series or feedback */
     double * c_num = controller.b;

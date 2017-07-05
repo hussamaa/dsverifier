@@ -2798,7 +2798,7 @@ void tf2ss()
 int main(int argc, char* argv[])
 {
 	/* without overflow */
-	overflow_mode = NONE;
+	set_overflow_mode = NONE;
 
 	bind_parameters(argc, argv);
 
