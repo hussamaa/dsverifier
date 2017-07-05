@@ -96,10 +96,9 @@ const char * properties[] =
 { "OVERFLOW", "LIMIT_CYCLE", "ZERO_INPUT_LIMIT_CYCLE", "ERROR", "TIMING",
 		"TIMING_MSP430", "STABILITY", "STABILITY_CLOSED_LOOP",
 		"LIMIT_CYCLE_CLOSED_LOOP", "QUANTIZATION_ERROR_CLOSED_LOOP",
-		"MINIMUM_PHASE", "QUANTIZATION_ERROR", "CONTROLLABILITY",
-		"OBSERVABILITY", "LIMIT_CYCLE_STATE_SPACE", "SAFETY_STATE_SPACE",
-		"FILTER_MAGNITUDE_NON_DET", "FILTER_MAGNITUDE_DET", "FILTER_PHASE_DET",
-		"FILTER_PHASE_NON_DET" };
+		"MINIMUM_PHASE", "QUANTIZATION_ERROR", "CONTROLLABILITY", "OBSERVABILITY",
+		"LIMIT_CYCLE_STATE_SPACE", "SAFETY_STATE_SPACE", "FILTER_MAGNITUDE_NON_DET",
+		"FILTER_MAGNITUDE_DET", "FILTER_PHASE_DET", "FILTER_PHASE_NON_DET" };
 
 const char * rounding[] =
 { "ROUNDING", "FLOOR", "CEIL" };
@@ -213,7 +212,7 @@ void extract_data_from_file()
 		std::string::size_type ds_a = current_line.find(".a=", 0);
 		if (ds_a != std::string::npos)
 		{
-			std::vector < std::string > coefficients;
+			std::vector<std::string> coefficients;
 			boost::split(coefficients, current_line, boost::is_any_of(","));
 			for (int i = 0; i < coefficients.size(); i++)
 			{
@@ -228,7 +227,7 @@ void extract_data_from_file()
 		std::string::size_type ds_b = current_line.find(".b=", 0);
 		if (ds_b != std::string::npos)
 		{
-			std::vector < std::string > coefficients;
+			std::vector<std::string> coefficients;
 			boost::split(coefficients, current_line, boost::is_any_of(","));
 			for (int i = 0; i < coefficients.size(); i++)
 			{
@@ -240,25 +239,22 @@ void extract_data_from_file()
 			}
 			continue;
 		}
-		std::string::size_type ds_sample_time = current_line.find(
-				".sample_time", 0);
+		std::string::size_type ds_sample_time = current_line.find(".sample_time",
+				0);
 		if (ds_sample_time != std::string::npos)
 		{
-			current_line = replace_all_string(current_line, ".sample_time=",
-					"");
+			current_line = replace_all_string(current_line, ".sample_time=", "");
 			ds.sample_time = std::atof(current_line.c_str());
 			continue;
 		}
-		std::string::size_type impl_int_bits = current_line.find(".int_bits",
-				0);
+		std::string::size_type impl_int_bits = current_line.find(".int_bits", 0);
 		if (impl_int_bits != std::string::npos)
 		{
 			current_line = replace_all_string(current_line, ".int_bits=", "");
 			impl.int_bits = std::atoi(current_line.c_str());
 			continue;
 		}
-		std::string::size_type impl_frac_bits = current_line.find(".frac_bits",
-				0);
+		std::string::size_type impl_frac_bits = current_line.find(".frac_bits", 0);
 		if (impl_frac_bits != std::string::npos)
 		{
 			current_line = replace_all_string(current_line, ".frac_bits=", "");
@@ -632,17 +628,15 @@ void validate_selected_realization(std::string data)
 		exit(1);
 	}
 
-	bool is_delta_realization =
-			(desired_realization == "DDFI" || desired_realization == "DDFII"
-					|| desired_realization == "TDDFII");
+	bool is_delta_realization = (desired_realization == "DDFI"
+			|| desired_realization == "DDFII" || desired_realization == "TDDFII");
 
 	if (is_delta_realization)
 	{
 		extract_data_from_file();
 		if (impl.delta == 0)
 		{
-			std::cout << "invalid delta realization: " << impl.delta
-					<< std::endl;
+			std::cout << "invalid delta realization: " << impl.delta << std::endl;
 			exit(1);
 		}
 	}
@@ -699,8 +693,7 @@ void validate_filename(std::string file)
 		std::string::size_type loc = file.find(".c", 0);
 		if (loc == std::string::npos)
 		{
-			std::cout << file << ": failed to figure out type of file"
-					<< std::endl;
+			std::cout << file << ": failed to figure out type of file" << std::endl;
 			exit(1);
 		}
 	}
@@ -778,22 +771,22 @@ void bind_parameters(int argc, char* argv[])
 			else
 				show_required_argument_message(argv[i]);
 		}
-        else if (std::string(argv[i]) == "--wordlength")
-        {
-            if (i + 1 < argc)
-                validate_selected_wordlength_mode(argv[++i]);
-            else
-               show_required_argument_message(argv[i]);
-        }
+		else if (std::string(argv[i]) == "--wordlength")
+		{
+			if (i + 1 < argc)
+				validate_selected_wordlength_mode(argv[++i]);
+			else
+				show_required_argument_message(argv[i]);
+		}
 		else if (std::string(argv[i]) == "--unlimited-x-size")
 		{
 			k_induction = true;
 		}
-        else if (std::string(argv[i]) == "--fixedbv" ||
-                 std::string(argv[i]) == "--floatbv")
-        {
-            validate_selected_arithmetic_mode(argv[i]);
-        }
+		else if (std::string(argv[i]) == "--fixedbv"
+				|| std::string(argv[i]) == "--floatbv")
+		{
+			validate_selected_arithmetic_mode(argv[i]);
+		}
 		else if (std::string(argv[i]) == "--connection-mode")
 		{
 			if (i + 1 < argc)
@@ -882,11 +875,11 @@ void bind_parameters(int argc, char* argv[])
 			{
 				desired_macro_parameters += " " + parameter;
 				/* check if there is an desired benchmark */
-				std::string::size_type find_desired_ds_id = parameter.find(
-						"-DDS_ID=", 0);
+				std::string::size_type find_desired_ds_id = parameter.find("-DDS_ID=",
+						0);
 				if (find_desired_ds_id != std::string::npos)
 				{
-					std::vector < std::string > parts;
+					std::vector<std::string> parts;
 					boost::split(parts, parameter, boost::is_any_of("="));
 					desired_ds_id = "DS_ID==" + parts.at(1);
 				}
@@ -964,8 +957,7 @@ std::string prepare_bmc_command_line()
 			if (k_induction)
 			{
 				command_line = "gcc -E " + desired_filename
-						+ " -DK_INDUCTION_MODE=K_INDUCTION -DBMC=ESBMC -I "
-						+ bmc_path;
+						+ " -DK_INDUCTION_MODE=K_INDUCTION -DBMC=ESBMC -I " + bmc_path;
 			}
 			else
 			{
@@ -1022,13 +1014,13 @@ std::string prepare_bmc_command_line()
 	if (desired_connection_mode.size() > 0)
 		command_line += " -DCONNECTION_MODE=" + desired_connection_mode;
 
-    if (desired_arithmetic_mode.size() > 0)
-        command_line += " " + desired_arithmetic_mode;
-    else
-        command_line += " --fixedbv";
+	if (desired_arithmetic_mode.size() > 0)
+		command_line += " " + desired_arithmetic_mode;
+	else
+		command_line += " --fixedbv";
 
-    if (desired_wordlength_mode.size() > 0)
-        command_line += " --" + desired_wordlength_mode;
+	if (desired_wordlength_mode.size() > 0)
+		command_line += " --" + desired_wordlength_mode;
 
 	if (desired_error_mode.size() > 0)
 		command_line += " -DERROR_MODE=" + desired_error_mode;
@@ -1087,8 +1079,7 @@ std::string prepare_bmc_command_line_ss()
 	else if (desired_bmc == "CBMC")
 	{
 		command_line = model_checker_path
-				+ "/cbmc --stop-on-fail input.c -DBMC=CBMC -I "
-				+ bmc_path;
+				+ "/cbmc --stop-on-fail input.c -DBMC=CBMC -I " + bmc_path;
 	}
 
 	if (desired_property.size() > 0)
@@ -1119,7 +1110,7 @@ filter_parameters filter;
 
 int get_fxp_value(std::string exp)
 {
-	std::vector < std::string > tokens;
+	std::vector<std::string> tokens;
 	boost::split(tokens, exp, boost::is_any_of("="));
 
 	return std::atoi(tokens[1].c_str());
@@ -1175,13 +1166,12 @@ void print_counterexample_data_for_state_space()
 		std::cout << "  Numerator Plant Size = " << ds.b_size << std::endl;
 		std::cout << "  Denominator Plant Size = " << ds.a_size << std::endl;
 
-		cplus_print_array_elements_ignoring_empty("  Numerator Controller",
-				ds.b, ds.b_size);
-		cplus_print_array_elements_ignoring_empty("  Denominator Controller",
-				ds.a, ds.a_size);
+		cplus_print_array_elements_ignoring_empty("  Numerator Controller", ds.b,
+				ds.b_size);
+		cplus_print_array_elements_ignoring_empty("  Denominator Controller", ds.a,
+				ds.a_size);
 		std::cout << "  Numerator Controller Size = " << ds.b_size << std::endl;
-		std::cout << "  Denominator Controller Size = " << ds.a_size
-				<< std::endl;
+		std::cout << "  Denominator Controller Size = " << ds.a_size << std::endl;
 
 		std::cout << "  X Size = " << desired_x_size << std::endl;
 		std::cout << "  Sample Time = " << ds.sample_time << std::endl;
@@ -1225,13 +1215,12 @@ void print_counterexample_data_for_closed_loop()
 		std::cout << "  Numerator Plant Size = " << ds.b_size << std::endl;
 		std::cout << "  Denominator Plant Size = " << ds.a_size << std::endl;
 
-		cplus_print_array_elements_ignoring_empty("  Numerator Controller",
-				ds.b, ds.b_size);
-		cplus_print_array_elements_ignoring_empty("  Denominator Controller",
-				ds.a, ds.a_size);
+		cplus_print_array_elements_ignoring_empty("  Numerator Controller", ds.b,
+				ds.b_size);
+		cplus_print_array_elements_ignoring_empty("  Denominator Controller", ds.a,
+				ds.a_size);
 		std::cout << "  Numerator Controller Size = " << ds.b_size << std::endl;
-		std::cout << "  Denominator Controller Size = " << ds.a_size
-				<< std::endl;
+		std::cout << "  Denominator Controller Size = " << ds.a_size << std::endl;
 
 		std::cout << "  X Size = " << desired_x_size << std::endl;
 		std::cout << "  Sample Time = " << ds.sample_time << std::endl;
@@ -1268,12 +1257,10 @@ void print_counterexample_data_for_restricted_properties()
 		std::cout << std::endl << "Counterexample Data:" << std::endl;
 
 		bool is_delta_realization = (desired_realization == "DDFI"
-				|| desired_realization == "DDFII"
-				|| desired_realization == "TDDFII");
+				|| desired_realization == "DDFII" || desired_realization == "TDDFII");
 
 		std::cout << "  Property = " << desired_property << std::endl;
-		cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b,
-				ds.b_size);
+		cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
 		cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a,
 				ds.a_size);
 		std::cout << "  Numerator Size = " << ds.b_size << std::endl;
@@ -1319,8 +1306,7 @@ void print_counterexample_data(std::string counterexample)
 	std::vector<double> initial_states;
 	unsigned int factor = pow(2, impl.frac_bits);
 
-	std::size_t verification_failed = counterexample.find(
-			"VERIFICATION FAILED");
+	std::size_t verification_failed = counterexample.find("VERIFICATION FAILED");
 	if (verification_failed == std::string::npos)
 		return;
 
@@ -1336,13 +1322,13 @@ void print_counterexample_data(std::string counterexample)
 	{
 		/* process quantized numerator data */
 		std::regex num_fxp_regexp("b_fxp\\[[0-9]+l?\\]=-?[0-9]+l?");
-		extract_regexp_data_for_vector(counterexample, num_fxp_regexp,
-				numerator, factor);
+		extract_regexp_data_for_vector(counterexample, num_fxp_regexp, numerator,
+				factor);
 
 		/* process quantized denominator data */
 		std::regex den_fxp_regexp("a_fxp\\[[0-9]+l?\\]=-?[0-9]+l?");
-		extract_regexp_data_for_vector(counterexample, den_fxp_regexp,
-				denominator, factor);
+		extract_regexp_data_for_vector(counterexample, den_fxp_regexp, denominator,
+				factor);
 
 		/* process input data */
 		std::regex input_regexp(" x\\[[0-9]+l?\\]=-?[0-9]+l?");
@@ -1361,20 +1347,18 @@ void print_counterexample_data(std::string counterexample)
 		if (initial_states.size() == 0)
 		{
 			std::regex initial_states_regexp_df2("w0\\[[0-9]+l?\\]=-?[0-9]+l?");
-			extract_regexp_data_for_vector(counterexample,
-					initial_states_regexp_df2, initial_states, factor);
+			extract_regexp_data_for_vector(counterexample, initial_states_regexp_df2,
+					initial_states, factor);
 		}
 
 		bool is_delta_realization = (desired_realization == "DDFI"
-				|| desired_realization == "DDFII"
-				|| desired_realization == "TDDFII");
+				|| desired_realization == "DDFII" || desired_realization == "TDDFII");
 
 		//TODO: extend this counterexample data to closed-loop systems
 		std::cout << std::endl << "Counterexample Data:" << std::endl;
 
 		std::cout << "  Property = " << desired_property << std::endl;
-		cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b,
-				ds.b_size);
+		cplus_print_array_elements_ignoring_empty("  Numerator ", ds.b, ds.b_size);
 		cplus_print_array_elements_ignoring_empty("  Denominator ", ds.a,
 				ds.a_size);
 
@@ -1734,8 +1718,7 @@ void check_stability_delta_domain()
 	}
 	double da_qtz[ds.a_size];
 	fxp_to_double_array(da_qtz, da_fxp, ds.a_size);
-	cplus_print_array_elements("quantized delta denominator", da_qtz,
-			ds.a_size);
+	cplus_print_array_elements("quantized delta denominator", da_qtz, ds.a_size);
 	std::vector<RootType> poly_roots;
 	get_roots_from_polynomial(da_qtz, ds.a_size, poly_roots);
 	bool is_stable = check_delta_stability_margin(poly_roots);
@@ -1917,10 +1900,8 @@ void generates_mag_response(double* num, int lnum, double* den, int lden,
 					+ cosTyl(w, SINE_precision) * out_denIm[i];
 		}
 
-		res[i] = sqrt(
-				out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]);
-		zero_test = sqrt(
-				out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
+		res[i] = sqrt(out_numRe[i] * out_numRe[i] + out_numIm[i] * out_numIm[i]);
+		zero_test = sqrt(out_denRe[i] * out_denRe[i] + out_denIm[i] * out_denIm[i]);
 		res[i] = res[i] / zero_test;
 	}
 }
@@ -2111,8 +2092,7 @@ void check_filter_magnitude_det()
 			printf("sample: %d\n", i);
 			printf("w= %f res = %.32lf\n", w, res[i]);
 			printf("w=  %f _res= %.32lf\n", w, _res[i]);
-			if (((w < filter.w1r)
-					|| (doubleComparisson(filter.w1r, w, 0.0000001)))
+			if (((w < filter.w1r) || (doubleComparisson(filter.w1r, w, 0.0000001)))
 					&& (filter.w1r != 0))
 			{
 				if (!(_res[i] <= filter.Ar))
@@ -2123,11 +2103,10 @@ void check_filter_magnitude_det()
 					break;
 				}
 			}
-			if (((w < filter.w1c)
-					|| (doubleComparisson(filter.w1c, w, 0.0000001)))
+			if (((w < filter.w1c) || (doubleComparisson(filter.w1c, w, 0.0000001)))
 					&& ((w > (filter.w1c - w_incr))
-							|| (doubleComparisson(filter.w1c - w_incr, w,
-									0.0000001))) && (filter.w1c != 0))
+							|| (doubleComparisson(filter.w1c - w_incr, w, 0.0000001)))
+					&& (filter.w1c != 0))
 			{
 				printf(" Entrou em wc1 = %f\n", w);
 				if (!(_res[i] <= filter.Ac))
@@ -2137,10 +2116,8 @@ void check_filter_magnitude_det()
 					break;
 				}
 			}
-			if (((w > filter.w1p)
-					|| (doubleComparisson(filter.w1p, w, 0.0000001)))
-					&& ((w < filter.w2p)
-							|| (doubleComparisson(filter.w2p, w, 0.0000001))))
+			if (((w > filter.w1p) || (doubleComparisson(filter.w1p, w, 0.0000001)))
+					&& ((w < filter.w2p) || (doubleComparisson(filter.w2p, w, 0.0000001))))
 			{
 				if (!(_res[i] >= filter.Ap))
 				{
@@ -2149,11 +2126,10 @@ void check_filter_magnitude_det()
 					break;
 				}
 			}
-			if (((w > filter.w2c)
-					|| (doubleComparisson(filter.w2c, w, 0.0000001)))
+			if (((w > filter.w2c) || (doubleComparisson(filter.w2c, w, 0.0000001)))
 					&& (w < (filter.w2c + w_incr)
-							|| (doubleComparisson(filter.w2c + w_incr, w,
-									0.0000001))) && (filter.w2c != 0))
+							|| (doubleComparisson(filter.w2c + w_incr, w, 0.0000001)))
+					&& (filter.w2c != 0))
 			{
 				printf(" Entrou em wc2 = %f\n", w);
 				if (!(_res[i] <= filter.Ac))
@@ -2207,8 +2183,7 @@ void resp_phase(double* num, int lnum, double* den, int lden, double* res,
 		for (m = 1; m < lnum; ++m)
 		{
 			old_out_r = out_numRe[i];
-			out_numRe[i] = cos(w) * out_numRe[i] - sin(w) * out_numIm[i]
-					+ num[m];
+			out_numRe[i] = cos(w) * out_numRe[i] - sin(w) * out_numIm[i] + num[m];
 			out_numIm[i] = sin(w) * old_out_r + cos(w) * out_numIm[i];
 		}
 
@@ -2217,8 +2192,7 @@ void resp_phase(double* num, int lnum, double* den, int lden, double* res,
 		for (m = 1; m < lden; ++m)
 		{
 			old_out_r = out_denRe[i];
-			out_denRe[i] = cos(w) * out_denRe[i] - sin(w) * out_denIm[i]
-					+ den[m];
+			out_denRe[i] = cos(w) * out_denRe[i] - sin(w) * out_denIm[i] + den[m];
 			out_denIm[i] = sin(w) * old_out_r + cos(w) * out_denIm[i];
 		}
 
@@ -2305,8 +2279,8 @@ void check_file_exists()
 	/* check if the specified file exists */
 	if (check_if_file_exists(desired_filename) == false)
 	{
-		std::cout << "file " << desired_filename
-				<< ": failed to open input file" << std::endl;
+		std::cout << "file " << desired_filename << ": failed to open input file"
+				<< std::endl;
 		exit(1);
 	}
 }
@@ -2796,8 +2770,8 @@ void closed_loop()
 
 	// B*K
 	double_matrix_multiplication(_controller.nStates, _controller.nInputs,
-			_controller.nInputs, _controller.nStates, _controller.B,
-			_controller.K, result1);
+			_controller.nInputs, _controller.nStates, _controller.B, _controller.K,
+			result1);
 
 	double_sub_matrix(_controller.nStates, _controller.nStates, _controller.A,
 			result1, _controller.A);
@@ -2808,8 +2782,8 @@ void closed_loop()
 
 	//D*K
 	double_matrix_multiplication(_controller.nOutputs, _controller.nInputs,
-			_controller.nInputs, _controller.nStates, _controller.D,
-			_controller.K, result1);
+			_controller.nInputs, _controller.nStates, _controller.D, _controller.K,
+			result1);
 
 	double_sub_matrix(_controller.nOutputs, _controller.nStates, _controller.C,
 			result1, _controller.C);
@@ -2847,8 +2821,7 @@ void tf2ss()
 	}
 
 	for (j = 0; j < _controller.nStates; j++)
-		_controller.A[_controller.nStates - 1][j] = -ds.b[_controller.nStates
-				- j];
+		_controller.A[_controller.nStates - 1][j] = -ds.b[_controller.nStates - j];
 
 	for (i = 0; i < _controller.nStates - 1; i++)
 		for (j = 0; j < _controller.nInputs; j++)
@@ -2942,8 +2915,7 @@ int main(int argc, char* argv[])
 	else
 	{
 		bool is_delta_realization = (desired_realization == "DDFI"
-				|| desired_realization == "DDFII"
-				|| desired_realization == "TDDFII");
+				|| desired_realization == "DDFII" || desired_realization == "TDDFII");
 
 		bool is_restricted_property = (desired_property == "STABILITY"
 				|| desired_property == "MINIMUM_PHASE");
@@ -2979,9 +2951,8 @@ int main(int argc, char* argv[])
 						+ "/model-checker";
 				command_line += " > temp.c";
 				execute_command_line(command_line);
-				command_line =
-						model_checker_path
-								+ "/esbmc temp.c --clang-frontend --k-induction --boolector";
+				command_line = model_checker_path
+						+ "/esbmc temp.c --clang-frontend --k-induction --boolector";
 				counterexample = execute_command_line(command_line);
 			}
 			else
@@ -3032,8 +3003,7 @@ int main(int argc, char* argv[])
 
 			} catch (std::exception & e)
 			{
-				std::cout << std::endl
-						<< "An unexpected error occurred in DSVerifier"
+				std::cout << std::endl << "An unexpected error occurred in DSVerifier"
 						<< std::endl;
 			}
 		}

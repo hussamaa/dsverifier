@@ -168,93 +168,93 @@ int rounding_mode = ROUNDING;
 
 /* digital system in transfer function structure */
 typedef struct
-    {
-    double a[100];
-    int a_size;
-    double b[100];
-    int b_size;
-    double sample_time;
-    double a_uncertainty[100];
-    double b_uncertainty[100];
-    } digital_system;
+{
+	double a[100];
+	int a_size;
+	double b[100];
+	int b_size;
+	double sample_time;
+	double a_uncertainty[100];
+	double b_uncertainty[100];
+} digital_system;
 
 /** digital system in space state structure */
 typedef struct
-    {
-    double A[LIMIT][LIMIT];
-    double B[LIMIT][LIMIT];
-    double C[LIMIT][LIMIT];
-    double D[LIMIT][LIMIT];
-    double states[LIMIT][LIMIT];
-    double outputs[LIMIT][LIMIT];
-    double inputs[LIMIT][LIMIT];
-    double K[LIMIT][LIMIT];
-    unsigned int nStates;
-    unsigned int nInputs;
-    unsigned int nOutputs;
-    } digital_system_state_space;
+{
+	double A[LIMIT][LIMIT];
+	double B[LIMIT][LIMIT];
+	double C[LIMIT][LIMIT];
+	double D[LIMIT][LIMIT];
+	double states[LIMIT][LIMIT];
+	double outputs[LIMIT][LIMIT];
+	double inputs[LIMIT][LIMIT];
+	double K[LIMIT][LIMIT];
+	unsigned int nStates;
+	unsigned int nInputs;
+	unsigned int nOutputs;
+} digital_system_state_space;
 
 /** implementation structure */
 typedef struct
-    {
-    int int_bits;
-    int frac_bits;
-    double max;
-    double min;
-    int default_realization;
-    double delta;
-    int scale;
-    double max_error;
-    } implementation;
+{
+	int int_bits;
+	int frac_bits;
+	double max;
+	double min;
+	int default_realization;
+	double delta;
+	int scale;
+	double max_error;
+} implementation;
 
 /** assembly structure */
 typedef struct
-    {
-    int push;
-    int in;
-    int sbiw;
-    int cli;
-    int out;
-    int std;
-    int ldd;
-    int subi;
-    int sbci;
-    int lsl;
-    int rol;
-    int add;
-    int adc;
-    int adiw;
-    int rjmp;
-    int mov;
-    int sbc;
-    int ld;
-    int rcall;
-    int cp;
-    int cpc;
-    int ldi;
-    int brge;
-    int pop;
-    int ret;
-    int st;
-    int brlt;
-    int cpi;
-    } instructions;
+{
+	int push;
+	int in;
+	int sbiw;
+	int cli;
+	int out;
+	int std;
+	int ldd;
+	int subi;
+	int sbci;
+	int lsl;
+	int rol;
+	int add;
+	int adc;
+	int adiw;
+	int rjmp;
+	int mov;
+	int sbc;
+	int ld;
+	int rcall;
+	int cp;
+	int cpc;
+	int ldi;
+	int brge;
+	int pop;
+	int ret;
+	int st;
+	int brlt;
+	int cpi;
+} instructions;
 
 /** hardware structure */
 typedef struct
-    {
-    long clock;
-    int device;
-    double cycle;
-    instructions assembly;
-    } hardware;
+{
+	long clock;
+	int device;
+	double cycle;
+	instructions assembly;
+} hardware;
 
 /** filter parameters structure */
 typedef struct
-    {
-    double Ap, Ar, Ac;
-    double wp, wc, wr;
-    double w1p, w1c, w1r;
-    double w2p, w2c, w2r;
-    int type;
-    } filter_parameters;
+{
+	double Ap, Ar, Ac;
+	double wp, wc, wr;
+	double w1p, w1c, w1r;
+	double w2p, w2c, w2r;
+	int type;
+} filter_parameters;
