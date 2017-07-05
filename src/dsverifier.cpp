@@ -111,11 +111,17 @@ const char * bmcs[] =
 { "ESBMC", "CBMC" };
 const char * connections_mode[] =
 { "SERIES", "FEEDBACK" };
+const char * arithmetic_mode[] =
+{ "--fixedbv", "--floatbv" };
+const char * wordlength_mode[] =
+{ "16", "32", "64" };
 const char * error_mode[] =
 { "ABSOLUTE", "RELATIVE" };
 
 /* expected parameters */
 unsigned int desired_x_size = 0;
+std::string desired_wordlength_mode;
+std::string desired_arithmetic_mode;
 std::string desired_filename;
 std::string desired_property;
 std::string desired_realization;
@@ -424,6 +430,64 @@ void validate_selected_bmc(std::string data)
 }
 
 /*******************************************************************
+ Function: validate_selected_wordlength_mode
+
+ Inputs:
+
+ Outputs:
+
+ Purpose:
+
+ \*******************************************************************/
+
+void validate_selected_wordlength_mode(std::string data)
+{
+	int length = (sizeof(wordlength_mode) / sizeof(*wordlength_mode));
+	for (int i = 0; i < length; i++)
+	{
+		if (wordlength_mode[i] == data)
+		{
+			desired_wordlength_mode = data;
+			break;
+		}
+	}
+	if (desired_wordlength_mode.size() == 0)
+	{
+		std::cout << "invalid arithmetic-mode: " << data << std::endl;
+		exit(1);
+	}
+}
+
+/*******************************************************************
+ Function: validate_selected_arithmetic_mode
+
+ Inputs:
+
+ Outputs:
+
+ Purpose:
+
+ \*******************************************************************/
+
+void validate_selected_arithmetic_mode(std::string data)
+{
+	int length = (sizeof(arithmetic_mode) / sizeof(*arithmetic_mode));
+	for (int i = 0; i < length; i++)
+	{
+		if (arithmetic_mode[i] == data)
+		{
+			desired_arithmetic_mode = data;
+			break;
+		}
+	}
+	if (desired_arithmetic_mode.size() == 0)
+	{
+		std::cout << "invalid arithmetic-mode: " << data << std::endl;
+		exit(1);
+	}
+}
+
+/*******************************************************************
  Function: validate_selected_connection_mode
 
  Inputs:
@@ -714,10 +778,22 @@ void bind_parameters(int argc, char* argv[])
 			else
 				show_required_argument_message(argv[i]);
 		}
+        else if (std::string(argv[i]) == "--wordlength")
+        {
+            if (i + 1 < argc)
+                validate_selected_wordlength_mode(argv[++i]);
+            else
+               show_required_argument_message(argv[i]);
+        }
 		else if (std::string(argv[i]) == "--unlimited-x-size")
 		{
 			k_induction = true;
 		}
+        else if (std::string(argv[i]) == "--fixedbv" ||
+                 std::string(argv[i]) == "--floatbv")
+        {
+            validate_selected_arithmetic_mode(argv[i]);
+        }
 		else if (std::string(argv[i]) == "--connection-mode")
 		{
 			if (i + 1 < argc)
@@ -895,7 +971,7 @@ std::string prepare_bmc_command_line()
 			{
 				command_line =
 						model_checker_path + "/esbmc " + desired_filename
-								+ " --no-bounds-check --no-pointer-check  --no-div-by-zero-check --fixedbv -DBMC=ESBMC -I "
+								+ " --no-bounds-check --no-pointer-check  --no-div-by-zero-check -DBMC=ESBMC -I "
 								+ bmc_path;
 			}
 			if (desired_timeout.size() > 0)
@@ -906,7 +982,7 @@ std::string prepare_bmc_command_line()
 		else if (desired_bmc == "CBMC")
 		{
 			command_line = model_checker_path + "/cbmc " + desired_filename
-					+ " --fixedbv --stop-on-fail -DBMC=CBMC -I " + bmc_path;
+					+ " --stop-on-fail -DBMC=CBMC -I " + bmc_path;
 		}
 	}
 	else if (preprocess)
@@ -945,6 +1021,14 @@ std::string prepare_bmc_command_line()
 
 	if (desired_connection_mode.size() > 0)
 		command_line += " -DCONNECTION_MODE=" + desired_connection_mode;
+
+    if (desired_arithmetic_mode.size() > 0)
+        command_line += " " + desired_arithmetic_mode;
+    else
+        command_line += " --fixedbv";
+
+    if (desired_wordlength_mode.size() > 0)
+        command_line += " --" + desired_wordlength_mode;
 
 	if (desired_error_mode.size() > 0)
 		command_line += " -DERROR_MODE=" + desired_error_mode;
@@ -1003,7 +1087,7 @@ std::string prepare_bmc_command_line_ss()
 	else if (desired_bmc == "CBMC")
 	{
 		command_line = model_checker_path
-				+ "/cbmc --fixedbv --stop-on-fail input.c -DBMC=CBMC -I "
+				+ "/cbmc --stop-on-fail input.c -DBMC=CBMC -I "
 				+ bmc_path;
 	}
 
