@@ -15,7 +15,6 @@
  #		 Lennon Chaves <lennon.correach@gmail.com>
  #
  # --------------------------------------------------
- #
  #  Usage:
  #
  #    ./dsverifier file.c or file.ss
@@ -1790,7 +1789,10 @@ void check_state_space_stability()
  Purpose:
 
  \*******************************************************************/
+
+#ifndef M_PI
 #define M_PI 3.14159265358979323846
+#endif
 #define LOWPASS 1
 #define HIGHPASS 2
 #define PASSBAND 3
@@ -1799,7 +1801,6 @@ void check_state_space_stability()
 void generates_mag_response(double* num, int lnum, double* den, int lden,
 		double* res, int N)
 {
-
 	double w;
 	int m, i;
 	double out_numRe[N + 1];
@@ -2110,7 +2111,6 @@ void check_filter_magnitude_det()
 void resp_phase(double* num, int lnum, double* den, int lden, double* res,
 		int N)
 {
-
 	double w;
 	int m, i;
 	double out_numRe[N + 1], old_out_r;
@@ -2154,9 +2154,8 @@ void resp_phase(double* num, int lnum, double* den, int lden, double* res,
 
  \*******************************************************************/
 
-int check_filter_phase_det(void)
+void check_filter_phase_det(void)
 {
-
 	int freq_response_samples = 100;
 	double w;
 	double w_incr = 1.0 / freq_response_samples;
