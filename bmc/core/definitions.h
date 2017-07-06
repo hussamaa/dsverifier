@@ -20,12 +20,28 @@
  * ------------------------------------------------------
  */
 /** model checkers */
-#define NONE    0
-#define ESBMC   1
-#define CBMC    2
+#define NONE   0
+#define ESBMC  1
+#define CBMC   2
 
 #ifndef BMC
-#define BMC     1
+#define BMC    1
+#endif
+
+/** arithmetic **/
+#define FIXEDBV 0
+#define FLOATBV 1
+
+#ifndef ARITHMETIC
+#define ARITHMETIC 0
+#endif
+
+/** arithmetic **/
+#define FIXEDBV 0
+#define FLOATBV 1
+
+#ifndef ARITHMETIC
+#define ARITHMETIC 0
 #endif
 
 /** required parameters */
@@ -85,176 +101,174 @@
 /** Check Required Parameters */
 
 #ifndef PROPERTY
-#define PROPERTY                          0
+#define PROPERTY 0
 #endif
 
 #ifndef REALIZATION
-#define REALIZATION                             0
+#define REALIZATION  0
 #endif
 
 #ifndef X_SIZE
-#define X_SIZE                                  0
+#define X_SIZE 0
 #endif
 
 #ifndef K_SIZE
-#define K_SIZE                            0
+#define K_SIZE 0
 #endif
 
 #ifndef EXPECTED_ERROR
-#define EXPECTED_ERROR                    -1
+#define EXPECTED_ERROR -1
 #endif
 
 /** processor parameters (DEPRECATED) */
-#define CLOCK                               16000000
-#define CYCLE                               1 / CLOCK
+#define CLOCK 16000000
+#define CYCLE 1 / CLOCK
 
 #ifndef SAMPLERATE
-#define SAMPLERATE                        100
+#define SAMPLERATE  100
 #endif
 
-#define DEADLINE                            1 / SAMPLERATE
-#define OVERHEAD                            0
+#define DEADLINE 1 / SAMPLERATE
+#define OVERHEAD 0
 
 /** overflow mode */
-#define DETECT_OVERFLOW                     1
-#define SATURATE                            2
-#define WRAPAROUND                          3
+#define DETECT_OVERFLOW 1
+#define SATURATE 2
+#define WRAPAROUND 3
 
 #ifndef OVERFLOW_MODE
-#define OVERFLOW_MODE                       1
+#define OVERFLOW_MODE 1
 #endif
 
 /** rounding mode */
-#define ROUNDING                            0
-#define FLOOR                               1
-#define CEIL                                2
+#define ROUNDING  0
+#define FLOOR 1
+#define CEIL 2
 
 #ifndef ROUNDING_MODE
-#define ROUNDING_MODE                     1
+#define ROUNDING_MODE 1
 #endif
 
 /** k induction */
-#define K_INDUCTION         1
+#define K_INDUCTION 1
 
 #ifndef K_INDUCTION_MODE
-#define K_INDUCTION_MODE                  0
+#define K_INDUCTION_MODE 0
 #endif
 
-/** overflow, x_size, and round parameters */
+/** overflow, x_size, arithmetic_mode and round parameters */
 int X_SIZE_VALUE = 0;
-
 int set_overflow_mode = DETECT_OVERFLOW;
-
 int rounding_mode = ROUNDING;
 
 /** connection mode for closed-loop verification */
-#define SERIES                              1
-#define FEEDBACK                            2
+#define SERIES 1
+#define FEEDBACK 2
 
 #ifndef CONNECTION_MODE
-#define CONNECTION_MODE                   0
+#define CONNECTION_MODE 0
 #endif
 
 /** error mode for digital and closed-loop verification */
-#define RELATIVE                                                        1
-#define ABSOLUTE                                                        2
+#define RELATIVE 1
+#define ABSOLUTE 2
 
 #ifndef ERROR_MODE
-#define ERROR_MODE                      0
+#define ERROR_MODE 0
 #endif
 
 /** device model */
-#define MSP430                              1
+#define MSP430 1
 
 /* digital system in transfer function structure */
 typedef struct
-    {
-    double a[100];
-    int a_size;
-    double b[100];
-    int b_size;
-    double sample_time;
-    double a_uncertainty[100];
-    double b_uncertainty[100];
-    } digital_system;
+{
+  double a[100];
+  int a_size;
+  double b[100];
+  int b_size;
+  double sample_time;
+  double a_uncertainty[100];
+  double b_uncertainty[100];
+} digital_system;
 
 /** digital system in space state structure */
 typedef struct
-    {
-    double A[LIMIT][LIMIT];
-    double B[LIMIT][LIMIT];
-    double C[LIMIT][LIMIT];
-    double D[LIMIT][LIMIT];
-    double states[LIMIT][LIMIT];
-    double outputs[LIMIT][LIMIT];
-    double inputs[LIMIT][LIMIT];
-    double K[LIMIT][LIMIT];
-    unsigned int nStates;
-    unsigned int nInputs;
-    unsigned int nOutputs;
-    } digital_system_state_space;
+{
+  double A[LIMIT][LIMIT];
+  double B[LIMIT][LIMIT];
+  double C[LIMIT][LIMIT];
+  double D[LIMIT][LIMIT];
+  double states[LIMIT][LIMIT];
+  double outputs[LIMIT][LIMIT];
+  double inputs[LIMIT][LIMIT];
+  double K[LIMIT][LIMIT];
+  unsigned int nStates;
+  unsigned int nInputs;
+  unsigned int nOutputs;
+} digital_system_state_space;
 
 /** implementation structure */
 typedef struct
-    {
-    int int_bits;
-    int frac_bits;
-    double max;
-    double min;
-    int default_realization;
-    double delta;
-    int scale;
-    double max_error;
-    } implementation;
+{
+  int int_bits;
+  int frac_bits;
+  double max;
+  double min;
+  int default_realization;
+  double delta;
+  int scale;
+  double max_error;
+} implementation;
 
 /** assembly structure */
 typedef struct
-    {
-    int push;
-    int in;
-    int sbiw;
-    int cli;
-    int out;
-    int std;
-    int ldd;
-    int subi;
-    int sbci;
-    int lsl;
-    int rol;
-    int add;
-    int adc;
-    int adiw;
-    int rjmp;
-    int mov;
-    int sbc;
-    int ld;
-    int rcall;
-    int cp;
-    int cpc;
-    int ldi;
-    int brge;
-    int pop;
-    int ret;
-    int st;
-    int brlt;
-    int cpi;
-    } instructions;
+{
+  int push;
+  int in;
+  int sbiw;
+  int cli;
+  int out;
+  int std;
+  int ldd;
+  int subi;
+  int sbci;
+  int lsl;
+  int rol;
+  int add;
+  int adc;
+  int adiw;
+  int rjmp;
+  int mov;
+  int sbc;
+  int ld;
+  int rcall;
+  int cp;
+  int cpc;
+  int ldi;
+  int brge;
+  int pop;
+  int ret;
+  int st;
+  int brlt;
+  int cpi;
+} instructions;
 
 /** hardware structure */
 typedef struct
-    {
-    long clock;
-    int device;
-    double cycle;
-    instructions assembly;
-    } hardware;
+{
+  long clock;
+  int device;
+  double cycle;
+  instructions assembly;
+} hardware;
 
 /** filter parameters structure */
 typedef struct
-    {
-    double Ap, Ar, Ac;
-    double wp, wc, wr;
-    double w1p, w1c, w1r;
-    double w2p, w2c, w2r;
-    int type;
-    } filter_parameters;
+{
+  double Ap, Ar, Ac;
+  double wp, wc, wr;
+  double w1p, w1c, w1r;
+  double w2p, w2c, w2r;
+  int type;
+} filter_parameters;
