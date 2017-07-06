@@ -36,9 +36,8 @@ void help ()
   std::cout << "--error-mode <em>            set the error mode (ABSOLUTE or RELATIVE), default is RELATIVE" << std::endl;
   std::cout << "--overflow-mode <om>         set the overflow mode (DETECT_OVERFLOW, SATURATE, or WRAPAROUND)" << std::endl;
   std::cout << "--connection-mode <cm>       set the connection mode for the closed-loop system (SERIES or FEEDBACK)" << std::endl;
-  std::cout << "--wordlength <bits>          set the word-length of the digital system" << std::endl;
-  std::cout << "--floatbv                    use floating-point arithmetic" << std::endl;
-  std::cout << "--fixedbv                    use fixed-point arithmetic (default mode)" << std::endl;
+  std::cout << "--arithmetic-mode            set the arithmetic mode (FIXEDBV or FLOATBV)" << std::endl;
+  std::cout << "--wordlength <bits>          set the word-length for FLOATBV, integer followed by {16, 32, 64}" << std::endl;
   std::cout << "--bmc <b>                    set the BMC back-end for DSVerifier (ESBMC or CBMC, default is CBMC)" << std::endl;
   std::cout << "--solver <s>                 use the specified solver in BMC back-end (e.g., boolector, z3, yices, cvc4, and minisat)" << std::endl;
   std::cout << "--timeout <t>                configure time limit, integer followed by {s,m,h} (for ESBMC only)" << std::endl;

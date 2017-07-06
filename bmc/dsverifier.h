@@ -20,6 +20,7 @@
 #include "core/definitions.h"
 #include "core/compatibility.h"
 #include "core/fixed-point.h"
+#include "core/floating-point.h"
 #include "core/util.h"
 #include "core/functions.h"
 #include "core/realizations.h"

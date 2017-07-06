@@ -26,25 +26,32 @@ int verify_stability_closedloop_using_dslib(void)
 	int c_den_size = controller.a_size;
 
 	/* quantizing controller coefficients */
+#if (ARITHMETIC == FIXEDBV)
 	fxp_t c_num_fxp[controller.b_size];
-
-	fxp_double_to_fxp_array(c_num, c_num_fxp, controller.b_size);
-
+  fxp_double_to_fxp_array(c_num, c_num_fxp, controller.b_size);
 	fxp_t c_den_fxp[controller.a_size];
-
 	fxp_double_to_fxp_array(c_den, c_den_fxp, controller.a_size);
+#elif (ARITHMETIC == FLOATBV)
+	fp_t c_num_fp[controller.b_size];
+  fp_double_to_fp_array(c_num, c_num_fp, controller.b_size);
+	fp_t c_den_fp[controller.a_size];
+	fp_double_to_fp_array(c_den, c_den_fp, controller.a_size);
+#endif
 
 	/* getting quantized controller coefficients */
+#if (ARITHMETIC == FIXEDBV)
 	double c_num_qtz[controller.b_size];
-
 	fxp_to_double_array(c_num_qtz, c_num_fxp, controller.b_size);
-
 	double c_den_qtz[controller.a_size];
-
 	fxp_to_double_array(c_den_qtz, c_den_fxp, controller.a_size);
+#elif (ARITHMETIC == FLOATBV)
+	double c_num_qtz[controller.b_size];
+	fp_to_double_array(c_num_qtz, c_num_fp, controller.b_size);
+	double c_den_qtz[controller.a_size];
+	fp_to_double_array(c_den_qtz, c_den_fp, controller.a_size);
+#endif
 
 	/* getting plant coefficients */
-
 #if (BMC == ESBMC)
 	double * p_num = plant.b;
 	int p_num_size = plant.b_size;
@@ -84,10 +91,9 @@ int verify_stability_closedloop_using_dslib(void)
 #endif
 
 	/* checking stability */
-	printf("Verifying stability for closedloop function\n");
-	__DSVERIFIER_assert(
+	__DSVERIFIER_assert_msg(
 			check_stability_closedloop(ans_den, ans_den_size, p_num, p_num_size,
-					p_den, p_den_size));
+					p_den, p_den_size), "Verifying stability for closedloop function\n");
 
 	return 0;
 }
