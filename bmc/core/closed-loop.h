@@ -104,7 +104,7 @@ int check_stability_closedloop(double a[], int n, double plant_num[],
 		sum += a[i];
 	}
 
-	__DSVERIFIER_assert(sum > 0);
+	__DSVERIFIER_assert_msg(sum > 0, "check condition F(1) > 0\n");
 
 	/* check the second constraint condition F(-1)*(-1)^n > 0 */
 	sum = 0;
@@ -116,10 +116,10 @@ int check_stability_closedloop(double a[], int n, double plant_num[],
 
 	sum = sum * internal_pow(-1, n - 1);
 
-	__DSVERIFIER_assert(sum > 0);
+	__DSVERIFIER_assert_msg(sum > 0, "check condition F(-1)*(-1)^n > 0\n");
 
 	/* check the third constraint condition abs(a0 < an*(z^n) */
-	__DSVERIFIER_assert(internal_abs(a[n - 1]) < a[0]);
+	__DSVERIFIER_assert_msg(internal_abs(a[n - 1]) < a[0], "check condition abs(a0 < an*(z^n)");
 
 	/* check the fourth constraint of condition (Jury Table) */
 	for (i = 0; i < 2 * n - 1; i++)
@@ -149,12 +149,12 @@ int check_stability_closedloop(double a[], int n, double plant_num[],
 			}
 			else
 			{
-				__DSVERIFIER_assert(m[i - 2][0] > 0);
+				__DSVERIFIER_assert_msg(m[i - 2][0] > 0, "check Jury Table");
 
 				m[i][j] = m[i - 2][j]
 						- (m[i - 2][columns] / m[i - 2][0]) * m[i - 1][j];
 
-				__DSVERIFIER_assert((m[0][0] >= 0) && (m[i][0] >= 0));
+				__DSVERIFIER_assert_msg((m[0][0] >= 0) && (m[i][0] >= 0), "check Jury Table");
 			}
 		}
 	}
