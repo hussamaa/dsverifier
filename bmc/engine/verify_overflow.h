@@ -26,7 +26,7 @@ int verify_overflow(void)
 {
 	/* check the realization */
 
-#if      ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
+#if ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
 	fxp_t a_fxp[ds.a_size];
 	fxp_t b_fxp[ds.b_size];
 

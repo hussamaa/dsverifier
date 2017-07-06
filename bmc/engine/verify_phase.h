@@ -48,10 +48,8 @@ void resp_phase(double * num, int lnum, double * den, int lden, double * res,
 		for (m = 1; m < lnum; ++m)
 		{
 			old_out_r = out_numRe[i];
-			out_numRe[i] = cosTyl(w, SINE_precision) * out_numRe[i]
-					- sinTyl(w, SINE_precision) * out_numIm[i] + num[m];
-			out_numIm[i] = sinTyl(w, SINE_precision) * old_out_r
-					+ cosTyl(w, SINE_precision) * out_numIm[i];
+			out_numRe[i] = cosTyl(w, SINE_precision) * out_numRe[i] - sinTyl(w, SINE_precision) * out_numIm[i] + num[m];
+			out_numIm[i] = sinTyl(w, SINE_precision) * old_out_r + cosTyl(w, SINE_precision) * out_numIm[i];
 		}
 
 		out_denRe[i] = den[0];
@@ -60,10 +58,8 @@ void resp_phase(double * num, int lnum, double * den, int lden, double * res,
 		for (m = 1; m < lden; ++m)
 		{
 			old_out_r = out_denRe[i];
-			out_denRe[i] = cosTyl(w, SINE_precision) * out_denRe[i]
-					- sinTyl(w, SINE_precision) * out_denIm[i] + den[m];
-			out_denIm[i] = sinTyl(w, SINE_precision) * old_out_r
-					+ cosTyl(w, SINE_precision) * out_denIm[i];
+			out_denRe[i] = cosTyl(w, SINE_precision) * out_denRe[i] - sinTyl(w, SINE_precision) * out_denIm[i] + den[m];
+			out_denIm[i] = sinTyl(w, SINE_precision) * old_out_r + cosTyl(w, SINE_precision) * out_denIm[i];
 		}
 
 		res[i] = atan(out_numIm[i] / out_numRe[i]);             // numerator abs
