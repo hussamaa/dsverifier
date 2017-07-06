@@ -36,6 +36,14 @@
 #define ARITHMETIC 0
 #endif
 
+/** arithmetic **/
+#define FIXEDBV 0
+#define FLOATBV 1
+
+#ifndef ARITHMETIC
+#define ARITHMETIC 0
+#endif
+
 /** required parameters */
 #define LIMIT 4
 
