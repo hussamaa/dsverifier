@@ -13,8 +13,8 @@
  *
  * ------------------------------------------------------
  */
-#ifndef VERIFY_STABILITY_CLOSEDLOOP_H
-#define VERIFY_STABILITY_CLOSEDLOOP_H
+#ifndef ENGINE_VERIFY_STABILITY_CLOSEDLOOP_H
+#define ENGINE_VERIFY_STABILITY_CLOSEDLOOP_H
 
 extern digital_system plant;
 extern digital_system plant_cbmc;
@@ -91,4 +91,4 @@ int verify_stability_closedloop_using_dslib(void)
   return 0;
 }
 
-#endif // VERIFY_STABILITY_CLOSEDLOOP_H
+#endif // ENGINE_VERIFY_STABILITY_CLOSEDLOOP_H
