@@ -31,7 +31,7 @@ extern implementation impl;
 
 /** definition of fixed point width */
 #ifndef FXP_WIDTH
-#define FXP_WIDTH		32
+#define FXP_WIDTH 32
 #endif
 
 typedef int64_t fxp_t;
@@ -3714,14 +3714,11 @@ fxp_t fxp_mult(fxp_t amult, fxp_t bmult)
 	tmpmult = (fxp_t) ((fxp_t) (amult) * (fxp_t) (bmult));
 	if (tmpmult >= 0)
 	{
-		tmpmultprec = (tmpmult + ((tmpmult & 1 << (impl.frac_bits - 1)) << 1))
-				>> impl.frac_bits;
+		tmpmultprec = (tmpmult + ((tmpmult & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits;
 	}
 	else
 	{
-		tmpmultprec = -(((-tmpmult)
-				+ (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1))
-				>> impl.frac_bits);
+		tmpmultprec = -(((-tmpmult) + (((-tmpmult) & 1 << (impl.frac_bits - 1)) << 1)) >> impl.frac_bits);
 	}
 	tmpmultprec = fxp_quantize(tmpmultprec);
 	return tmpmultprec;

@@ -151,8 +151,7 @@ int check_stability_closedloop(double a[], int n, double plant_num[],
 			{
 				__DSVERIFIER_assert(m[i - 2][0] > 0);
 
-				m[i][j] = m[i - 2][j]
-						- (m[i - 2][columns] / m[i - 2][0]) * m[i - 1][j];
+				m[i][j] = m[i - 2][j] - (m[i - 2][columns] / m[i - 2][0]) * m[i - 1][j];
 
 				__DSVERIFIER_assert((m[0][0] >= 0) && (m[i][0] >= 0));
 			}

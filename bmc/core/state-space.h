@@ -35,15 +35,11 @@ double double_state_space_representation(void)
 		}
 	}
 
-	double_matrix_multiplication(nOutputs, nStates, nStates, 1, _controller.C,
-			_controller.states, result1);
-	double_matrix_multiplication(nOutputs, nInputs, nInputs, 1, _controller.D,
-			_controller.inputs, result2);
+	double_matrix_multiplication(nOutputs, nStates, nStates, 1, _controller.C, _controller.states, result1);
+	double_matrix_multiplication(nOutputs, nInputs, nInputs, 1, _controller.D, _controller.inputs, result2);
 	double_add_matrix(nOutputs, 1, result1, result2, _controller.outputs);
-	double_matrix_multiplication(nStates, nStates, nStates, 1, _controller.A,
-			_controller.states, result1);
-	double_matrix_multiplication(nStates, nInputs, nInputs, 1, _controller.B,
-			_controller.inputs, result2);
+	double_matrix_multiplication(nStates, nStates, nStates, 1, _controller.A, _controller.states, result1);
+	double_matrix_multiplication(nStates, nInputs, nInputs, 1, _controller.B, _controller.inputs, result2);
 	double_add_matrix(nStates, 1, result1, result2, _controller.states);
 
 	return _controller.outputs[0][0];
@@ -184,15 +180,11 @@ double fxp_state_space_representation(void)
 		}
 	}
 
-	fxp_matrix_multiplication(nOutputs, nStates, nStates, 1, C_fpx, states_fpx,
-			result1);
-	fxp_matrix_multiplication(nOutputs, nInputs, nInputs, 1, D_fpx, inputs_fpx,
-			result2);
+	fxp_matrix_multiplication(nOutputs, nStates, nStates, 1, C_fpx, states_fpx, result1);
+	fxp_matrix_multiplication(nOutputs, nInputs, nInputs, 1, D_fpx, inputs_fpx, result2);
 	fxp_add_matrix(nOutputs, 1, result1, result2, outputs_fpx);
-	fxp_matrix_multiplication(nStates, nStates, nStates, 1, A_fpx, states_fpx,
-			result1);
-	fxp_matrix_multiplication(nStates, nInputs, nInputs, 1, B_fpx, inputs_fpx,
-			result2);
+	fxp_matrix_multiplication(nStates, nStates, nStates, 1, A_fpx, states_fpx, result1);
+	fxp_matrix_multiplication(nStates, nInputs, nInputs, 1, B_fpx, inputs_fpx, result2);
 	fxp_add_matrix(nStates, 1, result1, result2, states_fpx);
 
 	for (i = 0; i < nStates; i++)

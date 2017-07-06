@@ -91,8 +91,7 @@ int check_stability(double a[], int n)
 	}
 	if (sum <= 0)
 	{
-		printf(
-				"[DEBUG] the first constraint of Jury criteria failed: (F(1) > 0)");
+		printf("[DEBUG] the first constraint of Jury criteria failed: (F(1) > 0)");
 		return 0;
 	}
 
@@ -105,16 +104,14 @@ int check_stability(double a[], int n)
 	sum = sum * internal_pow(-1, n - 1);
 	if (sum <= 0)
 	{
-		printf(
-				"[DEBUG] the second constraint of Jury criteria failed: (F(-1)*(-1)^n > 0)");
+		printf("[DEBUG] the second constraint of Jury criteria failed: (F(-1)*(-1)^n > 0)");
 		return 0;
 	}
 
 	/* check the third constraint condition abs(a0 < an*(z^n)  */
 	if (internal_abs(a[n - 1]) > a[0])
 	{
-		printf(
-				"[DEBUG] the third constraint of Jury criteria failed: (abs(a0) < a_{n}*z^{n})");
+		printf("[DEBUG] the third constraint of Jury criteria failed: (abs(a0) < a_{n}*z^{n})");
 		return 0;
 	}
 
@@ -147,8 +144,7 @@ int check_stability(double a[], int n)
 			}
 			else
 			{
-				m[i][j] = m[i - 2][j]
-						- (m[i - 2][columns] / m[i - 2][0]) * m[i - 1][j];
+				m[i][j] = m[i - 2][j] - (m[i - 2][columns] / m[i - 2][0]) * m[i - 1][j];
 			}
 		}
 	}
@@ -462,8 +458,7 @@ void double_matrix_multiplication(unsigned int i1, unsigned int j1,
 	}
 	else
 	{
-		printf(
-				"\nError! Operation invalid, please enter with valid matrices.\n");
+		printf("\nError! Operation invalid, please enter with valid matrices.\n");
 	}
 }
 
@@ -497,8 +492,7 @@ void fxp_matrix_multiplication(unsigned int i1, unsigned int j1,
 	}
 	else
 	{
-		printf(
-				"\nError! Operation invalid, please enter with valid matrices.\n");
+		printf("\nError! Operation invalid, please enter with valid matrices.\n");
 	}
 }
 
