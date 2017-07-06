@@ -28,6 +28,14 @@
 #define BMC    1
 #endif
 
+/** arithmetic **/
+#define FIXEDBV 0
+#define FLOATBV 1
+
+#ifndef ARITHMETIC
+#define ARITHMETIC 0
+#endif
+
 /** required parameters */
 #define LIMIT 4
 
@@ -140,11 +148,9 @@
 #define K_INDUCTION_MODE 0
 #endif
 
-/** overflow, x_size, and round parameters */
+/** overflow, x_size, arithmetic_mode and round parameters */
 int X_SIZE_VALUE = 0;
-
 int set_overflow_mode = DETECT_OVERFLOW;
-
 int rounding_mode = ROUNDING;
 
 /** connection mode for closed-loop verification */

@@ -82,6 +82,7 @@ void __DSVERIFIER_assert(_Bool expression)
 
 #include "../bmc/core/definitions.h"
 #include "../bmc/core/fixed-point.h"
+#include "../bmc/core/floating-point.h"
 #include "../bmc/core/util.h"
 #include "../bmc/core/delta-operator.h"
 #include "../bmc/core/initialization.h"
@@ -111,7 +112,7 @@ const char * bmcs[] =
 const char * connections_mode[] =
 { "SERIES", "FEEDBACK" };
 const char * arithmetic_mode[] =
-{ "--fixedbv", "--floatbv" };
+{ "FIXEDBV", "FLOATBV" };
 const char * wordlength_mode[] =
 { "16", "32", "64" };
 const char * error_mode[] =
@@ -782,11 +783,6 @@ void bind_parameters(int argc, char* argv[])
 		{
 			k_induction = true;
 		}
-		else if (std::string(argv[i]) == "--fixedbv"
-				|| std::string(argv[i]) == "--floatbv")
-		{
-			validate_selected_arithmetic_mode(argv[i]);
-		}
 		else if (std::string(argv[i]) == "--connection-mode")
 		{
 			if (i + 1 < argc)
@@ -826,6 +822,13 @@ void bind_parameters(int argc, char* argv[])
 		{
 			if (i + 1 < argc)
 				validate_selected_bmc(argv[++i]);
+			else
+				show_required_argument_message(argv[i]);
+		}
+		else if (std::string(argv[i]) == "--arithmetic-mode")
+		{
+			if (i + 1 < argc)
+				validate_selected_arithmetic_mode(argv[++i]);
 			else
 				show_required_argument_message(argv[i]);
 		}
@@ -1014,10 +1017,10 @@ std::string prepare_bmc_command_line()
 	if (desired_connection_mode.size() > 0)
 		command_line += " -DCONNECTION_MODE=" + desired_connection_mode;
 
-	if (desired_arithmetic_mode.size() > 0)
-		command_line += " " + desired_arithmetic_mode;
+  if (!desired_arithmetic_mode.compare("FLOATBV"))
+	  command_line += " --floatbv -DARITHMETIC=FLOATBV";
 	else
-		command_line += " --fixedbv";
+	  command_line += " --fixedbv -DARITHMETIC=FIXEDBV";
 
 	if (desired_wordlength_mode.size() > 0)
 		command_line += " --" + desired_wordlength_mode;
@@ -1701,7 +1704,7 @@ void check_stability_delta_domain()
 	} catch (int e)
 	{
 		std::cout
-				<< "an fixed-point arithmetic overflow occurs after delta transformation"
+				<< "a fixed-point arithmetic overflow occurs after delta transformation"
 				<< std::endl;
 		show_verification_failed();
 		exit(1);
