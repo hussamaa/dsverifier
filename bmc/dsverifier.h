@@ -17,8 +17,8 @@
  * ------------------------------------------------------
  */
 
-#ifndef DSVERIFIER_H
-#define DSVERIFIER_H
+#ifndef DSVERIFIER_DSVERIFIER_H
+#define DSVERIFIER_DSVERIFIER_H
 
 #include "core/definitions.h"
 #include "core/compatibility.h"
@@ -198,30 +198,44 @@ void validation()
       || (impl.int_bits == 0))
     {
       __DSVERIFIER_assert_msg(0, "set (controller, plant, and impl) parameters "
-                              "to check CLOSED LOOP with DSVerifier");
+                              "to check CLOSED-LOOP with DSVerifier");
     }
     else
     {
-	  printf("\n\n*****************************************************************************************************\n");
-	  printf("* set (controller and impl) parameters so that they do not overflow *\n");
-	  printf("*****************************************************************************************************\n");
+      printf("\n\n*****************************************************************************************************\n");
+      printf("* set (controller and impl) parameters so that they do not overflow *\n");
+      printf("*****************************************************************************************************\n");
 
+      // we want to ensure that the user does not provide implementation
+      // aspects of the digital controller that leads to overflow
       unsigned j;
       for(j = 0; j < controller.a_size; ++j)
       {
         const double value = controller.a[j];
+#if(ARITHMETIC == FIXEDBV)
         __DSVERIFIER_assert(value <= _dbl_max);
         __DSVERIFIER_assert(value >= _dbl_min);
+#elif(ARITHMETIC == FLOATBV)
+        __DSVERIFIER_assert(value <= _fp_max);
+        __DSVERIFIER_assert(value >= _fp_min);
+#endif
       }
 
       for(j = 0; j < controller.b_size; ++j)
       {
         const double value = controller.b[j];
+#if(ARITHMETIC == FIXEDBV)
         __DSVERIFIER_assert(value <= _dbl_max);
         __DSVERIFIER_assert(value >= _dbl_min);
+#elif(ARITHMETIC == FLOATBV)
+        __DSVERIFIER_assert(value <= _fp_max);
+        __DSVERIFIER_assert(value >= _fp_min);
+#endif
       }
     }
 
+    // make ensure that the user does not provide controllers
+    // with no coefficients in the numerator and denominator
     if(controller.b_size > 0)
     {
       unsigned j, zeros = 0;
@@ -234,7 +248,8 @@ void validation()
       }
       if(zeros == controller.b_size)
       {
-        __DSVERIFIER_assert_msg(0, "The controller numerator must not be zero");
+        __DSVERIFIER_assert_msg(0, "The controller numerator "
+                                "must not be zero");
       }
     }
 
@@ -252,21 +267,22 @@ void validation()
 
       if(zeros == controller.a_size)
       {
-        __DSVERIFIER_assert(0, "The controller denominator must not be zero");
+        __DSVERIFIER_assert_msg(0, "The controller denominator "
+                                "must not be zero");
       }
     }
 
     if(CONNECTION_MODE == 0)
     {
       __DSVERIFIER_assert_msg(0, "set a connection mode to "
-                              "check CLOSED LOOP with DSVerifier "
+                              "check CLOSED-LOOP with DSVerifier "
                               "(use: --connection-mode TYPE)");
     }
   }
 
   if(PROPERTY == 0)
   {
-    __DSVERIFIER_assert(0, "set the property "
+    __DSVERIFIER_assert_msg(0, "set the property "
                         "to check with DSVerifier "
                         "(use: --property NAME)");
   }
@@ -279,8 +295,8 @@ void validation()
     || (PROPERTY == ERROR))
   {
     if((X_SIZE == 0) && !(K_INDUCTION_MODE == K_INDUCTION))
-	{
-      __DSVERIFIER_assert(0, "set a X_SIZE to use this "
+    {
+      __DSVERIFIER_assert_msg(0, "set a X_SIZE to use this "
                              "property in DSVerifier "
                              "(use: --x-size VALUE)");
     }
@@ -291,7 +307,7 @@ void validation()
     }
     else if(X_SIZE < 0)
     {
-      __DSVERIFIER_assert(0, "set a X_SIZE > 0");
+      __DSVERIFIER_assert_msg(0, "set a X_SIZE > 0");
     }
     else
     {
@@ -555,4 +571,4 @@ void call_closedloop_verification_task(
   ((void (*)()) closedloop_verification_task)();
 }
 
-#endif // DSVERIFIER_H
+#endif // DSVERIFIER_DSVERIFIER_H

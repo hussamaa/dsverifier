@@ -14,8 +14,8 @@
  * ------------------------------------------------------
  */
 
-#ifndef CORE_INITIALIZATION_H
-#define CORE_INITIALIZATION_H
+#ifndef DSVERIFIER_CORE_INITIALIZATION_H
+#define DSVERIFIER_CORE_INITIALIZATION_H
 
 #include <float.h>
 
@@ -42,7 +42,6 @@ void initialization()
            "subtracted by the precision!\n");
     __DSVERIFIER_assert(0);
   }
-#endif
 
   if(impl.frac_bits >= 31)
   {
@@ -64,6 +63,10 @@ void initialization()
   _dbl_min /= (1 << impl.frac_bits);
   _dbl_max = _fxp_max;
   _dbl_max /= (1 << impl.frac_bits);
+#elif(ARITHMETIC == FLOATBV)
+  _fp_min = FLT_MIN;
+  _fp_max = FLT_MAX;
+#endif
 
   /* check if the scale exists */
   if((impl.scale == 0) || (impl.scale == 1))
@@ -83,4 +86,4 @@ void initialization()
     impl.max = impl.max / impl.scale;
   }
 }
-#endif // CORE_INITIALIZATION_H
+#endif // DSVERIFIER_CORE_INITIALIZATION_H
