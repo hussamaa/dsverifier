@@ -180,16 +180,19 @@ int rounding_mode = ROUNDING;
 /** device model */
 #define MSP430 1
 
+/** maximum digital-system order */
+#define MAX_DSORDER 50
+
 /* digital system in transfer function structure */
 typedef struct
 {
-  double a[100];
+  double a[MAX_DSORDER];
   int a_size;
-  double b[100];
+  double b[MAX_DSORDER];
   int b_size;
   double sample_time;
-  double a_uncertainty[100];
-  double b_uncertainty[100];
+  double a_uncertainty[MAX_DSORDER];
+  double b_uncertainty[MAX_DSORDER];
 } digital_system;
 
 /** digital system in space state structure */
