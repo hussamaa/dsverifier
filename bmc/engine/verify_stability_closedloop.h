@@ -74,21 +74,21 @@ int verify_stability_closedloop_using_dslib(void)
   int ans_den_size = controller.a_size + plant.a_size - 1;
 
 #if(CONNECTION_MODE == SERIES)
-  ft_closedloop_series(c_num_qtz, c_num_size, c_den_qtz, c_den_size,
-                       p_num, p_num_size, p_den, p_den_size, ans_num,
-                       ans_num_size, ans_den, ans_den_size);
+  ft_closedloop_series(c_num_qtz, c_num_size, c_den_qtz, c_den_size, p_num,
+      p_num_size, p_den, p_den_size, ans_num, ans_num_size, ans_den,
+      ans_den_size);
 #elif(CONNECTION_MODE == FEEDBACK)
   printf("Verifying stability for controller\n");
   check_stability(c_den_qtz, c_den_size);
   ft_closedloop_feedback(c_num_qtz, c_num_size, c_den_qtz, c_den_size,
-                         p_num, p_num_size, p_den, p_den_size, ans_num,
-                         ans_num_size, ans_den, ans_den_size);
+      p_num, p_num_size, p_den, p_den_size, ans_num,
+      ans_num_size, ans_den, ans_den_size);
 #endif
 
   /* checking stability */
-  __DSVERIFIER_assert_msg(check_stability_closedloop(ans_den, ans_den_size,
-                          p_num, p_num_size, p_den, p_den_size),
-                          "check stability for closed-loop function\n");
+  __DSVERIFIER_assert_msg(
+      check_stability_closedloop(ans_den, ans_den_size, p_num, p_num_size,
+          p_den, p_den_size), "check stability for closed-loop function\n");
   return 0;
 }
 

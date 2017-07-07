@@ -53,7 +53,7 @@ void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n)
   printf("%s = {", name);
 
   for(int i=0; i < n; i++)
-	printf(" %lld ", v[i]);
+    printf(" %lld ", v[i]);
 
   printf("}\n");
 }
@@ -64,39 +64,39 @@ void cplus_print_array_elements(const char * name, double * v, int n)
 
   for(int i=0; i < n; i++)
   {
-	printf(" %.16f ", v[i]);
+    printf(" %.16f ", v[i]);
   }
 
   printf("}\n");
 }
 
 void cplus_print_array_elements_ignoring_empty(
-  const char * name,
-  double * v,
-  int n)
+    const char * name,
+    double * v,
+    int n)
 {
   if (n > 0)
-  cplus_print_array_elements(name,v,n);
+    cplus_print_array_elements(name,v,n);
 }
 
 void show_required_argument_message(std::string parameter)
 {
-	std::cerr << parameter << " option requires one argument." << std::endl;
-	exit(1);
+  std::cerr << parameter << " option requires one argument." << std::endl;
+  exit(1);
 }
 
 void show_underflow_message()
 {
   std::cout <<
-    "UNDERFLOW detected: An fixed-point arithmetic underflow occurs after delta transformation"
-	<< std::endl;
+      "UNDERFLOW detected: An fixed-point arithmetic underflow occurs after delta transformation"
+      << std::endl;
 }
 
 void show_delta_not_representable()
 {
   std::cout <<
-    "DsVerifier is unable to represent this value in delta-form using this precision"
-	<< std::endl;
+      "DsVerifier is unable to represent this value in delta-form using this precision"
+      << std::endl;
 }
 
 void show_verification_error()

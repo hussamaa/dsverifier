@@ -39,7 +39,7 @@ void initialization()
   if(impl.int_bits >= FXP_WIDTH - impl.frac_bits)
   {
     printf("impl.int_bits must be less than the word-width "
-           "subtracted by the precision!\n");
+        "subtracted by the precision!\n");
     __DSVERIFIER_assert(0);
   }
 

@@ -121,8 +121,7 @@ int main()
   }
   else if(PROPERTY == STABILITY_CLOSED_LOOP)
   {
-    call_closedloop_verification_task(
-      &verify_stability_closedloop_using_dslib);
+    call_closedloop_verification_task(&verify_stability_closedloop_using_dslib);
   }
   else if(PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)
   {
@@ -169,45 +168,44 @@ int main()
 void validation()
 {
   if((PROPERTY == QUANTIZATION_ERROR) || (PROPERTY == SAFETY_STATE_SPACE)
-    || (PROPERTY == LIMIT_CYCLE_STATE_SPACE)
-    || (PROPERTY == CONTROLLABILITY) || (PROPERTY == OBSERVABILITY))
+      || (PROPERTY == LIMIT_CYCLE_STATE_SPACE) || (PROPERTY == CONTROLLABILITY)
+      || (PROPERTY == OBSERVABILITY))
   {
     if(K_SIZE == 0)
     {
       __DSVERIFIER_assert_msg(0, "set a K_SIZE to use this property "
-                              "in DSVerifier (use: -DK_SIZE=VALUE)");
+          "in DSVerifier (use: -DK_SIZE=VALUE)");
     }
     initials();
     return;
   }
 
   if(((PROPERTY != STABILITY_CLOSED_LOOP)
-    && (PROPERTY != LIMIT_CYCLE_CLOSED_LOOP)
-    && (PROPERTY != QUANTIZATION_ERROR_CLOSED_LOOP))
-    && ((ds.a_size == 0) || (ds.b_size == 0)))
+      && (PROPERTY != LIMIT_CYCLE_CLOSED_LOOP)
+      && (PROPERTY != QUANTIZATION_ERROR_CLOSED_LOOP))
+      && ((ds.a_size == 0) || (ds.b_size == 0)))
   {
     __DSVERIFIER_assert_msg(0, "set (ds and impl) parameters "
-                            "to check with DSVerifier");
+        "to check with DSVerifier");
   }
 
   if((PROPERTY == STABILITY_CLOSED_LOOP)
-    || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)
-    || (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP))
+      || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)
+      || (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP))
   {
-    if((controller.a_size == 0) || (plant.b_size == 0)
-      || (impl.int_bits == 0))
+    if((controller.a_size == 0) || (plant.b_size == 0) || (impl.int_bits == 0))
     {
       __DSVERIFIER_assert_msg(0, "set (controller, plant, and impl) parameters "
-                              "to check CLOSED-LOOP with DSVerifier");
+          "to check CLOSED-LOOP with DSVerifier");
     }
     else
     {
       printf("\n\n*********************************************************"
-             "********************************************\n");
+          "********************************************\n");
       printf("* set (controller and impl) parameters "
-             "so that they do not overflow *\n");
+          "so that they do not overflow *\n");
       printf("**************************************************************"
-             "***************************************\n");
+          "***************************************\n");
 
       // we want to ensure that the user does not provide implementation
       // aspects of the digital controller that leads to overflow
@@ -215,7 +213,7 @@ void validation()
       for(j = 0; j < controller.a_size; ++j)
       {
 #if(ARITHMETIC == FIXEDBV)
-    	const double value = controller.a[j];
+        const double value = controller.a[j];
         __DSVERIFIER_assert(value <= _dbl_max);
         __DSVERIFIER_assert(value >= _dbl_min);
 #elif(ARITHMETIC == FLOATBV)
@@ -228,7 +226,7 @@ void validation()
       for(j = 0; j < controller.b_size; ++j)
       {
 #if(ARITHMETIC == FIXEDBV)
-    	const double value = controller.b[j];
+        const double value = controller.b[j];
         __DSVERIFIER_assert(value <= _dbl_max);
         __DSVERIFIER_assert(value >= _dbl_min);
 #elif(ARITHMETIC == FLOATBV)
@@ -254,7 +252,7 @@ void validation()
       if(zeros == controller.b_size)
       {
         __DSVERIFIER_assert_msg(0, "The controller numerator "
-                                "must not be zero");
+            "must not be zero");
       }
     }
 
@@ -273,37 +271,37 @@ void validation()
       if(zeros == controller.a_size)
       {
         __DSVERIFIER_assert_msg(0, "The controller denominator "
-                                "must not be zero");
+            "must not be zero");
       }
     }
 
     if(CONNECTION_MODE == 0)
     {
       __DSVERIFIER_assert_msg(0, "set a connection mode to "
-                              "check CLOSED-LOOP with DSVerifier "
-                              "(use: --connection-mode TYPE)");
+          "check CLOSED-LOOP with DSVerifier "
+          "(use: --connection-mode TYPE)");
     }
   }
 
   if(PROPERTY == 0)
   {
     __DSVERIFIER_assert_msg(0, "set the property "
-                        "to check with DSVerifier "
-                        "(use: --property NAME)");
+        "to check with DSVerifier "
+        "(use: --property NAME)");
   }
 
   if((PROPERTY == OVERFLOW) || (PROPERTY == LIMIT_CYCLE)
-    || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE)
-    || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)
-    || (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP)
-    || ((PROPERTY == TIMING_MSP430) || (PROPERTY == TIMING))
-    || (PROPERTY == ERROR))
+      || (PROPERTY == ZERO_INPUT_LIMIT_CYCLE)
+      || (PROPERTY == LIMIT_CYCLE_CLOSED_LOOP)
+      || (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP)
+      || ((PROPERTY == TIMING_MSP430) || (PROPERTY == TIMING))
+      || (PROPERTY == ERROR))
   {
     if((X_SIZE == 0) && !(K_INDUCTION_MODE == K_INDUCTION))
     {
       __DSVERIFIER_assert_msg(0, "set a X_SIZE to use this "
-                             "property in DSVerifier "
-                             "(use: --x-size VALUE)");
+          "property in DSVerifier "
+          "(use: --x-size VALUE)");
     }
     else if(K_INDUCTION_MODE == K_INDUCTION)
     {
@@ -321,10 +319,10 @@ void validation()
   }
 
   if((REALIZATION == 0) && (PROPERTY != STABILITY_CLOSED_LOOP)
-    && (PROPERTY != FILTER_MAGNITUDE_NON_DET))
+      && (PROPERTY != FILTER_MAGNITUDE_NON_DET))
   {
     __DSVERIFIER_assert_msg(0, "set the realization to "
-                            "check with DSVerifier (use: --realization NAME)");
+        "check with DSVerifier (use: --realization NAME)");
   }
 
   if((PROPERTY == ERROR) || (PROPERTY == QUANTIZATION_ERROR_CLOSED_LOOP))
@@ -332,7 +330,7 @@ void validation()
     if(impl.max_error == 0)
     {
       __DSVERIFIER_assert_msg(0, "provide the maximum expected error "
-                              "(use: impl.max_error)");
+          "(use: impl.max_error)");
     }
   }
   if((PROPERTY == TIMING_MSP430) || (PROPERTY == TIMING))
@@ -343,21 +341,21 @@ void validation()
       {
         __DSVERIFIER_assert_msg(0, "clock must not be zero");
       }
-       hw.cycle = ((double) 1.0 / hw.clock);
-       if(hw.cycle < 0)
+      hw.cycle = ((double) 1.0 / hw.clock);
+      if(hw.cycle < 0)
       {
         __DSVERIFIER_assert_msg(0, "cycle time could not be representable");
       }
       if(ds.sample_time == 0)
       {
         __DSVERIFIER_assert_msg(0, "provide the sample time "
-                                "of the digital system (ds.sample_time)");
+            "of the digital system (ds.sample_time)");
       }
     }
   }
 
   if((PROPERTY == FILTER_MAGNITUDE_NON_DET)
-    || (PROPERTY == FILTER_PHASE_NON_DET))
+      || (PROPERTY == FILTER_PHASE_NON_DET))
   {
     if(!((filter.Ap >= 0) && (filter.Ac >= 0) && (filter.Ar >= 0)))
     {
@@ -365,18 +363,17 @@ void validation()
     }
   }
 
-  if((REALIZATION == CDFI) || (REALIZATION == CDFII)
-    || (REALIZATION == CTDFII) || (REALIZATION == CDDFI)
-    || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+  if((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII)
+      || (REALIZATION == CDDFI) || (REALIZATION == CDDFII)
+      || (REALIZATION == CTDDFII))
   {
     __DSVERIFIER_assert_msg(0, "cascade modes are not supported");
   }
 }
 
 /** method to call the verification task considering
-    or not the uncertainty for digital system (ds struct) **/
-void call_verification_task(
-  void * verification_task)
+ or not the uncertainty for digital system (ds struct) **/
+void call_verification_task(void * verification_task)
 {
   int i = 0;
 
@@ -453,14 +450,14 @@ void call_verification_task(
         if((factor == 0) && (base_case_executed == 1))
         {
           continue;
-         }
-         else if((factor == 0) && (base_case_executed == 0))
-         {
-           base_case_executed = 1;
-         }
+        }
+        else if((factor == 0) && (base_case_executed == 0))
+        {
+          base_case_executed = 1;
+        }
 
-           ds.b[i] = nondet_double();
-           __DSVERIFIER_assume((ds.b[i] >= min) && (ds.b[i] <= max));
+        ds.b[i] = nondet_double();
+        __DSVERIFIER_assume((ds.b[i] >= min) && (ds.b[i] <= max));
       }
     }
 
@@ -475,17 +472,17 @@ void call_verification_task(
         double max = ds.a[i] + factor;
 
         /* Eliminate redundant executions */
-       if((factor == 0) && (base_case_executed == 1))
-       {
-         continue;
-       }
-       else if((factor == 0) && (base_case_executed == 0))
-       {
-         base_case_executed = 1;
-       }
+        if((factor == 0) && (base_case_executed == 1))
+        {
+          continue;
+        }
+        else if((factor == 0) && (base_case_executed == 0))
+        {
+          base_case_executed = 1;
+        }
 
-         ds.a[i] = nondet_double();
-         __DSVERIFIER_assume((ds.a[i] >= min) && (ds.a[i] <= max));
+        ds.a[i] = nondet_double();
+        __DSVERIFIER_assume((ds.a[i] >= min) && (ds.a[i] <= max));
       }
     }
   }
@@ -494,8 +491,7 @@ void call_verification_task(
 }
 
 /** call the closedloop verification task */
-void call_closedloop_verification_task(
-  void * closedloop_verification_task)
+void call_closedloop_verification_task(void * closedloop_verification_task)
 {
   /* base case is the execution using all parameters without uncertainty */
   _Bool base_case_executed = 0;
@@ -558,11 +554,11 @@ void call_closedloop_verification_task(
         base_case_executed = 1;
       }
 #if(BMC == ESBMC)
-    plant.a[i] = nondet_double();
-    __DSVERIFIER_assume((plant.a[i] >= min) && (plant.a[i] <= max));
+      plant.a[i] = nondet_double();
+      __DSVERIFIER_assume((plant.a[i] >= min) && (plant.a[i] <= max));
 #elif(BMC == CBMC)
-    plant_cbmc.a[i] = nondet_double();
-    __DSVERIFIER_assume((plant_cbmc.a[i] >= min) && (plant_cbmc.a[i] <= max));
+      plant_cbmc.a[i] = nondet_double();
+      __DSVERIFIER_assume((plant_cbmc.a[i] >= min) && (plant_cbmc.a[i] <= max));
 #endif
     }
     else
