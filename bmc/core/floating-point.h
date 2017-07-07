@@ -47,8 +47,10 @@ fp_t _fp_imask;
  */
 fp_t fp_get_int_part(fp_t in)
 {
-	int temp = in;
-	return (fp_t)temp;
+  // If the value of the integral part cannot be represented
+  // by the integer type, the behavior is undefined.
+  int temp = (int) in;
+  return (fp_t) temp;
 }
 
 /**
@@ -58,60 +60,60 @@ fp_t fp_get_int_part(fp_t in)
  */
 fp_t fp_quantize(fp_t aquant)
 {
-	if (set_overflow_mode == SATURATE)
-	{
-		if (aquant < _fp_min)
-		{
-			return _fp_min;
-		}
-		else if (aquant > _fp_max)
-		{
-			return _fp_max;
-		}
-	}
-	else if (set_overflow_mode == WRAPAROUND)
-	{
-		if (aquant < _fp_min || aquant > _fp_max)
-		{
-			return wrap(aquant, _fp_min, _fp_max);
-		}
-	}
-	return (fp_t) aquant;
+  if(set_overflow_mode == SATURATE)
+  {
+    if(aquant < _fp_min)
+    {
+      return _fp_min;
+    }
+    else if(aquant > _fp_max)
+    {
+      return _fp_max;
+    }
+  }
+  else if(set_overflow_mode == WRAPAROUND)
+  {
+    if(aquant < _fp_min || aquant > _fp_max)
+    {
+      return wrap(aquant, _fp_min, _fp_max);
+    }
+  }
+  return (fp_t) aquant;
 }
 
 void fp_verify_overflow(fp_t value)
 {
-	fp_quantize(value);
-	printf("An Overflow Occurred in system's output");
-	__DSVERIFIER_assert(value <= _fp_max && value >= _fp_min);
+  fp_quantize(value);
+  printf("An Overflow Occurred in system's output");
+  __DSVERIFIER_assert(value <= _fp_max && value >= _fp_min);
 }
 
 void fp_verify_overflow_node(fp_t value, char* msg)
 {
-	if (OVERFLOW_MODE == SATURATE)
-	{
-		printf("%s", msg);
-		__DSVERIFIER_assert(value <= _fp_max && value >= _fp_min);
-	}
+  if(OVERFLOW_MODE == SATURATE)
+  {
+    printf("%s", msg);
+    __DSVERIFIER_assert(value <= _fp_max && value >= _fp_min);
+  }
 }
 
 void fp_verify_overflow_array(fp_t array[], int n)
 {
-	int i = 0;
-	for (i = 0; i < n; i++)
-	{
-		fp_verify_overflow(array[i]);
-	}
+  int i = 0;
+  for(i = 0; i < n; i++)
+  {
+    fp_verify_overflow(array[i]);
+  }
 }
 
 /**
  * Converts a signed int to fp representation
  * @param [a] number in 16 bits signed int format
- * @return number in fp signed representation
+ * @return number in fp_t signed representation
  */
 fp_t fp_int_to_fp(int in)
 {
-	return (float)in;
+  return (fp_t) in;
 }
 
 /**
@@ -121,12 +123,12 @@ fp_t fp_int_to_fp(int in)
  */
 int fp_to_int(fp_t fp)
 {
-	return (int) fp;
+  return (int) fp;
 }
 
 fp_t fp_double_to_fp(double value)
 {
-	return (fp_t)value;
+  return (fp_t) value;
 }
 
 /**
@@ -138,11 +140,11 @@ fp_t fp_double_to_fp(double value)
  */
 void fp_double_to_fp_array(double f[], fp_t r[], int N)
 {
-	int i;
-	for (i = 0; i < N; ++i)
-	{
-		r[i] = fp_double_to_fp(f[i]);
-	}
+  int i;
+  for(i = 0; i < N; ++i)
+  {
+    r[i] = fp_double_to_fp(f[i]);
+  }
 }
 
 /**
@@ -152,7 +154,7 @@ void fp_double_to_fp_array(double f[], fp_t r[], int N)
  */
 double fp_to_double(fp_t fp)
 {
-	return (double)fp;
+  return (double) fp;
 }
 
 /**
@@ -164,11 +166,11 @@ double fp_to_double(fp_t fp)
  */
 void fp_to_double_array(double f[], fp_t r[], int N)
 {
-	int i;
-	for (i = 0; i < N; ++i)
-	{
-		f[i] = fp_to_double(r[i]);
-	}
+  int i;
+  for(i = 0; i < N; ++i)
+  {
+    f[i] = fp_to_double(r[i]);
+  }
 }
 
 /**
@@ -178,10 +180,10 @@ void fp_to_double_array(double f[], fp_t r[], int N)
  */
 fp_t fp_abs(fp_t a)
 {
-	fp_t tmp;
-	tmp = ((a < 0) ? -(fp_t) (a) : a);
-	tmp = fp_quantize(tmp);
-	return tmp;
+  fp_t tmp;
+  tmp = ((a < 0) ? -(fp_t) (a) : a);
+  tmp = fp_quantize(tmp);
+  return tmp;
 }
 
 /**
@@ -192,10 +194,10 @@ fp_t fp_abs(fp_t a)
  */
 fp_t fp_add(fp_t aadd, fp_t badd)
 {
-	fp_t tmpadd;
-	tmpadd = aadd + badd;
-	tmpadd = fp_quantize(tmpadd);
-	return tmpadd;
+  fp_t tmpadd;
+  tmpadd = aadd + badd;
+  tmpadd = fp_quantize(tmpadd);
+  return tmpadd;
 }
 
 /**
@@ -206,10 +208,10 @@ fp_t fp_add(fp_t aadd, fp_t badd)
  */
 fp_t fp_sub(fp_t asub, fp_t bsub)
 {
-	fp_t tmpsub;
-	tmpsub = asub - bsub;
-	tmpsub = fp_quantize(tmpsub);
-	return tmpsub;
+  fp_t tmpsub;
+  tmpsub = asub - bsub;
+  tmpsub = fp_quantize(tmpsub);
+  return tmpsub;
 }
 
 /**
@@ -220,10 +222,10 @@ fp_t fp_sub(fp_t asub, fp_t bsub)
  */
 fp_t fp_mult(fp_t amult, fp_t bmult)
 {
-	fp_t tmpmult;
-	tmpmult = amult * bmult;
-	tmpmult = fp_quantize(tmpmult);
-	return tmpmult;
+  fp_t tmpmult;
+  tmpmult = amult * bmult;
+  tmpmult = fp_quantize(tmpmult);
+  return tmpmult;
 }
 
 /**
@@ -234,10 +236,10 @@ fp_t fp_mult(fp_t amult, fp_t bmult)
  */
 fp_t fp_div(fp_t a, fp_t b)
 {
-	__DSVERIFIER_assert(b != 0);
-	fp_t tmpdiv = a / b;
-	tmpdiv = fp_quantize(tmpdiv);
-	return tmpdiv;
+  __DSVERIFIER_assert(b != 0);
+  fp_t tmpdiv = a / b;
+  tmpdiv = fp_quantize(tmpdiv);
+  return tmpdiv;
 }
 
 /**
@@ -247,10 +249,10 @@ fp_t fp_div(fp_t a, fp_t b)
  */
 fp_t fp_neg(fp_t aneg)
 {
-	fp_t tmpneg;
-	tmpneg = -(fp_t) (aneg);
-	tmpneg = fp_quantize(tmpneg);
-	return tmpneg;
+  fp_t tmpneg;
+  tmpneg = -(fp_t) (aneg);
+  tmpneg = fp_quantize(tmpneg);
+  return tmpneg;
 }
 
 /**
@@ -262,7 +264,7 @@ fp_t fp_neg(fp_t aneg)
  */
 fp_t fp_sign(fp_t a)
 {
-	return ((a == 0) ? 0 : ((a < 0) ? _fp_minus_one : _fp_one));
+  return ((a == 0) ? 0 : ((a < 0) ? _fp_minus_one : _fp_one));
 }
 
 /**
@@ -273,7 +275,7 @@ fp_t fp_sign(fp_t a)
  */
 fp_t fp_shrl(fp_t in, int shift)
 {
-	return (fp_t) (((unsigned int) in) >> shift);
+  return (fp_t) (((unsigned int) in) >> shift);
 }
 
 /**
@@ -283,36 +285,36 @@ fp_t fp_shrl(fp_t in, int shift)
  */
 fp_t fp_square(fp_t a)
 {
-	return fp_mult(a, a);
+  return fp_mult(a, a);
 }
 
 void fp_print_int(fp_t a)
 {
-	printf("\n%i", (int32_t) a);
+  printf("\n%i", (int32_t) a);
 }
 
 void fp_print_float(fp_t a)
 {
-	printf("\n%f", a);
+  printf("\n%f", a);
 }
 
 void fp_print_float_array(fp_t a[], int N)
 {
-	int i;
-	for (i = 0; i < N; ++i)
-	{
-		printf("\n%f", a[i]);
-	}
+  int i;
+  for(i = 0; i < N; ++i)
+  {
+    printf("\n%f", a[i]);
+  }
 }
 
 /* print array elements */
 void print_fp_array_elements(char * name, fp_t * v, int n)
 {
-	printf("%s = {", name);
-	int i;
-	for (i = 0; i < n; i++)
-	{
-		printf(" %f ", v[i]);
-	}
-	printf("}\n");
+  printf("%s = {", name);
+  int i;
+  for(i = 0; i < n; i++)
+  {
+    printf(" %f ", v[i]);
+  }
+  printf("}\n");
 }

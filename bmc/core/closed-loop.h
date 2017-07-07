@@ -27,11 +27,10 @@
  * The arrays must be in the crescent degree order (e.g.: a0*1+a_1*x^1+a2*x^3...)
  * Here is calculated the coefficients of the global transfer function of system with series compensation
  */
-void ft_closedloop_series(
-  double c_num[], int Nc_num, double c_den[],
-  int Nc_den, double model_num[], int Nmodel_num, double model_den[],
-  int Nmodel_den, double ans_num[], int Nans_num, double ans_den[],
-  int Nans_den)
+void ft_closedloop_series(double c_num[], int Nc_num, double c_den[],
+    int Nc_den, double model_num[], int Nmodel_num, double model_den[],
+    int Nmodel_den, double ans_num[], int Nans_num, double ans_den[],
+    int Nans_den)
 {
   Nans_num = Nc_num + Nmodel_num - 1;
   Nans_den = Nc_den + Nmodel_den - 1;
@@ -48,11 +47,10 @@ void ft_closedloop_series(
  * The arrays must be in the crescent degree order (e.g.: a0*1+a_1*x^1+a2*x^3...)
  * Here is calculated the coefficients of the global transfer function of system with series compensation
  */
-void ft_closedloop_sensitivity(
-  double c_num[], int Nc_num, double c_den[],
-  int Nc_den, double model_num[], int Nmodel_num, double model_den[],
-  int Nmodel_den, double ans_num[], int Nans_num, double ans_den[],
-  int Nans_den)
+void ft_closedloop_sensitivity(double c_num[], int Nc_num, double c_den[],
+    int Nc_den, double model_num[], int Nmodel_num, double model_den[],
+    int Nmodel_den, double ans_num[], int Nans_num, double ans_den[],
+    int Nans_den)
 {
   int Nans_num_p = Nc_num + Nmodel_num - 1;
 
@@ -71,11 +69,10 @@ void ft_closedloop_sensitivity(
  * The arrays must be in the crescent degree order (e.g.: a0*1+a_1*x^1+a2*x^3...)
  * Here is calculated the coefficients of the global transfer function of system with series feedback
  */
-void ft_closedloop_feedback(
-  double c_num[], int Nc_num, double c_den[],
-  int Nc_den, double model_num[], int Nmodel_num, double model_den[],
-  int Nmodel_den, double ans_num[], int Nans_num, double ans_den[],
-  int Nans_den)
+void ft_closedloop_feedback(double c_num[], int Nc_num, double c_den[],
+    int Nc_den, double model_num[], int Nmodel_num, double model_den[],
+    int Nmodel_den, double ans_num[], int Nans_num, double ans_den[],
+    int Nans_den)
 {
   Nans_num = Nc_den + Nmodel_num - 1;
   Nans_den = Nc_den + Nmodel_den - 1;
@@ -91,9 +88,8 @@ void ft_closedloop_feedback(
 }
 
 /** check the stability of system using jury criteria */
-int check_stability_closedloop(
-  double a[], int n, double plant_num[],
-  int p_num_size, double plant_den[], int p_den_size)
+int check_stability_closedloop(double a[], int n, double plant_num[],
+    int p_num_size, double plant_den[], int p_den_size)
 {
   int columns = n;
   double m[2 * n - 1][n];
@@ -126,7 +122,7 @@ int check_stability_closedloop(
 
   /* check the third constraint condition abs(a0 < an*(z^n) */
   __DSVERIFIER_assert_msg(internal_abs(a[n - 1]) < a[0],
-                          "check condition abs(a0 < an*(z^n)");
+      "check condition abs(a0 < an*(z^n)");
 
   /* check the fourth constraint of condition (Jury Table) */
   for(i = 0; i < 2 * n - 1; i++)
@@ -156,7 +152,7 @@ int check_stability_closedloop(
         __DSVERIFIER_assert_msg(m[i - 2][0] > 0, "check Jury Table");
         m[i][j] = m[i - 2][j] - (m[i - 2][columns] / m[i - 2][0]) * m[i - 1][j];
         __DSVERIFIER_assert_msg((m[0][0] >= 0) && (m[i][0] >= 0),
-                                "check Jury Table");
+            "check Jury Table");
       }
     }
   }

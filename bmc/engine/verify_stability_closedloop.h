@@ -13,8 +13,9 @@
  *
  * ------------------------------------------------------
  */
-#ifndef ENGINE_VERIFY_STABILITY_CLOSEDLOOP_H
-#define ENGINE_VERIFY_STABILITY_CLOSEDLOOP_H
+
+#ifndef DSVERIFIER_ENGINE_VERIFY_STABILITY_CLOSEDLOOP_H
+#define DSVERIFIER_ENGINE_VERIFY_STABILITY_CLOSEDLOOP_H
 
 extern digital_system plant;
 extern digital_system plant_cbmc;
@@ -30,27 +31,27 @@ int verify_stability_closedloop_using_dslib(void)
 
   /* quantizing controller coefficients */
 #if(ARITHMETIC == FIXEDBV)
-  fxp_t c_num_fxp[controller.b_size];
+  fxp_t c_num_fxp[MAX_DSORDER];
   fxp_double_to_fxp_array(c_num, c_num_fxp, controller.b_size);
-  fxp_t c_den_fxp[controller.a_size];
+  fxp_t c_den_fxp[MAX_DSORDER];
   fxp_double_to_fxp_array(c_den, c_den_fxp, controller.a_size);
 #elif(ARITHMETIC == FLOATBV)
-  fp_t c_num_fp[controller.b_size];
+  fp_t c_num_fp[MAX_DSORDER];
   fp_double_to_fp_array(c_num, c_num_fp, controller.b_size);
-  fp_t c_den_fp[controller.a_size];
+  fp_t c_den_fp[MAX_DSORDER];
   fp_double_to_fp_array(c_den, c_den_fp, controller.a_size);
 #endif
 
   /* getting quantized controller coefficients */
 #if(ARITHMETIC == FIXEDBV)
-  double c_num_qtz[controller.b_size];
+  double c_num_qtz[MAX_DSORDER];
   fxp_to_double_array(c_num_qtz, c_num_fxp, controller.b_size);
-  double c_den_qtz[controller.a_size];
+  double c_den_qtz[MAX_DSORDER];
   fxp_to_double_array(c_den_qtz, c_den_fxp, controller.a_size);
 #elif(ARITHMETIC == FLOATBV)
-  double c_num_qtz[controller.b_size];
+  double c_num_qtz[MAX_DSORDER];
   fp_to_double_array(c_num_qtz, c_num_fp, controller.b_size);
-  double c_den_qtz[controller.a_size];
+  double c_den_qtz[MAX_DSORDER];
   fp_to_double_array(c_den_qtz, c_den_fp, controller.a_size);
 #endif
 
@@ -67,28 +68,28 @@ int verify_stability_closedloop_using_dslib(void)
   int p_den_size = plant.a_size;
 #endif
 
-  double ans_num[100];
+  double ans_num[MAX_DSORDER];
   int ans_num_size = controller.b_size + plant.b_size - 1;
-  double ans_den[100];
+  double ans_den[MAX_DSORDER];
   int ans_den_size = controller.a_size + plant.a_size - 1;
 
 #if(CONNECTION_MODE == SERIES)
-  ft_closedloop_series(c_num_qtz, c_num_size, c_den_qtz, c_den_size,
-                       p_num, p_num_size, p_den, p_den_size, ans_num,
-                       ans_num_size, ans_den, ans_den_size);
+  ft_closedloop_series(c_num_qtz, c_num_size, c_den_qtz, c_den_size, p_num,
+      p_num_size, p_den, p_den_size, ans_num, ans_num_size, ans_den,
+      ans_den_size);
 #elif(CONNECTION_MODE == FEEDBACK)
   printf("Verifying stability for controller\n");
   check_stability(c_den_qtz, c_den_size);
-  ft_closedloop_feedback(c_num_qtz,c_num_size, c_den_qtz, c_den_size,
-                         p_num, p_num_size, p_den, p_den_size, ans_num,
-                         ans_num_size, ans_den, ans_den_size);
+  ft_closedloop_feedback(c_num_qtz, c_num_size, c_den_qtz, c_den_size,
+      p_num, p_num_size, p_den, p_den_size, ans_num,
+      ans_num_size, ans_den, ans_den_size);
 #endif
 
   /* checking stability */
-  __DSVERIFIER_assert_msg(check_stability_closedloop(ans_den, ans_den_size,
-                          p_num, p_num_size, p_den, p_den_size),
-                          "check stability for closed-loop function\n");
+  __DSVERIFIER_assert_msg(
+      check_stability_closedloop(ans_den, ans_den_size, p_num, p_num_size,
+          p_den, p_den_size), "check stability for closed-loop function\n");
   return 0;
 }
 
-#endif // ENGINE_VERIFY_STABILITY_CLOSEDLOOP_H
+#endif // DSVERIFIER_ENGINE_VERIFY_STABILITY_CLOSEDLOOP_H
