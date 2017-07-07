@@ -202,34 +202,39 @@ void validation()
     }
     else
     {
-      printf("\n\n*****************************************************************************************************\n");
-      printf("* set (controller and impl) parameters so that they do not overflow *\n");
-      printf("*****************************************************************************************************\n");
+      printf("\n\n*********************************************************"
+             "********************************************\n");
+      printf("* set (controller and impl) parameters "
+             "so that they do not overflow *\n");
+      printf("**************************************************************"
+             "***************************************\n");
 
       // we want to ensure that the user does not provide implementation
       // aspects of the digital controller that leads to overflow
       unsigned j;
       for(j = 0; j < controller.a_size; ++j)
       {
-        const double value = controller.a[j];
 #if(ARITHMETIC == FIXEDBV)
+    	const double value = controller.a[j];
         __DSVERIFIER_assert(value <= _dbl_max);
         __DSVERIFIER_assert(value >= _dbl_min);
 #elif(ARITHMETIC == FLOATBV)
+        const float value = (float)controller.a[j];
         __DSVERIFIER_assert(value <= _fp_max);
-        __DSVERIFIER_assert(value >= _fp_min);
+        __DSVERIFIER_assert(fp_abs(value) >= _fp_min);
 #endif
       }
 
       for(j = 0; j < controller.b_size; ++j)
       {
-        const double value = controller.b[j];
 #if(ARITHMETIC == FIXEDBV)
+    	const double value = controller.b[j];
         __DSVERIFIER_assert(value <= _dbl_max);
         __DSVERIFIER_assert(value >= _dbl_min);
 #elif(ARITHMETIC == FLOATBV)
+        const float value = (float)controller.b[j];
         __DSVERIFIER_assert(value <= _fp_max);
-        __DSVERIFIER_assert(value >= _fp_min);
+        __DSVERIFIER_assert(fp_abs(value) >= _fp_min);
 #endif
       }
     }

@@ -47,7 +47,9 @@ fp_t _fp_imask;
  */
 fp_t fp_get_int_part(fp_t in)
 {
-	int temp = in;
+	// If the value of the integral part cannot be represented
+	// by the integer type, the behavior is undefined.
+	int temp = (int)in;
 	return (fp_t)temp;
 }
 
@@ -107,11 +109,11 @@ void fp_verify_overflow_array(fp_t array[], int n)
 /**
  * Converts a signed int to fp representation
  * @param [a] number in 16 bits signed int format
- * @return number in fp signed representation
+ * @return number in fp_t signed representation
  */
 fp_t fp_int_to_fp(int in)
 {
-	return (float)in;
+	return (fp_t)in;
 }
 
 /**
