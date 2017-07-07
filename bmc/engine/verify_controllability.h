@@ -10,6 +10,9 @@
  * #
  * # ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_VERIFY_CONTROLLABILITY_H
+#define DSVERIFIER_ENGINE_VERIFY_CONTROLLABILITY_H
+
 extern digital_system_state_space _controller;
 
 int verify_controllability(void)
@@ -210,3 +213,5 @@ int verify_controllability_double(void)
 
   return 0;
 }
+
+#endif //DSVERIFIER_ENGINE_VERIFY_CONTROLLABILITY_H

@@ -11,6 +11,8 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_MAGNITUDE_H
+#define DSVERIFIER_ENGINE_MAGNITUDE_H
 
 #include <stdio.h>
 #include <stdint.h>
@@ -221,3 +223,4 @@ int verify_magnitude(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_MAGNITUDE_H

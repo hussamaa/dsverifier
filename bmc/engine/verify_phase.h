@@ -11,6 +11,8 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_PHASE_H
+#define DSVERIFIER_ENGINE_PHASE_H
 
 #include <stdio.h>
 #include <stdint.h>
@@ -128,3 +130,4 @@ int verify_phase(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_PHASE_H

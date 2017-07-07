@@ -13,6 +13,9 @@
  * #
  * # ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_VERIFY_ERROR_H
+#define DSVERIFIER_ENGINE_VERIFY_ERROR_H
+
 extern digital_system ds;
 extern implementation impl;
 
@@ -227,3 +230,4 @@ int verify_error(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_VERIFY_ERROR_H

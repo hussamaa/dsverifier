@@ -9,6 +9,9 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_ZERO_INPUT_LIMIT_CYCLE_H
+#define DSVERIFIER_ENGINE_ZERO_INPUT_LIMIT_CYCLE_H
+
 extern digital_system ds;
 extern implementation impl;
 
@@ -249,3 +252,4 @@ int verify_zero_input_limit_cycle(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_ZERO_INPUT_LIMIT_CYCLE_H

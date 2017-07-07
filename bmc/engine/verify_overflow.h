@@ -15,8 +15,10 @@
  *
  * ------------------------------------------------------
  */
-int nondet_int();
+#ifndef DSVERIFIER_ENGINE_OVERFLOW_H
+#define DSVERIFIER_ENGINE_OVERFLOW_H
 
+int nondet_int();
 float nondet_float();
 
 extern digital_system ds;
@@ -232,3 +234,4 @@ int verify_overflow(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_OVERFLOW_H

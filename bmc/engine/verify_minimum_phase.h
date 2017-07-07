@@ -17,6 +17,9 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_MINIMUM_PHASE_H
+#define DSVERIFIER_ENGINE_MINIMUM_PHASE_H
+
 extern digital_system ds;
 extern implementation impl;
 
@@ -109,3 +112,4 @@ int verify_minimum_phase(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_MINIMUM_PHASE_H

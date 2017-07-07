@@ -12,6 +12,9 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_GENERIC_TIMING_H
+#define DSVERIFIER_ENGINE_GENERIC_TIMING_H
+
 int nondet_int();
 
 float nondet_float();
@@ -38,7 +41,7 @@ int verify_generic_timing(void)
 
   int Nw = 0;
 
-#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
+#if((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
   Nw = (a_cascade_size > b_cascade_size) ? a_cascade_size : b_cascade_size;
 #else
   Nw = (ds.a_size > ds.b_size) ? ds.a_size : ds.b_size;
@@ -80,7 +83,7 @@ int verify_generic_timing(void)
 
     /* direct form I realization */
 
-#if (REALIZATION == DFI || REALIZATION == DDFI)
+#if(REALIZATION == DFI || REALIZATION == DDFI)
     generic_timing_shift_l_double(x[i], xaux, ds.b_size);
 
     y[i] = generic_timing_double_direct_form_1(yaux, xaux, ds.a, ds.b,
@@ -91,7 +94,7 @@ int verify_generic_timing(void)
 
     /* direct form II realization */
 
-#if (REALIZATION == DFII || REALIZATION == DDFII)
+#if(REALIZATION == DFII || REALIZATION == DDFII)
     generic_timing_shift_r_double(0, waux, Nw);
 
     y[i] = generic_timing_double_direct_form_2(waux, x[i], ds.a, ds.b,
@@ -100,7 +103,7 @@ int verify_generic_timing(void)
 
     /* transposed direct form II realization */
 
-#if (REALIZATION == TDFII || REALIZATION == TDDFII)
+#if(REALIZATION == TDFII || REALIZATION == TDDFII)
     y[i] = generic_timing_double_transposed_direct_form_2(waux, x[i], ds.a,
         ds.b, ds.a_size, ds.b_size);
 #endif
@@ -114,3 +117,4 @@ int verify_generic_timing(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_GENERIC_TIMING_H

@@ -10,9 +10,9 @@
  * #
  * # ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_OBSERVABILITY_H
+#define DSVERIFIER_ENGINE_OBSERVABILITY_H
 
-// #include <stdio.h>
-// #include <stdlib.h>
 extern digital_system_state_space _controller;
 
 int verify_observability(void)
@@ -172,3 +172,4 @@ int verify_observability(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_OBSERVABILITY_H

@@ -17,6 +17,9 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_STABILITY_H
+#define DSVERIFIER_ENGINE_STABILITY_H
+
 extern digital_system ds;
 extern implementation impl;
 
@@ -26,7 +29,7 @@ int verify_stability(void)
 
   /* check the realization */
 
-#if ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
+#if((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
   fxp_t a_fxp[ds.a_size];
 
   /* quantize the array using fxp */
@@ -39,7 +42,7 @@ int verify_stability(void)
 
   /* check stability using jury criteria */
   assert(check_stability(_a, ds.a_size));
-#elif ((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
+#elif((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
   double da[ds.a_size];
 
   /* generate delta coefficients using a instrinsic function */
@@ -49,8 +52,7 @@ int verify_stability(void)
   /* assert(__DSVERIFIER_check_delta_stability(da, ds.sample_time, impl.int_bits, impl.frac_bits)); */
   printf("*** FUNCTION PENDING FOR BMC (CHECK STABILITY IN DELTA DOMAIN ***");
   assert(0);
-  exit(1);
-#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII)|| (REALIZATION == CTDFII))
+#elif((REALIZATION == CDFI) || (REALIZATION == CDFII)|| (REALIZATION == CTDFII))
   double a_cascade[100];
   int a_cascade_size;
   double b_cascade[100];
@@ -72,10 +74,10 @@ int verify_stability(void)
   int i = 0;
   double current_cascade[3];
 
-  for (i = 0; i < a_cascade_size; i = i + 3)
+  for(i = 0; i < a_cascade_size; i = i + 3)
   {
     /* first element zero (remove left zeros) */
-    if ((i == 0) && (a_cascade_qtz[i] == 0))
+    if((i == 0) && (a_cascade_qtz[i] == 0))
     {
       current_cascade[0] = a_cascade_qtz[i + 1];
       current_cascade[1] = a_cascade_qtz[i + 2];
@@ -91,7 +93,7 @@ int verify_stability(void)
       assert(check_stability(current_cascade, 3));
     }
   }
-#elif ((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+#elif((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
   double da_cascade[100];
 
   /* generate delta coefficients using a instrinsic function */
@@ -104,3 +106,4 @@ int verify_stability(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_STABILITY_H

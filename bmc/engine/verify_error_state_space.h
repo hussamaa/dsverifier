@@ -16,6 +16,9 @@
  * #
  * # ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_VERIFY_ERROR_STATE_SPACE_H
+#define DSVERIFIER_ENGINE_VERIFY_ERROR_STATE_SPACE_H
+
 extern digital_system_state_space _controller;
 extern double error_limit;
 extern int closed_loop;
@@ -452,3 +455,4 @@ int verify_error_state_space(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_VERIFY_ERROR_STATE_SPACE_H

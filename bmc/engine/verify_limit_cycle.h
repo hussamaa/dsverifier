@@ -11,6 +11,9 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_LIMIT_CYCLE_H
+#define DSVERIFIER_ENGINE_LIMIT_CYCLE_H
+
 extern digital_system ds;
 extern implementation impl;
 extern digital_system_state_space _controller;
@@ -339,3 +342,4 @@ int verify_limit_cycle(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_LIMIT_CYCLE_H

@@ -19,6 +19,9 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_ENGINE_LIMIT_CYCLE_CLOSEDLOOP_H
+#define DSVERIFIER_ENGINE_LIMIT_CYCLE_CLOSEDLOOP_H
+
 extern digital_system plant;
 extern digital_system plant_cbmc;
 extern digital_system controller;
@@ -180,3 +183,4 @@ int verify_limit_cycle_closed_loop(void)
 
   return 0;
 }
+#endif //DSVERIFIER_ENGINE_LIMIT_CYCLE_CLOSEDLOOP_H
