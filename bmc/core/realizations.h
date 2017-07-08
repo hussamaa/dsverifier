@@ -15,6 +15,9 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_REALIZATIONS_H
+#define DSVERIFIER_CORE_REALIZATIONS_H
+
 extern digital_system ds;
 extern hardware hw;
 extern int generic_timer;
@@ -692,3 +695,4 @@ void fxp_direct_form_1_impl2(fxp_t x[], int x_size, fxp_t b[], int b_size,
     }
   }
 }
+#endif DSVERIFIER_CORE_REALIZATIONS_H

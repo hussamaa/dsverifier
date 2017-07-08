@@ -22,6 +22,8 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_FIXED_POINT_H
+#define DSVERIFIER_CORE_FIXED_POINT_H
 
 #include <stdio.h>
 #include <stdint.h>
@@ -3816,3 +3818,4 @@ void print_fxp_array_elements(char * name, fxp_t * v, int n)
   }
   printf("}\n");
 }
+#endif //DSVERIFIER_CORE_FIXED_POINT_H

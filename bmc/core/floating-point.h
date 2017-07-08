@@ -17,6 +17,8 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_FLOATING_POINT_H
+#define DSVERIFIER_CORE_FLOATING_POINT_H
 
 #include <stdio.h>
 #include <stdint.h>
@@ -318,3 +320,4 @@ void print_fp_array_elements(char * name, fp_t * v, int n)
   }
   printf("}\n");
 }
+#endif //DSVERIFIER_CORE_FLOATING_POINT_H

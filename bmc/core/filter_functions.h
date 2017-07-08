@@ -11,6 +11,8 @@
  *
  * ------------------------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_FILTER_FUNCTIONS_H
+#define DSVERIFIER_CORE_FILTER_FUNCTIONS_H
 
 /**
  * Sine aproximation by taylor series (max 6 terms).
@@ -306,3 +308,4 @@ static float sqrt3(float val)
 
   return (x);
 }
+#endif //DSVERIFIER_CORE_FILTER_FUNCTIONS_H

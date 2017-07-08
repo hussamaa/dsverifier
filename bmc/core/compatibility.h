@@ -13,6 +13,8 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_COMPATIBILITY_H
+#define DSVERIFIER_CORE_COMPATIBILITY_H
 
 #include <stdlib.h>
 #include <assert.h>
@@ -44,3 +46,4 @@ void __DSVERIFIER_assert_msg(_Bool expression, char msg[])
   printf("%s", msg);
   assert(expression);
 }
+#endif //DSVERIFIER_CORE_COMPATIBILITY_H

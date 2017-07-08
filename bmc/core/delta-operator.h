@@ -15,6 +15,8 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_DELTA_OPERATOR_H
+#define DSVERIFIER_CORE_DELTA_OPERATOR_H
 
 #include <assert.h>
 #include <stdio.h>
@@ -99,3 +101,4 @@ void get_delta_transfer_function_with_base(double b[], double b_out[],
     b_out[i] = internal_pow(delta, M - i) * sum_delta_operator;
   }
 }
+#endif //DSVERIFIER_CORE_DELTA_OPERATOR_H

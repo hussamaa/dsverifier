@@ -16,6 +16,8 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_UTIL_H
+#define DSVERIFIER_CORE_UTIL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -787,3 +789,5 @@ double fabs_(double a)
   else
     return a;
 }
+
+#endif //DSVERIFIER_CORE_UTIL_H

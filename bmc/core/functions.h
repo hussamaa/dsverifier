@@ -15,6 +15,8 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_FUNCTIONS_H
+#define DSVERIFIER_CORE_FUNCTIONS_H
 
 extern int generic_timer;
 extern hardware hw;
@@ -802,3 +804,4 @@ float iirOutBothL2(float yf[], float xf[], float af[], float bf[], float xfin,
   yf[Na - 1] = sumf;
   return fxp_to_float(sum) - sumf;
 }
+#endif //DSVERIFIER_CORE_FUNCTIONS_H

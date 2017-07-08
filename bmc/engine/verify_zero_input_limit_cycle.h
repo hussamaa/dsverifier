@@ -1,5 +1,5 @@
 /**
- * DSVerifier - Digital Systems Verifier (Zero Input Limit Cycle)
+ * DSVerifier - Digital System Verifier (Zero Input Limit Cycle)
  *
  * Federal University of Amazonas - UFAM
  *
@@ -27,7 +27,7 @@ int verify_zero_input_limit_cycle(void)
 
   /* check the realization */
 
-#if      ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
+#if((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
   fxp_t a_fxp[ds.a_size];
   fxp_t b_fxp[ds.b_size];
 
@@ -50,7 +50,7 @@ int verify_zero_input_limit_cycle(void)
 
   /* quantize delta numerator using fxp */
   fxp_double_to_fxp_array(db, b_fxp, ds.b_size);
-#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
+#elif((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
   double a_cascade[100];
   int a_cascade_size;
   double b_cascade[100];
@@ -67,7 +67,7 @@ int verify_zero_input_limit_cycle(void)
 
   /* quantize cascade numerators */
   fxp_double_to_fxp_array(b_cascade, bc_fxp, b_cascade_size);
-#elif ((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+#elif((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
   double da_cascade[100];
   int a_cascade_size;
   double db_cascade[100];
@@ -105,7 +105,7 @@ int verify_zero_input_limit_cycle(void)
 
   int Nw = 0;
 
-#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+#if((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
   Nw = (a_cascade_size > b_cascade_size) ? a_cascade_size : b_cascade_size;
 #else
   Nw = (ds.a_size > ds.b_size) ? ds.a_size : ds.b_size;
@@ -117,7 +117,7 @@ int verify_zero_input_limit_cycle(void)
   fxp_t y0[ds.a_size];
   fxp_t w0[Nw];
 
-#if (REALIZATION == DFI || REALIZATION == CDFI || REALIZATION == DDFI || REALIZATION == CDDFI)
+#if(REALIZATION == DFI || REALIZATION == CDFI || REALIZATION == DDFI || REALIZATION == CDDFI)
   for(i = 0; i < ds.a_size; ++i)
   {
     yaux[i] = nondet_int();
@@ -148,26 +148,19 @@ int verify_zero_input_limit_cycle(void)
   for(i = 0; i < X_SIZE_VALUE; ++i)
   {
     /* direct form I realization */
-
 #if ((REALIZATION == DFI) || (REALIZATION == DDFI))
     shiftL(x[i], xaux, ds.b_size);
-
     y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
-
 #ifdef JACKSON_RULE
     fxp_quant(y[i]);
 #endif
-
     shiftL(y[i], yaux, ds.a_size);
 #endif
 
     /* direct form II realization */
-
-#if ((REALIZATION == DFII) || (REALIZATION == DDFII))
+#if((REALIZATION == DFII) || (REALIZATION == DDFII))
     shiftR(0, waux, Nw);
-
     y[i] = fxp_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
-
 #ifdef JACKSON_RULE
     fxp_quant(y[i]);
 #endif
@@ -175,11 +168,9 @@ int verify_zero_input_limit_cycle(void)
 #endif
 
     /* transposed direct form II realization */
-
 #if ((REALIZATION == TDFII) || (REALIZATION ==TDDFII))
     y[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size,
         ds.b_size);
-
 #ifdef JACKSON_RULE
     fxp_quant(y[i]);
 #endif
@@ -187,12 +178,9 @@ int verify_zero_input_limit_cycle(void)
 #endif
 
     /* cascade direct form I realization (or delta cascade) */
-
-#if ((REALIZATION == CDFI) || (REALIZATION == CDDFI))
+#if((REALIZATION == CDFI) || (REALIZATION == CDDFI))
     assert((Nw % 3) == 0 && (a_cascade_size == b_cascade_size));
-
     xk = x[i];
-
     for(j = 0; j < a_cascade_size; j += 3)
     {
       aptr = &ac_fxp[j];
@@ -211,8 +199,7 @@ int verify_zero_input_limit_cycle(void)
 #endif
 
     /* cascade direct form II realization (or delta cascade) */
-
-#if ((REALIZATION == CDFII) || (REALIZATION == CDDFII))
+#if((REALIZATION == CDFII) || (REALIZATION == CDDFII))
     assert((Nw % 3) == 0 && (a_cascade_size == b_cascade_size));
 
     for(j = 0; j < a_cascade_size; j += 3)
@@ -229,12 +216,9 @@ int verify_zero_input_limit_cycle(void)
 #endif
 
     /* cascade transposed direct form II realization (or delta cascade) */
-
 #if ((REALIZATION == CTDFII) || (REALIZATION == CTDDFII))
     assert((Nw % 3) == 0 && (a_cascade_size == b_cascade_size));
-
     xk = x[i];
-
     for(j = 0; j < a_cascade_size; j += 3)
     {
       aptr = &ac_fxp[j];
@@ -244,7 +228,6 @@ int verify_zero_input_limit_cycle(void)
       xk = y[i];
     }
 #endif
-
   }
 
   /* check oscillations in produced output */

@@ -13,7 +13,6 @@
  *
  * ------------------------------------------------------
  */
-
 #ifndef DSVERIFIER_CORE_INITIALIZATION_H
 #define DSVERIFIER_CORE_INITIALIZATION_H
 
