@@ -29,6 +29,8 @@
 #include <stdint.h>
 #include <inttypes.h>
 
+#include "compatibility.h"
+
 extern implementation impl;
 
 /** definition of fixed point width */

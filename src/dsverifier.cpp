@@ -65,19 +65,6 @@
 
 typedef bool _Bool;
 
-void __DSVERIFIER_assume(_Bool expression)
-{
-  /* nothing to do */
-}
-
-void __DSVERIFIER_assert(_Bool expression)
-{
-  if(expression == 0)
-  {
-    throw 0;
-  }
-}
-
 #include "version.h"
 
 #include "../bmc/core/definitions.h"

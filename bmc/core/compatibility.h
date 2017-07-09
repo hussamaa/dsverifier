@@ -20,12 +20,25 @@
 #include <assert.h>
 #include <stdio.h>
 
+// these definitions are common to the verifiers
+// that participate in SV-COMP
+void __VERIFIER_assume(_Bool cond)
+{
+  if (!(cond))
+  {
+    exit(1);
+  }
+}
+
+void __VERIFIER_assert(_Bool cond)
+{
+  assert(cond);
+}
+
 void __DSVERIFIER_assume(_Bool expression)
 {
-#if  (BMC == ESBMC)
-  __ESBMC_assume(expression);
-#elif(BMC == CBMC)
-  __CPROVER_assume(expression);
+#if(BMC == ESBMC || BMC == CBMC)
+  __VERIFIER_assume(expression);
 #else
   printf("");
   printf("*********************");
@@ -33,17 +46,16 @@ void __DSVERIFIER_assume(_Bool expression)
   printf("*********************");
   assert(0);
 #endif
-
 }
 
 void __DSVERIFIER_assert(_Bool expression)
 {
-  assert(expression);
+  __VERIFIER_assert(expression);
 }
 
 void __DSVERIFIER_assert_msg(_Bool expression, char msg[])
 {
   printf("%s", msg);
-  assert(expression);
+  __VERIFIER_assert(expression);
 }
 #endif //DSVERIFIER_CORE_COMPATIBILITY_H
