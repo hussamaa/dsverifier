@@ -264,7 +264,6 @@ void fxp_check_limit_cycle(fxp_t y[], int y_size)
 /* verify persistent limit_cycle oscillations in last outputs */
 void fxp_check_persistent_limit_cycle(fxp_t * y, int y_size)
 {
-
   /* first element is the reference */
   int idy = 0;
   int count_same = 0;
@@ -467,8 +466,6 @@ float snrVariance(float s[], float n[], int blksz)
     assert(sv >= nv);
     snr = sv / nv;
     return snr;
-    //		assert(snr <= 2147483647.0);
-    //		return (10.0f * fxp_log10(snr));
   }
   else
   {
@@ -487,14 +484,11 @@ float snrPower(float s[], float n[], int blksz)
   }
 
   // Do not need to do the average before the ratio
-
   if(nv != 0.0f)
   {
     assert(sv >= nv);
     snr = sv / nv;
     return snr;
-    //assert(snr <= 2147483647.0);
-    //return (10.0f * fxp_log10(snr));
   }
   else
   {
@@ -533,99 +527,98 @@ void srand(unsigned int seed)
 }
 
 float iirIIOutTime(float w[], float x, float a[], float b[], int Na, int Nb)
-{		// timer1 += 40;
+{ // timer1 += 40;
   int timer1 = OVERHEAD;
-  float *a_ptr, *b_ptr, *w_ptr;								// timer1 += 7;
-  float sum = 0;												// timer1 += 4;
-  a_ptr = &a[1];												// timer1 += 7;
+  float *a_ptr, *b_ptr, *w_ptr; // timer1 += 7;
+  float sum = 0; // timer1 += 4;
+  a_ptr = &a[1]; // timer1 += 7;
   b_ptr = &b[0];
-  w_ptr = &w[1];												// timer1 += 2;
-  int k, j;													// timer1 += 2;
-  timer1 += 71;	//(40+22+9)
+  w_ptr = &w[1]; // timer1 += 2;
+  int k, j; // timer1 += 2;
+  timer1 += 71; // (40+22+9)
   for(j = 1; j < Na; j++)
-  {												// timer1 += 9;
-    w[0] -= *a_ptr++ * *w_ptr++;							// timer1 += 42;
-    timer1 += 54;	//(42+12)
-  }															// timer1 += 12;
-  w[0] += x;													// timer1 += 21;
-  w_ptr = &w[0];												// timer1 += 1;
+  { // timer1 += 9;
+    w[0] -= *a_ptr++ * *w_ptr++; // timer1 += 42;
+    timer1 += 54; // (42+12)
+  } // timer1 += 12;
+  w[0] += x; // timer1 += 21;
+  w_ptr = &w[0]; // timer1 += 1;
   for(k = 0; k < Nb; k++)
-  {												// timer1 += 9;
-    sum += *b_ptr++ * *w_ptr++;								// timer1 += 34;
-    timer1 += 46;	//(34+12)
-  }															// timer1 += 12;
-  timer1 += 38;	//(21+1+9+7)
+  { // timer1 += 9;
+    sum += *b_ptr++ * *w_ptr++; // timer1 += 34;
+    timer1 += 46; // (34+12)
+  } // timer1 += 12;
+  timer1 += 38; // (21+1+9+7)
   assert((double) timer1 * CYCLE <= (double) DEADLINE);
-  return sum;													// timer1 += 7;
+  return sum; // timer1 += 7;
 }
 
 float iirIItOutTime(float w[], float x, float a[], float b[], int Na, int Nb)
-{																// timer1 += 40;
+{ // timer1 += 40;
   int timer1 = OVERHEAD;
-  float *a_ptr, *b_ptr;										// timer1 += 6;
-  float yout = 0;												// timer1 += 3;
-  a_ptr = &a[1];												// timer1 += 7;
+  float *a_ptr, *b_ptr; // timer1 += 6;
+  float yout = 0; // timer1 += 3;
+  a_ptr = &a[1]; // timer1 += 7;
   b_ptr = &b[0];
-  int Nw = Na > Nb ? Na : Nb;									// timer1 += 10;
-  yout = (*b_ptr++ * x) + w[0];								// timer1 += 36;
+  int Nw = Na > Nb ? Na : Nb; // timer1 += 10;
+  yout = (*b_ptr++ * x) + w[0]; // timer1 += 36;
   int j;
-  timer1 += 105;	//(40+62+3)
+  timer1 += 105; // (40+62+3)
   for(j = 0; j < Nw - 1; j++)
-  {											// timer1 += 3;
-    w[j] = w[j + 1];										// timer1 += 12;
+  { // timer1 += 3;
+    w[j] = w[j + 1]; // timer1 += 12;
     if(j < Na - 1)
-    {													// timer1 += 9;
-      w[j] -= *a_ptr++ * yout;							// timer1 += 34;
-      timer1 += 41;	//(34+7)
-    }														// timer1 += 7;
+    { // timer1 += 9;
+      w[j] -= *a_ptr++ * yout; // timer1 += 34;
+      timer1 += 41; // (34+7)
+    } // timer1 += 7;
     if(j < Nb - 1)
-    {													// timer1 += 13;
-      w[j] += *b_ptr++ * x;								// timer1 += 38;
-      timer1 += 38;	//(38)
+    { // timer1 += 13;
+      w[j] += *b_ptr++ * x; // timer1 += 38;
+      timer1 += 38; // (38)
     }
-    timer1 += 54;	//(12+9+13+20)
-  }															// timer1 += 20;
-  timer1 += 7;	//(7)
+    timer1 += 54; // (12+9+13+20)
+  } // timer1 += 20;
+  timer1 += 7; // (7)
   assert((double) timer1 * CYCLE <= (double) DEADLINE);
-  return yout;												// timer1 += 7;
+  return yout; // timer1 += 7;
 }
 
 double iirIItOutTime_double(double w[], double x, double a[], double b[],
     int Na, int Nb)
-{															// timer1 += 40;
+{ // timer1 += 40;
   int timer1 = OVERHEAD;
-  double *a_ptr, *b_ptr;										// timer1 += 6;
-  double yout = 0;											// timer1 += 3;
-  a_ptr = &a[1];												// timer1 += 7;
+  double *a_ptr, *b_ptr; // timer1 += 6;
+  double yout = 0; // timer1 += 3;
+  a_ptr = &a[1]; // timer1 += 7;
   b_ptr = &b[0];
-  int Nw = Na > Nb ? Na : Nb;									// timer1 += 10;
-  yout = (*b_ptr++ * x) + w[0];								// timer1 += 36;
+  int Nw = Na > Nb ? Na : Nb; // timer1 += 10;
+  yout = (*b_ptr++ * x) + w[0]; // timer1 += 36;
   int j;
-  timer1 += 105;	//(40+62+3)
+  timer1 += 105; // (40+62+3)
   for(j = 0; j < Nw - 1; j++)
-  {											// timer1 += 3;
-    w[j] = w[j + 1];										// timer1 += 12;
+  { // timer1 += 3;
+    w[j] = w[j + 1]; // timer1 += 12;
     if(j < Na - 1)
-    {													// timer1 += 9;
-      w[j] -= *a_ptr++ * yout;							// timer1 += 34;
-      timer1 += 41;	//(34+7)
-    }														// timer1 += 7;
+    { // timer1 += 9;
+      w[j] -= *a_ptr++ * yout; // timer1 += 34;
+      timer1 += 41; // (34+7)
+    }  // timer1 += 7;
     if(j < Nb - 1)
-    {													// timer1 += 13;
-      w[j] += *b_ptr++ * x;								// timer1 += 38;
-      timer1 += 38;	//(38)
+    { // timer1 += 13;
+      w[j] += *b_ptr++ * x;  // timer1 += 38;
+      timer1 += 38; // (38)
     }
-    timer1 += 54;	//(12+9+13+20)
-  }															// timer1 += 20;
-  timer1 += 7;	//(7)
+    timer1 += 54; // (12+9+13+20)
+  } // timer1 += 20;
+  timer1 += 7; // (7)
   assert((double) timer1 * CYCLE <= (double) DEADLINE);
-  return yout;												// timer1 += 7;
+  return yout; // timer1 += 7;
 }
 
 void iirOutBoth(float yf[], float xf[], float af[], float bf[], float *sumf_ref,
     fxp_t y[], fxp_t x[], fxp_t a[], fxp_t b[], fxp_t *sum_ref, int Na, int Nb)
 {
-
   fxp_t *a_ptr, *y_ptr, *b_ptr, *x_ptr;
   float *af_ptr, *yf_ptr, *bf_ptr, *xf_ptr;
   fxp_t sum = 0;
@@ -804,4 +797,4 @@ float iirOutBothL2(float yf[], float xf[], float af[], float bf[], float xfin,
   yf[Na - 1] = sumf;
   return fxp_to_float(sum) - sumf;
 }
-#endif //DSVERIFIER_CORE_FUNCTIONS_H
+#endif // DSVERIFIER_CORE_FUNCTIONS_H

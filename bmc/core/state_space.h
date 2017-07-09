@@ -216,4 +216,4 @@ double fxp_state_space_representation(void)
 
   return _controller.outputs[0][0];
 }
-#endif //DSVERIFIER_CORE_STATE_SPACE_H
+#endif // DSVERIFIER_CORE_STATE_SPACE_H

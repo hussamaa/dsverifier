@@ -30,7 +30,7 @@ class dsverifier_messaget
     void show_verification_failed();
 };
 
-void dsverifier_messaget::help ()
+void dsverifier_messaget::help()
 {
   std::cout << std::endl;
   std::cout << "* * *           DSVerifier " << DSVERIFIER_VERSION << "          * * *" << std::endl;
@@ -99,8 +99,8 @@ void dsverifier_messaget::cplus_print_array_elements_ignoring_empty(
     double * v,
     int n)
 {
-  if (n > 0)
-    cplus_print_array_elements(name,v,n);
+  if(n > 0)
+    cplus_print_array_elements(name, v, n);
 }
 
 void dsverifier_messaget::show_required_argument_message(std::string parameter)
@@ -128,16 +128,14 @@ void dsverifier_messaget::show_verification_error()
   std::cout << std::endl << "VERIFICATION ERROR" << std::endl;
 }
 
-
 void dsverifier_messaget::show_verification_successful()
 {
   std::cout << std::endl << "VERIFICATION SUCCESSFUL" << std::endl;
 }
-
 
 void dsverifier_messaget::show_verification_failed()
 {
   std::cout << std::endl << "VERIFICATION FAILED" << std::endl;
 }
 
-#endif //DSVERIFIER_DSVERIFIER_MESSAGES_H
+#endif // DSVERIFIER_DSVERIFIER_MESSAGES_H

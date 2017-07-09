@@ -18,12 +18,12 @@
 #ifndef DSVERIFIER_CORE_DELTA_OPERATOR_H
 #define DSVERIFIER_CORE_DELTA_OPERATOR_H
 
-#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
-/* returns the binomial coefficient, defined as n!/((n–k)! k!). This is the number of combinations of n items taken k at a time. */
+/* returns the binomial coefficient, defined as n!/((n–k)! k!).
+ * This is the number of combinations of n items taken k at a time. */
 int nchoosek(int n, int k)
 {
   if(k == 0)
@@ -66,7 +66,8 @@ void get_delta_transfer_function(double b[], double b_out[], int b_size,
   generate_delta_coefficients(a, a_out, a_size, delta);
 }
 
-/* get a digital system represented in transfer function and transform in delta form */
+/* get a digital system represented in transfer function and
+ * transform in delta form */
 void get_delta_transfer_function_with_base(double b[], double b_out[],
     int b_size, double a[], double a_out[], int a_size, double delta)
 {
@@ -101,4 +102,4 @@ void get_delta_transfer_function_with_base(double b[], double b_out[],
     b_out[i] = internal_pow(delta, M - i) * sum_delta_operator;
   }
 }
-#endif //DSVERIFIER_CORE_DELTA_OPERATOR_H
+#endif // DSVERIFIER_CORE_DELTA_OPERATOR_H

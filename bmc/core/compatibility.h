@@ -24,7 +24,7 @@
 // that participate in SV-COMP
 void __VERIFIER_assume(int cond)
 {
-  if (!(cond))
+  if(!(cond))
   {
     exit(1);
   }
@@ -58,4 +58,4 @@ void __DSVERIFIER_assert_msg(int expression, char msg[])
   printf("%s", msg);
   __VERIFIER_assert(expression);
 }
-#endif //DSVERIFIER_CORE_COMPATIBILITY_H
+#endif // DSVERIFIER_CORE_COMPATIBILITY_H

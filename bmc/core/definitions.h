@@ -279,4 +279,4 @@ typedef struct
   int type;
 } filter_parameters;
 
-#endif //DSVERIFIER_CORE_DEFINITIONS_H
+#endif // DSVERIFIER_CORE_DEFINITIONS_H

@@ -30,7 +30,6 @@ double sinTyl(double x, int precision)
   {
     printf("Warning: Function sinTyl from bmc/core/filter_functions.h: "
         "Precision must be a positive integer. Assuming 0 precision\n");
-
     precision = 0;
   }
 
@@ -38,48 +37,41 @@ double sinTyl(double x, int precision)
   {
     aux = 0;
     sine = aux;
-
     if(precision >= 1)
     {
       aux = x;
       sine += aux;
-
       if(precision >= 2)
       {
         aux = aux * xsquared;
         sine -= aux / 6;
-
         if(precision >= 3)
         {
           aux = aux * xsquared;
           sine += aux / 120;
-
           if(precision >= 4)
           {
             aux = aux * xsquared;
             sine -= aux / 5040;
-
             if(precision >= 5)
             {
               aux = aux * xsquared;
               sine += aux / 362880;
-
               if(precision >= 6)
               {
                 aux = aux * xsquared;
                 sine -= aux / 39916800;
-
                 if(precision >= 7)
                 {
                   aux = aux * xsquared;
                   sine += aux / 6227020800;
-
                   if(precision >= 8)
                   {
                     printf(
                         "Warning: Function sinTyl "
                             "from bmc/core/filter_functions.h: Precision "
-                            "representation exceeded. Assuming maximum precision of 7\n");
+                            "representation exceeded. Assuming maximum "
+                            "precision of 7\n");
                   }
                 }
               }
@@ -115,48 +107,41 @@ double cosTyl(double x, int precision)
   {
     aux = 0;
     cosine = aux;
-
     if(precision >= 1)
     {
       aux = 1;
       cosine = 1;
-
       if(precision >= 2)
       {
         aux = xsquared;
         cosine -= aux / 2;
-
         if(precision >= 3)
         {
           aux = aux * xsquared;
           cosine += aux / 24;
-
           if(precision >= 4)
           {
             aux = aux * xsquared;
             cosine -= aux / 720;
-
             if(precision >= 5)
             {
               aux = aux * xsquared;
               cosine += aux / 40320;
-
               if(precision >= 6)
               {
                 aux = aux * xsquared;
                 cosine -= aux / 3628800;
-
                 if(precision >= 7)
                 {
                   aux = aux * xsquared;
                   cosine += aux / 479001600;
-
                   if(precision >= 8)
                   {
                     printf(
                         "Warning: Function sinTyl "
                             "from bmc/core/filter_functions.h: Precision "
-                            "representation exceeded. Assuming maximum precision of 7\n");
+                            "representation exceeded. Assuming maximum "
+                            "precision of 7\n");
                   }
                 }
               }
@@ -184,40 +169,34 @@ double atanTyl(double x, int precision)
   {
     printf("Warning: Function sinTyl from bmc/core/filter_functions.h: "
         "Precision must be a positive integer. Assuming 0 precision\n");
-
     precision = 0;
   }
-
   if(precision >= 0)
   {
     aux = 0;
     atangent = aux;
-
     if(precision >= 1)
     {
       aux = x;
       atangent = aux;
-
       if(precision >= 2)
       {
         aux = xsquared;
         atangent -= aux / 3;
-
         if(precision >= 3)
         {
           aux = aux * xsquared;
           atangent += aux / 5;
-
           if(precision >= 4)
           {
             aux = aux * xsquared;
             atangent -= aux / 7;
-
             if(precision >= 7)
             {
               printf(
                   "Warning: Function sinTyl from bmc/core/filter_functions.h: "
-                      "Precision representation exceeded. Assuming maximum precision of 4\n");
+                      "Precision representation exceeded. "
+                      "Assuming maximum precision of 4\n");
             }
           }
         }
@@ -244,7 +223,8 @@ float sqrt1(const float x)
   u.x = x;
   u.i = 0x5f3759df - (u.i >> 1);    // gives initial guess y0
 
-  return x * u.x * (1.5f - xhalf * u.x * u.x); // Newton step, repeating increases accuracy
+  // Newton step, repeating increases accuracy
+  return x * u.x * (1.5f - xhalf * u.x * u.x);
 }
 
 /**
@@ -308,4 +288,4 @@ static float sqrt3(float val)
 
   return (x);
 }
-#endif //DSVERIFIER_CORE_FILTER_FUNCTIONS_H
+#endif // DSVERIFIER_CORE_FILTER_FUNCTIONS_H
