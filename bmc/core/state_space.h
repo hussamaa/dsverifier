@@ -15,6 +15,9 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_STATE_SPACE_H
+#define DSVERIFIER_CORE_STATE_SPACE_H
+
 extern digital_system_state_space _controller;
 extern int nStates;
 extern int nInputs;
@@ -213,3 +216,4 @@ double fxp_state_space_representation(void)
 
   return _controller.outputs[0][0];
 }
+#endif //DSVERIFIER_CORE_STATE_SPACE_H

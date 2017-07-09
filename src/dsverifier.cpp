@@ -12,7 +12,7 @@
  #           Lucas Cordeiro - lucasccordeiro@gmail.com
  #
  #  Contributors: Daniel Mello - dani-dmello@hotmail.com
- #		 Lennon Chaves <lennon.correach@gmail.com>
+ #                Lennon Chaves <lennon.correach@gmail.com>
  #
  # --------------------------------------------------
  #  Usage:
@@ -81,10 +81,10 @@ void __DSVERIFIER_assert(_Bool expression)
 #include "version.h"
 
 #include "../bmc/core/definitions.h"
-#include "../bmc/core/fixed-point.h"
-#include "../bmc/core/floating-point.h"
+#include "../bmc/core/fixed_point.h"
+#include "../bmc/core/floating_point.h"
 #include "../bmc/core/util.h"
-#include "../bmc/core/delta-operator.h"
+#include "../bmc/core/delta_operator.h"
 #include "../bmc/core/initialization.h"
 #include "../bmc/core/filter_functions.h"
 
