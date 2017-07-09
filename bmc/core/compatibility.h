@@ -22,7 +22,7 @@
 
 // these definitions are common to the verifiers
 // that participate in SV-COMP
-void __VERIFIER_assume(_Bool cond)
+void __VERIFIER_assume(int cond)
 {
   if (!(cond))
   {
@@ -30,12 +30,12 @@ void __VERIFIER_assume(_Bool cond)
   }
 }
 
-void __VERIFIER_assert(_Bool cond)
+void __VERIFIER_assert(int cond)
 {
   assert(cond);
 }
 
-void __DSVERIFIER_assume(_Bool expression)
+void __DSVERIFIER_assume(int expression)
 {
 #if(BMC == ESBMC || BMC == CBMC)
   __VERIFIER_assume(expression);
@@ -48,12 +48,12 @@ void __DSVERIFIER_assume(_Bool expression)
 #endif
 }
 
-void __DSVERIFIER_assert(_Bool expression)
+void __DSVERIFIER_assert(int expression)
 {
   __VERIFIER_assert(expression);
 }
 
-void __DSVERIFIER_assert_msg(_Bool expression, char msg[])
+void __DSVERIFIER_assert_msg(int expression, char msg[])
 {
   printf("%s", msg);
   __VERIFIER_assert(expression);

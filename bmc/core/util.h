@@ -359,7 +359,7 @@ void double_check_persistent_limit_cycle(double * y, int y_size)
   /* check if there is a persistent lco */
   idy = 0;
   int lco_idy = 0;
-  _Bool is_persistent = 0;
+  int is_persistent = 0;
   while(idy < y_size)
   {
     if(y[idy++] == lco_elements[lco_idy++])
