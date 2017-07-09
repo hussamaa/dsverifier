@@ -1,6 +1,6 @@
 /*******************************************************************\
 
-Module: Print standard messaged about DSVerifier
+Module: Print standard messages about DSVerifier
 
 Author: Lucas Cordeiro
 
@@ -9,6 +9,8 @@ Contributors: Lennon Chaves <lennon.correach@gmail.com>
 Date: January 2017
 
 \*******************************************************************/
+#ifndef DSVERIFIER_DSVERIFIER_MESSAGES_H
+#define DSVERIFIER_DSVERIFIER_MESSAGES_H
 
 #include "version.h"
 
@@ -138,3 +140,4 @@ void dsverifier_messaget::show_verification_failed()
   std::cout << std::endl << "VERIFICATION FAILED" << std::endl;
 }
 
+#endif //DSVERIFIER_DSVERIFIER_MESSAGES_H
