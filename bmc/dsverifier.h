@@ -30,7 +30,7 @@
 #include "core/delta_operator.h"
 #include "core/closed_loop.h"
 #include "core/initialization.h"
-#include "core/state-space.h"
+#include "core/state_space.h"
 #include "core/filter_functions.h"
 #include "engine/verify_overflow.h"
 #include "engine/verify_limit_cycle.h"
