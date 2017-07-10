@@ -13,7 +13,6 @@
  *
  * ------------------------------------------------------
  */
-
 #ifndef DSVERIFIER_CORE_INITIALIZATION_H
 #define DSVERIFIER_CORE_INITIALIZATION_H
 
@@ -34,7 +33,6 @@ void initialization()
   {
     printf("impl.frac_bits must be less than the word-width!");
     __DSVERIFIER_assert(0);
-
   }
   if(impl.int_bits >= FXP_WIDTH - impl.frac_bits)
   {

@@ -19,6 +19,9 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_DEFINITIONS_H
+#define DSVERIFIER_CORE_DEFINITIONS_H
+
 /** model checkers */
 #define NONE   0
 #define ESBMC  1
@@ -275,3 +278,5 @@ typedef struct
   double w2p, w2c, w2r;
   int type;
 } filter_parameters;
+
+#endif // DSVERIFIER_CORE_DEFINITIONS_H

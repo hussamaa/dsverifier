@@ -1,6 +1,6 @@
 /*******************************************************************\
 
-Module: Print standard messaged about DSVerifier
+Module: Print standard messages about DSVerifier
 
 Author: Lucas Cordeiro
 
@@ -9,10 +9,28 @@ Contributors: Lennon Chaves <lennon.correach@gmail.com>
 Date: January 2017
 
 \*******************************************************************/
+#ifndef DSVERIFIER_DSVERIFIER_MESSAGES_H
+#define DSVERIFIER_DSVERIFIER_MESSAGES_H
 
 #include "version.h"
 
-void help ()
+class dsverifier_messaget
+{
+  public:
+    void help();
+    void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n);
+    void cplus_print_array_elements(const char * name, double * v, int n);
+    void cplus_print_array_elements_ignoring_empty(
+        const char * name, double * v, int n);
+    void show_required_argument_message(std::string parameter);
+    void show_underflow_message();
+    void show_delta_not_representable();
+    void show_verification_error();
+    void show_verification_successful();
+    void show_verification_failed();
+};
+
+void dsverifier_messaget::help()
 {
   std::cout << std::endl;
   std::cout << "* * *           DSVerifier " << DSVERIFIER_VERSION << "          * * *" << std::endl;
@@ -48,7 +66,10 @@ void help ()
   exit(0);
 }
 
-void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n)
+void dsverifier_messaget::cplus_print_fxp_array_elements(
+  const char * name,
+  fxp_t * v,
+  int n)
 {
   printf("%s = {", name);
 
@@ -58,7 +79,10 @@ void cplus_print_fxp_array_elements(const char * name, fxp_t * v, int n)
   printf("}\n");
 }
 
-void cplus_print_array_elements(const char * name, double * v, int n)
+void dsverifier_messaget::cplus_print_array_elements(
+  const char * name,
+  double * v,
+  int n)
 {
   printf("%s = {", name);
 
@@ -70,49 +94,48 @@ void cplus_print_array_elements(const char * name, double * v, int n)
   printf("}\n");
 }
 
-void cplus_print_array_elements_ignoring_empty(
+void dsverifier_messaget::cplus_print_array_elements_ignoring_empty(
     const char * name,
     double * v,
     int n)
 {
-  if (n > 0)
-    cplus_print_array_elements(name,v,n);
+  if(n > 0)
+    cplus_print_array_elements(name, v, n);
 }
 
-void show_required_argument_message(std::string parameter)
+void dsverifier_messaget::show_required_argument_message(std::string parameter)
 {
   std::cerr << parameter << " option requires one argument." << std::endl;
   exit(1);
 }
 
-void show_underflow_message()
+void dsverifier_messaget::show_underflow_message()
 {
-  std::cout <<
-      "UNDERFLOW detected: An fixed-point arithmetic underflow occurs after delta transformation"
+  std::cout << "UNDERFLOW detected: An underflow has occurred "
+      "after delta transformation"
       << std::endl;
 }
 
-void show_delta_not_representable()
+void dsverifier_messaget::show_delta_not_representable()
 {
-  std::cout <<
-      "DsVerifier is unable to represent this value in delta-form using this precision"
+  std::cout << "DSVerifier cannot represent this value in "
+      "delta-form using the given precision"
       << std::endl;
 }
 
-void show_verification_error()
+void dsverifier_messaget::show_verification_error()
 {
   std::cout << std::endl << "VERIFICATION ERROR" << std::endl;
 }
 
-
-void show_verification_successful()
+void dsverifier_messaget::show_verification_successful()
 {
   std::cout << std::endl << "VERIFICATION SUCCESSFUL" << std::endl;
 }
 
-
-void show_verification_failed()
+void dsverifier_messaget::show_verification_failed()
 {
   std::cout << std::endl << "VERIFICATION FAILED" << std::endl;
 }
 
+#endif // DSVERIFIER_DSVERIFIER_MESSAGES_H

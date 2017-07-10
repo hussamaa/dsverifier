@@ -22,10 +22,14 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_FIXED_POINT_H
+#define DSVERIFIER_CORE_FIXED_POINT_H
 
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
+
+#include "compatibility.h"
 
 extern implementation impl;
 
@@ -3413,7 +3417,8 @@ static const float rand_uni[10000] =
  * @param [kUpperBound] upper bound
  * @return number wrapped inside bounds
  */
-fxp_t wrap(fxp_t kX, fxp_t kLowerBound, fxp_t kUpperBound) //from internet... need to check
+// TODO: needs to check
+fxp_t wrap(fxp_t kX, fxp_t kLowerBound, fxp_t kUpperBound)
 {
   int32_t range_size = kUpperBound - kLowerBound + 1;
   if(kX < kLowerBound)
@@ -3816,3 +3821,4 @@ void print_fxp_array_elements(char * name, fxp_t * v, int n)
   }
   printf("}\n");
 }
+#endif // DSVERIFIER_CORE_FIXED_POINT_H

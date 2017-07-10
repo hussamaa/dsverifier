@@ -16,8 +16,8 @@
  *
  * ------------------------------------------------------
  */
-#ifndef CORE_CLOSEDLOOP_H
-#define CORE_CLOSEDLOOP_H
+#ifndef DSVERIFIER_CORE_CLOSED_LOOP_H
+#define DSVERIFIER_CORE_CLOSED_LOOP_H
 
 #include <stdio.h>
 #include <stdint.h>
@@ -159,4 +159,4 @@ int check_stability_closedloop(double a[], int n, double plant_num[],
   return 1;
 }
 
-#endif // CORE_CLOSEDLOOP_H
+#endif // DSVERIFIER_CORE_CLOSED_LOOP_H

@@ -16,6 +16,8 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_UTIL_H
+#define DSVERIFIER_CORE_UTIL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -105,7 +107,8 @@ int check_stability(double a[], int n)
   if(sum <= 0)
   {
     printf(
-        "[DEBUG] the second constraint of Jury criteria failed: (F(-1)*(-1)^n > 0)");
+        "[DEBUG] the second constraint of Jury criteria "
+        "failed: (F(-1)*(-1)^n > 0)");
     return 0;
   }
 
@@ -113,7 +116,8 @@ int check_stability(double a[], int n)
   if(internal_abs(a[n - 1]) > a[0])
   {
     printf(
-        "[DEBUG] the third constraint of Jury criteria failed: (abs(a0) < a_{n}*z^{n})");
+        "[DEBUG] the third constraint of Jury criteria "
+        "failed: (abs(a0) < a_{n}*z^{n})");
     return 0;
   }
 
@@ -316,7 +320,6 @@ void double_check_limit_cycle(double * y, int y_size)
 /* verify limit_cycle oscillations in last outputs */
 void double_check_persistent_limit_cycle(double * y, int y_size)
 {
-
   /* first element is the reference */
   int idy = 0;
   int count_same = 0;
@@ -357,7 +360,7 @@ void double_check_persistent_limit_cycle(double * y, int y_size)
   /* check if there is a persistent lco */
   idy = 0;
   int lco_idy = 0;
-  _Bool is_persistent = 0;
+  int is_persistent = 0;
   while(idy < y_size)
   {
     if(y[idy++] == lco_elements[lco_idy++])
@@ -401,7 +404,8 @@ void double_add_matrix(unsigned int lines, unsigned int columns,
     for(j = 0; j < columns; j++)
     {
       result[i][j] = m1[i][j] + m2[i][j];
-      //printf("[ADD] %.10f + %.10f = %.10f\n", m1[i][j], m2[i][j], result[i][j]);
+      // printf("[ADD] %.10f + %.10f = %.10f\n",
+      // m1[i][j], m2[i][j], result[i][j]);
     }
   }
 }
@@ -417,7 +421,8 @@ void double_sub_matrix(unsigned int lines, unsigned int columns,
     for(j = 0; j < columns; j++)
     {
       result[i][j] = m1[i][j] - m2[i][j];
-      //printf("[ADD] %.10f + %.10f = %.10f\n", m1[i][j], m2[i][j], result[i][j]);
+      // printf("[ADD] %.10f + %.10f = %.10f\n",
+      // m1[i][j], m2[i][j], result[i][j]);
     }
   }
 }
@@ -427,10 +432,10 @@ void double_matrix_multiplication(unsigned int i1, unsigned int j1,
     unsigned int i2, unsigned int j2, double m1[LIMIT][LIMIT],
     double m2[LIMIT][LIMIT], double m3[LIMIT][LIMIT])
 {
-
   unsigned int i, j, k;
   if(j1 == i2)
-  { //Checking if the multiplication is possible
+  {
+    // Checking if the multiplication is possible
     // Initialising Matrix 3
     for(i = 0; i < i1; i++)
     {
@@ -439,22 +444,22 @@ void double_matrix_multiplication(unsigned int i1, unsigned int j1,
         m3[i][j] = 0;
       }
     }
-    //Calculating multiplication result
+    // Calculating multiplication result
     for(i = 0; i < i1; i++)
     {
       for(j = 0; j < j2; j++)
       {
         for(k = 0; k < j1; k++)
         {
-          //printf("i: %d \t j: %d\n", i,j);
+          // printf("i: %d \t j: %d\n", i,j);
           double mult = (m1[i][k] * m2[k][j]);
-          //double m3temp = m3[i][j];
-          //double sum =  m3[i][j] + mult;
+          // double m3temp = m3[i][j];
+          // double sum =  m3[i][j] + mult;
           m3[i][j] = m3[i][j] + (m1[i][k] * m2[k][j]);
-          //printf("[MULT] %.10f + %.10f = %.10f\n", m1[i][k], m2[k][j], mult);
-          //printf("[ADD] %.10f + %.10f = %.10f\n", m3temp, mult, sum);
+          // printf("[MULT] %.10f + %.10f = %.10f\n", m1[i][k], m2[k][j], mult);
+          // printf("[ADD] %.10f + %.10f = %.10f\n", m3temp, mult, sum);
         }
-        //printf("m3[%d][%d]: %d\n", i,j,m3[i][j]);
+        // printf("m3[%d][%d]: %d\n", i,j,m3[i][j]);
       }
     }
   }
@@ -471,7 +476,8 @@ void fxp_matrix_multiplication(unsigned int i1, unsigned int j1,
 {
   unsigned int i, j, k;
   if(j1 == i2)
-  { //Checking if the multiplication is possible
+  {
+    // Checking if the multiplication is possible
     // Initialising Matrix 3
     for(i = 0; i < i1; i++)
     {
@@ -480,7 +486,7 @@ void fxp_matrix_multiplication(unsigned int i1, unsigned int j1,
         m3[i][j] = 0;
       }
     }
-    //Calculating multiplication result
+    // Calculating multiplication result
     for(i = 0; i < i1; i++)
     {
       for(j = 0; j < j2; j++)
@@ -658,8 +664,9 @@ double determinant(double a[LIMIT][LIMIT], int n)
   double m[LIMIT][LIMIT];
 
   if(n < 1)
-  { /* Error */
-
+  {
+    /* Error */
+    __DSVERIFIER_assert(0);
   }
   else if(n == 1)
   { /* Shouldn't get used */
@@ -710,8 +717,9 @@ double fxp_determinant(fxp_t a_fxp[LIMIT][LIMIT], int n)
   double m[LIMIT][LIMIT];
 
   if(n < 1)
-  { /* Error */
-
+  {
+    /* Error */
+    __DSVERIFIER_assert(0);
   }
   else if(n == 1)
   { /* Shouldn't get used */
@@ -787,3 +795,5 @@ double fabs_(double a)
   else
     return a;
 }
+
+#endif // DSVERIFIER_CORE_UTIL_H

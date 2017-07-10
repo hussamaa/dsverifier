@@ -13,17 +13,32 @@
  *
  * ------------------------------------------------------
  */
+#ifndef DSVERIFIER_CORE_COMPATIBILITY_H
+#define DSVERIFIER_CORE_COMPATIBILITY_H
 
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
 
-void __DSVERIFIER_assume(_Bool expression)
+// these definitions are common to the verifiers
+// that participate in SV-COMP
+void __VERIFIER_assume(int cond)
 {
-#if  (BMC == ESBMC)
-  __ESBMC_assume(expression);
-#elif(BMC == CBMC)
-  __CPROVER_assume(expression);
+  if(!(cond))
+  {
+    exit(1);
+  }
+}
+
+void __VERIFIER_assert(int cond)
+{
+  assert(cond);
+}
+
+void __DSVERIFIER_assume(int expression)
+{
+#if(BMC == ESBMC || BMC == CBMC)
+  __VERIFIER_assume(expression);
 #else
   printf("");
   printf("*********************");
@@ -31,16 +46,16 @@ void __DSVERIFIER_assume(_Bool expression)
   printf("*********************");
   assert(0);
 #endif
-
 }
 
-void __DSVERIFIER_assert(_Bool expression)
+void __DSVERIFIER_assert(int expression)
 {
-  assert(expression);
+  __VERIFIER_assert(expression);
 }
 
-void __DSVERIFIER_assert_msg(_Bool expression, char msg[])
+void __DSVERIFIER_assert_msg(int expression, char msg[])
 {
   printf("%s", msg);
-  assert(expression);
+  __VERIFIER_assert(expression);
 }
+#endif // DSVERIFIER_CORE_COMPATIBILITY_H
