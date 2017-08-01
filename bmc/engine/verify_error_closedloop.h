@@ -55,34 +55,33 @@ int verify_error_closedloop(void)
   fxp_to_double_array(c_den_qtz, c_den_fxp, controller.a_size);
 
   /* getting plant coefficients */
-
-#if (BMC == ESBMC)
+#if(BMC == ESBMC)
   double * p_num = plant.b;
   int p_num_size = plant.b_size;
   double * p_den = plant.a;
   int p_den_size = plant.a_size;
-#elif (BMC == CBMC)
+#elif(BMC == CBMC)
   double * p_num = plant_cbmc.b;
   int p_num_size = plant.b_size;
   double * p_den = plant_cbmc.a;
   int p_den_size = plant.a_size;
 #endif
 
-  double ans_num_double[100];
-  double ans_num_qtz[100];
+  double ans_num_double[MAX_DSORDER];
+  double ans_num_qtz[MAX_DSORDER];
   int ans_num_size = controller.b_size + plant.b_size - 1;
-  double ans_den_qtz[100];
-  double ans_den_double[100];
+  double ans_den_qtz[MAX_DSORDER];
+  double ans_den_double[MAX_DSORDER];
   int ans_den_size = controller.a_size + plant.a_size - 1;
 
-#if (CONNECTION_MODE == SERIES)
+#if(CONNECTION_MODE == SERIES)
   ft_closedloop_series(c_num_qtz, c_num_size, c_den_qtz, c_den_size, p_num,
       p_num_size, p_den, p_den_size, ans_num_qtz, ans_num_size, ans_den_qtz,
       ans_den_size);
   ft_closedloop_series(c_num, c_num_size, c_den, c_den_size, p_num, p_num_size,
       p_den, p_den_size, ans_num_double, ans_num_size, ans_den_double,
       ans_den_size);
-#elif (CONNECTION_MODE == FEEDBACK)
+#elif(CONNECTION_MODE == FEEDBACK)
   ft_closedloop_feedback(c_num_qtz,
       c_num_size,
       c_den_qtz,
@@ -149,14 +148,14 @@ int verify_error_closedloop(void)
   double w0_qtz[Nw];
   double w0_double[Nw];
 
-#if (REALIZATION == DFI)
+#if(REALIZATION == DFI)
   for(i = 0; i < ans_den_size; ++i)
   {
     yaux_qtz[i] = 0;
     yaux_double[i] = 0;
   }
 #else
-  for (i = 0; i < Nw; ++i)
+  for(i = 0; i < Nw; ++i)
   {
     waux_qtz[i] = 0;
     waux_double[i] = 0;
@@ -167,7 +166,7 @@ int verify_error_closedloop(void)
   {
     /* direct form I realization */
 
-#if (REALIZATION == DFI)
+#if(REALIZATION == DFI)
 
     /* realization with controller quantized */
     shiftLDouble(x_qtz[i], xaux_qtz, ans_num_size);
@@ -188,7 +187,7 @@ int verify_error_closedloop(void)
 
     /* direct form II realization */
 
-#if (REALIZATION == DFII)
+#if(REALIZATION == DFII)
 
     /* realization with controller quantized */
     shiftRDdouble(0, waux_qtz, Nw);
@@ -205,7 +204,7 @@ int verify_error_closedloop(void)
 
     /* transposed direct form II realization */
 
-#if (REALIZATION == TDFII)
+#if(REALIZATION == TDFII)
 
     /* realization with controller quantized */
     y_qtz[i] = double_transposed_direct_form_2(waux_qtz, x_qtz[i], ans_den_qtz,
@@ -227,4 +226,4 @@ int verify_error_closedloop(void)
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_VERIFY_ERROR_CLOSEDLOOP_H
+#endif // DSVERIFIER_ENGINE_VERIFY_ERROR_CLOSEDLOOP_H

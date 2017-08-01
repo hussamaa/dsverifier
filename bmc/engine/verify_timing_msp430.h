@@ -12,8 +12,8 @@
  *
  * ------------------------------------------------------
  */
-#ifndef DSVERIFIER_ENGINE_TIMING_MSP430_H
-#define DSVERIFIER_ENGINE_TIMING_MSP430_H
+#ifndef DSVERIFIER_ENGINE_VERIFY_TIMING_MSP430_H
+#define DSVERIFIER_ENGINE_VERIFY_TIMING_MSP430_H
 
 int nondet_int();
 float nondet_float();
@@ -71,7 +71,7 @@ int verify_timing_msp_430(void)
   {
     /* direct form I realization */
 
-#if (REALIZATION == DFI || REALIZATION == DDFI)
+#if(REALIZATION == DFI || REALIZATION == DDFI)
     shiftL(x[i], xaux, ds.b_size);
 
     y[i] = double_direct_form_1_MSP430(yaux, xaux, ds.a, ds.b, ds.a_size,
@@ -82,7 +82,7 @@ int verify_timing_msp_430(void)
 
     /* direct form II realization */
 
-#if (REALIZATION == DFII || REALIZATION == DDFII)
+#if(REALIZATION == DFII || REALIZATION == DDFII)
     shiftR(0, waux, Nw);
 
     y[i] = double_direct_form_2_MSP430(waux, x[i], ds.a, ds.b, ds.a_size,
@@ -91,15 +91,16 @@ int verify_timing_msp_430(void)
 
     /* transposed direct form II realization */
 
-#if (REALIZATION == TDFII || REALIZATION == TDDFII)
+#if(REALIZATION == TDFII || REALIZATION == TDDFII)
     y[i] = double_transposed_direct_form_2_MSP430(waux, x[i], ds.a, ds.b,
         ds.a_size, ds.b_size);
 #endif
 
     /* cascade direct form I realization (or delta cascade) */
 
-#if ((REALIZATION == CDFI) || (REALIZATION == CDDFI))
-    assert((Nw % 3) == 0 && (a_cascade_size == b_cascade_size)); // Necessary for this implementation of cascaded filters
+#if((REALIZATION == CDFI) || (REALIZATION == CDDFI))
+    // Necessary for this implementation of cascaded filters
+    assert((Nw % 3) == 0 && (a_cascade_size == b_cascade_size));
 
     xk = x[i];
 
@@ -122,7 +123,7 @@ int verify_timing_msp_430(void)
 
     /* cascade direct form II realization (or delta cascade) */
 
-#if ((REALIZATION == CDFII) || (REALIZATION == CDDFII))
+#if((REALIZATION == CDFII) || (REALIZATION == CDDFII))
     assert((Nw % 3) == 0 && (a_cascade_size == b_cascade_size));
 
     xk = x[i];
@@ -142,7 +143,7 @@ int verify_timing_msp_430(void)
 
     /* cascade transposed direct form II realization (or delta cascade) */
 
-#if ((REALIZATION == CTDFII) || (REALIZATION == CTDDFII))
+#if((REALIZATION == CTDFII) || (REALIZATION == CTDDFII))
     assert((Nw % 3) == 0 && (a_cascade_size == b_cascade_size));
 
     xk = x[i];
@@ -156,9 +157,8 @@ int verify_timing_msp_430(void)
       xk = y[i];
     }
 #endif
-
   }
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_TIMING_MSP430_H
+#endif // DSVERIFIER_ENGINE_VERIFY_TIMING_MSP430_H

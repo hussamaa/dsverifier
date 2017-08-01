@@ -117,4 +117,4 @@ int verify_generic_timing(void)
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_GENERIC_TIMING_H
+#endif // DSVERIFIER_ENGINE_GENERIC_TIMING_H

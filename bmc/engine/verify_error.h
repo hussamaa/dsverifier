@@ -23,14 +23,13 @@ int verify_error(void)
 {
   set_overflow_mode = SATURATE;
 
-  double a_cascade[100];
+  double a_cascade[MAX_DSORDER];
   int a_cascade_size;
-  double b_cascade[100];
+  double b_cascade[MAX_DSORDER];
   int b_cascade_size;
 
   /* check the realization */
-
-#if      ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
+#if((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
   fxp_t a_fxp[ds.a_size];
   fxp_t b_fxp[ds.b_size];
 
@@ -39,11 +38,12 @@ int verify_error(void)
 
   /* quantize the numerator using fxp */
   fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
-#elif ((REALIZATION == DDFI)||(REALIZATION == DDFII)||(REALIZATION == TDDFII))
+#elif((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
   double da[ds.a_size];
   double db[ds.b_size];
 
-  get_delta_transfer_function_with_base(ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
+  get_delta_transfer_function_with_base(
+    ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 
   fxp_t a_fxp[ds.a_size];
   fxp_t b_fxp[ds.b_size];
@@ -53,22 +53,23 @@ int verify_error(void)
 
   /* quantize delta numerator using fxp */
   fxp_double_to_fxp_array(db, b_fxp, ds.b_size);
-#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
+#elif((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
 
   /* generate cascade realization for digital system */
-  __DSVERIFIER_generate_cascade_controllers(&ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
+  __DSVERIFIER_generate_cascade_controllers(&ds, a_cascade,
+    a_cascade_size, b_cascade, b_cascade_size);
 
-  fxp_t ac_fxp[100];
-  fxp_t bc_fxp[100];
+  fxp_t ac_fxp[MAX_DSORDER];
+  fxp_t bc_fxp[MAX_DSORDER];
 
   /* quantize cascade denominators */
   fxp_double_to_fxp_array(a_cascade, ac_fxp, a_cascade_size);
 
   /* quantize cascade numerators */
   fxp_double_to_fxp_array(b_cascade, bc_fxp, b_cascade_size);
-#elif ((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
-  double da_cascade[100];
-  double db_cascade[100];
+#elif((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+  double da_cascade[MAX_DSORDER];
+  double db_cascade[MAX_DSORDER];
 
   /* generate cascade realization with delta for the digital system */
   __DSVERIFIER_generate_cascade_delta_controllers(&ds,
@@ -78,8 +79,8 @@ int verify_error(void)
       b_cascade_size,
       impl.delta);
 
-  fxp_t ac_fxp[100];
-  fxp_t bc_fxp[100];
+  fxp_t ac_fxp[MAX_DSORDER];
+  fxp_t bc_fxp[MAX_DSORDER];
 
   /* quantize cascade denominators */
   fxp_double_to_fxp_array(da_cascade, ac_fxp, a_cascade_size);
@@ -96,7 +97,7 @@ int verify_error(void)
   double xf[X_SIZE_VALUE];
   int Nw = 0;
 
-#if ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+#if((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
   Nw = (a_cascade_size > b_cascade_size) ? a_cascade_size : b_cascade_size;
 #else
   Nw = (ds.a_size > ds.b_size) ? ds.a_size : ds.b_size;
@@ -142,46 +143,34 @@ int verify_error(void)
   for(i = 0; i < X_SIZE_VALUE; ++i)
   {
 #if (REALIZATION == DFI)
-
     /* fixed point implementation */
     shiftL(x[i], xaux, ds.b_size);
-
     y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
-
     shiftL(y[i], yaux, ds.a_size);
 
     /* double precision */
     shiftLDouble(xf[i], xfaux, ds.b_size);
-
     yf[i] = double_direct_form_1(yfaux, xfaux, ds.a, ds.b, ds.a_size,
         ds.b_size);
-
     shiftLDouble(yf[i], yfaux, ds.a_size);
 #endif
 
 #if (REALIZATION == DDFI)
-
     /* fixed point implementation */
     shiftL(x[i], xaux, ds.b_size);
-
     y[i] = fxp_direct_form_1(yaux, xaux, a_fxp, b_fxp, ds.a_size, ds.b_size);
-
     shiftL(y[i], yaux, ds.a_size);
 
     /* double precision implementation */
     shiftLDouble(xf[i], xfaux, ds.b_size);
-
     yf[i] = double_direct_form_1(yfaux, xfaux, da, db, ds.a_size, ds.b_size);
-
     shiftLDouble(yf[i], yfaux, ds.a_size);
 #endif
 
 #if (REALIZATION == DFII)
     shiftRboth(0.0f, wfaux, 0, waux, Nw);
-
     /* fixed point implementation */
     y[i] = fxp_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
-
     /* double precision implementation */
     yf[i] = double_direct_form_2(wfaux, xf[i], ds.a, ds.b, ds.a_size,
         ds.b_size);
@@ -189,31 +178,25 @@ int verify_error(void)
 
 #if (REALIZATION == DDFII)
     shiftRboth(0.0f, wfaux, 0, waux, Nw);
-
     /* fixed point implementation */
     y[i] = fxp_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size, ds.b_size);
-
     /* double precision implementation */
     yf[i] = double_direct_form_2(wfaux, xf[i], da, db, ds.a_size, ds.b_size);
 #endif
 
 #if (REALIZATION == TDFII)
-
     /* fixed point implementation */
     y[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size,
         ds.b_size);
-
     /* double precision implementation */
     yf[i] = double_transposed_direct_form_2(wfaux, xf[i], ds.a, ds.b, ds.a_size,
         ds.b_size);
 #endif
 
 #if (REALIZATION == TDDFII)
-
     /* fixed point implementation */
     y[i] = fxp_transposed_direct_form_2(waux, x[i], a_fxp, b_fxp, ds.a_size,
         ds.b_size);
-
     /* double precision implementation */
     yf[i] = double_transposed_direct_form_2(wfaux, xf[i], da, db, ds.a_size,
         ds.b_size);
@@ -230,4 +213,4 @@ int verify_error(void)
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_VERIFY_ERROR_H
+#endif // DSVERIFIER_ENGINE_VERIFY_ERROR_H

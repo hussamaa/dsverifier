@@ -22,12 +22,13 @@
 
 // these definitions are common to the verifiers
 // that participate in SV-COMP
-void __VERIFIER_assume(int cond)
+void __VERIFIER_assume(int expression)
 {
-  if(!(cond))
+  if (!expression)
   {
-    exit(1);
-  }
+    LOOP: goto LOOP;
+  };
+  return;
 }
 
 void __VERIFIER_assert(int cond)

@@ -10,8 +10,8 @@
  * #
  * # ------------------------------------------------------
  */
-#ifndef DSVERIFIER_ENGINE_OBSERVABILITY_H
-#define DSVERIFIER_ENGINE_OBSERVABILITY_H
+#ifndef DSVERIFIER_ENGINE_VERIFY_OBSERVABILITY_H
+#define DSVERIFIER_ENGINE_VERIFY_OBSERVABILITY_H
 
 extern digital_system_state_space _controller;
 
@@ -172,4 +172,4 @@ int verify_observability(void)
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_OBSERVABILITY_H
+#endif // DSVERIFIER_ENGINE_VERIFY_OBSERVABILITY_H

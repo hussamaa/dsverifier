@@ -205,7 +205,8 @@ double fxp_ss_closed_loop_quantization_error(double reference)
   unsigned int i;
   unsigned int j;
   unsigned int k;
-  short unsigned int flag = 0; // flag is 0 if matrix D is null matrix, otherwise flag is 1
+  // flag is 0 if matrix D is null matrix, otherwise flag is 1
+  short unsigned int flag = 0;
 
   for(i = 0; i < nOutputs; i++)
   {    // check if matrix D is a null matrix
@@ -279,7 +280,7 @@ double fxp_ss_closed_loop_quantization_error(double reference)
         fxp_quantize(result_fxp2[k][0]));
   }
 
-  /////output = C*states + D * inputs
+  // output = C*states + D * inputs
 
   // result1 = C * states
   double_matrix_multiplication(nOutputs, nStates, nStates, 1, _controller_fxp.C,
@@ -295,7 +296,7 @@ double fxp_ss_closed_loop_quantization_error(double reference)
   // outputs = result 1 + result 2 = C*states + D * inputs
   double_add_matrix(nOutputs, 1, result1, result2, _controller_fxp.outputs);
 
-  /////states = A*states + B*inputs
+  // states = A*states + B*inputs
 
   // result1 = A * states
   double_matrix_multiplication(nStates, nStates, nStates, 1, _controller_fxp.A,
@@ -318,7 +319,8 @@ double ss_closed_loop_quantization_error(double reference)
   double result2[LIMIT][LIMIT];
   unsigned int i;
   unsigned int j;
-  short unsigned int flag = 0; // flag is 0 if matrix D is null matrix, otherwise flag is 1
+  // flag is 0 if matrix D is null matrix, otherwise flag is 1
+  short unsigned int flag = 0;
 
   for(i = 0; i < nOutputs; i++)
   {    // check if matrix D is a null matrix
@@ -348,7 +350,7 @@ double ss_closed_loop_quantization_error(double reference)
     }
   }
 
-  ////// inputs = reference - K * states
+  // inputs = reference - K * states
 
   // result 1 = first element of k * outputs
   double_matrix_multiplication(nOutputs, nStates, nStates, 1,
@@ -358,7 +360,7 @@ double ss_closed_loop_quantization_error(double reference)
   double_sub_matrix(nInputs, 1, reference_aux, result1,
       _controller_double.inputs);
 
-  /////output = C*states + D * inputs
+  // output = C*states + D * inputs
 
   // result1 = C * states0
   double_matrix_multiplication(nOutputs, nStates, nStates, 1,
@@ -374,7 +376,7 @@ double ss_closed_loop_quantization_error(double reference)
   // outputs = result 1 + result 2 = C*states + D * inputs
   double_add_matrix(nOutputs, 1, result1, result2, _controller_double.outputs);
 
-  /////states = A*states + B*inputs
+  // states = A*states + B*inputs
 
   // result1 = A * states
   double_matrix_multiplication(nStates, nStates, nStates, 1,
@@ -455,4 +457,4 @@ int verify_error_state_space(void)
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_VERIFY_ERROR_STATE_SPACE_H
+#endif // DSVERIFIER_ENGINE_VERIFY_ERROR_STATE_SPACE_H

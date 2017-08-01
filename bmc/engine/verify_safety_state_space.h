@@ -13,8 +13,8 @@
  * #
  * # ------------------------------------------------------
  */
-#ifndef DSVERIFIER_ENGINE_SAFETY_STATE_SPACE_H
-#define DSVERIFIER_ENGINE_SAFETY_STATE_SPACE_H
+#ifndef DSVERIFIER_ENGINE_VERIFY_SAFETY_STATE_SPACE_H
+#define DSVERIFIER_ENGINE_VERIFY_SAFETY_STATE_SPACE_H
 
 extern digital_system_state_space _controller;
 extern double error_limit;
@@ -31,7 +31,8 @@ double fxp_ss_closed_loop_safety()
   unsigned int i;
   unsigned int j;
   unsigned int k;
-  short unsigned int flag = 0; // flag is 0 if matrix D is null matrix, otherwise flag is 1
+  // flag is 0 if matrix D is null matrix, otherwise flag is 1
+  short unsigned int flag = 0;
 
   for(i = 0; i < nOutputs; i++)
   {    // check if matrix D is a null matrix
@@ -152,4 +153,4 @@ int verify_safety_state_space(void)
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_SAFETY_STATE_SPACE_H
+#endif // DSVERIFIER_ENGINE_VERIFY_SAFETY_STATE_SPACE_H

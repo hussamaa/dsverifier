@@ -11,8 +11,8 @@
  *
  * ------------------------------------------------------
  */
-#ifndef DSVERIFIER_ENGINE_MAGNITUDE_H
-#define DSVERIFIER_ENGINE_MAGNITUDE_H
+#ifndef DSVERIFIER_ENGINE_VERIFY_MAGNITUDE_H
+#define DSVERIFIER_ENGINE_VERIFY_MAGNITUDE_H
 
 #include <stdio.h>
 #include <stdint.h>
@@ -103,7 +103,8 @@ int verify_magnitude(void)
     ds.a[i] = fxp_to_double(fxp_double_to_fxp(ds.a[i]));
   }
 
-  /* generates magnitude response of the quantized TF, placing the result in the "_res" array */
+  /* generates magnitude response of the quantized TF,
+   * placing the result in the "_res" array */
   resp_mag(ds.b, ds.b_size, ds.a, ds.a_size, _res, freq_response_samples);
 
   if((filter.wp == 0) && (filter.wr == 0))
@@ -197,7 +198,7 @@ int verify_magnitude(void)
       }
 
       if(((w > filter.w1p) || (doubleComparisson(filter.w1p, w, 0.0000001)))
-          && ((w < filter.w2p) || (doubleComparisson(filter.w2p, w, 0.0000001))))
+        && ((w < filter.w2p) || (doubleComparisson(filter.w2p, w, 0.0000001))))
       {
         assert(_res[i] >= filter.Ap);
       }
@@ -223,4 +224,4 @@ int verify_magnitude(void)
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_MAGNITUDE_H
+#endif // DSVERIFIER_ENGINE_VERIFY_MAGNITUDE_H
