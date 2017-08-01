@@ -31,27 +31,27 @@ int verify_stability_closedloop_using_dslib(void)
 
   /* quantizing controller coefficients */
 #if(ARITHMETIC == FIXEDBV)
-  fxp_t c_num_fxp[MAX_DSORDER];
+  fxp_t c_num_fxp[controller.b_size];
   fxp_double_to_fxp_array(c_num, c_num_fxp, controller.b_size);
-  fxp_t c_den_fxp[MAX_DSORDER];
+  fxp_t c_den_fxp[controller.a_size];
   fxp_double_to_fxp_array(c_den, c_den_fxp, controller.a_size);
 #elif(ARITHMETIC == FLOATBV)
-  fp_t c_num_fp[MAX_DSORDER];
+  fp_t c_num_fp[controller.b_size];
   fp_double_to_fp_array(c_num, c_num_fp, controller.b_size);
-  fp_t c_den_fp[MAX_DSORDER];
+  fp_t c_den_fp[controller.a_size];
   fp_double_to_fp_array(c_den, c_den_fp, controller.a_size);
 #endif
 
   /* getting quantized controller coefficients */
 #if(ARITHMETIC == FIXEDBV)
-  double c_num_qtz[MAX_DSORDER];
+  double c_num_qtz[controller.b_size];
   fxp_to_double_array(c_num_qtz, c_num_fxp, controller.b_size);
-  double c_den_qtz[MAX_DSORDER];
+  double c_den_qtz[controller.a_size];
   fxp_to_double_array(c_den_qtz, c_den_fxp, controller.a_size);
 #elif(ARITHMETIC == FLOATBV)
-  double c_num_qtz[MAX_DSORDER];
+  double c_num_qtz[controller.b_size];
   fp_to_double_array(c_num_qtz, c_num_fp, controller.b_size);
-  double c_den_qtz[MAX_DSORDER];
+  double c_den_qtz[controller.a_size];
   fp_to_double_array(c_den_qtz, c_den_fp, controller.a_size);
 #endif
 

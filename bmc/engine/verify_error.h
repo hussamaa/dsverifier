@@ -30,8 +30,8 @@ int verify_error(void)
 
   /* check the realization */
 #if((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
-  fxp_t a_fxp[MAX_DSORDER];
-  fxp_t b_fxp[MAX_DSORDER];
+  fxp_t a_fxp[ds.a_size];
+  fxp_t b_fxp[ds.b_size];
 
   /* quantize the denominator using fxp */
   fxp_double_to_fxp_array(ds.a, a_fxp, ds.a_size);
@@ -41,14 +41,14 @@ int verify_error(void)
 #elif((REALIZATION == DDFI) ||
       (REALIZATION == DDFII) ||
       (REALIZATION == TDDFII))
-  double da[MAX_DSORDER];
-  double db[MAX_DSORDER];
+  double da[ds.a_size];
+  double db[ds.b_size];
 
   get_delta_transfer_function_with_base(
     ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 
-  fxp_t a_fxp[MAX_DSORDER];
-  fxp_t b_fxp[MAX_DSORDER];
+  fxp_t a_fxp[ds.a_size];
+  fxp_t b_fxp[ds.b_size];
 
   /* quantize delta denominators using fxp */
   fxp_double_to_fxp_array(da, a_fxp, ds.a_size);
@@ -111,11 +111,11 @@ int verify_error(void)
   Nw = (ds.a_size > ds.b_size) ? ds.a_size : ds.b_size;
 #endif
 
-  fxp_t yaux[MAX_DSORDER];
-  fxp_t xaux[MAX_DSORDER];
+  fxp_t yaux[ds.a_size];
+  fxp_t xaux[ds.b_size];
   fxp_t waux[Nw];
-  double yfaux[MAX_DSORDER];
-  double xfaux[MAX_DSORDER];
+  double yfaux[ds.a_size];
+  double xfaux[ds.b_size];
   double wfaux[Nw];
   int i;
 

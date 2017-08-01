@@ -37,20 +37,20 @@ int verify_error_closedloop(void)
   int c_den_size = controller.a_size;
 
   /* quantizing controller coefficients */
-  fxp_t c_num_fxp[MAX_DSORDER];
+  fxp_t c_num_fxp[controller.b_size];
 
   fxp_double_to_fxp_array(c_num, c_num_fxp, controller.b_size);
 
-  fxp_t c_den_fxp[MAX_DSORDER];
+  fxp_t c_den_fxp[controller.a_size];
 
   fxp_double_to_fxp_array(c_den, c_den_fxp, controller.a_size);
 
   /* getting quantized controller coefficients */
-  double c_num_qtz[MAX_DSORDER];
+  double c_num_qtz[controller.b_size];
 
   fxp_to_double_array(c_num_qtz, c_num_fxp, controller.b_size);
 
-  double c_den_qtz[MAX_DSORDER];
+  double c_den_qtz[controller.a_size];
 
   fxp_to_double_array(c_den_qtz, c_den_fxp, controller.a_size);
 
@@ -67,11 +67,11 @@ int verify_error_closedloop(void)
   int p_den_size = plant.a_size;
 #endif
 
-  double ans_num_double[100];
-  double ans_num_qtz[100];
+  double ans_num_double[MAX_DSORDER];
+  double ans_num_qtz[MAX_DSORDER];
   int ans_num_size = controller.b_size + plant.b_size - 1;
-  double ans_den_qtz[100];
-  double ans_den_double[100];
+  double ans_den_qtz[MAX_DSORDER];
+  double ans_den_double[MAX_DSORDER];
   int ans_den_size = controller.a_size + plant.a_size - 1;
 
 #if(CONNECTION_MODE == SERIES)
