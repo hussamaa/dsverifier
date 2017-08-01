@@ -9,8 +9,8 @@
  *
  * ------------------------------------------------------
  */
-#ifndef DSVERIFIER_ENGINE_ZERO_INPUT_LIMIT_CYCLE_H
-#define DSVERIFIER_ENGINE_ZERO_INPUT_LIMIT_CYCLE_H
+#ifndef DSVERIFIER_ENGINE_VERIFY_ZERO_INPUT_LIMIT_CYCLE_H
+#define DSVERIFIER_ENGINE_VERIFY_ZERO_INPUT_LIMIT_CYCLE_H
 
 extern digital_system ds;
 extern implementation impl;
@@ -36,11 +36,14 @@ int verify_zero_input_limit_cycle(void)
 
   /* quantize the numerator using fxp */
   fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
-#elif ((REALIZATION == DDFI)||(REALIZATION == DDFII)||(REALIZATION == TDDFII))
+#elif((REALIZATION == DDFI) ||
+       (REALIZATION == DDFII) ||
+       (REALIZATION == TDDFII))
   double da[ds.a_size];
   double db[ds.b_size];
 
-  get_delta_transfer_function_with_base(ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
+  get_delta_transfer_function_with_base(
+    ds.b, db, ds.b_size, ds.a, da, ds.a_size, impl.delta);
 
   fxp_t a_fxp[ds.a_size];
   fxp_t b_fxp[ds.b_size];
@@ -50,14 +53,17 @@ int verify_zero_input_limit_cycle(void)
 
   /* quantize delta numerator using fxp */
   fxp_double_to_fxp_array(db, b_fxp, ds.b_size);
-#elif((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
+#elif((REALIZATION == CDFI) ||
+      (REALIZATION == CDFII) ||
+      (REALIZATION == CTDFII))
   double a_cascade[100];
   int a_cascade_size;
   double b_cascade[100];
   int b_cascade_size;
 
   /* generate cascade realization for digital system */
-  __DSVERIFIER_generate_cascade_controllers(&ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
+  __DSVERIFIER_generate_cascade_controllers(
+    &ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
 
   fxp_t ac_fxp[100];
   fxp_t bc_fxp[100];
@@ -67,7 +73,9 @@ int verify_zero_input_limit_cycle(void)
 
   /* quantize cascade numerators */
   fxp_double_to_fxp_array(b_cascade, bc_fxp, b_cascade_size);
-#elif((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+#elif((REALIZATION == CDDFI) ||
+      (REALIZATION == CDDFII) ||
+      (REALIZATION == CTDDFII))
   double da_cascade[100];
   int a_cascade_size;
   double db_cascade[100];
@@ -105,7 +113,9 @@ int verify_zero_input_limit_cycle(void)
 
   int Nw = 0;
 
-#if((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+#if((REALIZATION == CDFI) || (REALIZATION == CDFII) ||
+    (REALIZATION == CTDFII) || (REALIZATION == CDDFII) ||
+    (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
   Nw = (a_cascade_size > b_cascade_size) ? a_cascade_size : b_cascade_size;
 #else
   Nw = (ds.a_size > ds.b_size) ? ds.a_size : ds.b_size;
@@ -117,7 +127,8 @@ int verify_zero_input_limit_cycle(void)
   fxp_t y0[ds.a_size];
   fxp_t w0[Nw];
 
-#if(REALIZATION == DFI || REALIZATION == CDFI || REALIZATION == DDFI || REALIZATION == CDDFI)
+#if(REALIZATION == DFI || REALIZATION == CDFI ||
+    REALIZATION == DDFI || REALIZATION == CDDFI)
   for(i = 0; i < ds.a_size; ++i)
   {
     yaux[i] = nondet_int();
@@ -127,7 +138,7 @@ int verify_zero_input_limit_cycle(void)
     y0[i] = yaux[i];
   }
 #else
-  for (i = 0; i < Nw; ++i)
+  for(i = 0; i < Nw; ++i)
   {
     waux[i] = nondet_int();
 
@@ -235,4 +246,4 @@ int verify_zero_input_limit_cycle(void)
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_ZERO_INPUT_LIMIT_CYCLE_H
+#endif // DSVERIFIER_ENGINE_VERIFY_ZERO_INPUT_LIMIT_CYCLE_H

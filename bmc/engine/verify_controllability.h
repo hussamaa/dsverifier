@@ -214,4 +214,4 @@ int verify_controllability_double(void)
   return 0;
 }
 
-#endif //DSVERIFIER_ENGINE_VERIFY_CONTROLLABILITY_H
+#endif // DSVERIFIER_ENGINE_VERIFY_CONTROLLABILITY_H

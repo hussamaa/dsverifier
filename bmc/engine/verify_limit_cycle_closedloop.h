@@ -58,12 +58,12 @@ int verify_limit_cycle_closed_loop(void)
 
   /* getting plant coefficients */
 
-#if (BMC == ESBMC)
+#if(BMC == ESBMC)
   double * p_num = plant.b;
   int p_num_size = plant.b_size;
   double * p_den = plant.a;
   int p_den_size = plant.a_size;
-#elif (BMC == CBMC)
+#elif(BMC == CBMC)
   double * p_num = plant_cbmc.b;
   int p_num_size = plant.b_size;
   double * p_den = plant_cbmc.a;
@@ -75,11 +75,11 @@ int verify_limit_cycle_closed_loop(void)
   double ans_den[100];
   int ans_den_size = controller.a_size + plant.a_size - 1;
 
-#if (CONNECTION_MODE == SERIES)
+#if(CONNECTION_MODE == SERIES)
   ft_closedloop_series(c_num_qtz, c_num_size, c_den_qtz, c_den_size, p_num,
       p_num_size, p_den, p_den_size, ans_num, ans_num_size, ans_den,
       ans_den_size);
-#elif (CONNECTION_MODE == FEEDBACK)
+#elif(CONNECTION_MODE == FEEDBACK)
   ft_closedloop_feedback(c_num_qtz,
       c_num_size,
       c_den_qtz,
@@ -103,8 +103,8 @@ int verify_limit_cycle_closed_loop(void)
   double nondet_constant_input = nondet_double();
 
   __DSVERIFIER_assume(
-      (nondet_constant_input >= impl.min)
-          && (nondet_constant_input <= impl.max));
+    (nondet_constant_input >= impl.min)
+    && (nondet_constant_input <= impl.max));
 
   for(i = 0; i < X_SIZE_VALUE; ++i)
   {
@@ -133,7 +133,7 @@ int verify_limit_cycle_closed_loop(void)
     y0[i] = yaux[i];
   }
 #else
-  for (i = 0; i < Nw; ++i)
+  for(i = 0; i < Nw; ++i)
   {
     waux[i] = nondet_int();
 
@@ -175,7 +175,6 @@ int verify_limit_cycle_closed_loop(void)
     y[i] = double_transposed_direct_form_2(waux, x[i], ans_den, ans_num,
         ans_den_size, ans_num_size);
 #endif
-
   }
 
   /* check oscillations in produced output */
@@ -183,4 +182,4 @@ int verify_limit_cycle_closed_loop(void)
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_LIMIT_CYCLE_CLOSEDLOOP_H
+#endif // DSVERIFIER_ENGINE_LIMIT_CYCLE_CLOSEDLOOP_H

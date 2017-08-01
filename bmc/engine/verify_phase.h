@@ -118,7 +118,8 @@ int verify_phase(void)
 
   fxp_to_double_array(_b, b_fxp, ds.b_size);
 
-  /* generates magnitude response of the quantized TF, placing the result in the "_res" array */
+  /* generates magnitude response of the quantized TF,
+   * placing the result in the "_res" array */
   resp_mag(ds.b, ds.b_size, ds.a, ds.a_size, _res, freq_response_samples);
 
   float dif = 0.3;
@@ -130,4 +131,4 @@ int verify_phase(void)
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_PHASE_H
+#endif // DSVERIFIER_ENGINE_PHASE_H

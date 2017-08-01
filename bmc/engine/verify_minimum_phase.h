@@ -29,7 +29,7 @@ int verify_minimum_phase(void)
 
   /* check the realization */
 
-#if ((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
+#if((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
   fxp_t b_fxp[ds.b_size];
 
   /* quantize the array using fxp */
@@ -42,7 +42,9 @@ int verify_minimum_phase(void)
 
   /* check stability using jury criteria */
   __DSVERIFIER_assert(check_stability(_b, ds.b_size));
-#elif ((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
+#elif((REALIZATION == DDFI) ||
+      (REALIZATION == DDFII) ||
+      (REALIZATION == TDDFII))
   double db[ds.b_size];
 
   /* generate delta coefficients for numerator */
@@ -53,18 +55,23 @@ int verify_minimum_phase(void)
   /* quantize delta numerator using fxp */
   fxp_double_to_fxp_array(db, b_fxp, ds.b_size);
 
-  /* __DSVERIFIER_assert(__DSVERIFIER_check_delta_stability(db, DEADLINE, impl.int_bits, impl.frac_bits)); */
-  printf("*** FUNCTION PENDING FOR BMC (CHECK MINIMUM PHASE IN DELTA DOMAIN ***");
+  /* __DSVERIFIER_assert(__DSVERIFIER_check_delta_stability(
+   * db, DEADLINE, impl.int_bits, impl.frac_bits)); */
+  printf("*** FUNCTION PENDING FOR BMC "
+    "(CHECK MINIMUM PHASE IN DELTA DOMAIN ***");
   assert(0);
   exit(1);
-#elif ((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
+#elif((REALIZATION == CDFI) ||
+      (REALIZATION == CDFII) ||
+      (REALIZATION == CTDFII))
   double a_cascade[100];
   int a_cascade_size;
   double b_cascade[100];
   int b_cascade_size;
 
   /* generate cascade values using a intrinsic function */
-  __DSVERIFIER_generate_cascade_controllers(&ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
+  __DSVERIFIER_generate_cascade_controllers(
+    &ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
 
   fxp_t b_cascade_fxp[100];
 
@@ -79,10 +86,10 @@ int verify_minimum_phase(void)
   int i = 0;
   double current_cascade[3];
 
-  for (i = 0; i < b_cascade_size; i = i + 3)
+  for(i = 0; i < b_cascade_size; i = i + 3)
   {
     /* first element zero (remove left zeros) */
-    if ((i == 0) && (b_cascade_qtz[i] == 0))
+    if((i == 0) && (b_cascade_qtz[i] == 0))
     {
       current_cascade[0] = b_cascade_qtz[i + 1];
       current_cascade[1] = b_cascade_qtz[i + 2];
@@ -98,18 +105,19 @@ int verify_minimum_phase(void)
       __DSVERIFIER_assert(check_stability(current_cascade, 3));
     }
   }
-#elif ((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+#elif((REALIZATION == CDDFI) ||
+      (REALIZATION == CDDFII) ||
+      (REALIZATION == CTDDFII))
   double db_cascade[100];
 
   /* generate delta coefficients using a instrinsic function */
   __DSVERIFIER_generate_delta_coefficients(ds.b, db_cascade, impl.delta);
 
   /* check stability using delta domain (intrinsic function) */
-  __DSVERIFIER_assert(__DSVERIFIER_check_delta_stability_cascade(db_cascade, ds.sample_time, impl.int_bits,
-          impl.frac_bits));
+  __DSVERIFIER_assert(__DSVERIFIER_check_delta_stability_cascade(
+    db_cascade, ds.sample_time, impl.int_bits, impl.frac_bits));
   exit(1);
 #endif
-
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_MINIMUM_PHASE_H
+#endif // DSVERIFIER_ENGINE_MINIMUM_PHASE_H

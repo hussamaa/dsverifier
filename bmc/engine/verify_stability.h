@@ -17,8 +17,8 @@
  *
  * ------------------------------------------------------
  */
-#ifndef DSVERIFIER_ENGINE_STABILITY_H
-#define DSVERIFIER_ENGINE_STABILITY_H
+#ifndef DSVERIFIER_ENGINE_VERIFY_STABILITY_H
+#define DSVERIFIER_ENGINE_VERIFY_STABILITY_H
 
 extern digital_system ds;
 extern implementation impl;
@@ -28,7 +28,6 @@ int verify_stability(void)
   set_overflow_mode = 0;
 
   /* check the realization */
-
 #if((REALIZATION == DFI) || (REALIZATION == DFII) || (REALIZATION == TDFII))
   fxp_t a_fxp[ds.a_size];
 
@@ -42,14 +41,17 @@ int verify_stability(void)
 
   /* check stability using jury criteria */
   assert(check_stability(_a, ds.a_size));
-#elif((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
+#elif((REALIZATION == DDFI) ||
+      (REALIZATION == DDFII) ||
+      (REALIZATION == TDDFII))
   double da[ds.a_size];
 
   /* generate delta coefficients using a instrinsic function */
   generate_delta_coefficients(ds.a, da, ds.a_size, impl.delta);
 
   /* check stability using delta domain (intrinsic function) */
-  /* assert(__DSVERIFIER_check_delta_stability(da, ds.sample_time, impl.int_bits, impl.frac_bits)); */
+  /* assert(__DSVERIFIER_check_delta_stability(
+   * da, ds.sample_time, impl.int_bits, impl.frac_bits)); */
   printf("*** FUNCTION PENDING FOR BMC (CHECK STABILITY IN DELTA DOMAIN ***");
   assert(0);
 #elif((REALIZATION == CDFI) || (REALIZATION == CDFII)|| (REALIZATION == CTDFII))
@@ -59,7 +61,8 @@ int verify_stability(void)
   int b_cascade_size;
 
   /* generate cascade values using a intrinsic function */
-  __DSVERIFIER_generate_cascade_controllers(&ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
+  __DSVERIFIER_generate_cascade_controllers(
+    &ds, a_cascade, a_cascade_size, b_cascade, b_cascade_size);
 
   fxp_t a_cascade_fxp[100];
 
@@ -93,17 +96,20 @@ int verify_stability(void)
       assert(check_stability(current_cascade, 3));
     }
   }
-#elif((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+#elif((REALIZATION == CDDFI) ||
+      (REALIZATION == CDDFII) ||
+      (REALIZATION == CTDDFII))
   double da_cascade[100];
 
   /* generate delta coefficients using a instrinsic function */
   __DSVERIFIER_generate_delta_coefficients(ds.a, da_cascade, impl.delta);
 
   /* check stability using delta domain (intrinsic function) */
-  assert(__DSVERIFIER_check_delta_stability_cascade(da_cascade, ds.sample_time, impl.int_bits, impl.frac_bits));
+  assert(__DSVERIFIER_check_delta_stability_cascade(
+    da_cascade, ds.sample_time, impl.int_bits, impl.frac_bits));
   exit(1);
 #endif
 
   return 0;
 }
-#endif //DSVERIFIER_ENGINE_STABILITY_H
+#endif // DSVERIFIER_ENGINE_VERIFY_STABILITY_H
