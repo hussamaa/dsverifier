@@ -42,9 +42,7 @@ int verify_minimum_phase(void)
 
   /* check stability using jury criteria */
   __DSVERIFIER_assert(check_stability(_b, ds.b_size));
-#elif((REALIZATION == DDFI) ||
-      (REALIZATION == DDFII) ||
-      (REALIZATION == TDDFII))
+#elif((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
   double db[ds.b_size];
 
   /* generate delta coefficients for numerator */
@@ -61,9 +59,7 @@ int verify_minimum_phase(void)
     "(CHECK MINIMUM PHASE IN DELTA DOMAIN ***");
   assert(0);
   exit(1);
-#elif((REALIZATION == CDFI) ||
-      (REALIZATION == CDFII) ||
-      (REALIZATION == CTDFII))
+#elif((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
   double a_cascade[100];
   int a_cascade_size;
   double b_cascade[100];
@@ -105,9 +101,7 @@ int verify_minimum_phase(void)
       __DSVERIFIER_assert(check_stability(current_cascade, 3));
     }
   }
-#elif((REALIZATION == CDDFI) ||
-      (REALIZATION == CDDFII) ||
-      (REALIZATION == CTDDFII))
+#elif((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
   double db_cascade[100];
 
   /* generate delta coefficients using a instrinsic function */

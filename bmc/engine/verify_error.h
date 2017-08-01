@@ -38,9 +38,7 @@ int verify_error(void)
 
   /* quantize the numerator using fxp */
   fxp_double_to_fxp_array(ds.b, b_fxp, ds.b_size);
-#elif((REALIZATION == DDFI) ||
-      (REALIZATION == DDFII) ||
-      (REALIZATION == TDDFII))
+#elif((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
   double da[ds.a_size];
   double db[ds.b_size];
 
@@ -55,9 +53,7 @@ int verify_error(void)
 
   /* quantize delta numerator using fxp */
   fxp_double_to_fxp_array(db, b_fxp, ds.b_size);
-#elif((REALIZATION == CDFI) ||
-      (REALIZATION == CDFII) ||
-      (REALIZATION == CTDFII))
+#elif((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII))
 
   /* generate cascade realization for digital system */
   __DSVERIFIER_generate_cascade_controllers(&ds, a_cascade,
@@ -71,9 +67,7 @@ int verify_error(void)
 
   /* quantize cascade numerators */
   fxp_double_to_fxp_array(b_cascade, bc_fxp, b_cascade_size);
-#elif((REALIZATION == CDDFI) ||
-      (REALIZATION == CDDFII) ||
-      (REALIZATION == CTDDFII))
+#elif((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
   double da_cascade[MAX_DSORDER];
   double db_cascade[MAX_DSORDER];
 
@@ -103,9 +97,7 @@ int verify_error(void)
   double xf[X_SIZE_VALUE];
   int Nw = 0;
 
-#if((REALIZATION == CDFI) || (REALIZATION == CDFII) ||
-    (REALIZATION == CTDFII) || (REALIZATION == CDDFII) ||
-    (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
+#if((REALIZATION == CDFI) || (REALIZATION == CDFII) || (REALIZATION == CTDFII) || (REALIZATION == CDDFII) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
   Nw = (a_cascade_size > b_cascade_size) ? a_cascade_size : b_cascade_size;
 #else
   Nw = (ds.a_size > ds.b_size) ? ds.a_size : ds.b_size;

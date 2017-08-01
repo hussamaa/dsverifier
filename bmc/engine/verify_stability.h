@@ -41,9 +41,7 @@ int verify_stability(void)
 
   /* check stability using jury criteria */
   assert(check_stability(_a, ds.a_size));
-#elif((REALIZATION == DDFI) ||
-      (REALIZATION == DDFII) ||
-      (REALIZATION == TDDFII))
+#elif((REALIZATION == DDFI) || (REALIZATION == DDFII) || (REALIZATION == TDDFII))
   double da[ds.a_size];
 
   /* generate delta coefficients using a instrinsic function */
@@ -96,9 +94,7 @@ int verify_stability(void)
       assert(check_stability(current_cascade, 3));
     }
   }
-#elif((REALIZATION == CDDFI) ||
-      (REALIZATION == CDDFII) ||
-      (REALIZATION == CTDDFII))
+#elif((REALIZATION == CDDFI) || (REALIZATION == CDDFII) || (REALIZATION == CTDDFII))
   double da_cascade[100];
 
   /* generate delta coefficients using a instrinsic function */

@@ -59,7 +59,8 @@ int verify_controllability(void)
   }
 
   if(nInputs > 1)
-  {    // checking if it is a MIMO system
+  {
+    // checking if it is a MIMO system
     int l = 0;
 
     // calculating controllability matrix from the MIMO system
