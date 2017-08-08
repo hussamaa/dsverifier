@@ -18,9 +18,7 @@ matrix:
             - libeigen3-dev
             - libboost-dev
       before_install:
-        - mkdir bin ; ln -s /usr/bin/gcc-5 bin/gcc
-      # env: COMPILER=g++-5 SAN_FLAGS="-fsanitize=undefined -fno-sanitize-recover -fno-omit-frame-pointer"
-      env: COMPILER="g++-5"
+      env:
 
     # Ubuntu Linux with glibc using g++-5, debug mode
     - os: linux
@@ -64,7 +62,6 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install libeigen3-dev -y
   - sudo apt-get install libboost-dev -y
-  - gcc --version
   - export PATH=$PATH:$DSVERIFIER_HOME
   
 install:
