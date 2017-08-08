@@ -12,7 +12,7 @@ addons:
 env: NAME="CPP-LINT"
       install:
       script: scripts/travis_lint.sh
-before_cache:
+      before_cache:
 
 env: NAME="DOXYGEN-CHECK"
       addons:
