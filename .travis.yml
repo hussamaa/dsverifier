@@ -9,11 +9,11 @@ addons:
     packages:
       - libwww-perl
 
-env: NAME="DOXYGEN-CHECK"
-      addons:
-        apt:
-          packages:
-            - doxygen
+- env: NAME="DOXYGEN-CHECK"
+  addons:
+    apt:
+      packages:
+        - doxygen
       install:
       script: scripts/travis_doxygen.sh
       before_cache:
