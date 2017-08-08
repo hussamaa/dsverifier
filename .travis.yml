@@ -27,13 +27,13 @@ matrix:
       install: chmod -R a+x scripts/
       script: scripts/travis_lint.sh
       before_cache:    
-    - env: NAME="DOXYGEN-CHECK"
-      addons:
-        apt:
-          packages:
-            - doxygen
-      install: chmod -R a+x scripts/
-      script: scripts/travis_doxygen.sh
+    #- env: NAME="DOXYGEN-CHECK"
+    #  addons:
+    #    apt:
+    #      packages:
+    #        - doxygen
+    #  install: chmod -R a+x scripts/
+    #  script: scripts/travis_doxygen.sh
     
   allow_failures:
     - env: NAME="CPP-LINT"
