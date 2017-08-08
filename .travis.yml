@@ -1,8 +1,14 @@
 language: cpp
 
+dist: trusty
+
+sudo: required
+
+cache:
+  - ccache
+
 os:
   - linux
-sudo: required
 
 addons:
   apt:
@@ -21,21 +27,43 @@ compiler:
 env:
   global:
     - DSVERIFIER_HOME=$PWD
+    env: NAME="CPP-LINT"
+    install:
+    script: scripts/travis_lint.sh
+    before_cache:
    
 before_install:
-  
-install:
-  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test  && sudo apt-get -qq update && sudo apt-get -qq install g++-4.9 gcc-4.9 && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 60 && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60
-  - gcc --version
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install g++-4.9 gcc-4.9
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 60
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60
   - sudo apt-get -qq update
   - sudo apt-get install libeigen3-dev -y
   - sudo apt-get install libboost-dev -y
 
-script:
+matrix:
+  include:
+    # gcc
+    - env: CONF=release ARCH=x86    CXX11=ON
+      compiler: gcc
+    - env: CONF=release ARCH=x86_64 CXX11=ON
+      compiler: gcc
+    - env: NAME="DOXYGEN-CHECK"
+      addons:
+        apt:
+          packages:
+            - doxygen
+      install:
+      script: scripts/travis_doxygen.sh
+
+install:
   - export PATH=$PATH:$DSVERIFIER_HOME
   - chmod a+x regression/run-all.sh
   - make bmc-download
   - chmod -R a+x model-checker/
+
+script:
   - make && cd regression/ && ./run-all.sh
   
 before_cache:
