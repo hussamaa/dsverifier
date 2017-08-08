@@ -55,6 +55,7 @@ before_install:
   - sudo apt-get install libeigen3-dev -y
   - sudo apt-get install libboost-dev -y
   - sudo apt-get install python2.7
+  - sudo apt-get install libffi-dev libssl-dev
 
 install:
   - export PATH=$PATH:$DSVERIFIER_HOME

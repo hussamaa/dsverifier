@@ -4,6 +4,7 @@ set -e
 
 script_folder=`dirname $0`
 pip install --user unidiff
+pip install pyopenssl ndg-httpsclient pyasn1
 
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   $script_folder/run_diff.sh CPPLINT HEAD~1 # Check for errors introduced in last commit
