@@ -27,10 +27,6 @@ compiler:
 env:
   global:
     - DSVERIFIER_HOME=$PWD
-    env: NAME="CPP-LINT"
-    install:
-    script: scripts/travis_lint.sh
-    before_cache:
    
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
