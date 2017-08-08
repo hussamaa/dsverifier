@@ -8,16 +8,7 @@ addons:
   apt:
     packages:
       - libwww-perl
-
-- env: NAME="DOXYGEN-CHECK"
-  addons:
-    apt:
-      packages:
-        - doxygen
-      install:
-      script: scripts/travis_doxygen.sh
-      before_cache:
-
+      
 allow_failures:
   - env: NAME="CPP-LINT"
     install:
