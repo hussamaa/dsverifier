@@ -14,16 +14,35 @@ addons:
   apt:
     packages:
       - libwww-perl
-      
-allow_failures:
-  - env: NAME="CPP-LINT"
-    install: chmod -R a+x scripts/
-    script: scripts/travis_lint.sh
-    before_cache:
 
 compiler:
   - gcc
   
+matrix:
+  include:
+    # gcc
+    - env: CONF=release ARCH=x86    CXX11=ON
+      compiler: gcc
+    - env: CONF=release ARCH=x86_64 CXX11=ON
+      compiler: gcc
+    - env: NAME="CPP-LINT"
+      install: chmod -R a+x scripts/
+      script: scripts/travis_lint.sh
+      before_cache:    
+    - env: NAME="DOXYGEN-CHECK"
+      addons:
+        apt:
+          packages:
+            - doxygen
+      install: chmod -R a+x scripts/
+      script: scripts/travis_doxygen.sh
+    
+  allow_failures:
+    - env: NAME="CPP-LINT"
+      install: chmod -R a+x scripts/
+      script: scripts/travis_lint.sh
+      before_cache:
+
 env:
   global:
     - DSVERIFIER_HOME=$PWD
@@ -37,21 +56,6 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install libeigen3-dev -y
   - sudo apt-get install libboost-dev -y
-
-matrix:
-  include:
-    # gcc
-    - env: CONF=release ARCH=x86    CXX11=ON
-      compiler: gcc
-    - env: CONF=release ARCH=x86_64 CXX11=ON
-      compiler: gcc
-    - env: NAME="DOXYGEN-CHECK"
-      addons:
-        apt:
-          packages:
-            - doxygen
-      install: chmod -R a+x scripts/
-      script: scripts/travis_doxygen.sh
 
 install:
   - export PATH=$PATH:$DSVERIFIER_HOME
