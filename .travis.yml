@@ -8,8 +8,6 @@ addons:
   apt:
     packages:
       - libwww-perl
-      - libstdc++-5-dev
-      - libubsan0
 
 allow_failures:
   - env: NAME="CPP-LINT"
