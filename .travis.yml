@@ -63,7 +63,7 @@ before_install:
   - gcc --version
   - sudo apt-get -qq update
   - sudo apt-get install libeigen3-dev -y
-- sudo apt-get install libboost-dev -y
+  - sudo apt-get install libboost-dev -y
   - gcc --version
   - export PATH=$PATH:$DSVERIFIER_HOME
   
