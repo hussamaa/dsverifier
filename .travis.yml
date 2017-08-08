@@ -17,7 +17,7 @@ addons:
       
 allow_failures:
   - env: NAME="CPP-LINT"
-    install: chmod a+x scripts/travis_lint.sh
+    install: chmod -R a+x scripts/
     script: scripts/travis_lint.sh
     before_cache:
 
@@ -50,7 +50,7 @@ matrix:
         apt:
           packages:
             - doxygen
-      install: chmod a+x scripts/travis_doxygen.sh
+      install: chmod -R a+x scripts/
       script: scripts/travis_doxygen.sh
 
 install:
