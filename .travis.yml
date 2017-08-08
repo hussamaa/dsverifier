@@ -54,6 +54,7 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install libeigen3-dev -y
   - sudo apt-get install libboost-dev -y
+  - sudo apt-get install python2.7
 
 install:
   - export PATH=$PATH:$DSVERIFIER_HOME
