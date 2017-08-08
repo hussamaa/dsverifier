@@ -8,7 +8,6 @@ addons:
   apt:
     packages:
       - libwww-perl
-      - g++-4.9
       - libubsan0
       - libeigen3-dev
       - libboost-dev     
