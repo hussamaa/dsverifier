@@ -152,14 +152,14 @@ bool preprocess = false;
 std::string replace_all_string(std::string str, const std::string& from,
     const std::string& to)
 {
-  size_t start_pos = 0;
+            size_t start_pos = 0;
   while((start_pos = str.find(from, start_pos)) != std::string::npos)
   {
     str.replace(start_pos, from.length(), to);
     // Handles case where 'to' is a substring of 'from'
-    start_pos += to.length();
+                        start_pos += to.length();
   }
-  return str;
+        return str;
 }
 
 /*******************************************************************
