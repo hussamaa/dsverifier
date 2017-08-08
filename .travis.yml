@@ -17,13 +17,14 @@ matrix:
             - libubsan0
             - libeigen3-dev
             - libboost-dev
+      before_install:
+      env:
 
   allow_failures:
     - env: NAME="CPP-LINT"
       install:
       script: scripts/travis_lint.sh
 before_cache:
-
 
 compiler:
   - gcc
