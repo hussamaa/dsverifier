@@ -8,11 +8,6 @@ addons:
   apt:
     packages:
       - libwww-perl
-      
-env: NAME="CPP-LINT"
-      install:
-      script: scripts/travis_lint.sh
-      before_cache:
 
 env: NAME="DOXYGEN-CHECK"
       addons:
