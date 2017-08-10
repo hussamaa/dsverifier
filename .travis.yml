@@ -68,8 +68,8 @@ install:
 
 script:
   - make && cd regression/
-  - if [$COMPILER == "ESBMC_TESTS"] ; then esbmc/run-all.sh ; fi;
-  - if [$COMPILER == "CBMC_TESTS"] ; then cbmc/run-all.sh ; fi;
+  - if [ "$COMPILER" == "ESBMC_TESTS" ] ; then esbmc/run-all.sh ; fi;
+  - if [ "$COMPILER" == "CBMC_TESTS" ] ; then cbmc/run-all.sh ; fi;
   
 before_cache:
   - ccache -s 
