@@ -40,9 +40,23 @@ if (strcmp(p,'lc')) %limit cycle
     if count <= system.impl.x_size/2
         output = 'Successful';
     else
-        output = 'Failed';
+        count = 0;
+        max_error = 0.1;
+        for i=1:system.impl.x_size
+            fxp_out_ver = abs(system.output.output_verification(i));
+            fxp_out_sim = abs(system.output.output_simulation(i));
+            erro = abs(fxp_out_ver-fxp_out_sim);
+            if erro < max_error
+                count = count + 1;
+            end
+        end
+        if count == system.impl.x_size
+            output = 'Successful';
+        else
+            output = 'Failed';
+        end
     end
-    
+
 elseif (strcmp(p,'o')) %overflow
     
     n = system.impl.int_bits;
