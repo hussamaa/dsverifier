@@ -1,0 +1,217 @@
+Running: Digital Systems Verifier (DSVerifier)
+Back-end Verification: /home/wisl/Documentos/Master/dsverifier/model-checker/cbmc benchmark-vant.c --stop-on-fail -DBMC=CBMC -I /home/wisl/Documentos/Master/dsverifier/bmc -DREALIZATION=DFII -DPROPERTY=LIMIT_CYCLE --fixedbv -DARITHMETIC=FIXEDBV -DX_SIZE=20 -DBMC=CBMC -DDS_ID=1 -DIMPLEMENTATION_ID=2
+CBMC version 5.8 64-bit x86_64 linux
+Parsing benchmark-vant.c
+Converting
+Type-checking benchmark-vant
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 490 function call_verification_task: replacing function pointer by 13 possible targets
+file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 572 function call_closedloop_verification_task: replacing function pointer by 13 possible targets
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+Unwinding loop call_verification_task.2 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+Unwinding loop call_verification_task.2 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+Unwinding loop call_verification_task.3 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+Unwinding loop call_verification_task.3 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop verify_limit_cycle.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 6 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 7 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 8 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 9 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 10 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 11 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 12 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 13 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 14 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 15 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 16 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 17 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 18 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 19 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 20 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 213 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 213 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.2 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 241 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.2 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 241 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 6 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 7 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 8 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 9 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 10 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 11 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 12 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 13 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 14 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 15 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 16 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 17 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 18 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 19 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 20 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 6 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 7 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 8 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 9 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 10 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 11 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 12 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 13 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 14 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 15 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 16 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 17 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 18 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 19 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 20 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 6 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 7 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 8 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 9 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 10 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 11 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 12 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 13 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 14 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 15 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 16 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 17 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 18 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 19 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 20 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 6 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 7 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 8 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 9 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 10 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 11 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 12 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 13 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 14 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 15 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 16 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 17 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 18 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 19 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 20 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+size of program expression: 11347 steps
+simple slicing removed 14 assignments
+Generated 2 VCC(s), 1 remaining after simplification
+Passing problem to propositional reduction
+converting SSA
+Running propositional reduction
+Post-processing
+
+real	2m52.538s
+user	0m30.468s
+sys	0m1.758s

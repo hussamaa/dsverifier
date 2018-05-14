@@ -1,0 +1,2348 @@
+Running: Digital Systems Verifier (DSVerifier)
+Back-end Verification: /home/wisl/Documentos/Master/dsverifier/model-checker/cbmc benchmark-vant.c --stop-on-fail -DBMC=CBMC -I /home/wisl/Documentos/Master/dsverifier/bmc -DREALIZATION=DFI -DPROPERTY=OVERFLOW --fixedbv -DARITHMETIC=FIXEDBV -DOVERFLOW_MODE=SATURATE -DX_SIZE=20 -DBMC=CBMC -DDS_ID=5 -DIMPLEMENTATION_ID=2
+CBMC version 5.8 64-bit x86_64 linux
+Parsing benchmark-vant.c
+Converting
+Type-checking benchmark-vant
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 490 function call_verification_task: replacing function pointer by 13 possible targets
+file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 572 function call_closedloop_verification_task: replacing function pointer by 13 possible targets
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+Unwinding loop call_verification_task.2 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+Unwinding loop call_verification_task.2 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+Unwinding loop call_verification_task.2 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+Unwinding loop call_verification_task.3 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+Unwinding loop call_verification_task.3 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+Unwinding loop call_verification_task.3 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop verify_overflow.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 6 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 7 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 8 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 9 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 10 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 11 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 12 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 13 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 14 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 15 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 16 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 17 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 18 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 19 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.0 iteration 20 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+Unwinding loop verify_overflow.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 123 function verify_overflow thread 0
+Unwinding loop verify_overflow.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 123 function verify_overflow thread 0
+Unwinding loop verify_overflow.1 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 123 function verify_overflow thread 0
+Unwinding loop verify_overflow.2 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 128 function verify_overflow thread 0
+Unwinding loop verify_overflow.2 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 128 function verify_overflow thread 0
+Unwinding loop verify_overflow.2 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 128 function verify_overflow thread 0
+Unwinding loop verify_overflow.3 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 133 function verify_overflow thread 0
+Unwinding loop verify_overflow.3 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 133 function verify_overflow thread 0
+Unwinding loop verify_overflow.3 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 133 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 6 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 7 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 8 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 9 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 10 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 11 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 12 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 13 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 14 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 15 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 16 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 17 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 18 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 19 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop fxp_direct_form_1.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+Unwinding loop shiftL.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop shiftL.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+Unwinding loop verify_overflow.4 iteration 20 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 6 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 7 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 8 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 9 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 10 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 11 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 12 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 13 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 14 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 15 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 16 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 17 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 18 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 19 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+Unwinding loop fxp_verify_overflow_array.0 iteration 20 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3502 function fxp_verify_overflow_array thread 0
+size of program expression: 9170 steps
+simple slicing removed 18 assignments
+Generated 40 VCC(s), 40 remaining after simplification
+Passing problem to propositional reduction
+converting SSA
+Running propositional reduction
+Post-processing
+Solving with MiniSAT 2.2.1 with simplifier
+421221 variables, 861676 clauses
+SAT checker: instance is SATISFIABLE
+Runtime decision procedure: 6.37s
+Building error trace
+
+Counterexample:
+
+State 54 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 50 function initialization thread 0
+----------------------------------------------------
+  _fxp_one=16l (0000000000000000000000000000000000000000000000000000000000010000)
+
+State 55 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 53 function initialization thread 0
+----------------------------------------------------
+  _fxp_half=8l (0000000000000000000000000000000000000000000000000000000000001000)
+
+State 56 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 54 function initialization thread 0
+----------------------------------------------------
+  _fxp_minus_one=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 57 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 55 function initialization thread 0
+----------------------------------------------------
+  _fxp_min=-32768l (1111111111111111111111111111111111111111111111111000000000000000)
+
+State 58 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 56 function initialization thread 0
+----------------------------------------------------
+  _fxp_max=32767l (0000000000000000000000000000000000000000000000000111111111111111)
+
+State 59 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 57 function initialization thread 0
+----------------------------------------------------
+  _fxp_fmask=15l (0000000000000000000000000000000000000000000000000000000000001111)
+
+State 60 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 58 function initialization thread 0
+----------------------------------------------------
+  _fxp_imask=16l (0000000000000000000000000000000000000000000000000000000000010000)
+
+State 61 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 60 function initialization thread 0
+----------------------------------------------------
+  _dbl_min=-32768 (1111111111111111100000000000000000000000000000000000000000000000)
+
+State 62 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 61 function initialization thread 0
+----------------------------------------------------
+  _dbl_min=-2048 (1111111111111111111110000000000000000000000000000000000000000000)
+
+State 63 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 62 function initialization thread 0
+----------------------------------------------------
+  _dbl_max=32767 (0000000000000000011111111111111100000000000000000000000000000000)
+
+State 64 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 63 function initialization thread 0
+----------------------------------------------------
+  _dbl_max=2047.9375 (0000000000000000000001111111111111110000000000000000000000000000)
+
+State 66 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 72 function initialization thread 0
+----------------------------------------------------
+  impl.scale=1 (00000000000000000000000000000001)
+
+State 79 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 317 function validation thread 0
+----------------------------------------------------
+  X_SIZE_VALUE=20 (00000000000000000000000000010100)
+
+State 88 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 82 function main thread 0
+----------------------------------------------------
+  rounding_mode=1 (00000000000000000000000000000001)
+
+State 93 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 92 function main thread 0
+----------------------------------------------------
+  verification_task=&verify_overflow (0000001000000000000000000000000000000000000000000000000000000000)
+
+State 94 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 378 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 95 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 378 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 96 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 381 function call_verification_task thread 0
+----------------------------------------------------
+  base_case_executed=FALSE (00000000)
+
+State 97 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 381 function call_verification_task thread 0
+----------------------------------------------------
+  base_case_executed=FALSE (00000000)
+
+State 99 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 438 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 100 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 438 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 101 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 104 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 108 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 112 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 115 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 118 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 122 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 126 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 144 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 31 function verify_overflow thread 0
+----------------------------------------------------
+  a_fxp={ 0l, 0l, 0l } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 147 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 32 function verify_overflow thread 0
+----------------------------------------------------
+  b_fxp={ 0l, 0l, 0l } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 150 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 35 function verify_overflow thread 0
+----------------------------------------------------
+  f=ds.a (0000001100000000000000000000000000000000000000000000000000000000)
+
+State 151 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 35 function verify_overflow thread 0
+----------------------------------------------------
+  r=a_fxp!0@1 (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 152 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 35 function verify_overflow thread 0
+----------------------------------------------------
+  N=3 (00000000000000000000000000000011)
+
+State 153 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3611 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 154 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 158 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 159 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3564 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 160 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 161 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=16 (0000000000000000000000000001000000000000000000000000000000000000)
+
+State 164 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3579 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=16l (0000000000000000000000000000000000000000000000000000000000010000)
+
+State 165 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 166 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 171 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  a_fxp[0l]=16l (0000000000000000000000000000000000000000000000000000000000010000)
+
+State 172 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 177 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 178 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3564 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 179 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 180 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 183 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3579 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 184 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 185 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 190 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  a_fxp[1l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 191 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 196 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 197 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3564 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 198 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 199 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=-16 (1111111111111111111111111111000000000000000000000000000000000000)
+
+State 202 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3579 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 203 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 204 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 209 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  a_fxp[2l]=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 210 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 216 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 38 function verify_overflow thread 0
+----------------------------------------------------
+  f=ds.b (0000001100000000000000000000000000000000000000000000000110011000)
+
+State 217 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 38 function verify_overflow thread 0
+----------------------------------------------------
+  r=b_fxp!0@1 (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 218 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 38 function verify_overflow thread 0
+----------------------------------------------------
+  N=3 (00000000000000000000000000000011)
+
+State 219 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3611 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 220 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 224 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=2002 (0000000000000000000001111101001000000000000000000000000000000000)
+
+State 225 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3564 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 226 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 227 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=32032 (0000000000000000011111010010000000000000000000000000000000000000)
+
+State 230 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3579 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=32032l (0000000000000000000000000000000000000000000000000111110100100000)
+
+State 231 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 232 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 237 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  b_fxp[0l]=32032l (0000000000000000000000000000000000000000000000000111110100100000)
+
+State 238 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 243 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=-4000 (1111111111111111111100000110000000000000000000000000000000000000)
+
+State 244 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3564 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 245 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 246 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=-64000 (1111111111111111000001100000000000000000000000000000000000000000)
+
+State 249 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3579 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=-64000l (1111111111111111111111111111111111111111111111110000011000000000)
+
+State 250 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 251 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 256 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  b_fxp[1l]=-64000l (1111111111111111111111111111111111111111111111110000011000000000)
+
+State 257 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 262 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  value=1998 (0000000000000000000001111100111000000000000000000000000000000000)
+
+State 263 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3564 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 264 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 265 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=31968 (0000000000000000011111001110000000000000000000000000000000000000)
+
+State 268 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3579 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=31968l (0000000000000000000000000000000000000000000000000111110011100000)
+
+State 269 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 270 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 275 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3614 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  b_fxp[2l]=31968l (0000000000000000000000000000000000000000000000000111110011100000)
+
+State 276 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 280 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 96 function verify_overflow thread 0
+----------------------------------------------------
+  min_fxp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 283 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 96 function verify_overflow thread 0
+----------------------------------------------------
+  value=-1 (1111111111111111111111111111111100000000000000000000000000000000)
+
+State 284 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3564 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 285 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 286 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=-16 (1111111111111111111111111111000000000000000000000000000000000000)
+
+State 289 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3579 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 290 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 291 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 296 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 96 function verify_overflow thread 0
+----------------------------------------------------
+  min_fxp=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 297 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 97 function verify_overflow thread 0
+----------------------------------------------------
+  max_fxp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 300 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 97 function verify_overflow thread 0
+----------------------------------------------------
+  value=1 (0000000000000000000000000000000100000000000000000000000000000000)
+
+State 301 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3564 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 302 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 303 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3565 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  ftemp=16 (0000000000000000000000000001000000000000000000000000000000000000)
+
+State 306 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3579 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  tmp=16l (0000000000000000000000000000000000000000000000000000000000010000)
+
+State 307 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 308 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3580 function fxp_double_to_fxp thread 0
+----------------------------------------------------
+  residue=0 (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 313 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 97 function verify_overflow thread 0
+----------------------------------------------------
+  max_fxp=16l (0000000000000000000000000000000000000000000000000000000000010000)
+
+State 316 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 98 function verify_overflow thread 0
+----------------------------------------------------
+  y={ 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 319 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 99 function verify_overflow thread 0
+----------------------------------------------------
+  x={ 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l, 0l } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 320 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 102 function verify_overflow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 321 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 323 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[0l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 326 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[0l]=-15l (1111111111111111111111111111111111111111111111111111111111110001)
+
+State 333 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 336 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 339 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[1l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 342 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[1l]=-4l (1111111111111111111111111111111111111111111111111111111111111100)
+
+State 349 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 352 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 355 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[2l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 358 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[2l]=11l (0000000000000000000000000000000000000000000000000000000000001011)
+
+State 365 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 368 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 371 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[3l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 374 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[3l]=-8l (1111111111111111111111111111111111111111111111111111111111111000)
+
+State 381 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 384 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=4 (00000000000000000000000000000100)
+
+State 387 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[4l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 390 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[4l]=6l (0000000000000000000000000000000000000000000000000000000000000110)
+
+State 397 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 400 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=5 (00000000000000000000000000000101)
+
+State 403 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[5l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 406 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[5l]=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 413 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 416 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=6 (00000000000000000000000000000110)
+
+State 419 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[6l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 422 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[6l]=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 429 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 432 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=7 (00000000000000000000000000000111)
+
+State 435 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[7l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 438 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[7l]=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 445 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 448 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=8 (00000000000000000000000000001000)
+
+State 451 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[8l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 454 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[8l]=-15l (1111111111111111111111111111111111111111111111111111111111110001)
+
+State 461 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 464 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=9 (00000000000000000000000000001001)
+
+State 467 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[9l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 470 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[9l]=8l (0000000000000000000000000000000000000000000000000000000000001000)
+
+State 477 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 480 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=10 (00000000000000000000000000001010)
+
+State 483 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[10l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 486 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[10l]=14l (0000000000000000000000000000000000000000000000000000000000001110)
+
+State 493 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 496 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=11 (00000000000000000000000000001011)
+
+State 499 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[11l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 502 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[11l]=13l (0000000000000000000000000000000000000000000000000000000000001101)
+
+State 509 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 512 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=12 (00000000000000000000000000001100)
+
+State 515 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[12l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 518 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[12l]=2l (0000000000000000000000000000000000000000000000000000000000000010)
+
+State 525 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 528 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=13 (00000000000000000000000000001101)
+
+State 531 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[13l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 534 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[13l]=-12l (1111111111111111111111111111111111111111111111111111111111110100)
+
+State 541 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 544 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=14 (00000000000000000000000000001110)
+
+State 547 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[14l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 550 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[14l]=-13l (1111111111111111111111111111111111111111111111111111111111110011)
+
+State 557 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 560 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=15 (00000000000000000000000000001111)
+
+State 563 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[15l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 566 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[15l]=8l (0000000000000000000000000000000000000000000000000000000000001000)
+
+State 573 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 576 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=16 (00000000000000000000000000010000)
+
+State 579 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[16l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 582 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[16l]=7l (0000000000000000000000000000000000000000000000000000000000000111)
+
+State 589 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 592 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=17 (00000000000000000000000000010001)
+
+State 595 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[17l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 598 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[17l]=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 605 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 608 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=18 (00000000000000000000000000010010)
+
+State 611 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[18l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 614 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[18l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 621 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 624 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=19 (00000000000000000000000000010011)
+
+State 627 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 105 function verify_overflow thread 0
+----------------------------------------------------
+  y[19l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 630 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 106 function verify_overflow thread 0
+----------------------------------------------------
+  x[19l]=-12l (1111111111111111111111111111111111111111111111111111111111110100)
+
+State 637 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 108 function verify_overflow thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 640 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 103 function verify_overflow thread 0
+----------------------------------------------------
+  i=20 (00000000000000000000000000010100)
+
+State 643 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 111 function verify_overflow thread 0
+----------------------------------------------------
+  Nw=0 (00000000000000000000000000000000)
+
+State 644 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 111 function verify_overflow thread 0
+----------------------------------------------------
+  Nw=0 (00000000000000000000000000000000)
+
+State 645 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 116 function verify_overflow thread 0
+----------------------------------------------------
+  Nw=3 (00000000000000000000000000000011)
+
+State 648 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 119 function verify_overflow thread 0
+----------------------------------------------------
+  yaux={ 0l, 0l, 0l } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 651 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 120 function verify_overflow thread 0
+----------------------------------------------------
+  xaux={ 0l, 0l, 0l } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 654 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 121 function verify_overflow thread 0
+----------------------------------------------------
+  waux={ 0l, 0l, 0l } ({ 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000, 0000000000000000000000000000000000000000000000000000000000000000 })
+
+State 655 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 123 function verify_overflow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 657 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 125 function verify_overflow thread 0
+----------------------------------------------------
+  yaux[0l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 658 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 123 function verify_overflow thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 661 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 125 function verify_overflow thread 0
+----------------------------------------------------
+  yaux[1l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 662 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 123 function verify_overflow thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 665 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 125 function verify_overflow thread 0
+----------------------------------------------------
+  yaux[2l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 666 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 123 function verify_overflow thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 669 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 128 function verify_overflow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 671 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 130 function verify_overflow thread 0
+----------------------------------------------------
+  xaux[0l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 672 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 128 function verify_overflow thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 675 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 130 function verify_overflow thread 0
+----------------------------------------------------
+  xaux[1l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 676 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 128 function verify_overflow thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 679 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 130 function verify_overflow thread 0
+----------------------------------------------------
+  xaux[2l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 680 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 128 function verify_overflow thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 683 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 133 function verify_overflow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 685 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 135 function verify_overflow thread 0
+----------------------------------------------------
+  waux[0l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 686 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 133 function verify_overflow thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 689 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 135 function verify_overflow thread 0
+----------------------------------------------------
+  waux[1l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 690 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 133 function verify_overflow thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 693 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 135 function verify_overflow thread 0
+----------------------------------------------------
+  waux[2l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 694 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 133 function verify_overflow thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 697 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 138 function verify_overflow thread 0
+----------------------------------------------------
+  xk=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 698 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 138 function verify_overflow thread 0
+----------------------------------------------------
+  temp=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 699 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 139 function verify_overflow thread 0
+----------------------------------------------------
+  aptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 700 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 139 function verify_overflow thread 0
+----------------------------------------------------
+  bptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 701 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 139 function verify_overflow thread 0
+----------------------------------------------------
+  xptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 702 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 139 function verify_overflow thread 0
+----------------------------------------------------
+  yptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 703 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 139 function verify_overflow thread 0
+----------------------------------------------------
+  wptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 704 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 140 function verify_overflow thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 705 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 709 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 146 function verify_overflow thread 0
+----------------------------------------------------
+  zIn=-15l (1111111111111111111111111111111111111111111111111111111111110001)
+
+State 710 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 146 function verify_overflow thread 0
+----------------------------------------------------
+  z=xaux!0@1 (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 711 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 146 function verify_overflow thread 0
+----------------------------------------------------
+  N=3 (00000000000000000000000000000011)
+
+State 712 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 90 function shiftL thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 713 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 91 function shiftL thread 0
+----------------------------------------------------
+  zOut=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 714 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 92 function shiftL thread 0
+----------------------------------------------------
+  zOut=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 715 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 717 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 95 function shiftL thread 0
+----------------------------------------------------
+  xaux[0l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 718 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 721 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 95 function shiftL thread 0
+----------------------------------------------------
+  xaux[1l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 722 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 725 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 97 function shiftL thread 0
+----------------------------------------------------
+  xaux[2l]=-15l (1111111111111111111111111111111111111111111111111111111111110001)
+
+State 730 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  y=yaux!0@1 (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 731 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  x=xaux!0@1 (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 732 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  a=a_fxp!0@1 (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 733 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  b=b_fxp!0@1 (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 734 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  Na=3 (00000000000000000000000000000011)
+
+State 735 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  Nb=3 (00000000000000000000000000000011)
+
+State 736 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 29 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  a_ptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 737 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 29 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  y_ptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 738 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 29 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b_ptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 739 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 29 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  x_ptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 740 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 30 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 741 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 30 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 742 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 32 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  a_ptr=a_fxp!0@1 + 1 (0000010000000000000000000000000000000000000000000000000000001000)
+
+State 743 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 33 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  y_ptr=yaux!0@1 + 2 (0000011100000000000000000000000000000000000000000000000000010000)
+
+State 744 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 34 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b_ptr=b_fxp!0@1 (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 745 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 35 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  x_ptr=xaux!0@1 + 2 (0000011000000000000000000000000000000000000000000000000000010000)
+
+State 746 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 37 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 747 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 37 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 748 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 752 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b_ptr=b_fxp!0@1 + 1 (0000010100000000000000000000000000000000000000000000000000001000)
+
+State 755 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  x_ptr=xaux!0@1 + 1 (0000011000000000000000000000000000000000000000000000000000001000)
+
+State 759 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  amult=32032l (0000000000000000000000000000000000000000000000000111110100100000)
+
+State 760 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bmult=-15l (1111111111111111111111111111111111111111111111111111111111110001)
+
+State 761 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 762 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 763 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3718 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=-480480l (1111111111111111111111111111111111111111111110001010101100100000)
+
+State 765 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3726 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 768 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  aquant=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 773 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 779 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  aadd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 780 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  badd=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 781 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3689 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 782 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3690 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 785 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  aquant=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 790 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 793 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 794 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 799 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b_ptr=b_fxp!0@1 + 2 (0000010100000000000000000000000000000000000000000000000000010000)
+
+State 802 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  x_ptr=xaux!0@1 (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 806 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  amult=-64000l (1111111111111111111111111111111111111111111111110000011000000000)
+
+State 807 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 808 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 809 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 810 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3718 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 812 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3721 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 816 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  aquant=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 821 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 827 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  aadd=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 828 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  badd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 829 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3689 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 830 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3690 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 833 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  aquant=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 838 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 841 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 842 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 847 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b_ptr=b_fxp!0@1 + 3 (0000010100000000000000000000000000000000000000000000000000011000)
+
+State 850 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  x_ptr=xaux!0@1 + -1 (0000011011111111111111111111111111111111111111111111111111111000)
+
+State 854 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  amult=31968l (0000000000000000000000000000000000000000000000000111110011100000)
+
+State 855 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 856 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 857 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 858 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3718 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 860 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3721 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 864 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  aquant=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 869 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 875 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  aadd=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 876 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  badd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 877 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3689 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 878 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3690 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 881 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  aquant=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 886 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 889 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 890 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 893 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 897 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  a_ptr=a_fxp!0@1 + 2 (0000010000000000000000000000000000000000000000000000000000010000)
+
+State 900 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  y_ptr=yaux!0@1 + 1 (0000011100000000000000000000000000000000000000000000000000001000)
+
+State 904 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  amult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 905 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 906 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 907 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 908 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3718 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 910 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3721 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 914 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  aquant=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 919 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 925 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  asub=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 926 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bsub=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 927 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3703 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 928 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3704 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 931 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3705 function fxp_sub thread 0
+----------------------------------------------------
+  aquant=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 936 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3705 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 939 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 940 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 945 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  a_ptr=a_fxp!0@1 + 3 (0000010000000000000000000000000000000000000000000000000000011000)
+
+State 948 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  y_ptr=yaux!0@1 (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 952 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  amult=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 953 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 954 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 955 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 956 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3718 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 958 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3721 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 962 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  aquant=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 967 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 973 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  asub=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 974 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bsub=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 975 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3703 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 976 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3704 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 979 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3705 function fxp_sub thread 0
+----------------------------------------------------
+  aquant=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 984 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3705 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 987 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 988 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  j=3 (00000000000000000000000000000011)
+
+State 993 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 49 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  value=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 994 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 49 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  msg="An Overflow Occurred in the node a0" (0000100000000000000000000000000000000000000000000000000000000000)
+
+
+State 999 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3495 function fxp_verify_overflow_node thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 1002 file /home/wisl/Documentos/Master/dsverifier/bmc/core/compatibility.h line 54 function __DSVERIFIER_assert thread 0
+----------------------------------------------------
+  cond=1 (00000000000000000000000000000001)
+
+State 1010 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 51 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  a=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 1011 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 51 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b=16l (0000000000000000000000000000000000000000000000000000000000010000)
+
+State 1014 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3742 function fxp_div thread 0
+----------------------------------------------------
+  expression=1 (00000000000000000000000000000001)
+
+State 1017 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3743 function fxp_div thread 0
+----------------------------------------------------
+  tmpdiv=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1018 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3743 function fxp_div thread 0
+----------------------------------------------------
+  tmpdiv=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 1021 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3744 function fxp_div thread 0
+----------------------------------------------------
+  aquant=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 1026 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3744 function fxp_div thread 0
+----------------------------------------------------
+  tmpdiv=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 1029 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 51 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 1033 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 53 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  aquant=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 1041 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  y[0l]=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 1044 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 150 function verify_overflow thread 0
+----------------------------------------------------
+  zIn=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 1045 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 150 function verify_overflow thread 0
+----------------------------------------------------
+  z=yaux!0@1 (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 1046 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 150 function verify_overflow thread 0
+----------------------------------------------------
+  N=3 (00000000000000000000000000000011)
+
+State 1047 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 90 function shiftL thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 1048 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 91 function shiftL thread 0
+----------------------------------------------------
+  zOut=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1049 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 92 function shiftL thread 0
+----------------------------------------------------
+  zOut=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1050 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 1052 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 95 function shiftL thread 0
+----------------------------------------------------
+  yaux[0l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1053 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 1056 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 95 function shiftL thread 0
+----------------------------------------------------
+  yaux[1l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1057 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 1060 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 97 function shiftL thread 0
+----------------------------------------------------
+  yaux[2l]=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 1063 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 142 function verify_overflow thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 1068 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 146 function verify_overflow thread 0
+----------------------------------------------------
+  zIn=-4l (1111111111111111111111111111111111111111111111111111111111111100)
+
+State 1069 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 146 function verify_overflow thread 0
+----------------------------------------------------
+  z=xaux!0@1 (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1070 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 146 function verify_overflow thread 0
+----------------------------------------------------
+  N=3 (00000000000000000000000000000011)
+
+State 1071 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 90 function shiftL thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 1072 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 91 function shiftL thread 0
+----------------------------------------------------
+  zOut=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1073 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 92 function shiftL thread 0
+----------------------------------------------------
+  zOut=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1074 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 1076 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 95 function shiftL thread 0
+----------------------------------------------------
+  xaux[0l]=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1077 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 1080 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 95 function shiftL thread 0
+----------------------------------------------------
+  xaux[1l]=-15l (1111111111111111111111111111111111111111111111111111111111110001)
+
+State 1081 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 93 function shiftL thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 1084 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 97 function shiftL thread 0
+----------------------------------------------------
+  xaux[2l]=-4l (1111111111111111111111111111111111111111111111111111111111111100)
+
+State 1089 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  y=yaux!0@1 (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 1090 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  x=xaux!0@1 (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1091 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  a=a_fxp!0@1 (0000010000000000000000000000000000000000000000000000000000000000)
+
+State 1092 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  b=b_fxp!0@1 (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 1093 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  Na=3 (00000000000000000000000000000011)
+
+State 1094 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_overflow.h line 148 function verify_overflow thread 0
+----------------------------------------------------
+  Nb=3 (00000000000000000000000000000011)
+
+State 1095 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 29 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  a_ptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1096 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 29 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  y_ptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1097 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 29 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b_ptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1098 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 29 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  x_ptr=((signed long int *)NULL) (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1099 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 30 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1100 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 30 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1101 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 32 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  a_ptr=a_fxp!0@1 + 1 (0000010000000000000000000000000000000000000000000000000000001000)
+
+State 1102 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 33 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  y_ptr=yaux!0@1 + 2 (0000011100000000000000000000000000000000000000000000000000010000)
+
+State 1103 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 34 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b_ptr=b_fxp!0@1 (0000010100000000000000000000000000000000000000000000000000000000)
+
+State 1104 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 35 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  x_ptr=xaux!0@1 + 2 (0000011000000000000000000000000000000000000000000000000000010000)
+
+State 1105 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 37 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 1106 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 37 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  j=0 (00000000000000000000000000000000)
+
+State 1107 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 1111 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b_ptr=b_fxp!0@1 + 1 (0000010100000000000000000000000000000000000000000000000000001000)
+
+State 1114 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  x_ptr=xaux!0@1 + 1 (0000011000000000000000000000000000000000000000000000000000001000)
+
+State 1118 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  amult=32032l (0000000000000000000000000000000000000000000000000111110100100000)
+
+State 1119 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bmult=-4l (1111111111111111111111111111111111111111111111111111111111111100)
+
+State 1120 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1121 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1122 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3718 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=-128128l (1111111111111111111111111111111111111111111111100000101110000000)
+
+State 1124 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3726 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=-8008l (1111111111111111111111111111111111111111111111111110000010111000)
+
+State 1127 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  aquant=-8008l (1111111111111111111111111111111111111111111111111110000010111000)
+
+State 1132 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=-8008l (1111111111111111111111111111111111111111111111111110000010111000)
+
+State 1138 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  aadd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1139 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  badd=-8008l (1111111111111111111111111111111111111111111111111110000010111000)
+
+State 1140 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3689 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1141 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3690 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=-8008l (1111111111111111111111111111111111111111111111111110000010111000)
+
+State 1144 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  aquant=-8008l (1111111111111111111111111111111111111111111111111110000010111000)
+
+State 1149 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=-8008l (1111111111111111111111111111111111111111111111111110000010111000)
+
+State 1152 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=-8008l (1111111111111111111111111111111111111111111111111110000010111000)
+
+State 1153 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 1158 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b_ptr=b_fxp!0@1 + 2 (0000010100000000000000000000000000000000000000000000000000010000)
+
+State 1161 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  x_ptr=xaux!0@1 (0000011000000000000000000000000000000000000000000000000000000000)
+
+State 1165 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  amult=-64000l (1111111111111111111111111111111111111111111111110000011000000000)
+
+State 1166 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bmult=-15l (1111111111111111111111111111111111111111111111111111111111110001)
+
+State 1167 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1168 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1169 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3718 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=960000l (0000000000000000000000000000000000000000000011101010011000000000)
+
+State 1171 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3721 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=60000l (0000000000000000000000000000000000000000000000001110101001100000)
+
+State 1175 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  aquant=60000l (0000000000000000000000000000000000000000000000001110101001100000)
+
+State 1180 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=60000l (0000000000000000000000000000000000000000000000001110101001100000)
+
+State 1186 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  aadd=-8008l (1111111111111111111111111111111111111111111111111110000010111000)
+
+State 1187 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  badd=60000l (0000000000000000000000000000000000000000000000001110101001100000)
+
+State 1188 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3689 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1189 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3690 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1192 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  aquant=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1197 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1200 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1201 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 1206 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  b_ptr=b_fxp!0@1 + 3 (0000010100000000000000000000000000000000000000000000000000011000)
+
+State 1209 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  x_ptr=xaux!0@1 + -1 (0000011011111111111111111111111111111111111111111111111111111000)
+
+State 1213 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  amult=31968l (0000000000000000000000000000000000000000000000000111110011100000)
+
+State 1214 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1215 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1216 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1217 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3718 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1219 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3721 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1223 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  aquant=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1228 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1234 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  aadd=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1235 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  badd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1236 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3689 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1237 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3690 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1240 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  aquant=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1245 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3691 function fxp_add thread 0
+----------------------------------------------------
+  tmpadd=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1248 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 41 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1249 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 39 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 1252 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  j=1 (00000000000000000000000000000001)
+
+State 1256 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  a_ptr=a_fxp!0@1 + 2 (0000010000000000000000000000000000000000000000000000000000010000)
+
+State 1259 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  y_ptr=yaux!0@1 + 1 (0000011100000000000000000000000000000000000000000000000000001000)
+
+State 1263 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  amult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1264 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bmult=-30030l (1111111111111111111111111111111111111111111111111000101010110010)
+
+State 1265 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1266 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1267 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3718 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1269 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3721 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1273 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  aquant=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1278 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1284 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  asub=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1285 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bsub=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1286 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3703 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1287 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3704 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1290 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3705 function fxp_sub thread 0
+----------------------------------------------------
+  aquant=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1295 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3705 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1298 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1299 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  j=2 (00000000000000000000000000000010)
+
+State 1304 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  a_ptr=a_fxp!0@1 + 3 (0000010000000000000000000000000000000000000000000000000000011000)
+
+State 1307 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  y_ptr=yaux!0@1 (0000011100000000000000000000000000000000000000000000000000000000)
+
+State 1311 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  amult=-16l (1111111111111111111111111111111111111111111111111111111111110000)
+
+State 1312 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1313 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1314 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3717 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1315 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3718 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmult=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1317 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3721 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1321 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  aquant=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1326 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3729 function fxp_mult thread 0
+----------------------------------------------------
+  tmpmultprec=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1332 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  asub=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1333 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  bsub=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1334 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3703 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=0l (0000000000000000000000000000000000000000000000000000000000000000)
+
+State 1335 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3704 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1338 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3705 function fxp_sub thread 0
+----------------------------------------------------
+  aquant=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1343 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3705 function fxp_sub thread 0
+----------------------------------------------------
+  tmpsub=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1346 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 46 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  sum=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1347 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 44 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  j=3 (00000000000000000000000000000011)
+
+State 1352 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 49 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  value=51992l (0000000000000000000000000000000000000000000000001100101100011000)
+
+State 1353 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 49 function fxp_direct_form_1 thread 0
+----------------------------------------------------
+  msg="An Overflow Occurred in the node a0" (0000100000000000000000000000000000000000000000000000000000000000)
+
+
+State 1358 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3495 function fxp_verify_overflow_node thread 0
+----------------------------------------------------
+  expression=0 (00000000000000000000000000000000)
+
+State 1361 file /home/wisl/Documentos/Master/dsverifier/bmc/core/compatibility.h line 54 function __DSVERIFIER_assert thread 0
+----------------------------------------------------
+  cond=0 (00000000000000000000000000000000)
+
+Violated property:
+  file /home/wisl/Documentos/Master/dsverifier/bmc/core/compatibility.h line 36 function __VERIFIER_assert
+  assertion cond
+  cond != 0
+
+VERIFICATION FAILED
+
+Counterexample Data:
+  Property = OVERFLOW
+  Numerator  = { 0.1000000000000000  -0.1000000000000000 }
+  Denominator  = { 1.0000000000000000  -1.0000000000000000 }
+  X Size = 20
+  Sample Time = 0.02
+  Implementation = <10,6>
+  Numerator (fixed-point) = { 500.5000000000000000  -1000.0000000000000000  499.5000000000000000 }
+  Denominator (fixed-point) = { 0.2500000000000000  0.0000000000000000  -0.2500000000000000 }
+  Realization = DFI
+  Dynamic Range = {-1,1}
+  Inputs = { -0.2343750000000000  -0.0625000000000000  0.1718750000000000  -0.1250000000000000  0.0937500000000000  -0.2500000000000000  -0.2500000000000000  -0.2500000000000000  -0.2343750000000000  0.1250000000000000  0.2187500000000000  0.2031250000000000  0.0312500000000000  -0.1875000000000000  -0.2031250000000000  0.1250000000000000  0.1093750000000000  -0.2500000000000000  0.0000000000000000  -0.1875000000000000 }
+  Outputs = { -469.2187500000000000 }
+
+real	0m8.028s
+user	0m7.907s
+sys	0m0.139s
