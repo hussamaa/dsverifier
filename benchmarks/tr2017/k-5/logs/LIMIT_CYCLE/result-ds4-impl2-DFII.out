@@ -1,0 +1,268 @@
+Running: Digital Systems Verifier (DSVerifier)
+Back-end Verification: /home/wisl/Documentos/Master/dsverifier/model-checker/cbmc benchmark-vant.c --stop-on-fail -DBMC=CBMC -I /home/wisl/Documentos/Master/dsverifier/bmc -DREALIZATION=DFII -DPROPERTY=LIMIT_CYCLE --fixedbv -DARITHMETIC=FIXEDBV -DX_SIZE=5 -DBMC=CBMC -DDS_ID=4 -DIMPLEMENTATION_ID=2
+CBMC version 5.8 64-bit x86_64 linux
+Parsing benchmark-vant.c
+Converting
+Type-checking benchmark-vant
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 490 function call_verification_task: replacing function pointer by 13 possible targets
+file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 572 function call_closedloop_verification_task: replacing function pointer by 13 possible targets
+Partial Inlining
+Generic Property Instrumentation
+Starting Bounded Model Checking
+Unwinding loop call_verification_task.2 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+Unwinding loop call_verification_task.2 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+Unwinding loop call_verification_task.2 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+Unwinding loop call_verification_task.3 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+Unwinding loop call_verification_task.3 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+Unwinding loop call_verification_task.3 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop fxp_double_to_fxp_array.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/fixed_point.h line 3612 function fxp_double_to_fxp_array thread 0
+Unwinding loop verify_limit_cycle.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.0 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 207 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 213 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 213 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.1 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 213 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.2 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 241 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.2 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 241 function verify_limit_cycle thread 0
+Unwinding loop verify_limit_cycle.2 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 241 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop shiftR.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop shiftR.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop shiftR.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop shiftR.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop shiftR.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop shiftR.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 106 function shiftR thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 69 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop fxp_direct_form_2.1 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/realizations.h line 81 function fxp_direct_form_2 thread 0
+Unwinding loop verify_limit_cycle.3 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 255 function verify_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.0 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 274 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.1 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 296 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 1 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 2 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 3 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 4 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+Unwinding loop fxp_check_persistent_limit_cycle.2 iteration 5 file /home/wisl/Documentos/Master/dsverifier/bmc/core/functions.h line 309 function fxp_check_persistent_limit_cycle thread 0
+size of program expression: 4351 steps
+simple slicing removed 14 assignments
+Generated 2 VCC(s), 2 remaining after simplification
+Passing problem to propositional reduction
+converting SSA
+Running propositional reduction
+Post-processing
+Solving with MiniSAT 2.2.1 with simplifier
+448341 variables, 1391400 clauses
+SAT checker: instance is SATISFIABLE
+Runtime decision procedure: 10.075s
+Building error trace
+
+Counterexample:
+
+State 54 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 50 function initialization thread 0
+----------------------------------------------------
+  _fxp_one=64l (0000000000000000000000000000000000000000000000000000000001000000)
+
+State 55 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 53 function initialization thread 0
+----------------------------------------------------
+  _fxp_half=32l (0000000000000000000000000000000000000000000000000000000000100000)
+
+State 56 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 54 function initialization thread 0
+----------------------------------------------------
+  _fxp_minus_one=-64l (1111111111111111111111111111111111111111111111111111111111000000)
+
+State 57 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 55 function initialization thread 0
+----------------------------------------------------
+  _fxp_min=-32768l (1111111111111111111111111111111111111111111111111000000000000000)
+
+State 58 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 56 function initialization thread 0
+----------------------------------------------------
+  _fxp_max=32767l (0000000000000000000000000000000000000000000000000111111111111111)
+
+State 59 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 57 function initialization thread 0
+----------------------------------------------------
+  _fxp_fmask=63l (0000000000000000000000000000000000000000000000000000000000111111)
+
+State 60 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 58 function initialization thread 0
+----------------------------------------------------
+  _fxp_imask=64l (0000000000000000000000000000000000000000000000000000000001000000)
+
+State 61 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 60 function initialization thread 0
+----------------------------------------------------
+  _dbl_min=-32768 (1111111111111111100000000000000000000000000000000000000000000000)
+
+State 62 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 61 function initialization thread 0
+----------------------------------------------------
+  _dbl_min=-512 (1111111111111111111111100000000000000000000000000000000000000000)
+
+State 63 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 62 function initialization thread 0
+----------------------------------------------------
+  _dbl_max=32767 (0000000000000000011111111111111100000000000000000000000000000000)
+
+State 64 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 63 function initialization thread 0
+----------------------------------------------------
+  _dbl_max=511.984375 (0000000000000000000000011111111111111100000000000000000000000000)
+
+State 66 file /home/wisl/Documentos/Master/dsverifier/bmc/core/initialization.h line 72 function initialization thread 0
+----------------------------------------------------
+  impl.scale=1 (00000000000000000000000000000001)
+
+State 79 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 317 function validation thread 0
+----------------------------------------------------
+  X_SIZE_VALUE=5 (00000000000000000000000000000101)
+
+State 88 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 82 function main thread 0
+----------------------------------------------------
+  rounding_mode=1 (00000000000000000000000000000001)
+
+State 94 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 96 function main thread 0
+----------------------------------------------------
+  verification_task=&verify_limit_cycle (0000001000000000000000000000000000000000000000000000000000000000)
+
+State 95 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 378 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 96 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 378 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 97 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 381 function call_verification_task thread 0
+----------------------------------------------------
+  base_case_executed=FALSE (00000000)
+
+State 98 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 381 function call_verification_task thread 0
+----------------------------------------------------
+  base_case_executed=FALSE (00000000)
+
+State 100 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 438 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 101 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 438 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 102 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 105 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 109 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 113 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 440 function call_verification_task thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 116 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 119 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+----------------------------------------------------
+  i=1 (00000000000000000000000000000001)
+
+State 123 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+----------------------------------------------------
+  i=2 (00000000000000000000000000000010)
+
+State 127 file /home/wisl/Documentos/Master/dsverifier/bmc/dsverifier.h line 465 function call_verification_task thread 0
+----------------------------------------------------
+  i=3 (00000000000000000000000000000011)
+
+State 138 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 118 function verify_limit_cycle thread 0
+----------------------------------------------------
+  set_overflow_mode=3 (00000000000000000000000000000011)
+
+State 139 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 120 function verify_limit_cycle thread 0
+----------------------------------------------------
+  i=0 (00000000000000000000000000000000)
+
+State 140 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 121 function verify_limit_cycle thread 0
+----------------------------------------------------
+  Set_xsize_at_least_two_times_Na=0 (00000000000000000000000000000000)
+
+State 141 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 121 function verify_limit_cycle thread 0
+----------------------------------------------------
+  Set_xsize_at_least_two_times_Na=6 (00000000000000000000000000000110)
+X_SIZE must be at least 2 * ds.a_size
+
+State 145 file /home/wisl/Documentos/Master/dsverifier/bmc/engine/verify_limit_cycle.h line 124 function verify_limit_cycle thread 0
+----------------------------------------------------
+  expression=0 (00000000000000000000000000000000)
+
+State 148 file /home/wisl/Documentos/Master/dsverifier/bmc/core/compatibility.h line 54 function __DSVERIFIER_assert thread 0
+----------------------------------------------------
+  cond=0 (00000000000000000000000000000000)
+
+Violated property:
+  file /home/wisl/Documentos/Master/dsverifier/bmc/core/compatibility.h line 36 function __VERIFIER_assert
+  assertion cond
+  cond != 0
+
+VERIFICATION FAILED
+
+Counterexample Data:
+  Property = LIMIT_CYCLE
+  Numerator  = { 0.1000000000000000  -0.1000000000000000 }
+  Denominator  = { 1.0000000000000000  -1.0000000000000000 }
+  X Size = 5
+  Sample Time = 0.02
+  Implementation = <10,6>
+  Realization = DFII
+  Dynamic Range = {-1,1}
+
+real	0m11.418s
+user	0m11.285s
+sys	0m0.138s
