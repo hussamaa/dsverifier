@@ -159,7 +159,6 @@ int main()
   {
     call_verification_task(&verify_phase);
   }
-
   return 0;
 }
 
